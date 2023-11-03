@@ -16,12 +16,13 @@ public class RecipeCreator {
     private static final String API_KEY = "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";
     private static final String MODEL = "text-davinci-003";
     private static final int MAX_TOKENS = 500;
-    private static final String PROMPT_FORMATTING = "Give me a step-by-step recipe "
+    private static final String PROMPT_FORMATTING = "Give me a step-by-step recipe using '#' to label each step." +
+            "don't label ingredient list as a step."
             + "for these ingredients, with a newline between step. ";
-    private static final String RECIPE_HEADER =  " Before printing the recipe, generate a title for the "
-            + "recipe. Then print a list of all ingredients used, including seasonings, condiments, oils etc., "
-            + "without specifying quantities. Format the title as 'Title: (name of dish)', "
-                    + "and put a dash and a space in front of every ingredient.";
+    private static final String RECIPE_HEADER =  " Before printing the recipe, generate a title for the recipe." + 
+    "Format the title as 'Title: (name of dish)', and put a dash and a space in front of every ingredient."
+            + "Then print a list of all ingredients used, including seasonings, condiments, oils etc., "
+            + "without specifying quantities.";
    
 
     public static void generateRecipe() throws IOException, InterruptedException {
@@ -78,9 +79,6 @@ public class RecipeCreator {
     
     public static void main(String[] args) throws IOException, InterruptedException, URISyntaxException
     {
-        for (int i = 0; i < 5;i++)
-            RecipeCreator.generateRecipe();
-        
-        
+        RecipeCreator.generateRecipe();
     }
 }
