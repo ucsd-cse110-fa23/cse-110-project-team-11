@@ -1,14 +1,16 @@
 
 
-Title: Grilled Chicken 
+Title: Baked Chicken 
 - Chicken 
-- Olive Oil 
 - Salt 
 - Pepper 
-- Garlic Powder 
+- Olive oil 
+- Garlic 
+- Parsley 
 
-#1 Preheat the grill to medium-high heat. 
-#2 Rub the chicken with olive oil and season with salt, pepper, and garlic powder. 
-#3 Place the chicken on the preheated grill.
-#4 Grill the chicken for 5 minutes per side, or until the internal temperature reaches 165 degrees Fahrenheit. 
-#5 Remove the chicken from the grill and let rest for 5 minutes before serving.
+#1 Preheat oven to 375°F.
+#2 Place chicken in baking dish.
+#3 Drizzle with olive oil.
+#4 Sprinkle with salt, pepper, garlic, and parsley.
+#5 Bake for 30 minutes or until chicken is cooked through.
+#6 Serve and enjoy!
