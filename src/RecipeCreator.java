@@ -87,7 +87,6 @@ public class RecipeCreator {
         String rawPrompt = readPrompt();
         String formattedPrompt = formatPrompt(rawPrompt);
         return callAPI(formattedPrompt);
-
     }
     
     public static void main(String[] args) throws IOException, InterruptedException, URISyntaxException
