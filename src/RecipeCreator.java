@@ -12,7 +12,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class RecipeCreator {
-    private static final String API_ENDPOINT = "https://api.openai.com/v1/completions";
+    private static final String API_ENDPOINT = "https://api.openai.com/v1/completions"; /////////////
     private static final String API_KEY = "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";
     private static final String MODEL = "text-davinci-003";
     private static final int MAX_TOKENS = 500;
