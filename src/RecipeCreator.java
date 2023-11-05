@@ -25,11 +25,20 @@ public class RecipeCreator {
             + "without specifying quantities.";
    
 
-    public static void generateRecipe() throws IOException, InterruptedException {
+    public static String readPrompt() throws IOException {
         FileReader fr
         = new FileReader("prompt.txt"); // PLACEHOLDER NAME
         BufferedReader br = new BufferedReader(fr);
-        String prompt = PROMPT_FORMATTING+br.readLine() + RECIPE_HEADER;
+        String prompt = br.readLine();
+        br.close();
+        return prompt;
+    }
+    
+    public static String formatPrompt(String formattedPrompt) {
+        return PROMPT_FORMATTING+formattedPrompt + RECIPE_HEADER;
+    }
+    
+    public static String callAPI(String prompt) throws IOException, InterruptedException {
      // Create a request body which you will pass into request object
         JSONObject requestBody = new JSONObject();
         requestBody.put("model", MODEL);
@@ -63,7 +72,6 @@ public class RecipeCreator {
         String generatedText = choices.getJSONObject(0).getString("text");
 
         
-        System.out.println(generatedText);
         try (FileWriter writer = new FileWriter("recipe.txt");
                 BufferedWriter bw = new BufferedWriter(writer)) {
 
@@ -71,14 +79,19 @@ public class RecipeCreator {
 
            } catch (IOException e) {
                System.err.format("IOException: %s%n", e);
-           }
-        
-        
-        br.close();
+           } 
+        return generatedText;
+    }
+    
+    public static String generateRecipe() throws IOException, InterruptedException {
+        String rawPrompt = readPrompt();
+        String formattedPrompt = formatPrompt(rawPrompt);
+        return callAPI(formattedPrompt);
+
     }
     
     public static void main(String[] args) throws IOException, InterruptedException, URISyntaxException
     {
-        RecipeCreator.generateRecipe();
+        System.out.println(generateRecipe());
     }
 }
