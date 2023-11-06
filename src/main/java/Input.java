@@ -15,71 +15,55 @@ public class Input {
     private static final String TOKEN = "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";
     private static final String MODEL = "whisper-1";
 
-    AudioFormat format = new AudioFormat(8000.0F,
-                                16,
-                                1,
-                                true,
-                                false);
-    TargetDataLine mic; 
-    private Thread thread;
-    private File audioFile = new File("Input.wav");
+    private static AudioFormat format = new AudioFormat(8000.0F, 16, 1, true, false);
+    private static TargetDataLine mic;
+    private static Thread thread;
+    private static File audioFile = new File("Input.wav");
 
-    public void captureAudio(){
-        try{
-
-            DataLine.Info line = new DataLine.Info(
-                                TargetDataLine.class,
-                                format);
-
+    public static void captureAudio() {
+        try {
+            DataLine.Info line = new DataLine.Info(TargetDataLine.class, format);
             mic = (TargetDataLine) AudioSystem.getLine(line);
 
-            if(!AudioSystem.isLineSupported(line)){
+            if (!AudioSystem.isLineSupported(line)) {
                 System.err.println("Line not supported");
                 return;
             }
-            
+
             mic.open(format);
             mic.start();
-            
-            thread = new Thread (() -> {
-                try (AudioInputStream a = new AudioInputStream(mic)){
+
+            thread = new Thread(() -> {
+                try (AudioInputStream a = new AudioInputStream(mic)) {
                     AudioSystem.write(a, AudioFileFormat.Type.WAVE, audioFile);
-
-
-                }
-                catch (Exception e){
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             });
             thread.start();
-
-            
-    
-            
-        } catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             System.exit(0);
         }
-        
     }
 
-    public void stopCapture(){
-        if (mic != null){
+    public static void stopCapture() {
+        if (mic != null) {
             mic.stop();
             mic.close();
 
             try {
                 thread.join();
                 whisper();
-
-            } catch(Exception e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
-
         }
     }
 
-    private void whisper() throws IOException, URISyntaxException{
+        
+
+    private static void whisper() throws IOException, URISyntaxException{
         // Create file object from file path
         File file = new File("input.wav");
 
