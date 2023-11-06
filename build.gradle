@@ -16,6 +16,7 @@ dependencies {
     def junitVersion = '5.8.1'
 
     implementation 'org.json:json:20230227'
+    implementation 'org.openjfx:javafx:21'
     //compile group: 'org.json', name: 'json', version: '20230227'
 
     // This provides the JUnit API.
