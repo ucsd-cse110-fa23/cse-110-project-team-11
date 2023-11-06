@@ -16,7 +16,7 @@ class MockRecipeCreatorTest
 
         try {
             FileWriter myWriter = new FileWriter("promptTest.txt");
-            myWriter.write(testPrompt);
+            myWriter.write(testPrompt); 
             myWriter.close();
           } catch (IOException e) {
             e.printStackTrace();
