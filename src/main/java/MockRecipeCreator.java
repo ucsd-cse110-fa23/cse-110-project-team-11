@@ -1,3 +1,4 @@
+package main.java;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -32,10 +33,14 @@ public class MockRecipeCreator extends RecipeCreator {
     public static String generateRecipeMock() throws IOException, InterruptedException {
         String rawPrompt = readPrompt();
         String formattedPrompt = formatPrompt(rawPrompt);
-        //System.out.println(formattedPrompt);
+        // System.out.println(formattedPrompt);
         return callMockAPI(formattedPrompt);
     }
-
+    
+    public static String getCorrectResponse()
+    {
+        return MockChatGPT.getCorrectResponse();
+    }
     public static void main(String[] args) throws IOException, InterruptedException {
         System.out.println(generateRecipeMock());
     }
