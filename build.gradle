@@ -23,7 +23,5 @@ dependencies {
 }
 
 test {
-    // do tabs matter?
-    include 'src/test/*'
     useJUnitPlatform()
 }
