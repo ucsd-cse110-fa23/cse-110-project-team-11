@@ -17,8 +17,13 @@ dependencies {
 
     // This provides the JUnit API.
     testImplementation "org.junit.jupiter:junit-jupiter-api:$junitVersion"
+    
+    testCompile 'org.junit.jupiter:junit-jupiter-engine:$junitVersion'
+    
+    
     // This provides the TestEngine to actually run the tests.
     testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$junitVersion"
+    
 }
 
 test {
