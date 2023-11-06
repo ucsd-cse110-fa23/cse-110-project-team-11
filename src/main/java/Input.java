@@ -55,6 +55,7 @@ public class Input {
             try {
                 thread.join();
                 whisper();
+                RecipeCreator.generateRecipe();
             } catch (Exception e) {
                 e.printStackTrace();
             }
