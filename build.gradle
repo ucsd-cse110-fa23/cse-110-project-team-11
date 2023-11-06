@@ -14,10 +14,15 @@ repositories {
 
 dependencies {
     def junitVersion = '5.8.1'
-
+    def javaFXPlatform = "mac"
+    def javaFXVersion = "21"
+    
     implementation 'org.json:json:20230227'
-    implementation 'org.openjfx:javafx:21'
-    //compile group: 'org.json', name: 'json', version: '20230227'
+    implementation "org.openjfx:javafx-base:${javaFXVersion}:${javaFXPlatform}"
+    implementation "org.openjfx:javafx-controls:${javaFXVersion}:${javaFXPlatform}"
+    implementation "org.openjfx:javafx-graphics:${javaFXVersion}:${javaFXPlatform}"
+    
+    implementation "org.junit.jupiter:junit-jupiter-api:$junitVersion"  
 
     // This provides the JUnit API.
     testImplementation "org.junit.jupiter:junit-jupiter-api:$junitVersion"    
