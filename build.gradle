@@ -14,7 +14,7 @@ repositories {
 
 dependencies {
     def junitVersion = '5.8.1'
-    def javaFXPlatform = "mac"
+    def javaFXPlatform = getJavaFXPlatform()
     def javaFXVersion = "21"
     
     implementation 'org.json:json:20230227'
@@ -29,6 +29,18 @@ dependencies {
     // This provides the TestEngine to actually run the tests.
     testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$junitVersion"
     
+}
+// From https://blog.jetbrains.com/idea/2021/01/intellij-idea-and-javafx/
+private static String getJavaFXPlatform() {
+    def currentOS = org.gradle.nativeplatform.platform.internal.DefaultNativePlatform.currentOperatingSystem;
+    if (currentOS.isWindows()) {
+        return 'win'
+    } else if (currentOS.isLinux()) {
+        return 'linux'
+    } else if (currentOS.isMacOsX()) {
+        return 'mac'
+    }
+    return null
 }
 
 test {
