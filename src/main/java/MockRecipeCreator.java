@@ -33,7 +33,7 @@ public class MockRecipeCreator extends RecipeCreator {
     public static String generateRecipeMock() throws IOException, InterruptedException {
         String rawPrompt = readPrompt();
         String formattedPrompt = formatPrompt(rawPrompt);
-        //System.out.println(formattedPrompt);
+        // System.out.println(formattedPrompt);
         return callMockAPI(formattedPrompt);
     }
     
