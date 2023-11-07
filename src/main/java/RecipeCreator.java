@@ -12,19 +12,11 @@ import java.net.http.HttpResponse;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-public class RecipeCreator {
+public class RecipeCreator implements IRecipeCreator {
     private static final String API_ENDPOINT = "https://api.openai.com/v1/completions";
     private static final String API_KEY = "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";
     private static final String MODEL = "text-davinci-003";
-    private static final int MAX_TOKENS = 500;
-    private static final String PROMPT_FORMATTING = "Give me a step-by-step recipe using '#' to label each step." +
-            "don't label ingredient list as a step."
-            + "for these ingredients, with a newline between step. ";
-    private static final String RECIPE_HEADER =  " Before printing the recipe, generate a title for the recipe." + 
-    "Format the title as 'Title: (name of dish)', and put a dash and a space in front of every ingredient."
-            + "Then print a list of all ingredients used, including seasonings, condiments, oils etc., "
-            + "without specifying quantities.";
-   
+    private static final int MAX_TOKENS = 600;
 
     public static String readPrompt() throws IOException {
         FileReader fr
@@ -34,18 +26,15 @@ public class RecipeCreator {
         br.close();
         return prompt;
     }
+
     
-    public static String formatPrompt(String formattedPrompt) {
-        return PROMPT_FORMATTING+formattedPrompt + RECIPE_HEADER;
-    }
-    
-    public static String callAPI(String prompt) throws IOException, InterruptedException {
+    public String callAPI(String prompt) throws IOException, InterruptedException {
      // Create a request body which you will pass into request object
         JSONObject requestBody = new JSONObject();
         requestBody.put("model", MODEL);
         requestBody.put("prompt", prompt);
         requestBody.put("max_tokens", MAX_TOKENS);
-        requestBody.put("temperature", 0.5);
+        requestBody.put("temperature", 0.4);
         
      // Create the HTTP Client
 
@@ -84,14 +73,16 @@ public class RecipeCreator {
         return generatedText;
     }
     
-    public static String generateRecipe() throws IOException, InterruptedException {
+    public String generateRecipe() throws IOException, InterruptedException {
         String rawPrompt = readPrompt();
-        String formattedPrompt = formatPrompt(rawPrompt);
+        String formattedPrompt = IRecipeCreator.formatPrompt(rawPrompt);
         return callAPI(formattedPrompt);
     }
     
     public static void main(String[] args) throws IOException, InterruptedException, URISyntaxException
     {
-        System.out.println(generateRecipe());
+        RecipeCreator rc = new RecipeCreator();
+        for(int i = 0; i < 5;i++)
+            System.out.println(rc.generateRecipe());
     }
 }

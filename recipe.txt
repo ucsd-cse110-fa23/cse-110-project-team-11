@@ -1,20 +1,21 @@
 
 
-Title: Chicken Balut Carrot Stir-Fry
+Title: Balut and Chicken Stir-Fry 
 
 Ingredients: 
-- Chicken
-- Balut
-- Carrots
-- Cooking oil
-- Soy sauce
-- Salt
-- Pepper
+- Chicken 
+- Balut 
+- Carrots 
+- Soy sauce 
+- Garlic 
+- Onion 
+- Vegetable oil 
 
-#1 Heat a wok or large skillet over medium-high heat and add cooking oil.
-#2 Add chicken and cook for 5 minutes or until lightly browned.
-#3 Add balut and cook for 3 minutes.
-#4 Add carrots and cook for 2 minutes.
-#5 Add soy sauce, salt, and pepper to taste.
-#6 Stir-fry for 1-2 minutes until everything is cooked through.
-#7 Serve hot.
+#1 Heat a large pan over medium heat. 
+#2 Add vegetable oil to the pan. 
+#3 Add garlic and onion to the pan and sauté until fragrant. 
+#4 Add chicken and balut to the pan and cook until chicken is no longer pink. 
+#5 Add carrots to the pan and cook for 3 minutes. 
+#6 Add soy sauce to the pan and stir to combine. 
+#7 Cook for an additional 3 minutes, stirring occasionally. 
+#8 Serve hot.

@@ -2,17 +2,12 @@ package main.java;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.List;
+import java.util.StringTokenizer;
+import java.util.ArrayList;
 
-public class MockRecipeCreator extends RecipeCreator {
-    private static final String PROMPT_FORMATTING = "Give me a step-by-step recipe using '#' to label each step." +
-    "don't label ingredient list as a step."
-    + "for these ingredients, with a newline between step. ";
-    private static final String RECIPE_HEADER =  " Before printing the recipe, generate a title for the recipe." + 
-"Format the title as 'Title: (name of dish)', and put a dash and a space in front of every ingredient."
-    + "Then print a list of all ingredients used, including seasonings, condiments, oils etc., "
-    + "without specifying quantities.";
-
-    public static String readPrompt() throws IOException {
+public class MockRecipeCreator implements IRecipeCreator {
+    public String readPrompt() throws IOException {
         FileReader fr
         = new FileReader("promptTest.txt"); // PLACEHOLDER NAME
         BufferedReader br = new BufferedReader(fr);
@@ -21,28 +16,19 @@ public class MockRecipeCreator extends RecipeCreator {
         return prompt;
     }
 
-    public static String formatPrompt(String formattedPrompt) {
-        return PROMPT_FORMATTING+formattedPrompt + RECIPE_HEADER;
+    public String callAPI(String prompt) throws IOException, InterruptedException {
+        return MockChatGPT.call(prompt);
     }
 
-    public static String callMockAPI(String prompt) throws IOException, InterruptedException {
-        MockChatGPT.call(prompt);
-        return "Valid input file detected. Input: " + readPrompt();
-    }
-
-    public static String generateRecipeMock() throws IOException, InterruptedException {
+    public String generateRecipe() throws IOException, InterruptedException {
         String rawPrompt = readPrompt();
-        String formattedPrompt = formatPrompt(rawPrompt);
-        // System.out.println(formattedPrompt);
-        return callMockAPI(formattedPrompt);
+        return callAPI(rawPrompt);
     }
     
-    public static String getCorrectResponse()
-    {
-        return MockChatGPT.getCorrectResponse();
-    }
     public static void main(String[] args) throws IOException, InterruptedException {
-        System.out.println(generateRecipeMock());
+        MockRecipeCreator rc = new MockRecipeCreator();
+        System.out.println(rc.generateRecipe());
+        System.out.println(IRecipeCreator.formatPrompt("I have chicken, balut, and carrots."));
     }
 
     /*  To run code (VSCode)
@@ -52,29 +38,44 @@ public class MockRecipeCreator extends RecipeCreator {
 }
 
 class MockChatGPT {
-    private static final String CORRECT_RESPONSE = "Give me a step-by-step recipe "
-            + "using '#' to label each step.don't label ingredient list as a step."
-            + "for these ingredients, with a newline between step. I have chicken,"
-            + " balut, and carrots. Before printing the recipe, generate a title for "
-            + "the recipe.Format the title as 'Title: (name of dish)', and put a dash "
-            + "and a space in front of every ingredient.Then print a list of all "
-            + "ingredients used, including seasonings, condiments, oils etc., "
-            + "without specifying quantities.";
 
-    public static boolean  call (String prompt) {
-        //prompt = formatPrompt(prompt);
-        if (prompt.equals(CORRECT_RESPONSE)) {
-            System.out.println("Success");
-            return true;
+    public static List<String> parseList(String prompt) {
+        StringTokenizer st = new StringTokenizer(prompt, " ");
+        List<String> ingredientList = new ArrayList<String>();
+        while(st.hasMoreTokens()) {
+            ingredientList.add(st.nextToken());
         }
-        else {
-            System.out.println("Failed");       
-            return false;
-        }
-
+        return ingredientList;
     }
     
-    public static String getCorrectResponse() {
-        return CORRECT_RESPONSE;
+    public static String generateResponse(List<String> list) {
+        String response = "";
+        String first = list.get(0);
+        String last = list.get(list.size()-1);
+        String title = "Title: " + first + " and " + last + " dish";
+        
+        response+=title +"\n\n";
+        
+        String ingredients = "Ingredients: ";
+        for(String ingred:list) {
+            ingredients += ingred + ", ";
+        }
+        ingredients = ingredients.substring(0, ingredients.length()-2);
+        
+        response += ingredients + "\n\n";
+        
+        String steps = "Steps: [steps]";
+        response += steps;
+        return response;
+        
+        
+    }
+    
+    public static String call (String prompt) {
+        List<String> ingreds = parseList(prompt);
+        String response = generateResponse(ingreds);
+        System.out.println(response);
+        return response;
+
     }
 }
