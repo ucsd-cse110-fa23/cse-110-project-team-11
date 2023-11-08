@@ -22,10 +22,14 @@ dependencies {
     implementation "org.openjfx:javafx-controls:${javaFXVersion}:${javaFXPlatform}"
     implementation "org.openjfx:javafx-graphics:${javaFXVersion}:${javaFXPlatform}"
     
-    implementation "org.junit.jupiter:junit-jupiter-api:$junitVersion"  
+    //implementation "org.junit.jupiter:junit-jupiter-api:$junitVersion"  
 
     // This provides the JUnit API.
-    testImplementation "org.junit.jupiter:junit-jupiter-api:$junitVersion"    
+    //testImplementation "org.junit.jupiter:junit-jupiter-api:$junitVersion"    
+    // This provides the TestEngine to actually run the tests.
+    //testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$junitVersion"
+    //testRuntimeOnly "org.junit.platform:junit-platform-launcher"
+    testImplementation "org.junit.jupiter:junit-jupiter-api:$junitVersion"
     // This provides the TestEngine to actually run the tests.
     testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$junitVersion"
     

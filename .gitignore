@@ -2,3 +2,4 @@ src\input.wav
 src\prompt.txt
 /bin/
 /.gradle/
+/build/

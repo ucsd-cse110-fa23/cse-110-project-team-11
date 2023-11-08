@@ -1,29 +1,22 @@
 
 
-Title: Chocolate Chip Banana Bread 
-Ingredients:
-- All-purpose flour
-- Baking powder 
-- Baking soda
-- Salt
-- Bananas
-- Granulated sugar
-- Light brown sugar
-- Unsalted butter
-- Egg
-- Vanilla extract
-- Semi-sweet chocolate chips
+Title: Cheesy Potato Casserole 
+- Potatoes 
+- Onion 
+- Milk 
+- Butter 
+- Salt 
+- Pepper 
+- Cheese 
 
-#1 Preheat oven to 350°F (175°C). Grease and line a 9x5-inch (23x13 cm) loaf pan with parchment paper.
-
-#2 In a medium bowl, whisk together the flour, baking powder, baking soda, and salt.
-
-#3 In a large bowl, mash the bananas. Add the granulated sugar, light brown sugar, butter, egg, and vanilla extract. Whisk until combined and smooth.
-
-#4 Add the dry ingredients to the wet ingredients and mix until just combined. Do not overmix.
-
-#5 Fold in the chocolate chips.
-
-#6 Pour the batter into the prepared loaf pan and bake for 55-60 minutes, or until a toothpick inserted into the center comes out clean.
-
-#7 Let the banana bread cool in the pan for 10 minutes before transferring to a wire rack to cool completely. Enjoy!
+#1 Preheat oven to 375°F. 
+#2 Peel and chop potatoes into cubes. 
+#3 Chop onion. 
+#4 In a saucepan, melt butter and add potatoes and onion. 
+#5 Cook for 5 minutes, stirring occasionally. 
+#6 Add milk, salt, and pepper. Simmer for 10 minutes. 
+#7 Grease a baking dish with butter. 
+#8 Pour potato mixture into dish. 
+#9 Top with cheese. 
+#10 Bake for 25 minutes or until cheese is melted and potatoes are cooked through. 
+#11 Serve and enjoy!
