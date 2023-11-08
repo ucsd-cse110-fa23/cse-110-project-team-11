@@ -11,6 +11,7 @@ import java.io.IOException;  // Import the IOException class to handle errors
 class MockRecipeCreatorTest
 {
     MockRecipeCreator rc = new MockRecipeCreator();
+    
     @Test
     void testReadFile() throws IOException
     {
@@ -60,9 +61,5 @@ class MockRecipeCreatorTest
                 correct);
     }
     
-    @Test
-    void a() {
-        assertEquals(1,0);
-    }
 
 }

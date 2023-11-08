@@ -8,12 +8,31 @@ java {
     }
 }
 
+sourceSets {
+    main {
+        java {
+            srcDirs  = ['src/main/java']
+        }
+        resources {
+            srcDirs  = ['src/main/resources']
+        }
+    }
+    test {
+        java {
+            srcDirs  = ['src/main/java', 'src/test/java']
+        }
+        resources {
+            srcDirs  = ['src/main/resources', 'src/test/resources']
+        }
+    }
+}
+
 repositories {
     mavenCentral()
 }
 
 dependencies {
-    def junitVersion = '5.8.1'
+    def junitVersion = '5.10.0'
     def javaFXPlatform = getJavaFXPlatform()
     def javaFXVersion = "21"
     
@@ -47,6 +66,12 @@ private static String getJavaFXPlatform() {
     return null
 }
 
+
+
 test {
     useJUnitPlatform()
+    testLogging {
+    // set options for log level LIFECYCLE
+    events "passed","failed","skipped"
+  }
 }
