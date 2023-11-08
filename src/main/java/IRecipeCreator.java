@@ -17,7 +17,7 @@ public interface IRecipeCreator
         return PROMPT_FORMATTING+formattedPrompt+RECIPE_HEADER;
     }
     
-    public abstract String generateRecipe() throws IOException, InterruptedException;
+    // public abstract String generateRecipe() throws IOException, InterruptedException;
     
-    public abstract String callAPI(String prompt) throws IOException, InterruptedException;
+    // public abstract String callAPI(String prompt) throws IOException, InterruptedException;
 }

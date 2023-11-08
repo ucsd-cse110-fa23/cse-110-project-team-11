@@ -1,22 +1,20 @@
 
 
-Title: Cheesy Potato Casserole 
-- Potatoes 
+Title: Beef and Rice 
+
+Ingredients: 
+- Beef 
+- Rice 
 - Onion 
-- Milk 
-- Butter 
+- Garlic 
+- Olive oil 
 - Salt 
 - Pepper 
-- Cheese 
 
-#1 Preheat oven to 375Â°F. 
-#2 Peel and chop potatoes into cubes. 
-#3 Chop onion. 
-#4 In a saucepan, melt butter and add potatoes and onion. 
-#5 Cook for 5 minutes, stirring occasionally. 
-#6 Add milk, salt, and pepper. Simmer for 10 minutes. 
-#7 Grease a baking dish with butter. 
-#8 Pour potato mixture into dish. 
-#9 Top with cheese. 
-#10 Bake for 25 minutes or until cheese is melted and potatoes are cooked through. 
-#11 Serve and enjoy!
+#1 Heat a large pan over medium-high heat. 
+#2 Add olive oil and diced onion and garlic and sauté until softened. 
+#3 Add the beef and cook until browned. 
+#4 Add the rice, salt, and pepper and stir to combine. 
+#5 Reduce heat to low and cover the pan. 
+#6 Cook for 20 minutes, stirring occasionally. 
+#7 Serve and enjoy!
