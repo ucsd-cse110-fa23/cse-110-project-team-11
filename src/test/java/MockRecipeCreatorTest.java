@@ -59,5 +59,10 @@ class MockRecipeCreatorTest
         assertEquals(rc.generateRecipe(), 
                 correct);
     }
+    
+    @Test
+    void a() {
+        assertEquals(1,0);
+    }
 
 }
