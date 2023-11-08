@@ -1,4 +1,5 @@
-package main.java;
+package main;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
@@ -82,7 +83,7 @@ public class RecipeCreator implements IRecipeCreator {
     public static void main(String[] args) throws IOException, InterruptedException, URISyntaxException
     {
         RecipeCreator rc = new RecipeCreator();
-        for(int i = 0; i < 5;i++)
+        for(int i = 0; i < 1;i++)
             System.out.println(rc.generateRecipe());
     }
 }

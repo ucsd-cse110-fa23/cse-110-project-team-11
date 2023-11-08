@@ -1,5 +1,5 @@
-package test.java;
-import main.java.*;
+package main;
+//import main.java.*;
 import static org.junit.jupiter.api.Assertions.*;
 import java.io.FileWriter;   // Import the FileWriter class
 import java.io.IOException;  // Import the IOException class to handle errors
