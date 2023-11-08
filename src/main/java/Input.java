@@ -63,23 +63,98 @@ public class Input {
         
     }
 
-    public static void stopCapture(){
+    public static boolean stopCapture(String inputType){
         if (mic != null){
             mic.stop();
             mic.close();
 
-            try {
-                thread.join();
-                whisper();
-                RecipeCreator.generateRecipe();
-            } catch(Exception e) {
-                e.printStackTrace();
-            }
+            if(inputType.equals("MealType")){
+                try {
 
+                    thread.join();
+                    String transcription = whisper();
+                    String type = typeParser(transcription);
+                    if(type.equals("Invalid")){
+                        return false;
+                    }
+                    else{
+                        try {
+                            File file = new File("prompt.txt");
+                            file.createNewFile();
+                            BufferedWriter br = new BufferedWriter(new FileWriter(file));
+                            br.write(type);
+                            br.write("\n");
+                            br.close();
+                            
+                        } catch(Exception e) {
+                            System.out.println("File not found");
+                        }
+                        return true;
+                    }
+
+
+                } catch(Exception e) {
+                    e.printStackTrace();
+                }
+
+            }
+            else if (inputType.equals("Ingredients")){
+                try {
+                    thread.join();
+                    String transcription = whisper();
+                    try {
+                        File file = new File("prompt.txt");
+                        file.createNewFile();
+                        BufferedWriter br = new BufferedWriter(new FileWriter(file, true));
+                        br.write(transcription);
+                        br.close();
+                        
+                    } catch(Exception e) {
+                        System.out.println("File not found");
+                    }
+                    RecipeCreator.generateRecipe();
+                    return true;
+                } catch(Exception e) {
+                    e.printStackTrace();
+                }
+            }
+            
+        
         }
+        return false;
     }
 
-    private static void whisper() throws IOException, URISyntaxException{
+    private static String typeParser(String input) {
+
+        input = input.toLowerCase();
+
+        int count = 0;
+
+        String[] meals = {"breakfast","lunch","dinner"};
+
+        String meal = "";
+
+        for(int i = 0; i  < meals.length; i++){
+
+            if(input.contains(meals[i])){
+                count++;
+                meal = meals[i];
+            }
+        }
+
+        if(count != 1){
+            return "Invalid";
+        }
+        else{
+            return meal;
+        }
+
+
+
+
+
+    }
+    private static String whisper() throws IOException, URISyntaxException{
         // Create file object from file path
         File file = new File("input.wav");
 
@@ -124,10 +199,11 @@ public class Input {
         // Get response code
         int responseCode = connection.getResponseCode();
 
+        String generatedText = "";
 
         // Check response code and handle response accordingly
         if (responseCode == HttpURLConnection.HTTP_OK) {
-            handleSuccessResponse(connection);
+            generatedText = handleSuccessResponse(connection);
         } else {
             handleErrorResponse(connection);
         }
@@ -136,6 +212,7 @@ public class Input {
         // Disconnect connection
         connection.disconnect();
 
+        return generatedText;
 
 
     }
@@ -185,7 +262,7 @@ public class Input {
     }
     
     // Helper method to handle a successful response
-    private static void handleSuccessResponse(HttpURLConnection connection)
+    private static String handleSuccessResponse(HttpURLConnection connection)
     throws IOException, JSONException {
         BufferedReader in = new BufferedReader(
             new InputStreamReader(connection.getInputStream())
@@ -208,16 +285,7 @@ public class Input {
         System.out.println("Transcription Result: " + generatedText);
 
         
-        try {
-            File file = new File("prompt.txt");
-            file.createNewFile();
-            BufferedWriter br = new BufferedWriter(new FileWriter(file));
-            br.write(generatedText);
-            br.close();
-        
-        } catch(Exception e) {
-            System.out.println("File not found");
-        }
+        return generatedText;
     }
 
     // Helper method to handle an error response
@@ -244,10 +312,21 @@ public class Input {
         System.out.println("Recording");
         captureAudio();
 
-        Thread.sleep(10000);
+        Thread.sleep(5000);
 
         System.out.println("Stopped");
-        stopCapture();
+        boolean t = stopCapture("MealType");
+
+        if(t){
+            System.out.println("Recording");
+            captureAudio();
+            Thread.sleep(10000);
+            System.out.println("Stopped");
+            stopCapture("Ingredients");
+        }
+        else{
+            System.out.println("Failed");
+        }
 
 
     }
