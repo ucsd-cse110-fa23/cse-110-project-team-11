@@ -29,16 +29,13 @@ class MockRecipeCreatorTest
     @Test
     void testFormatPrompt() {
         String testPrompt = "I have chicken, balut, and carrots.";
-        String formattedPrompt = IRecipeCreator.formatPrompt(testPrompt);
-        String correct = "Give me a step-by-step recipe using '#' to label each "
-                + "step.don't label ingredient list as a step.for these "
-                + "ingredients, with a newline between step. I have chicken, balut, "
-                + "and carrots. Before printing the recipe, generate a title for "
-                + "the recipe.Format the title as 'Title: (name of dish)', and put"
-                + " a dash and a space in front of every ingredient.Before printing"
-                + " steps, print a list of all ingredients used, including those "
-                + "that are not in the original ingredient list, without specifying"
-                + " quantities.";
+        String formattedPrompt = IRecipeCreator.formatPrompt("breakfast",testPrompt);
+        String correct = "Give me a step-by-step recipe for breakfast,using '#' to label each step, using " + 
+        "the following ingredients, with a newline between step. I have chicken, balut, and carrots. Before " +
+         "printing the recipe, generate a title for the recipe.Format the title as 'Title: (name of dish)', " +
+         "and put a dash and a space in front of every ingredient. Before printing steps, print a list of all " + 
+         "ingredients used, including those that are not in the original ingredient list, without specifying " +
+         "quantities.";
         assertEquals(correct, formattedPrompt);
     }
     @Test

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="MockRecipeCreatorTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2023-11-08T08:42:49" hostname="MacBook-Pro-12.lan" time="0.023">
+  <properties/>
+  <testcase name="testGenerateRecipe()" classname="MockRecipeCreatorTest" time="0.023"/>
+  <system-out><![CDATA[Title: chicken and carrots dish
+
+Ingredients: chicken, balut, carrots
+
+Steps: [steps]
+Title: chicken and carrots dish
+
+Ingredients: chicken, balut, carrots
+
+Steps: [steps]
+Title: chicken and carrots dish
+
+Ingredients: chicken, balut, carrots
+
+Steps: [steps]
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

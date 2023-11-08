@@ -1,2 +1,2 @@
-dinner
-Beef, Potatoes, String Beans, Carrots
+lunch
+Rice, eggs, ham, carrots.

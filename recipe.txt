@@ -1,22 +1,21 @@
 
 
-Title: Tomato and Zucchini Casserole
-- 2 tomatoes, diced
-- 2 zucchini, diced
-- 1 onion, diced
-- 2 cloves garlic, minced
-- 1/4 cup olive oil
-- 1/4 cup grated Parmesan cheese
-- Salt and pepper to taste
+Title: Ham and Egg Fried Rice
 
-#1 Preheat oven to 350°F.
+Ingredients: 
+- Rice
+- Eggs
+- Ham
+- Carrots
+- Oil
+- Soy sauce
+- Salt
 
-#2 In a large bowl, combine tomatoes, zucchini, onion, garlic, olive oil, Parmesan cheese, and salt and pepper.
-
-#3 Mix until all ingredients are evenly distributed.
-
-#4 Transfer mixture to a greased 9x13 inch baking dish.
-
-#5 Bake in preheated oven for 30-35 minutes, or until vegetables are tender.
-
-#6 Serve hot. Enjoy!
+#1 Heat oil in a pan over medium heat.
+#2 Add ham and carrots and cook until vegetables are tender.
+#3 Push the ham and carrots to one side of the pan and add eggs.
+#4 Scramble the eggs until they are cooked through.
+#5 Add the cooked rice and mix everything together.
+#6 Add soy sauce and salt to taste.
+#7 Cook for an additional 2-3 minutes.
+#8 Serve.
