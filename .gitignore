@@ -1,3 +1,9 @@
-src\input.wav
-src\prompt.txt
+/src/Input.wav
+/src/prompt.txt
+/src/promptTest.txt
+/src/recipe.txt
 /bin/
+/prompt.txt
+/Input.wav
+/promptTest.txt
+/recipe.txt
