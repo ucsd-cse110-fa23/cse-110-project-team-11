@@ -1,4 +1,4 @@
-package main.java;
+
 import java.io.*;
 import java.net.*;
 import org.json.*;
@@ -15,16 +15,16 @@ public class Input {
     private static final String TOKEN = "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";
     private static final String MODEL = "whisper-1";
 
-    AudioFormat format = new AudioFormat(8000.0F,
+    private static AudioFormat format = new AudioFormat(8000.0F,
                                 16,
                                 1,
                                 true,
                                 false);
-    TargetDataLine mic; 
-    private Thread thread;
-    private File audioFile = new File("Input.wav");
+    private static TargetDataLine mic; 
+    private static Thread thread;
+    private static File audioFile = new File("Input.wav");
 
-    public void captureAudio(){
+    public static void captureAudio(){
         try{
 
             DataLine.Info line = new DataLine.Info(
@@ -63,7 +63,7 @@ public class Input {
         
     }
 
-    public void stopCapture(){
+    public static void stopCapture(){
         if (mic != null){
             mic.stop();
             mic.close();
@@ -71,7 +71,7 @@ public class Input {
             try {
                 thread.join();
                 whisper();
-
+                RecipeCreator.generateRecipe();
             } catch(Exception e) {
                 e.printStackTrace();
             }
@@ -79,7 +79,7 @@ public class Input {
         }
     }
 
-    private void whisper() throws IOException, URISyntaxException{
+    private static void whisper() throws IOException, URISyntaxException{
         // Create file object from file path
         File file = new File("input.wav");
 
@@ -240,15 +240,14 @@ public class Input {
 
     public static void main(String[] args) throws InterruptedException {
         
-        Input i = new Input();
 
         System.out.println("Recording");
-        i.captureAudio();
+        captureAudio();
 
         Thread.sleep(10000);
 
         System.out.println("Stopped");
-        i.stopCapture();
+        stopCapture();
 
 
     }

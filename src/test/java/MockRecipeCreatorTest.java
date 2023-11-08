@@ -1,17 +1,21 @@
-package test.java;
-import main.java.*;
+
+import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.*;
+
 import java.io.FileWriter;   // Import the FileWriter class
 import java.io.IOException;  // Import the IOException class to handle errors
 
-import org.junit.jupiter.api.Test;
+
 
 class MockRecipeCreatorTest
 {
     MockRecipeCreator rc = new MockRecipeCreator();
+    
     @Test
     void testReadFile() throws IOException
     {
+        
         String testPrompt = "I have chicken, balut, and carrots.";
         try {
             FileWriter myWriter = new FileWriter("promptTest.txt");
@@ -56,5 +60,6 @@ class MockRecipeCreatorTest
         assertEquals(rc.generateRecipe(), 
                 correct);
     }
+    
 
 }

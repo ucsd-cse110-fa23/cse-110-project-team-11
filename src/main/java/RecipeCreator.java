@@ -1,4 +1,5 @@
-package main.java;
+
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
@@ -28,7 +29,7 @@ public class RecipeCreator implements IRecipeCreator {
     }
 
     
-    public String callAPI(String prompt) throws IOException, InterruptedException {
+    public static String callAPI(String prompt) throws IOException, InterruptedException {
      // Create a request body which you will pass into request object
         JSONObject requestBody = new JSONObject();
         requestBody.put("model", MODEL);
@@ -73,7 +74,7 @@ public class RecipeCreator implements IRecipeCreator {
         return generatedText;
     }
     
-    public String generateRecipe() throws IOException, InterruptedException {
+    public static String generateRecipe() throws IOException, InterruptedException {
         String rawPrompt = readPrompt();
         String formattedPrompt = IRecipeCreator.formatPrompt(rawPrompt);
         return callAPI(formattedPrompt);
@@ -81,8 +82,7 @@ public class RecipeCreator implements IRecipeCreator {
     
     public static void main(String[] args) throws IOException, InterruptedException, URISyntaxException
     {
-        RecipeCreator rc = new RecipeCreator();
-        for(int i = 0; i < 5;i++)
-            System.out.println(rc.generateRecipe());
+        for(int i = 0; i < 1;i++)
+            System.out.println(generateRecipe());
     }
 }

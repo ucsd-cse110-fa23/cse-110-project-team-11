@@ -8,12 +8,31 @@ java {
     }
 }
 
+sourceSets {
+    main {
+        java {
+            srcDirs  = ['src/main/java']
+        }
+        resources {
+            srcDirs  = ['src/main/resources']
+        }
+    }
+    test {
+        java {
+            srcDirs  = ['src/main/java', 'src/test/java']
+        }
+        resources {
+            srcDirs  = ['src/main/resources', 'src/test/resources']
+        }
+    }
+}
+
 repositories {
     mavenCentral()
 }
 
 dependencies {
-    def junitVersion = '5.8.1'
+    def junitVersion = '5.10.0'
     def javaFXPlatform = getJavaFXPlatform()
     def javaFXVersion = "21"
     
@@ -22,10 +41,14 @@ dependencies {
     implementation "org.openjfx:javafx-controls:${javaFXVersion}:${javaFXPlatform}"
     implementation "org.openjfx:javafx-graphics:${javaFXVersion}:${javaFXPlatform}"
     
-    implementation "org.junit.jupiter:junit-jupiter-api:$junitVersion"  
+    //implementation "org.junit.jupiter:junit-jupiter-api:$junitVersion"  
 
     // This provides the JUnit API.
-    testImplementation "org.junit.jupiter:junit-jupiter-api:$junitVersion"    
+    //testImplementation "org.junit.jupiter:junit-jupiter-api:$junitVersion"    
+    // This provides the TestEngine to actually run the tests.
+    //testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$junitVersion"
+    //testRuntimeOnly "org.junit.platform:junit-platform-launcher"
+    testImplementation "org.junit.jupiter:junit-jupiter-api:$junitVersion"
     // This provides the TestEngine to actually run the tests.
     testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$junitVersion"
     
@@ -43,6 +66,12 @@ private static String getJavaFXPlatform() {
     return null
 }
 
+
+
 test {
     useJUnitPlatform()
+    testLogging {
+    // set options for log level LIFECYCLE
+    events "passed","failed","skipped"
+  }
 }
