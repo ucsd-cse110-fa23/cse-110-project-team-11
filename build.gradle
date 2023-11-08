@@ -52,6 +52,7 @@ dependencies {
     // This provides the TestEngine to actually run the tests.
     testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$junitVersion"
     
+    implementation 'org.mongodb:mongodb-driver-sync:4.11.0'
 }
 // From https://blog.jetbrains.com/idea/2021/01/intellij-idea-and-javafx/
 private static String getJavaFXPlatform() {
