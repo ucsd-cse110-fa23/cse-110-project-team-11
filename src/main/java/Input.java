@@ -240,15 +240,14 @@ public class Input {
 
     public static void main(String[] args) throws InterruptedException {
         
-        Input i = new Input();
 
         System.out.println("Recording");
-        i.captureAudio();
+        captureAudio();
 
         Thread.sleep(10000);
 
         System.out.println("Stopped");
-        i.stopCapture();
+        stopCapture();
 
 
     }
