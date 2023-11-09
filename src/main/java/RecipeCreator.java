@@ -19,13 +19,15 @@ public class RecipeCreator implements IRecipeCreator {
     private static final String MODEL = "text-davinci-003";
     private static final int MAX_TOKENS = 600;
 
-    public static String readPrompt() throws IOException {
+    public static String[] readPrompt() throws IOException {
         FileReader fr
         = new FileReader("prompt.txt"); // PLACEHOLDER NAME
         BufferedReader br = new BufferedReader(fr);
+        String mealType = br.readLine();
         String prompt = br.readLine();
+        String [] info = {prompt,mealType};
         br.close();
-        return prompt;
+        return info;
     }
 
     
@@ -75,14 +77,19 @@ public class RecipeCreator implements IRecipeCreator {
     }
     
     public static String generateRecipe() throws IOException, InterruptedException {
-        String rawPrompt = readPrompt();
-        String formattedPrompt = IRecipeCreator.formatPrompt(rawPrompt);
+        String[] info = readPrompt();
+        String rawPrompt = info[0];
+        String mealType = info[1];
+        String formattedPrompt = IRecipeCreator.formatPrompt(mealType, rawPrompt);
+        //System.out.println(formattedPrompt);
+
         return callAPI(formattedPrompt);
     }
     
     public static void main(String[] args) throws IOException, InterruptedException, URISyntaxException
     {
-        for(int i = 0; i < 1;i++)
-            System.out.println(generateRecipe());
+        // for(int i = 0; i < 1;i++)
+        //     System.out.println(generateRecipe());
+        System.out.println(IRecipeCreator.formatPrompt("breakfast", "I have chicken, balut, and carrots."));
     }
 }

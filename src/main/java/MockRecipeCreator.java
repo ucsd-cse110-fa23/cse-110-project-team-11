@@ -26,8 +26,8 @@ public class MockRecipeCreator implements IRecipeCreator {
     
     public static void main(String[] args) throws IOException, InterruptedException {
         MockRecipeCreator rc = new MockRecipeCreator();
-        System.out.println(rc.generateRecipe());
-        System.out.println(IRecipeCreator.formatPrompt("I have chicken, balut, and carrots."));
+        //System.out.println(rc.generateRecipe());
+        //System.out.println(IRecipeCreator.formatPrompt("breakfast","I have chicken, balut, and carrots."));
     }
 
     /*  To run code (VSCode)
