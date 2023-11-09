@@ -6,6 +6,14 @@
     "configurations": [
         {
             "type": "java",
+            "name": "UI",
+            "request": "launch",
+            "mainClass": "UI",
+            "projectName": "cse-110-project-team-11",
+            "vmArgs": "--module-path 'lib' --add-modules javafx.controls,javafx.fxml"
+        },
+        {
+            "type": "java",
             "name": "InputUI",
             "request": "launch",
             "mainClass": "InputUI",

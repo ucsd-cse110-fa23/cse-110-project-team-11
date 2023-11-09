@@ -107,10 +107,34 @@ class HomePageAppFrame extends BorderPane{
     private Button viewButton, createButton;
 
 
-    HomePageAppFrame() {
+    HomePageAppFrame(BorderPane InputPage, BorderPane DisplayPage) {
         homePageHeader = new HomePageHeader();
         recipeList = new RecipeList();
-        createButton = homePageHeader.getCreateButton();       
+        createButton = homePageHeader.getCreateButton();    
+        
+        ScrollPane scrollPane = new ScrollPane(recipeList);
+        scrollPane.setFitToWidth(true);
+        scrollPane.setFitToHeight(true);
+
+        this.setTop(homePageHeader);
+        this.setCenter(scrollPane);
+
+        addListeners(InputPage,DisplayPage);
+
+    }
+
+    public void addListeners(BorderPane InputPage, BorderPane DisplayPage) {
+        createButton.setOnAction( e -> {
+            this.setCenter(InputPage);
+
+            RecipeTitle recipeTitle = new RecipeTitle();
+            recipeList.getChildren().add(recipeTitle);
+            Button viewButton = recipeTitle.getViewButton();
+            viewButton.setOnAction( e1 -> {
+                this.setCenter(DisplayPage);
+            });
+
+        });
     }
 
     
@@ -265,31 +289,25 @@ class RecipeDisplayAppFrame extends BorderPane {
 
         RecipeDisplayAppFrame() {
 
-        // Initialise the header Object
-        header = new RecipeDisplayHeader();
+        // header = new RecipeDisplayHeader();
 
-        recipe = new RecipeDisplay();
+        // recipe = new RecipeDisplay();
 
-        editButton = recipe.getEditButton();
-        title = recipe.getTitle();
-        ingredients = recipe.getIngredients();
-        steps = recipe.getSteps();
-        // Create a ScrollPane to hold the taskList
-        ScrollPane scrollPane = new ScrollPane(recipe);
-        scrollPane.setFitToWidth(true);
-        scrollPane.setFitToHeight(true);
+        // editButton = recipe.getEditButton();
+        // title = recipe.getTitle();
+        // ingredients = recipe.getIngredients();
+        // steps = recipe.getSteps();
+
+        // ScrollPane scrollPane = new ScrollPane(recipe);
+        // scrollPane.setFitToWidth(true);
+        // scrollPane.setFitToHeight(true);
         
 
-        // Add header to the top of the BorderPane
-        this.setTop(header);
-        // Add scroller to the centre of the BorderPane
-        this.setCenter(scrollPane);
-        // Add footer to the bottom of the BorderPane
+    
+        // this.setTop(header);
+        // this.setCenter(scrollPane);
 
-        // Initialise Button Variables through the getters in Footer
-
-        // Call Event Listeners for the Buttons
-        addListeners();
+        // addListeners();
     }
 
     public void addListeners()
@@ -432,8 +450,9 @@ public class UI extends Application {
         launch(args);
     }
     public void start(Stage stage) throws Exception {
-        // Setting the Layout of the Window- Should contain a Header, Footer and the TaskList
-        HomePageAppFrame root = new HomePageAppFrame();
+        InputAppFrame inputPage = new InputAppFrame();
+        RecipeDisplayAppFrame displayPage = new RecipeDisplayAppFrame();
+        HomePageAppFrame root = new HomePageAppFrame(inputPage,displayPage);
 
         // Set the title of the app
         stage.setTitle("Recipe Details");
