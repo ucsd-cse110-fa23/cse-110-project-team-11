@@ -1,4 +1,3 @@
-package main.java;
 import javax.print.attribute.HashDocAttributeSet;
 
 import javafx.application.Application;
@@ -11,7 +10,6 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Label;
-import javafx.scene.layout.BorderPane;
 import javafx.geometry.Insets;
 import javafx.scene.text.*;
 
@@ -384,8 +382,6 @@ class InputAppFrame extends BorderPane {
     private Header header;
     private Button startButton;
     private Button stopButton;
-    private AudioFormat audioFormat;
-    private TargetDataLine targetDataLine;
     private Label recordingLabel;
     private RecButtons recButton;
 
@@ -407,9 +403,6 @@ class InputAppFrame extends BorderPane {
 
         // Add the buttons and text fields
         this.setCenter(recButton);
-
-        // Get the audio format
-        audioFormat = Input.getAudioFormat();
 
         // Add the listeners to the buttons
         addListeners();
@@ -435,10 +428,20 @@ class InputAppFrame extends BorderPane {
 }
 
 public class UI extends Application {
-    public static void main() {
-        
+    public static void main(String[] args) {
+        launch(args);
     }
     public void start(Stage stage) throws Exception {
-        launch(args)
+        // Setting the Layout of the Window- Should contain a Header, Footer and the TaskList
+        HomePageAppFrame root = new HomePageAppFrame();
+
+        // Set the title of the app
+        stage.setTitle("Recipe Details");
+        // Create scene of mentioned size with the border pane
+        stage.setScene(new Scene(root, 500, 600));
+        // Make window non-resizable
+        stage.setResizable(false);
+        // Show the app
+        stage.show();
     }
 }
