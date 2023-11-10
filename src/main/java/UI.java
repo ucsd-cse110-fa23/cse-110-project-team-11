@@ -245,6 +245,10 @@ class RecipeDisplay extends VBox {
     public TextArea getSteps() {
         return this.steps;
     }
+
+    public void setTitle(String title) {
+    
+    }
 }
 
 
@@ -416,7 +420,7 @@ class RecButtons extends VBox {
 }
 class InputAppFrame extends BorderPane {
     // Input in = new Input();
-    private Header header;
+    private InputHeader header;
     private Button startButton;
     private Button stopButton;
     private Label recordingLabel;
@@ -469,6 +473,7 @@ class InputAppFrame extends BorderPane {
                 }
                 else{
                     recordingLabel.setText("Recipe Displayed");
+                    RecipeDisplay rec = new RecipeDisplay();
                     promptType = "MealType";
                     try {
                         FileReader fr = new FileReader("recipe.txt"); // PLACEHOLDER NAME
@@ -478,6 +483,7 @@ class InputAppFrame extends BorderPane {
                         while((str=br.readLine())!=null){
                             text += str + "\n";
                         }
+                        // rec.setTitle
                         recipeText.setText(text);
                         br.close();
                         br.close();
