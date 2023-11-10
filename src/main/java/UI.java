@@ -13,7 +13,8 @@ import javafx.scene.control.Label;
 import javafx.geometry.Insets;
 import javafx.scene.text.*;
 
-
+import java.io.BufferedReader;
+import java.io.FileReader;
 class RecipeTitle extends HBox {
     private Label index;
     private TextField title;
@@ -107,10 +108,34 @@ class HomePageAppFrame extends BorderPane{
     private Button viewButton, createButton;
 
 
-    HomePageAppFrame() {
+    HomePageAppFrame(BorderPane InputPage, BorderPane DisplayPage) {
         homePageHeader = new HomePageHeader();
         recipeList = new RecipeList();
-        createButton = homePageHeader.getCreateButton();       
+        createButton = homePageHeader.getCreateButton();    
+        
+        ScrollPane scrollPane = new ScrollPane(recipeList);
+        scrollPane.setFitToWidth(true);
+        scrollPane.setFitToHeight(true);
+
+        this.setTop(homePageHeader);
+        this.setCenter(scrollPane);
+
+        addListeners(InputPage,DisplayPage);
+
+    }
+
+    public void addListeners(BorderPane InputPage, BorderPane DisplayPage) {
+        createButton.setOnAction( e -> {
+            this.setCenter(InputPage);
+
+            RecipeTitle recipeTitle = new RecipeTitle();
+            recipeList.getChildren().add(recipeTitle);
+            Button viewButton = recipeTitle.getViewButton();
+            viewButton.setOnAction( e1 -> {
+                this.setCenter(DisplayPage);
+            });
+
+        });
     }
 
     
@@ -265,31 +290,25 @@ class RecipeDisplayAppFrame extends BorderPane {
 
         RecipeDisplayAppFrame() {
 
-        // Initialise the header Object
-        header = new RecipeDisplayHeader();
+        // header = new RecipeDisplayHeader();
 
-        recipe = new RecipeDisplay();
+        // recipe = new RecipeDisplay();
 
-        editButton = recipe.getEditButton();
-        title = recipe.getTitle();
-        ingredients = recipe.getIngredients();
-        steps = recipe.getSteps();
-        // Create a ScrollPane to hold the taskList
-        ScrollPane scrollPane = new ScrollPane(recipe);
-        scrollPane.setFitToWidth(true);
-        scrollPane.setFitToHeight(true);
+        // editButton = recipe.getEditButton();
+        // title = recipe.getTitle();
+        // ingredients = recipe.getIngredients();
+        // steps = recipe.getSteps();
+
+        // ScrollPane scrollPane = new ScrollPane(recipe);
+        // scrollPane.setFitToWidth(true);
+        // scrollPane.setFitToHeight(true);
         
 
-        // Add header to the top of the BorderPane
-        this.setTop(header);
-        // Add scroller to the centre of the BorderPane
-        this.setCenter(scrollPane);
-        // Add footer to the bottom of the BorderPane
+    
+        // this.setTop(header);
+        // this.setCenter(scrollPane);
 
-        // Initialise Button Variables through the getters in Footer
-
-        // Call Event Listeners for the Buttons
-        addListeners();
+        // addListeners();
     }
 
     public void addListeners()
@@ -342,25 +361,38 @@ class InputHeader extends HBox {
     }
 }
 
-class RecButtons extends HBox {
+class RecButtons extends VBox {
     private Button startButton, stopButton;
     private Label recordingLabel; 
+    private TextArea recipeText;
 
     // Set a default style for buttons and fields - background color, font size,
     // italics
     String defaultButtonStyle = "-fx-border-color: #000000; -fx-font: 13 arial; -fx-pref-width: 175px; -fx-pref-height: 50px;";
-    String defaultLabelStyle = "-fx-font: 13 arial; -fx-pref-width: 175px; -fx-pref-height: 50px; -fx-text-fill: red; visibility: hidden";
+    String defaultLabelStyle = "-fx-font: 13 arial; -fx-pref-width: 175px; -fx-pref-height: 50px; -fx-text-fill: red;";
+    String defaultTextStyle = "-fx-font: 13 arial; -fx-pref-width: 175px; -fx-pref-height: 50px; -fx-text-fill: black;";
 
     RecButtons() {
+
+        HBox buttonBox = new HBox();
         startButton = new Button("Start");
         startButton.setStyle(defaultButtonStyle);
 
         stopButton = new Button("Stop");
         stopButton.setStyle(defaultButtonStyle);
 
-        recordingLabel = new Label("Recording...");
+        buttonBox.getChildren().addAll(startButton, stopButton);
+
+        recordingLabel = new Label("Select Meal Type: Breakfast, Lunch, or Dinner");
         recordingLabel.setStyle(defaultLabelStyle);
-        this.getChildren().addAll(startButton, stopButton, recordingLabel);
+        recordingLabel.setWrapText(true);
+
+        recipeText = new TextArea("");
+        recipeText.setStyle(defaultTextStyle);
+        recipeText.setEditable(false);
+        recipeText.setMinHeight(400);
+
+        this.getChildren().addAll(buttonBox, recordingLabel, recipeText);
     }
     
     public Button getStartButton() {
@@ -375,8 +407,13 @@ class RecButtons extends HBox {
         return recordingLabel;
     }
 
-}
+    public TextArea getRecipeText(){
+        return recipeText;
+    }
 
+   
+
+}
 class InputAppFrame extends BorderPane {
     // Input in = new Input();
     private Header header;
@@ -384,14 +421,19 @@ class InputAppFrame extends BorderPane {
     private Button stopButton;
     private Label recordingLabel;
     private RecButtons recButton;
+    private String promptType;
+    private TextArea recipeText;
 
     InputAppFrame() {
         // header = new Header();
+        promptType = "MealType";
         recButton = new RecButtons();
         this.setTop(header);
         startButton = recButton.getStartButton();
         stopButton = recButton.getStopButton();
         recordingLabel = recButton.getRecordingLabel();
+        recipeText = recButton.getRecipeText();
+
         // Set properties for the flowpane
         this.setPrefSize(500, 600);
         this.setPadding(new Insets(5, 0, 5, 5));
@@ -413,12 +455,40 @@ class InputAppFrame extends BorderPane {
     public void addListeners() {
         // Start Button
         startButton.setOnAction(e -> {
+            recordingLabel.setText("Recording");
             Input.captureAudio();
         });
 
         // Stop Button
         stopButton.setOnAction(e -> {
-            Input.stopCapture();
+            if(Input.stopCapture(promptType)){
+                if(promptType.equals("MealType")){
+                    promptType = "Ingredients";
+                    recipeText.setText("");
+                    recordingLabel.setText("Please input Ingredients");
+                }
+                else{
+                    recordingLabel.setText("Recipe Displayed");
+                    promptType = "MealType";
+                    try {
+                        FileReader fr = new FileReader("recipe.txt"); // PLACEHOLDER NAME
+                        BufferedReader br = new BufferedReader(fr);
+                        String text = "";
+                        String str = "";
+                        while((str=br.readLine())!=null){
+                            text += str + "\n";
+                        }
+                        recipeText.setText(text);
+                        br.close();
+                        br.close();
+                    } catch(Exception err){
+                        err.printStackTrace();
+                    }
+                }
+            }
+            else{
+                recordingLabel.setText("Invalid Input. Please say a proper meal type");
+            }
         });
     }
 
@@ -432,8 +502,9 @@ public class UI extends Application {
         launch(args);
     }
     public void start(Stage stage) throws Exception {
-        // Setting the Layout of the Window- Should contain a Header, Footer and the TaskList
-        HomePageAppFrame root = new HomePageAppFrame();
+        InputAppFrame inputPage = new InputAppFrame();
+        RecipeDisplayAppFrame displayPage = new RecipeDisplayAppFrame();
+        HomePageAppFrame root = new HomePageAppFrame(inputPage,displayPage);
 
         // Set the title of the app
         stage.setTitle("Recipe Details");

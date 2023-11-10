@@ -45,58 +45,61 @@ class Header1 extends HBox {
     }
 }
 
-class RecButtons extends HBox {
-    private Button startButton, stopButton;
-    private Label recordingLabel; 
+// class RecButtons extends HBox {
+//     private Button startButton, stopButton;
+//     private Label recordingLabel; 
 
-    // Set a default style for buttons and fields - background color, font size,
-    // italics
-    String defaultButtonStyle = "-fx-border-color: #000000; -fx-font: 13 arial; -fx-pref-width: 175px; -fx-pref-height: 50px;";
-    String defaultLabelStyle = "-fx-font: 13 arial; -fx-pref-width: 175px; -fx-pref-height: 50px; -fx-text-fill: red; visibility: hidden";
+//     // Set a default style for buttons and fields - background color, font size,
+//     // italics
+//     String defaultButtonStyle = "-fx-border-color: #000000; -fx-font: 13 arial; -fx-pref-width: 175px; -fx-pref-height: 50px;";
+//     String defaultLabelStyle = "-fx-font: 13 arial; -fx-pref-width: 175px; -fx-pref-height: 50px; -fx-text-fill: red;";
 
-    RecButtons() {
-        startButton = new Button("Start");
-        startButton.setStyle(defaultButtonStyle);
+//     RecButtons() {
+//         startButton = new Button("Start");
+//         startButton.setStyle(defaultButtonStyle);
 
-        stopButton = new Button("Stop");
-        stopButton.setStyle(defaultButtonStyle);
+//         stopButton = new Button("Stop");
+//         stopButton.setStyle(defaultButtonStyle);
 
-        recordingLabel = new Label("Recording...");
-        recordingLabel.setStyle(defaultLabelStyle);
-        this.getChildren().addAll(startButton, stopButton, recordingLabel);
-    }
+//         recordingLabel = new Label("Select Meal Type: Breakfast, Lunch, or Dinner");
+//         recordingLabel.setStyle(defaultLabelStyle);
+//         this.getChildren().addAll(startButton, stopButton, recordingLabel);
+//     }
     
-    public Button getStartButton() {
-        return startButton;
-    }
+//     public Button getStartButton() {
+//         return startButton;
+//     }
 
-    public Button getStopButton() {
-        return stopButton;
-    }
+//     public Button getStopButton() {
+//         return stopButton;
+//     }
 
-    public Label getRecordingLabel() {
-        return recordingLabel;
-    }
+//     public Label getRecordingLabel() {
+//         return recordingLabel;
+//     }
 
-}
+   
+
+// }
 
 class AppFrame1 extends BorderPane {
     // Input in = new Input();
     private Header header;
     private Button startButton;
     private Button stopButton;
-    private AudioFormat audioFormat;
-    private TargetDataLine targetDataLine;
     private Label recordingLabel;
     private RecButtons recButton;
+    private String promptType;
 
     AppFrame1() {
         // header = new Header();
+        promptType = "MealType";
         recButton = new RecButtons();
         this.setTop(header);
         startButton = recButton.getStartButton();
         stopButton = recButton.getStopButton();
         recordingLabel = recButton.getRecordingLabel();
+        
         // Set properties for the flowpane
         this.setPrefSize(500, 600);
         this.setPadding(new Insets(5, 0, 5, 5));
@@ -109,9 +112,6 @@ class AppFrame1 extends BorderPane {
         // Add the buttons and text fields
         this.setCenter(recButton);
 
-        // Get the audio format
-        audioFormat = Input.getAudioFormat();
-
         // Add the listeners to the buttons
         addListeners();
 
@@ -121,12 +121,24 @@ class AppFrame1 extends BorderPane {
     public void addListeners() {
         // Start Button
         startButton.setOnAction(e -> {
+            recordingLabel.setText("Recording");
             Input.captureAudio();
         });
 
         // Stop Button
         stopButton.setOnAction(e -> {
-            Input.stopCapture();
+            if(Input.stopCapture(promptType)){
+                if(promptType.equals("MealType")){
+                    promptType = "Ingredients";
+                    recordingLabel.setText("Please input Ingredients");
+                }
+                else{
+                    recordingLabel.setText("Thanks");
+                }
+            }
+            else{
+                recordingLabel.setText("Invalid Input. Please say a proper meal type");
+            }
         });
     }
 
@@ -134,6 +146,7 @@ class AppFrame1 extends BorderPane {
         
     }
 }
+
 
 
 public class InputUI extends Application {

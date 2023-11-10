@@ -1,22 +1,21 @@
 
 
-Title: Fruit Salad
+Title: Ham and Egg Fried Rice
 
-Ingredients:
-- Strawberries
-- Apples
-- Oranges
-- Lemon juice
-- Honey
+Ingredients: 
+- Rice
+- Eggs
+- Ham
+- Carrots
+- Oil
+- Soy sauce
+- Salt
 
-#1 Cut the strawberries, apples, and oranges into small pieces.
-
-#2 Place the cut fruit in a bowl.
-
-#3 Squeeze the juice of one lemon over the bowl of fruit.
-
-#4 Drizzle honey over the fruit.
-
-#5 Mix the fruit together until evenly coated.
-
-#6 Serve and enjoy!
+#1 Heat oil in a pan over medium heat.
+#2 Add ham and carrots and cook until vegetables are tender.
+#3 Push the ham and carrots to one side of the pan and add eggs.
+#4 Scramble the eggs until they are cooked through.
+#5 Add the cooked rice and mix everything together.
+#6 Add soy sauce and salt to taste.
+#7 Cook for an additional 2-3 minutes.
+#8 Serve.
