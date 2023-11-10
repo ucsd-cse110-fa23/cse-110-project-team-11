@@ -143,13 +143,13 @@ class HomePageAppFrame extends BorderPane{
 
 // recipe display view
 
-class RecipeDisplay extends VBox {
+class RecipeDisplay1 extends VBox {
 
     private TextArea title, ingredients, steps;
     private Button editButton, saveButton, deleteButton;
 
 
-    RecipeDisplay() {
+    RecipeDisplay1() {
         this.setPrefSize(500, 20); // sets size of task
         this.setStyle("-fx-background-color: #FFFFFF; -fx-border-width: 0; -fx-font-weight: bold;"); // sets background color of task
         
@@ -282,7 +282,7 @@ class RecipeDisplayHeader extends HBox {
 class RecipeDisplayAppFrame extends BorderPane {
 
     private RecipeDisplayHeader header;
-    private RecipeDisplay recipe;
+    private RecipeDisplay1 recipe;
     private Button editButton;
     private TextArea title;
     private TextArea ingredients;
@@ -507,7 +507,7 @@ public class UI extends Application {
         HomePageAppFrame root = new HomePageAppFrame(inputPage,displayPage);
 
         // Set the title of the app
-        stage.setTitle("Recipe Details");
+        stage.setTitle("PantryPal");
         // Create scene of mentioned size with the border pane
         stage.setScene(new Scene(root, 500, 600));
         // Make window non-resizable
