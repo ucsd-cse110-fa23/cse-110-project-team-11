@@ -1,5 +1,14 @@
+/**
+ * This the file that handles the front end of the code. Should deal with the
+ * app UI and all of the button features. Has X different pages:
+ * 
+ * 1. Main (browse) page
+ * 2. Create recipe page
+ * 3. Detailed recipe page
+ * 
+ * Each of these pages have their respective headers, bodies, buttons, etc.
+ */
 import javax.print.attribute.HashDocAttributeSet;
-
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -12,14 +21,18 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Label;
 import javafx.geometry.Insets;
 import javafx.scene.text.*;
-
 import java.io.BufferedReader;
 import java.io.FileReader;
+
+
 class RecipeTitle extends HBox {
     private Label index;
     private TextField title;
     private Button viewButton;
 
+    /**
+     * Constructor for generating format and recipe page. Handles indexing of the recipes
+     */
     RecipeTitle () {
         this.setPrefSize(500, 20); // sets size of task
         this.setStyle("-fx-background-color: #DAE5EA; -fx-border-width: 0; -fx-font-weight: bold;");
@@ -59,6 +72,9 @@ class RecipeTitle extends HBox {
     }   
 }
 
+/**
+ * holds the recipes in the main page
+ */
 class RecipeList extends VBox {
     RecipeList() {
         this.setSpacing(5);
@@ -67,6 +83,9 @@ class RecipeList extends VBox {
     }
 }
 
+/**
+ * head for homepage that should display create button for recipe generation.
+ */
 class HomePageHeader extends HBox {
     private Button createButton;
 
@@ -102,13 +121,16 @@ class HomePageHeader extends HBox {
     }
 }
 
+/**
+* App frame for the home page, displays the header and recipe list
+ */
 class HomePageAppFrame extends BorderPane{
     private HomePageHeader homePageHeader;
     private RecipeList recipeList;
     private Button viewButton, createButton;
 
 
-    HomePageAppFrame(BorderPane InputPage, BorderPane DisplayPage) {
+    HomePageAppFrame(InputAppFrame InputPage, RecipeDisplayAppFrame DisplayPage) {
         homePageHeader = new HomePageHeader();
         recipeList = new RecipeList();
         createButton = homePageHeader.getCreateButton();    
@@ -117,23 +139,28 @@ class HomePageAppFrame extends BorderPane{
         scrollPane.setFitToWidth(true);
         scrollPane.setFitToHeight(true);
 
-        this.setTop(homePageHeader);
         this.setCenter(scrollPane);
 
         addListeners(InputPage,DisplayPage);
-
     }
 
-    public void addListeners(BorderPane InputPage, BorderPane DisplayPage) {
+    public HomePageHeader getHomePageHeader() {
+        return homePageHeader;
+    }
+
+    /**
+     * Adds functionality for the create button, will go to the input audio page once cliicked
+     */
+    public void addListeners(InputAppFrame InputPage, RecipeDisplayAppFrame DisplayPage) {
         createButton.setOnAction( e -> {
             this.setCenter(InputPage);
-
-            RecipeTitle recipeTitle = new RecipeTitle();
-            recipeList.getChildren().add(recipeTitle);
-            Button viewButton = recipeTitle.getViewButton();
-            viewButton.setOnAction( e1 -> {
-                this.setCenter(DisplayPage);
-            });
+            this.setTop(InputPage.getInputHeader());
+            // RecipeTitle recipeTitle = new RecipeTitle();
+            // recipeList.getChildren().add(recipeTitle);
+            // Button viewButton = recipeTitle.getViewButton();
+            // viewButton.setOnAction( e1 -> {
+            //     this.setCenter(DisplayPage);
+            // });
 
         });
     }
@@ -141,8 +168,9 @@ class HomePageAppFrame extends BorderPane{
     
 }
 
-// recipe display view
-
+/** RecipeDisplay: window that shows the detailed recipe. 
+ * SHOULD get the information from the CSV S
+ */
 class RecipeDisplay extends VBox {
 
     private TextArea title, ingredients, steps;
@@ -158,7 +186,7 @@ class RecipeDisplay extends VBox {
         title.setPrefSize(230, 20); // set size of text field
         title.setStyle("-fx-background-color: #FFFF00; -fx-border-width: 0;"); // set background color of textfield, yellow
         // title.setPadding(new Insets(10, 0, 10, 0)); // adds some padding to the text field
-        title.setPromptText("Name");
+        // title.setPromptText("Name");
         this.getChildren().add(title); // add textlabel to task
 
         ingredients = new TextArea(); // create task name text field
@@ -166,7 +194,7 @@ class RecipeDisplay extends VBox {
         ingredients.setPrefSize(300,800); // set size of text field
         ingredients.setStyle("-fx-background-color: #FFFF00; -fx-border-width: 0;"); // set background color of textfield, yellow
         // ingredients.setPadding(new Insets(0, 0, 0, 0)); // adds some padding to the text field
-        ingredients.setPromptText("1. ingredient");
+        // ingredients.setPromptText("1. ingredient");
         this.getChildren().add(ingredients); // add textlabel to task
         
         steps = new TextArea(); // create task name text field
@@ -174,7 +202,7 @@ class RecipeDisplay extends VBox {
         steps.setPrefSize(300, 800); // set size of text field
         steps.setStyle("-fx-background-color: #FFFF00; -fx-border-width: 0;"); // set background color of textfield, yellow
         // steps.setPadding(new Insets(0, 0, 0, 0)); // adds some padding to the text field
-        steps.setPromptText("Step 1");
+        // steps.setPromptText("Step 1");
         this.getChildren().add(steps); // add textlabel to task
 
         editButton = new Button("Edit");
@@ -219,7 +247,6 @@ class RecipeDisplay extends VBox {
         contentBox.setPadding(new Insets(0, 0, 0, 0)); // adds some padding to the text field
         this.getChildren().add(contentBox);
         contentBox.setStyle("-fx-background-color: #FFCCE5; -fx-border-width: 0;"); // light pin
-
     }
 
     public Button getDeleteButton() {
@@ -247,11 +274,39 @@ class RecipeDisplay extends VBox {
     }
 
     public void setTitle(String title) {
-    
+        this.title = new TextArea(title);
+        this.title.setEditable(false);
+        this.title.setPrefSize(230, 20); // set size of text field
+        this.title.setStyle("-fx-background-color: #FFFF00; -fx-border-width: 0;"); // set background color of textfield, yellow
+        // title.setPadding(new Insets(10, 0, 10, 0)); // adds some padding to the text field
+        // title.setPromptText("Name");
+        this.getChildren().add(this.title); // add textlabel to task
     }
+
+    public void setIngreds(String ingreds) {
+        this.ingredients = new TextArea(ingreds);
+        ingredients.setEditable(false);
+        ingredients.setPrefSize(300,800); // set size of text field
+        ingredients.setStyle("-fx-background-color: #FFFF00; -fx-border-width: 0;"); // set background color of textfield, yellow
+        // ingredients.setPadding(new Insets(0, 0, 0, 0)); // adds some padding to the text field
+        // ingredients.setPromptText("1. ingredient");
+        this.getChildren().add(ingredients); // add textlabel to task
+    }
+
+    public void setSteps(String steps) {
+        this.steps = new TextArea(steps);
+        this.steps.setEditable(false);
+        this.steps.setPrefSize(300, 800); // set size of text field
+        this.steps.setStyle("-fx-background-color: #FFFF00; -fx-border-width: 0;"); // set background color of textfield, yellow
+        // steps.setPadding(new Insets(0, 0, 0, 0)); // adds some padding to the text field
+        // steps.setPromptText("Step 1");
+        this.getChildren().add(this.steps); // add textlabel to task
+    } 
 }
 
-
+/**
+ * Header for the detailed recipe displa
+ */
 class RecipeDisplayHeader extends HBox {
     private Button backButton;
 
@@ -286,33 +341,31 @@ class RecipeDisplayHeader extends HBox {
 class RecipeDisplayAppFrame extends BorderPane {
 
     private RecipeDisplayHeader header;
-    private RecipeDisplay recipe;
     private Button editButton;
     private TextArea title;
     private TextArea ingredients;
     private TextArea steps;
 
-        RecipeDisplayAppFrame() {
+    RecipeDisplayAppFrame(RecipeDisplay recipe) {
 
         // header = new RecipeDisplayHeader();
+        editButton = recipe.getEditButton();
+        title = recipe.getTitle();
+        System.out.println(title.getText());
+        ingredients = recipe.getIngredients();
+        System.out.println(ingredients.getText());
+        steps = recipe.getSteps();
+        System.out.println(steps.getText());
 
-        // recipe = new RecipeDisplay();
-
-        // editButton = recipe.getEditButton();
-        // title = recipe.getTitle();
-        // ingredients = recipe.getIngredients();
-        // steps = recipe.getSteps();
-
-        // ScrollPane scrollPane = new ScrollPane(recipe);
-        // scrollPane.setFitToWidth(true);
-        // scrollPane.setFitToHeight(true);
+        ScrollPane scrollPane = new ScrollPane(recipe);
+        scrollPane.setFitToWidth(true);
+        scrollPane.setFitToHeight(true);
         
 
-    
-        // this.setTop(header);
-        // this.setCenter(scrollPane);
+        this.setTop(header);
+        this.setCenter(scrollPane);
 
-        // addListeners();
+        addListeners();
     }
 
     public void addListeners()
@@ -333,7 +386,10 @@ class RecipeDisplayAppFrame extends BorderPane {
 }
 }
 
-// start/stop buttons
+/**
+ * Contains start & stop buttons
+ * Responsible for getting audio using methods from Input.java
+ */
 class InputHeader extends HBox {
     private Button backButton;
 
@@ -363,8 +419,15 @@ class InputHeader extends HBox {
         buttonBox.setPrefWidth(300);// prefWidth
         this.getChildren().add(buttonBox);
     }
+
+    public Button getBackButton() {
+        return backButton;
+    }
 }
 
+/**
+ * Handles buttons for recording in the "create recipe" page
+ */
 class RecButtons extends VBox {
     private Button startButton, stopButton;
     private Label recordingLabel; 
@@ -414,15 +477,15 @@ class RecButtons extends VBox {
     public TextArea getRecipeText(){
         return recipeText;
     }
-
-   
-
 }
+
+/**
+ * Initializes buttons, header, and labels to display the input page
+ */
 class InputAppFrame extends BorderPane {
     // Input in = new Input();
     private InputHeader header;
-    private Button startButton;
-    private Button stopButton;
+    private Button startButton,stopButton,backButton;
     private Label recordingLabel;
     private RecButtons recButton;
     private String promptType;
@@ -432,7 +495,8 @@ class InputAppFrame extends BorderPane {
         // header = new Header();
         promptType = "MealType";
         recButton = new RecButtons();
-        this.setTop(header);
+        header = new InputHeader();
+        backButton = header.getBackButton();
         startButton = recButton.getStartButton();
         stopButton = recButton.getStopButton();
         recordingLabel = recButton.getRecordingLabel();
@@ -454,9 +518,18 @@ class InputAppFrame extends BorderPane {
         addListeners();
 
         moveToInput();
+
+    }
+    
+   public InputHeader getInputHeader() {
+        return header;
     }
 
     public void addListeners() {
+        backButton.setOnAction( e -> {
+            UI.getRoot().setCenter(UI.getRoot());
+            UI.getRoot().setTop(UI.getRoot().getHomePageHeader());
+        });
         // Start Button
         startButton.setOnAction(e -> {
             recordingLabel.setText("Recording");
@@ -478,15 +551,31 @@ class InputAppFrame extends BorderPane {
                     try {
                         FileReader fr = new FileReader("recipe.txt"); // PLACEHOLDER NAME
                         BufferedReader br = new BufferedReader(fr);
-                        String text = "";
+                        String ingredients = "";
+                        String steps = "";
                         String str = "";
                         while((str=br.readLine())!=null){
-                            text += str + "\n";
+                            if (str.length() != 0) {
+                                if (str.charAt(0) == 'T') {
+                                    rec.setTitle(str);
+                                }
+                                if (str.charAt(0) == '-') {
+                                    ingredients += str + "\n";
+                                }
+                                if (str.charAt(0) == '#') {
+                                    steps += str + "\n";
+                                }
+                            }
                         }
-                        // rec.setTitle
-                        recipeText.setText(text);
+                        rec.setIngreds(ingredients);
+                        rec.setSteps(steps);
+                        System.out.println(rec.getIngredients().getText());
+                        System.out.println(rec.getSteps().getText());
+                        RecipeDisplayAppFrame displayRec = new RecipeDisplayAppFrame(rec);
+                        this.setCenter(displayRec);
+                        // recipeText.setText(text);
                         br.close();
-                        br.close();
+                        // br.close();
                     } catch(Exception err){
                         err.printStackTrace();
                     }
@@ -504,13 +593,17 @@ class InputAppFrame extends BorderPane {
 }
 
 public class UI extends Application {
+
+    private static HomePageAppFrame root;
     public static void main(String[] args) {
         launch(args);
     }
     public void start(Stage stage) throws Exception {
         InputAppFrame inputPage = new InputAppFrame();
-        RecipeDisplayAppFrame displayPage = new RecipeDisplayAppFrame();
-        HomePageAppFrame root = new HomePageAppFrame(inputPage,displayPage);
+        RecipeDisplay recipe = new RecipeDisplay();
+        RecipeDisplayAppFrame displayPage = new RecipeDisplayAppFrame(recipe);
+        root = new HomePageAppFrame(inputPage,displayPage);
+        root.setTop(root.getHomePageHeader());
 
         // Set the title of the app
         stage.setTitle("Recipe Details");
@@ -521,4 +614,9 @@ public class UI extends Application {
         // Show the app
         stage.show();
     }
+
+    public static HomePageAppFrame getRoot() {
+        return root;
+    }
+    
 }

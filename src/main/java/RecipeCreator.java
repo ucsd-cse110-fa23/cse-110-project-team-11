@@ -1,4 +1,6 @@
-
+/**
+ * This file contains RecipeCreator
+ */
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -13,12 +15,19 @@ import java.net.http.HttpResponse;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+/**
+ * This file sends a request to ChatGPT and asks it to generate a recipe given a certain meal type and list of ingredients,
+ * which are received from the file "prompt.txt"
+ */
 public class RecipeCreator implements IRecipeCreator {
     private static final String API_ENDPOINT = "https://api.openai.com/v1/completions";
     private static final String API_KEY = "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";
     private static final String MODEL = "text-davinci-003";
     private static final int MAX_TOKENS = 600;
 
+    /**
+     * Gets info from "prompt.txt" 
+     */
     public static String[] readPrompt() throws IOException {
         FileReader fr
         = new FileReader("prompt.txt"); // PLACEHOLDER NAME
@@ -30,7 +39,9 @@ public class RecipeCreator implements IRecipeCreator {
         return info;
     }
 
-    
+    /**
+     * Sends prompt to ChatGPT and returns the response
+     */
     public static String callAPI(String prompt) throws IOException, InterruptedException {
      // Create a request body which you will pass into request object
         JSONObject requestBody = new JSONObject();
@@ -64,7 +75,7 @@ public class RecipeCreator implements IRecipeCreator {
         JSONArray choices = responseJson.getJSONArray("choices");
         String generatedText = choices.getJSONObject(0).getString("text");
 
-        
+        // write recipe to "recipe.txt"
         try (FileWriter writer = new FileWriter("recipe.txt");
                 BufferedWriter bw = new BufferedWriter(writer)) {
 
@@ -76,6 +87,9 @@ public class RecipeCreator implements IRecipeCreator {
         return generatedText;
     }
     
+    /**
+     * Generate recipe given info from "prompt.txt"
+     */
     public static String generateRecipe() throws IOException, InterruptedException {
         String[] info = readPrompt();
         String rawPrompt = info[0];

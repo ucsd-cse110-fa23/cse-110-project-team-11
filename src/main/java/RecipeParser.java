@@ -1,8 +1,14 @@
+/** 
+ * This file contains RecipeParser.java
+*/
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
 
+/**
+ * This class reads text from "recipe.txt" and parses it into title, list of ingredients, and list of steps
+ */
 public class RecipeParser{
     private String TITLE;
     private List<String> INGREDIENTS = new ArrayList<>();
@@ -19,6 +25,9 @@ public class RecipeParser{
         return STEPS;
     }
 
+    /**
+     * Parse recipe
+     */
     public void parse() throws IOException, InterruptedException {
         FileReader fr
         = new FileReader("recipe.txt"); // reads recipes text created by RecipeCreator
