@@ -2,7 +2,7 @@
  * Goal of RecipeParser.java:
  * 
  * This should parse the recipes generated from the GPT response and convert it
- *  into a readable CSV format. Ideally, this should be called when we press 
+ *  into strings, into MongoDB . Ideally, this should be called when we press 
  * "save recipe" after create it and already shouldnt have duplicates
  */
 
@@ -63,12 +63,10 @@ public class RecipeParser {
                         if (first == ' ') {
                             line = line.substring(1); // gets rid of space
                         }
-                        //INGREDIENTS.add(line);
                         ingredients += line + "\n";
                         break;
                     case '#': // Steps
                         line = line.substring(3); // start of step
-                        //STEPS.add(line);
                         steps += line + "\n";
                 }
             }   
@@ -76,48 +74,11 @@ public class RecipeParser {
         System.out.println("Inserting recipe...");
         RecipeManager.insertRecipe(TITLE, ingredients, steps);
         br.close();
-        // Print statements to check if they are properly parsed
-        // System.out.println(TITLE);
-        // System.out.println();
-        // for(String s : INGREDIENTS) {
-        //     System.out.println(s);
-        // }
-        // System.out.println();
-        // for(String s : STEPS) {
-        //     System.out.println(s);
-        // }
     }
-
-    // /**
-    //  * Prints the stuff created by parse() into a CSV file
-    //  * @throws IOException
-    //  * @throws InterruptedException
-    //  */
-    // public void convertToCSV() throws IOException, InterruptedException {
-    //     try (FileWriter fw = new FileWriter(CSV_FILE, true);
-    //          BufferedWriter bw = new BufferedWriter(fw)) {
-
-    //         // Write the header row
-    //         String title = getTitle();
-    //         ArrayList<String> ingredients = getIngredients();
-    //         ArrayList<String> steps = getSteps();
-
-    //         // Create a CSV row for the recipe
-    //         StringBuilder csvRow = new StringBuilder();
-    //         csvRow.append(title).append(";");
-    //         csvRow.append(String.join(",", ingredients)).append(";");
-    //         csvRow.append(String.join(",", steps)).append("\n");
-    //         System.out.println(csvRow);
-
-    //         // Write the CSV row to the file IF it is not a duplicate
-    //         bw.write(csvRow.toString());
-    //     }
-    // }
 
     public static void main(String[] args) throws IOException, InterruptedException {
         RecipeParser parser = new RecipeParser();
-        System.out.println("HELLO");
+        //System.out.println("HELLO");
         parser.parse();
-        // parser.convertToCSV();
     }
 }

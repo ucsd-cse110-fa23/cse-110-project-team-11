@@ -1,3 +1,9 @@
+/**
+ * This file should handle the functions that change our database in MongoDB.
+ * Should handle delete recipe, insert recipe, save recipe (after editing).
+ * TODO: add functionality to those buttons to call these methods.
+ */
+
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
@@ -17,6 +23,10 @@ import static com.mongodb.client.model.Filters.and;
 import static com.mongodb.client.model.Filters.eq;
 import static com.mongodb.client.model.Updates.*;
 
+/**
+ * Class that handles the MongoDB. essentially creates functionality to buttons
+ * in terms of backend.
+ */
 public class RecipeManager {
     public static final String URI = "mongodb+srv://hek007:7GVnvvaUfbPZsgnq@recipemanager.ksn9u3g.mongodb.net/?retryWrites=true&w=majority";
 
@@ -25,46 +35,18 @@ public class RecipeManager {
             MongoDatabase recipeDB = mongoClient.getDatabase("recipes_db");
             MongoCollection<Document> recipeCollections = recipeDB.getCollection("recipes");
 
-            // FileReader fr = new FileReader(CSV_FILE); 
-            // // Convert fileReader to bufferedReader 
-            // BufferedReader br = new BufferedReader(fr); 
-            // br.readLine(); // skips first line
-            // line = br.readLine();  
+            // recipe details: id, title, ingredients, steps
             Document recipe = new Document("_id", new ObjectId());
             recipe.append("title", title)
             .append("ingredients", ingredients)
             .append("steps", steps);
+
             System.out.println(recipe);
-            recipeCollections.insertOne(recipe);
+            recipeCollections.insertOne(recipe); // inserts into MongoDB
             System.out.println("Insert successful");
-            // while ((line = br.readLine()) != null) { 
-            //     StringTokenizer st = new StringTokenizer(line, ",");
-                
-            //     Document recipe = new Document("_id", new ObjectId());
-            //     recipe.append("title", st.nextToken())
-            //     .append("ingredients", st.nextToken())
-            //     .append("steps", st.nextToken());
-            //     System.out.println(recipe);
-            //     recipeCollections.insertOne(recipe);
-            // }
-            //br.close();  //closes the BR
         }
     }
-    /**
-     * Search for the id object and returns the Object of the id
-     * @param id
-     * @return document of id 
-     */
-    public static Document searchRecipe(ObjectId id) {
-        try (MongoClient mongoClient = MongoClients.create(URI)) {
-            MongoDatabase recipeDB = mongoClient.getDatabase("recipe_db");
-            MongoCollection<Document> recipeCollections = recipeDB.getCollection("recipes");
-            
-            // filter based on id
-            Bson filter = eq("_id", id);
-            return recipeCollections.find(filter).first();
-        }
-    }
+    
     /**
      * Updates the entries, given the recipe name
      * -> Get id for the recipe being edited, 
@@ -124,15 +106,26 @@ public class RecipeManager {
             MongoCollection<Document> recipeCollections = recipeDB.getCollection("recipes");
             Bson filter = eq("_id", id);
             DeleteResult result = recipeCollections.deleteOne(filter);
-            // Bson filter = eq("recipe", "Savory Spinach Delight");
-            // Bson updateOperation = set("hours", 4.5);
-            // UpdateResult updateResult = recipeCollections.updateOne(filter, updateOperation);
-
-            // System.out.println("updating the recipe hours");
-            // System.out.println(recipeCollections.find(filter).first().toJson());
 
             // delete one document
             System.out.println(result);
+        }
+    }
+
+    /**
+     * Search for the id object and returns the Object of the id. should be a
+     * helper method
+     * @param id
+     * @return document of id 
+     */
+    public static Document searchRecipe(ObjectId id) {
+        try (MongoClient mongoClient = MongoClients.create(URI)) {
+            MongoDatabase recipeDB = mongoClient.getDatabase("recipe_db");
+            MongoCollection<Document> recipeCollections = recipeDB.getCollection("recipes");
+            
+            // filter based on id
+            Bson filter = eq("_id", id);
+            return recipeCollections.find(filter).first();
         }
     }
 
