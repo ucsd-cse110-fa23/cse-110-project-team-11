@@ -29,7 +29,7 @@ public class Input {
         return format;
     }
 
-    private String promptType;
+    private String promptType = "MealType";
 
     public  void captureAudio(){
         try{
@@ -130,8 +130,8 @@ public class Input {
         return false;
     }
 
-    public void setPromptType(String pt){
-        this.promptType = pt;
+    public void setPromptType(String promptType){
+        this.promptType = promptType;
     }
 
     public String getPromptType(){

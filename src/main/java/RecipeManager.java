@@ -37,7 +37,9 @@ public class RecipeManager {
         return stringID;
     }
 
-    public static void loadRecipes(){
+    public static ArrayList loadRecipes(){
+
+        ArrayList<RecipeDisplay> recipes = new ArrayList<RecipeDisplay>();
         try (MongoClient mongoClient = MongoClients.create(URI)) {
             MongoDatabase recipeDB = mongoClient.getDatabase("recipes_db");
             MongoCollection<Document> recipeCollections = recipeDB.getCollection("recipes");
@@ -50,15 +52,16 @@ public class RecipeManager {
                     String ingredients = document.get("ingredients").toString();
                     String steps = document.get("steps").toString();
                     RecipeDisplay recipeDisplay = new RecipeDisplay(stringID, title, ingredients, steps);
-                    HomePageAppFrame.getRecipeList().getChildren().add(recipeDisplay);
+                    recipes.add(recipeDisplay);
                 }
             }
         }
+        return recipes;
     }
     /**
      * inserts recipe, gets instance variables from parser
      */
-    public static void insertRecipe(String title, String ingredients, String steps) throws IOException{
+    public static RecipeDisplay insertRecipe(String title, String ingredients, String steps) throws IOException{
         try (MongoClient mongoClient = MongoClients.create(URI)) {
             MongoDatabase recipeDB = mongoClient.getDatabase("recipes_db");
             MongoCollection<Document> recipeCollections = recipeDB.getCollection("recipes");
@@ -70,11 +73,12 @@ public class RecipeManager {
             recipe.append("title", title)
             .append("ingredients", ingredients)
             .append("steps", steps);
+            
             //System.out.println(recipe);
             recipeCollections.insertOne(recipe); // inserts into MongoDB
             RecipeDisplay recipeDisplay = new RecipeDisplay(stringID, title, ingredients, steps);
-            HomePageAppFrame.getRecipeList().getChildren().add(recipeDisplay);
             System.out.println("Insert successful");
+            return recipeDisplay;
         }
     }
     
