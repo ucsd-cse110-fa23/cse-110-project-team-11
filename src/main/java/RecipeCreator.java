@@ -20,15 +20,15 @@ import org.json.JSONObject;
  * which are received from the file "prompt.txt"
  */
 public class RecipeCreator implements IRecipeCreator {
-    private static final String API_ENDPOINT = "https://api.openai.com/v1/completions";
-    private static final String API_KEY = "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";
-    private static final String MODEL = "text-davinci-003";
-    private static final int MAX_TOKENS = 600;
+    private final String API_ENDPOINT = "https://api.openai.com/v1/completions";
+    private final String API_KEY = "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";
+    private final String MODEL = "text-davinci-003";
+    private final int MAX_TOKENS = 600;
 
     /**
      * Gets info from "prompt.txt" 
      */
-    public static String[] readPrompt() throws IOException {
+    public String[] readPrompt() throws IOException {
         FileReader fr
         = new FileReader("prompt.txt"); // PLACEHOLDER NAME
         BufferedReader br = new BufferedReader(fr);
@@ -42,7 +42,7 @@ public class RecipeCreator implements IRecipeCreator {
     /**
      * Sends prompt to ChatGPT and returns the response
      */
-    public static String callAPI(String prompt) throws IOException, InterruptedException {
+    public String callAPI(String prompt) throws IOException, InterruptedException {
      // Create a request body which you will pass into request object
         JSONObject requestBody = new JSONObject();
         requestBody.put("model", MODEL);
@@ -90,7 +90,7 @@ public class RecipeCreator implements IRecipeCreator {
     /**
      * Generate recipe given info from "prompt.txt"
      */
-    public static String generateRecipe() throws IOException, InterruptedException {
+    public String generateRecipe() throws IOException, InterruptedException {
         String[] info = readPrompt();
         String rawPrompt = info[0];
         String mealType = info[1];
@@ -100,7 +100,7 @@ public class RecipeCreator implements IRecipeCreator {
         return callAPI(formattedPrompt);
     }
     
-    public static void main(String[] args) throws IOException, InterruptedException, URISyntaxException
+    public void main(String[] args) throws IOException, InterruptedException, URISyntaxException
     {
         // for(int i = 0; i < 1;i++)
         //     System.out.println(generateRecipe());

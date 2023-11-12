@@ -12,23 +12,24 @@ import java.io.IOException;
 import java.util.*;
 
 public class RecipeParser {
-    private static String TITLE;
-    private static String ingredients = "Ingredients: \n";
-    private static String steps = "Steps: \n";
-    private static final String RECIPE_FILE = "./recipe.txt";
-  public static String id = RecipeManager.stringID;
+    private String TITLE;
+    private String ingredients = "Ingredients: \n";
+    private String steps = "Steps: \n";
+    private final String RECIPE_FILE = "./recipe.txt";
+    public String id = RecipeManager.stringID;
 
     // getter methods for private variables
-    public static String getID() {
+    public String getID() {
         return id;
     } 
-    public static String getTitle() {
+    public String getTitle() {
         return TITLE;
     }
-    public static String getStringSteps() {
+    public String getStringSteps() {
+        // System.out.println("This is what recipe parser got for steps: \n" + steps);
         return steps;
     }
-    public static String getStringIngredients() {
+    public String getStringIngredients() {
         return ingredients;
     }
 
@@ -37,7 +38,7 @@ public class RecipeParser {
      * @throws IOException
      * @throws InterruptedException
      */
-    public static void parse() throws IOException, InterruptedException {
+    public void parse() throws IOException, InterruptedException {
         steps = "Steps: \n";
         ingredients = "Ingredients: \n";
         System.out.println("PARSING");
@@ -72,8 +73,8 @@ public class RecipeParser {
         br.close();
     }
 
-    public static void main(String[] args) throws IOException, InterruptedException {
-        //System.out.println("HELLO");
-        RecipeParser.parse();
-    }
+    // public static void main(String[] args) throws IOException, InterruptedException {
+    //     //System.out.println("HELLO");
+    //     RecipeParser.parse();
+    // }
 }
