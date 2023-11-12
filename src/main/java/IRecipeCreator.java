@@ -1,5 +1,6 @@
-
-
+/**
+ * Interface for RecipeCreator objects
+ */
 import java.io.IOException;
 
 public interface IRecipeCreator
@@ -13,8 +14,11 @@ public interface IRecipeCreator
                     + "without specifying quantities.";
     
     
-    public static String formatPrompt(String mealType, String formattedPrompt) {
-        return PROMPT_MEAL_SELECTION + mealType + PROMPT_FORMATTING+formattedPrompt+RECIPE_HEADER;
+    /**
+     * Add formatting to the user's prompt
+     */
+    public static String formatPrompt(String mealType, String rawPrompt) {
+        return PROMPT_MEAL_SELECTION + mealType + PROMPT_FORMATTING+rawPrompt+RECIPE_HEADER;
     }
     
     // public abstract String generateRecipe() throws IOException, InterruptedException;

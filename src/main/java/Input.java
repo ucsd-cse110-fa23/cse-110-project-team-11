@@ -20,9 +20,14 @@ public class Input {
                                 1,
                                 true,
                                 false);
+
     private static TargetDataLine mic; 
     private static Thread thread;
     private static File audioFile = new File("Input.wav");
+
+    public static AudioFormat getAudioFormat() {
+        return format;
+    }
 
     public static void captureAudio(){
         try{
