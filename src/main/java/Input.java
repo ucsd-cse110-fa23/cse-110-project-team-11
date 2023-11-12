@@ -11,25 +11,27 @@ import javax.sound.sampled.*;
 
 public class Input {
 
-    private static final String API_ENDPOINT = "https://api.openai.com/v1/audio/transcriptions";
-    private static final String TOKEN = "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";
-    private static final String MODEL = "whisper-1";
+    private  final String API_ENDPOINT = "https://api.openai.com/v1/audio/transcriptions";
+    private  final String TOKEN = "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";
+    private  final String MODEL = "whisper-1";
 
-    private static AudioFormat format = new AudioFormat(8000.0F,
+    private  AudioFormat format = new AudioFormat(8000.0F,
                                 16,
                                 1,
                                 true,
                                 false);
 
-    private static TargetDataLine mic; 
-    private static Thread thread;
-    private static File audioFile = new File("Input.wav");
+    private  TargetDataLine mic; 
+    private  Thread thread;
+    private  File audioFile = new File("Input.wav");
 
-    public static AudioFormat getAudioFormat() {
+    public  AudioFormat getAudioFormat() {
         return format;
     }
 
-    public static void captureAudio(){
+    private String promptType;
+
+    public  void captureAudio(){
         try{
 
             DataLine.Info line = new DataLine.Info(
@@ -68,7 +70,7 @@ public class Input {
         
     }
 
-    public static boolean stopCapture(String inputType){
+    public  boolean stopCapture(String inputType){
         if (mic != null){
             mic.stop();
             mic.close();
@@ -117,7 +119,6 @@ public class Input {
                     } catch(Exception e) {
                         System.out.println("File not found");
                     }
-                    RecipeCreator.generateRecipe();
                     return true;
                 } catch(Exception e) {
                     e.printStackTrace();
@@ -129,7 +130,15 @@ public class Input {
         return false;
     }
 
-    private static String typeParser(String input) {
+    public void setPromptType(String pt){
+        this.promptType = pt;
+    }
+
+    public String getPromptType(){
+        return this.promptType;
+    }
+
+    private  String typeParser(String input) {
 
         input = input.toLowerCase();
 
@@ -159,7 +168,7 @@ public class Input {
 
 
     }
-    private static String whisper() throws IOException, URISyntaxException{
+    private  String whisper() throws IOException, URISyntaxException{
         // Create file object from file path
         File file = new File("input.wav");
 
@@ -223,7 +232,7 @@ public class Input {
     }
 
     // Helper method to write a parameter to the output stream in multipart form data format
-    private static void writeParameterToOutputStream(
+    private  void writeParameterToOutputStream(
         OutputStream outputStream,
         String parameterName,
         String parameterValue,
@@ -240,7 +249,7 @@ public class Input {
     
     
     // Helper method to write a file to the output stream in multipart form data format
-    private static void writeFileToOutputStream(
+    private  void writeFileToOutputStream(
         OutputStream outputStream,
         File file,
         String boundary
@@ -267,7 +276,7 @@ public class Input {
     }
     
     // Helper method to handle a successful response
-    private static String handleSuccessResponse(HttpURLConnection connection)
+    private  String handleSuccessResponse(HttpURLConnection connection)
     throws IOException, JSONException {
         BufferedReader in = new BufferedReader(
             new InputStreamReader(connection.getInputStream())
@@ -294,7 +303,7 @@ public class Input {
     }
 
     // Helper method to handle an error response
-    private static void handleErrorResponse(HttpURLConnection connection)
+    private  void handleErrorResponse(HttpURLConnection connection)
     throws IOException, JSONException {
         BufferedReader errorReader = new BufferedReader(
             new InputStreamReader(connection.getErrorStream())
@@ -311,7 +320,7 @@ public class Input {
 
 
 
-    public static void main(String[] args) throws InterruptedException {
+    public  void main(String[] args) throws InterruptedException {
         
 
         System.out.println("Recording");

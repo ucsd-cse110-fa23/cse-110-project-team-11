@@ -23,7 +23,8 @@ import javafx.geometry.Insets;
 import javafx.scene.text.*;
 import java.io.BufferedReader;
 import java.io.FileReader;
-
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 
 class RecipeTitle extends HBox {
     private Label index;
@@ -501,7 +502,9 @@ class InputAppFrame extends BorderPane {
    public ReturnHeader getReturnHeader() {
         return header;
     }
-
+    public void setStopButtonAction(EventHandler<ActionEvent> eventHandler) {
+        stopButton.setOnAction(eventHandler);
+    }
     public void addListeners() {
         // Back Button
         backButton.setOnAction( e -> {
@@ -513,39 +516,7 @@ class InputAppFrame extends BorderPane {
             Input.captureAudio();
         });
 
-        // Stop Button
-        stopButton.setOnAction(e -> {
-            if(Input.stopCapture(promptType)){
-                if(promptType.equals("MealType")){
-                    promptType = "Ingredients";
-                    recipeText.setText("");
-                    recordingLabel.setText("Please input Ingredients");
-                }
-                else{
-                    recordingLabel.setText("Recipe Displayed");
-                    RecipeDisplay rec = new RecipeDisplay();
-                    promptType = "MealType";
-                    try {
-                        RecipeParser.parse(); 
-                        rec.setTitle(RecipeParser.getTitle());
-                        rec.setIngreds(RecipeParser.getStringIngredients());
-                        rec.setSteps(RecipeParser.getStringSteps());
-                        System.out.println(rec.getIngredients().getText());
-                        System.out.println(rec.getSteps().getText());
-                        RecipeDisplayAppFrame displayRec = new RecipeDisplayAppFrame(rec);
-                        UI.getRoot().setCenter(displayRec);
-                        UI.getRoot().setTop(displayRec.getRecipeDisplayHeader());
-                        // recipeText.setText(text);
-                        // br.close();
-                    } catch(Exception err){
-                        err.printStackTrace();
-                    }
-                }
-            }
-            else{
-                recordingLabel.setText("Invalid Input. Please say a proper meal type");
-            }
-        });
+        
     }
 }
 
