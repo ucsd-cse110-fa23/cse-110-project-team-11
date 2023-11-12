@@ -461,6 +461,7 @@ class RecipeDisplayAppFrame extends BorderPane {
         backButton = header.getBackButton();
         recipe = r;
 
+        this.id = r.getId();
         editButton = recipe.getEditButton();
         deleteButton = recipe.getDeleteButton();
         saveButton = recipe.getSaveButton();
@@ -536,6 +537,7 @@ class RecipeDisplayAppFrame extends BorderPane {
     public void setSaveButtonAction(EventHandler<ActionEvent> eventHandler) {
         saveButton.setOnAction(eventHandler);
     }
+
     public void addListeners()
     {
         // Save tasks to file
@@ -815,6 +817,7 @@ class UI  {
     }
     
     public void returnHomePage() {
+        
         root.setCenter(HomePage);
         root.setTop(HomePage.getHomePageHeader());
     }

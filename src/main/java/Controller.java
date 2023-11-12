@@ -128,7 +128,6 @@ public class Controller {
         inputFrame.getRecButtons().setRecordingLabel("Select Meal Type: Breakfast, Lunch, or Dinner");    
         if(this.rd.getEditable()){
             RecipeDisplayAppFrame r = this.rd;
-            boolean editable = r.getEditable();
             TextArea ingredients = r.getIngredients();
             Button editButton = r.getEditButton();
             TextArea steps = r.getSteps();
@@ -178,7 +177,7 @@ public class Controller {
         }
         else {
             try {
-                RecipeManager.updateRecipe(rd.getID(), rd.getTitle().getText(), rd.getIngredients().getText(), rd.getSteps().getText());
+                RecipeManager.updateRecipe(rd.getTitle().getText(), rd.getIngredients().getText(), rd.getSteps().getText());
             } catch (IOException e1) {
                 // TODO Auto-generated catch block
                 e1.printStackTrace();
@@ -192,18 +191,43 @@ public class Controller {
         ui.getRoot().setTop(this.rt.getRecipeDetail().getRecipeDisplayHeader());
     }
 
+    private void handleDeleteButton(ActionEvent event) {
+        TextArea title = rd.getTitle();
+        System.out.println("THE TITLE: " + title.getText());
+            try {
+                RecipeManager.deleteRecipe(title.getText());
+            } catch (IOException e1) {
+                // TODO Auto-generated catch block
+                e1.printStackTrace();
+            }
+            hp.getRecipeList().getChildren().removeIf(RecipeTitle -> RecipeTitle instanceof RecipeTitle && true);  
+            loadRecipes(); // loads recipe
+            ui.returnHomePage();
+
+    }
+
+  
+
     public void loadRecipes(){
+        hp.getRecipeList().getChildren().removeIf(RecipeTitle -> RecipeTitle instanceof RecipeTitle && true); 
         ArrayList<RecipeTitle> recipes = RecipeManager.loadRecipes();
         
         for(int i = 0; i < recipes.size(); i++){
             //recipes.get(i).setViewButtonAction(this::handleViewButton);
             RecipeTitle title = recipes.get(i);
+            //System.out.println(title.getID());
             RecipeDisplayAppFrame recDisp = title.getRecipeDetail();
+            recDisp.setID(title.getID());
+            System.out.println(recDisp.getID());
             recipes.get(i).getViewButton().setOnAction(e1->{
                 ui.getRoot().setCenter(title.getRecipeDetail()); 
                 ui.getRoot().setTop(title.getRecipeDetail().getRecipeDisplayHeader());
                 this.rd = recDisp;
+
                 recDisp.setEditButtonAction(this::handleEditButton);
+                recDisp.setSaveButtonAction(this::handleSaveButton);
+                recDisp.setDeleteButtonAction(this::handleDeleteButton);
+
             });
             
             hp.getRecipeList().getChildren().add(recipes.get(i));

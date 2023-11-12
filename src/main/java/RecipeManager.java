@@ -37,7 +37,7 @@ public class RecipeManager {
         return stringID;
     }
 
-    public static ArrayList loadRecipes(){
+    public static ArrayList<RecipeTitle> loadRecipes(){
 
         ArrayList<RecipeTitle> recipes = new ArrayList<RecipeTitle>();
         try (MongoClient mongoClient = MongoClients.create(URI)) {
@@ -104,80 +104,48 @@ public class RecipeManager {
      * @param recipe
      * @throws IOException
      */
-    public static void updateRecipe(String id, String title, String ingredients, String steps) throws IOException {
-            ObjectId objID = new ObjectId(id); // wrap in ObjectID
-            try (MongoClient mongoClient = MongoClients.create(URI)) {
-            MongoDatabase recipeDB = mongoClient.getDatabase("recipe_db");
+    public static void updateRecipe(String title, String ingredients, String steps) throws IOException {
+        try (MongoClient mongoClient = MongoClients.create(URI)) {
+            MongoDatabase recipeDB = mongoClient.getDatabase("recipes_db");
             MongoCollection<Document> recipeCollections = recipeDB.getCollection("recipes");
+            System.out.println("opened mongoDB?");
+            // back up; does not correct the indices
+            // deleteRecipe(title);
+            // insertRecipe(title, ingredients, steps);
 
-            // search for old recipe in database using the ID and get the titel, ing, steps
-            Document recipe = searchRecipe(title);
-            
-            // Document recipe = recipeCollections.find(new Document("title", title)).first();
-            if (recipe == null) {
-                System.out.println("hello2");
-                return;
-            }
-            // compare if they are different to properly update
-            String oldTitle = recipe.getString("title");
-            String oldIngredients = recipe.getString("ingredients");
-            String oldSteps = recipe.getString("steps");
-            System.out.println(steps);
-            if (!oldTitle.equals(title)) { // if title is updated
-                Bson filter = eq("_id", id);
-                Bson updateOperation = set("title", title);
-                UpdateResult updateResult = recipeCollections.updateOne(filter, updateOperation);
-                System.out.println("updated title from " + oldTitle + "to " + title);
-            }
-            if (!oldIngredients.equals(ingredients)) { // if ingredients is updated
-                Bson filter = eq("_id", id);
-                Bson updateOperation = set("ingredients", ingredients);
-                UpdateResult updateResult = recipeCollections.updateOne(filter, updateOperation);
-                System.out.println("updated title from " + oldIngredients + "to " + ingredients);
-            }
-            if (!oldSteps.equals(steps)) {
-                Bson filter = eq("_id", id);
-                Bson updateOperation = set("steps", steps);
-                UpdateResult updateResult = recipeCollections.updateOne(filter, updateOperation);
-                System.out.println("updated title from " + oldSteps + "to " + steps);
-            }
+            // update ingredients
+            Bson filter = eq("title", title);
+            Bson update = set("ingredients", ingredients);
+            UpdateResult result = recipeCollections.updateOne(filter, update);
+            System.out.println("update ingredients: " + result);
+            // update steps
+            update = set("steps", steps);
+            result = recipeCollections.updateOne(filter, update);
+            System.out.println("update steps: " + result);
+
             mongoClient.close();
         }
-        
     }
 
     /**
      * Deletes one recipe, given a name
-     * @param recipeName recipe to delete
+     * @param title recipe to delete
      */
-    public static void deleteRecipe(String title) {
+    public static void deleteRecipe(String title) throws IOException {
         try (MongoClient mongoClient = MongoClients.create(URI)) {
-            MongoDatabase recipeDB = mongoClient.getDatabase("recipe_db");
+            MongoDatabase recipeDB = mongoClient.getDatabase("recipes_db");
             MongoCollection<Document> recipeCollections = recipeDB.getCollection("recipes");
+            System.out.println("opened mongoDB?");
             Bson filter = eq("title", title);
             DeleteResult result = recipeCollections.deleteOne(filter);
-
-            // delete one document
-            System.out.println(result);
-            // ObjectId objectID = new ObjectId(id);
-            // Document document = searchRecipe(title);
-            //delete from MongoDB
-            recipeCollections.deleteOne(filter);
-            // //delete from App
-            // String title = document.get("title").toString();
-            // String ingredients = document.get("ingredients").toString();
-            // String steps = document.get("steps").toString();
-            // RecipeDisplay recipe = new RecipeDisplay(id, title, ingredients, steps);
-
-            // HomePageAppFrame.getRecipeList().getChildren().remove(recipe);
-            mongoClient.close();
+            System.out.println("delete: " + result);
         }
     }
 
     /**
      * Search for the id object and returns the Object of the id. should be a
      * helper method
-     * @param id
+     * @param title
      * @return document of id 
      */
     public static Document searchRecipe(String title) {
@@ -188,35 +156,9 @@ public class RecipeManager {
             
             // filter based on id
             Bson filter = eq("title", title);
-            Document query = new Document("title", title);
-            Document document = recipeCollections.find(filter).first();
-            if (document != null) {
-                System.out.println("Recipe found: " + document.toJson());
-                return document;
-            } else {
-                System.out.println("Recipe not found: " + title);
-                return null;
-            }
-            /*
-
-            try (MongoCursor<Document> cursor = recipeCollections.find().iterator()) {
-                while(cursor.hasNext()) {
-                    Document doc = cursor.next();
-                    if(doc.get("title") == title) {
-                        System.out.println("HOLY FUCK");
-                        return doc;
-                    }
-                }
-            }
-            System.out.println("NOOOOOOO");
-            */
-            // mongoClient.close();
-            //return recipeCollections.find(filter).first();
-            // //System.out.println("recipe found: " + title);
-            // System.out.println("HI PLS PRINT");
-            // System.out.println(recipeCollections.find(eq("title", title)).first());
-            // //System.out.println(recipeCollections.find(filter).first());
-            // return recipeCollections.find(filter).first();
+            Document doc = recipeCollections.find(filter).first();
+            System.out.println("found: " + doc.toJson());
+            return doc;
         }
     }
 
