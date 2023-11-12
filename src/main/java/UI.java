@@ -187,7 +187,12 @@ class HomePageAppFrame extends BorderPane{
     HomePageAppFrame(InputAppFrame InputPage) {
         homePageHeader = new HomePageHeader();
         recipeList = new RecipeList();
-        RecipeManager.loadRecipes(); // loads recipe
+        try {
+            RecipeManager.loadRecipes();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } // loads recipe
 
         createButton = homePageHeader.getCreateButton();    
 
@@ -494,13 +499,29 @@ class RecipeDisplayAppFrame extends BorderPane {
         });
 
         backButton.setOnAction( e -> {
-            UI.returnHomePage();
+            try {
+                UI.returnHomePage();
+            } catch (IOException e1) {
+                // TODO Auto-generated catch block
+                e1.printStackTrace();
+            }
         });
 
         deleteButton.setOnAction( e -> {
-            RecipeManager.deleteRecipe(id);
-            UI.returnHomePage();
-            
+            System.out.println("THE TITLE: " + title.getText());
+            try {
+                RecipeManager.deleteRecipe(title.getText());
+            } catch (IOException e1) {
+                // TODO Auto-generated catch block
+                e1.printStackTrace();
+            }
+            try {
+                UI.returnHomePage();
+            } catch (IOException e1) {
+                // TODO Auto-generated catch block
+                e1.printStackTrace();
+            }
+
         });
 
         // save after edit?
@@ -520,7 +541,7 @@ class RecipeDisplayAppFrame extends BorderPane {
                 System.out.println("hello");
                 try {
                     System.out.println("hello1");
-                    RecipeManager.updateRecipe(id, title.getText(), steps.getText(), ingredients.getText());
+                    RecipeManager.updateRecipe(id, title.getText(), ingredients.getText(), steps.getText());
                 } catch (IOException e1) {
                     // TODO Auto-generated catch block
                     e1.printStackTrace();
@@ -676,7 +697,12 @@ class InputAppFrame extends BorderPane {
     public void addListeners() {
         // Back Button
         backButton.setOnAction( e -> {
-            UI.returnHomePage();
+            try {
+                UI.returnHomePage();
+            } catch (IOException e1) {
+                // TODO Auto-generated catch block
+                e1.printStackTrace();
+            }
             recordingLabel.setText("");
         });
         // Start Button
@@ -760,7 +786,7 @@ public class UI extends Application {
         return root;
     }
     
-    public static void returnHomePage() {
+    public static void returnHomePage() throws IOException {
         HomePageAppFrame.getRecipeList().getChildren().removeIf(RecipeTitle -> RecipeTitle instanceof RecipeTitle && true);  
         RecipeManager.loadRecipes(); // loads recipe
         root.setCenter(HomePage);
