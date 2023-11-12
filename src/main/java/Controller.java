@@ -95,7 +95,7 @@ public class Controller {
                     System.out.println("SDUHFIOSDHFIOSHDOFHSDIOFHSDIOFSIDHFOSDIFHSODi");
                     RecipeDisplayAppFrame displayRec = new RecipeDisplayAppFrame(rec);
                     displayRec.setBackButtonAction2(this::handleBackButton2);
-                    displayRec.setDeleteButtonAction(this::handleBackButton);
+                    displayRec.setDeleteButtonAction(this::handleDeleteButton);
                     displayRec.setSaveButtonAction(this::handleSaveButton);
                     displayRec.setEditButtonAction(this::handleEditButton);
                     this.rd = displayRec;
@@ -161,15 +161,23 @@ public class Controller {
     private void handleSaveButton(ActionEvent event){
         rd.getIngredients().setEditable(false);
         rd.getSteps();
-        if (rd.getID() == null) {
+        if (rd.getID() == null) { // if does not exist in MongoDB (?)
             try {
-
-                RecipeTitle recipeDis = RecipeManager.insertRecipe(rd.getTitle().getText(), rd.getIngredients().getText(), rd.getSteps().getText());
+                String[] recipe = RecipeManager.insertRecipe(rd.getTitle().getText(), rd.getIngredients().getText(), rd.getSteps().getText());
+                String stringID = recipe[0];
+                String title = recipe[1];
+                String ingredients = recipe[2];
+                String steps = recipe[3];
+                
+                RecipeDisplay recipeDisplay = new RecipeDisplay(stringID, title, ingredients, steps);
+                RecipeDisplayAppFrame rec = new RecipeDisplayAppFrame(recipeDisplay);
+                RecipeTitle recipeDis = new RecipeTitle(stringID, title, rec);
                 rd.setID(RecipeManager.getStringID());
                 recipeDis.setViewButtonAction(this::handleViewButton);
                 recipeDis.getRecipeDetail().setBackButtonAction2(this::handleBackButton2);
                 this.rt = recipeDis;
                 hp.getRecipeList().getChildren().add(recipeDis);
+                reload();
             } catch (IOException e1) {
                 // TODO Auto-generated catch block
                 e1.printStackTrace();
@@ -200,38 +208,48 @@ public class Controller {
                 // TODO Auto-generated catch block
                 e1.printStackTrace();
             }
-            hp.getRecipeList().getChildren().removeIf(RecipeTitle -> RecipeTitle instanceof RecipeTitle && true);  
-            loadRecipes(); // loads recipe
+            reload();
             ui.returnHomePage();
 
     }
 
-  
+    public void reload(){
+        hp.getRecipeList().getChildren().removeIf(RecipeTitle -> RecipeTitle instanceof RecipeTitle && true);  
+        loadRecipes(); // loads recipe
+    }
 
     public void loadRecipes(){
         hp.getRecipeList().getChildren().removeIf(RecipeTitle -> RecipeTitle instanceof RecipeTitle && true); 
-        ArrayList<RecipeTitle> recipes = RecipeManager.loadRecipes();
+        ArrayList<String[]> recipes = RecipeManager.loadRecipes();
         
         for(int i = 0; i < recipes.size(); i++){
-            //recipes.get(i).setViewButtonAction(this::handleViewButton);
-            RecipeTitle title = recipes.get(i);
-            //System.out.println(title.getID());
-            RecipeDisplayAppFrame recDisp = title.getRecipeDetail();
-            recDisp.setID(title.getID());
-            System.out.println(recDisp.getID());
-            recipes.get(i).getViewButton().setOnAction(e1->{
-                ui.getRoot().setCenter(title.getRecipeDetail()); 
-                ui.getRoot().setTop(title.getRecipeDetail().getRecipeDisplayHeader());
-                this.rd = recDisp;
 
-                recDisp.setEditButtonAction(this::handleEditButton);
-                recDisp.setSaveButtonAction(this::handleSaveButton);
-                recDisp.setDeleteButtonAction(this::handleDeleteButton);
+            String stringID = recipes.get(i)[0];
+            String title = recipes.get(i)[1];
+            String ingredients = recipes.get(i)[2];
+            String steps = recipes.get(i)[3];
+            RecipeDisplay recipeDisplay = new RecipeDisplay(stringID, title, ingredients, steps);
+            RecipeDisplayAppFrame rec = new RecipeDisplayAppFrame(recipeDisplay);
+            RecipeTitle recipeTitle = new RecipeTitle(stringID, title, rec);
+            //recipes.get(i).setViewButtonAction(this::handleViewButton);
+            // RecipeTitle title = recipes.get(i);
+            //System.out.println(title.getID());
+            // RecipeDisplayAppFrame recDisp = title.getRecipeDetail();
+            rec.setID(recipeTitle.getID());
+            // System.out.println(rec.getID());
+           recipeTitle.getViewButton().setOnAction(e1->{
+                ui.getRoot().setCenter(recipeTitle.getRecipeDetail()); 
+                ui.getRoot().setTop(recipeTitle.getRecipeDetail().getRecipeDisplayHeader());
+                this.rd = rec;
+
+                rec.setEditButtonAction(this::handleEditButton);
+                rec.setSaveButtonAction(this::handleSaveButton);
+                rec.setDeleteButtonAction(this::handleDeleteButton);
 
             });
             
-            hp.getRecipeList().getChildren().add(recipes.get(i));
-            title.getRecipeDetail().setBackButtonAction2(this::handleBackButton2);
+            hp.getRecipeList().getChildren().add(recipeTitle);
+            recipeTitle.getRecipeDetail().setBackButtonAction2(this::handleBackButton2);
         }
 
     }
