@@ -126,6 +126,18 @@ public class Controller {
         ui.returnHomePage();   
         input.setPromptType("MealType"); 
         inputFrame.getRecButtons().setRecordingLabel("Select Meal Type: Breakfast, Lunch, or Dinner");    
+        if(this.rd.getEditable()){
+            RecipeDisplayAppFrame r = this.rd;
+            boolean editable = r.getEditable();
+            TextArea ingredients = r.getIngredients();
+            Button editButton = r.getEditButton();
+            TextArea steps = r.getSteps();
+            ingredients.setEditable(false);
+            steps.setEditable(false);
+            editButton.setText("Edit");
+            r.setEditable(false);
+
+        }
     }
 
     private void handleEditButton(ActionEvent event) {
@@ -139,12 +151,12 @@ public class Controller {
                 editButton.setText("Stop");
                 rd.setEditable(true);
             }
-            else {
-                ingredients.setEditable(false);
-                steps.setEditable(false);
-                editButton.setText("Edit");
-                rd.setEditable(false);
-            }
+        else {
+            ingredients.setEditable(false);
+            steps.setEditable(false);
+            editButton.setText("Edit");
+            rd.setEditable(false);
+        }
     }
 
     private void handleSaveButton(ActionEvent event){
@@ -186,10 +198,14 @@ public class Controller {
         for(int i = 0; i < recipes.size(); i++){
             //recipes.get(i).setViewButtonAction(this::handleViewButton);
             RecipeTitle title = recipes.get(i);
+            RecipeDisplayAppFrame recDisp = title.getRecipeDetail();
             recipes.get(i).getViewButton().setOnAction(e1->{
                 ui.getRoot().setCenter(title.getRecipeDetail()); 
                 ui.getRoot().setTop(title.getRecipeDetail().getRecipeDisplayHeader());
+                this.rd = recDisp;
+                recDisp.setEditButtonAction(this::handleEditButton);
             });
+            
             hp.getRecipeList().getChildren().add(recipes.get(i));
             title.getRecipeDetail().setBackButtonAction2(this::handleBackButton2);
         }

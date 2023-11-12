@@ -453,11 +453,13 @@ class RecipeDisplayAppFrame extends BorderPane {
     private TextArea title, ingredients, steps;
     private String id;
     private Boolean editable = false;
+    private RecipeDisplay recipe;
 
-    RecipeDisplayAppFrame(RecipeDisplay recipe) {
+    RecipeDisplayAppFrame(RecipeDisplay r) {
 
         header = new ReturnHeader();
         backButton = header.getBackButton();
+        recipe = r;
 
         editButton = recipe.getEditButton();
         deleteButton = recipe.getDeleteButton();
@@ -480,6 +482,12 @@ class RecipeDisplayAppFrame extends BorderPane {
         // addListeners();
     }
 
+    public RecipeDisplay getRecipe(){
+        return recipe;
+    }
+    public void setRecipe(RecipeDisplay r){
+        recipe = r;
+    }
     public boolean getEditable() {
         return editable;
     }
