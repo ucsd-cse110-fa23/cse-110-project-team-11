@@ -47,6 +47,7 @@ public class RecipeManager {
 
             try (MongoCursor<Document> cursor = recipeCollections.find().iterator()) {
                 while (cursor.hasNext()) {
+                    System.out.println("loading");
                     Document document = cursor.next();
                     String stringID = document.get("_id").toString();
                     String title = document.get("title").toString();
@@ -72,6 +73,7 @@ public class RecipeManager {
             // recipe details: id, title, ingredients, steps
             ObjectId objectID = new ObjectId();
             stringID = objectID.toString();
+            System.out.println("Steps:" + steps);
             Document recipe = new Document("_id", objectID);
             recipe.append("title", title)
             .append("ingredients", ingredients)

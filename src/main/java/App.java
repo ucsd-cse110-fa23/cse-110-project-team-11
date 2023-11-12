@@ -216,27 +216,7 @@ class HomePageAppFrame extends BorderPane{
 
     public RecipeList getRecipeList() {
         return recipeList;
-    }
-    /**
-    }
-    /**
-     * Adds functionality for the create button, will go to the input audio page once cliicked
-     */
-    // public void addListeners(InputAppFrame InputPage) {
-    //     createButton.setOnAction( e -> {
-    //         UI.getRoot().setCenter(InputPage);
-    //         UI.getRoot().setTop(InputPage.getReturnHeader());
-    //         // RecipeTitle recipeTitle = new RecipeTitle();
-    //         // recipeList.getChildren().add(recipeTitle);
-    //         // Button viewButton = recipeTitle.getViewButton();
-    //         // viewButton.setOnAction( e1 -> {
-    //         //     this.setCenter(DisplayPage);
-    //         // });
-
-    //     });
-    
-
-    
+    }    
 }
 
 /** RecipeDisplay: window that shows the detailed recipe. 
@@ -537,89 +517,6 @@ class RecipeDisplayAppFrame extends BorderPane {
     public void setSaveButtonAction(EventHandler<ActionEvent> eventHandler) {
         saveButton.setOnAction(eventHandler);
     }
-
-    public void addListeners()
-    {
-        // Save tasks to file
-        // editButton.setOnAction(e -> {
-        //     if (!editable) {
-        //         ingredients.setEditable(true);
-        //         steps.setEditable(true);
-        //         editButton.setText("Stop");
-        //         editable = true;
-        //     }
-        //     else {
-        //         ingredients.setEditable(false);
-        //         steps.setEditable(false);
-        //         editButton.setText("Edit");
-        //         editable = false;
-        //     }
-        // });
-
-
-
-       
-
-        
-        // deleteButton.setOnAction( e -> {
-        //     RecipeManager.deleteRecipe(id);
-        //     UI.returnHomePage();
-            
-        // });
-
-        // // save after edit?
-        // saveButton.setOnAction(e -> {
-        //     ingredients.setEditable(false);
-        //     steps.setEditable(false);
-        //     if (id == null) {
-        //         try {
-        //             RecipeManager.insertRecipe(title.getText(), ingredients.getText(), steps.getText());
-        //             id = RecipeManager.getStringID();
-        //         } catch (IOException e1) {
-        //             // TODO Auto-generated catch block
-        //             e1.printStackTrace();
-        //         }
-        //     }
-        //     else {
-        //         System.out.println("hello");
-        //         try {
-        //             System.out.println("hello1");
-        //             RecipeManager.updateRecipe(id, title.getText(), steps.getText(), ingredients.getText());
-        //         } catch (IOException e1) {
-        //             // TODO Auto-generated catch block
-        //             e1.printStackTrace();
-        //         }
-        //     }
-
-        // deleteButton.setOnAction( e -> {
-        //     UI.returnHomePage();
-        // });
-
-        //     saveButton.setOnAction(e -> {
-        //     ingredients.setEditable(false);
-        //     steps.setEditable(false);
-        //     if (id == null) {
-        //         try {
-        //             RecipeManager.insertRecipe(title.getText(), ingredients.getText(), steps.getText());
-        //             id = RecipeManager.getStringID();
-        //         } catch (IOException e1) {
-        //             // TODO Auto-generated catch block
-        //             e1.printStackTrace();
-        //         }
-        //     }
-        //     else {
-        //         try {
-        //             RecipeManager.updateRecipe(id, title.getText(), steps.getText(), ingredients.getText());
-        //         } catch (IOException e1) {
-        //             // TODO Auto-generated catch block
-        //             e1.printStackTrace();
-        //         }
-        //     }
-
-        // });
-        
-    // }
-     }
 }
 
 
