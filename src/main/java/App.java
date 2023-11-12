@@ -20,6 +20,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Label;
 import javafx.geometry.Insets;
 import javafx.scene.text.*;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import java.io.IOException;
 
 
@@ -85,13 +89,11 @@ class RecipeTitle extends HBox {
         viewButton.setPrefHeight(Double.MAX_VALUE);
         viewButton.setStyle("-fx-background-color: #DAE5EA; -fx-border-width: 0;"); 
         this.getChildren().add(viewButton);
-        
-        viewButton.setOnAction( e -> {
-            System.out.println("bye");
-            UI.getRoot().setCenter(recipeDetail);
-            UI.getRoot().setTop(recipeDetail.getRecipeDisplayHeader());
-            //UI.getRoot().setTop(recipeDetail.getRecipeDisplayHeader());
-        });
+  
+    }
+
+    public void setViewButtonAction(EventHandler<ActionEvent> eventHandler) {
+        viewButton.setOnAction(eventHandler);
     }
 
     public void setRecipeIndex(int num) {
@@ -180,19 +182,14 @@ class HomePageHeader extends HBox {
  */
 class HomePageAppFrame extends BorderPane{
     private HomePageHeader homePageHeader;
-    private static RecipeList recipeList;
-    private Button createButton, viewButton;
+    private RecipeList recipeList;
+    private Button viewButton, createButton;
 
 
     HomePageAppFrame(InputAppFrame InputPage) {
         homePageHeader = new HomePageHeader();
         recipeList = new RecipeList();
-        try {
-            RecipeManager.loadRecipes();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } // loads recipe
+        // loadRecipes(); // loads recipe
 
         createButton = homePageHeader.getCreateButton();    
 
@@ -202,33 +199,42 @@ class HomePageAppFrame extends BorderPane{
 
         this.setCenter(scrollPane);
 
-        addListeners(InputPage);
-    }
-
-    public static RecipeList getRecipeList() {
-        return recipeList;
+        // addListeners(InputPage);
     }
 
     public HomePageHeader getHomePageHeader() {
         return homePageHeader;
     }
+    
+    public void setCreateButtonAction(EventHandler<ActionEvent> eventHandler){
+        createButton.setOnAction(eventHandler);
+    }
 
+    // public void loadRecipes(){
+    //     Controller.loadRecipes();
+    // }
+
+    public RecipeList getRecipeList() {
+        return recipeList;
+    }
+    /**
+    }
     /**
      * Adds functionality for the create button, will go to the input audio page once cliicked
      */
-    public void addListeners(InputAppFrame InputPage) {
-        createButton.setOnAction( e -> {
-            UI.getRoot().setCenter(InputPage);
-            UI.getRoot().setTop(InputPage.getReturnHeader());
-            // RecipeTitle recipeTitle = new RecipeTitle();
-            // recipeList.getChildren().add(recipeTitle);
-            // Button viewButton = recipeTitle.getViewButton();
-            // viewButton.setOnAction( e1 -> {
-            //     this.setCenter(DisplayPage);
-            // });
+    // public void addListeners(InputAppFrame InputPage) {
+    //     createButton.setOnAction( e -> {
+    //         UI.getRoot().setCenter(InputPage);
+    //         UI.getRoot().setTop(InputPage.getReturnHeader());
+    //         // RecipeTitle recipeTitle = new RecipeTitle();
+    //         // recipeList.getChildren().add(recipeTitle);
+    //         // Button viewButton = recipeTitle.getViewButton();
+    //         // viewButton.setOnAction( e1 -> {
+    //         //     this.setCenter(DisplayPage);
+    //         // });
 
-        });
-    }
+    //     });
+    
 
     
 }
@@ -246,7 +252,7 @@ class RecipeDisplay extends VBox {
         this.setPrefSize(500, 20); // sets size of task
         this.setStyle("-fx-background-color: #FFFFFF; -fx-border-width: 0; -fx-font-weight: bold;"); // sets background color of task
         
-        title = new TextArea(); // create task name text field
+        title = new TextArea(); // create task name text 
         title.setEditable(false);
         title.setPrefSize(230, 20); // set size of text field
         title.setStyle("-fx-background-color: #FFFF00; -fx-border-width: 0;"); // set background color of textfield, yellow
@@ -404,10 +410,7 @@ class RecipeDisplay extends VBox {
     public Button getSaveButton() {
         return this.saveButton;
     }
-    // Setters for recipe metadata
-    public String getID() {
-        return this.id;
-    }
+
     public TextArea getTitle() {
         return this.title;
     }
@@ -427,6 +430,7 @@ class RecipeDisplay extends VBox {
     
     public void setTitle(String title) {
         this.title.setText(title);
+
     }
 
     public void setIngreds(String ingreds) {
@@ -449,23 +453,26 @@ class RecipeDisplayAppFrame extends BorderPane {
     private TextArea title, ingredients, steps;
     private String id;
     private Boolean editable = false;
+    private RecipeDisplay recipe;
 
-    RecipeDisplayAppFrame(RecipeDisplay recipe) {
+    RecipeDisplayAppFrame(RecipeDisplay r) {
 
         header = new ReturnHeader();
         backButton = header.getBackButton();
+        recipe = r;
 
+        this.id = r.getId();
         editButton = recipe.getEditButton();
         deleteButton = recipe.getDeleteButton();
         saveButton = recipe.getSaveButton();
         title = recipe.getTitle();
-        // System.out.println(title.getText());
+        System.out.println(title.getText());
         ingredients = recipe.getIngredients();
-        // System.out.println(ingredients.getText());
+        System.out.println(ingredients.getText());
         steps = recipe.getSteps();
-        // System.out.println(steps.getText());
-        id = recipe.getID();
-        System.out.println(id);
+        System.out.println(steps.getText());
+        
+        System.out.println("aaaaaaaaaaaaaaaa");
 
         ScrollPane scrollPane = new ScrollPane(recipe);
         scrollPane.setFitToWidth(true);
@@ -473,86 +480,148 @@ class RecipeDisplayAppFrame extends BorderPane {
         
         this.setCenter(scrollPane);
 
-        addListeners();
+        // addListeners();
+    }
+
+    public RecipeDisplay getRecipe(){
+        return recipe;
+    }
+    public void setRecipe(RecipeDisplay r){
+        recipe = r;
+    }
+    public boolean getEditable() {
+        return editable;
+    }
+    public void setEditable(boolean e) {
+        editable = e;
+    }
+
+    public TextArea getTitle() {
+        return title;
+    }
+
+    public TextArea getIngredients() {
+        return ingredients;
+    }
+
+    public TextArea getSteps() {
+        return steps;
+    }
+
+    public Button getEditButton() {
+        return editButton;
     }
 
     public ReturnHeader getRecipeDisplayHeader() {
         return header;
     }
+    public String getID(){
+        return this.id;
+    }
+
+    public void setID(String id){
+        this.id = id;
+    }
+
+    public void setBackButtonAction2(EventHandler<ActionEvent> eventHandler) {
+        backButton.setOnAction(eventHandler);
+    }
+
+    public void setDeleteButtonAction(EventHandler<ActionEvent> eventHandler) {
+        deleteButton.setOnAction(eventHandler);
+    }
+
+    public void setEditButtonAction(EventHandler<ActionEvent> eventHandler) {
+        editButton.setOnAction(eventHandler);
+    }
+    public void setSaveButtonAction(EventHandler<ActionEvent> eventHandler) {
+        saveButton.setOnAction(eventHandler);
+    }
 
     public void addListeners()
     {
         // Save tasks to file
-        editButton.setOnAction(e -> {
-            if (!editable) {
-                ingredients.setEditable(true);
-                steps.setEditable(true);
-                editButton.setText("Cancel");
-                editable = true;
-            }
-            else {
-                ingredients.setEditable(false);
-                steps.setEditable(false);
-                editButton.setText("Edit");
-                editable = false;
-            }
-        });
+        // editButton.setOnAction(e -> {
+        //     if (!editable) {
+        //         ingredients.setEditable(true);
+        //         steps.setEditable(true);
+        //         editButton.setText("Stop");
+        //         editable = true;
+        //     }
+        //     else {
+        //         ingredients.setEditable(false);
+        //         steps.setEditable(false);
+        //         editButton.setText("Edit");
+        //         editable = false;
+        //     }
+        // });
 
-        backButton.setOnAction( e -> {
-            try {
-                UI.returnHomePage();
-            } catch (IOException e1) {
-                // TODO Auto-generated catch block
-                e1.printStackTrace();
-            }
-        });
 
-        deleteButton.setOnAction( e -> {
-            System.out.println("THE TITLE: " + title.getText());
-            try {
-                RecipeManager.deleteRecipe(title.getText());
-            } catch (IOException e1) {
-                // TODO Auto-generated catch block
-                e1.printStackTrace();
-            }
-            try {
-                UI.returnHomePage();
-            } catch (IOException e1) {
-                // TODO Auto-generated catch block
-                e1.printStackTrace();
-            }
 
-        });
+       
 
-        // save after edit?
-        saveButton.setOnAction(e -> {
-            ingredients.setEditable(false);
-            steps.setEditable(false);
-            if (id == null) {
-                try {
-                    RecipeManager.insertRecipe(title.getText(), ingredients.getText(), steps.getText());
-                    id = RecipeManager.getStringID();
-                } catch (IOException e1) {
-                    // TODO Auto-generated catch block
-                    e1.printStackTrace();
-                }
-            }
-            else {
-                System.out.println("hello");
-                try {
-                    System.out.println("hello1");
-                    RecipeManager.updateRecipe(title.getText(), ingredients.getText(), steps.getText());
-                } catch (IOException e1) {
-                    // TODO Auto-generated catch block
-                    e1.printStackTrace();
-                }
-            }
+        
+        // deleteButton.setOnAction( e -> {
+        //     RecipeManager.deleteRecipe(id);
+        //     UI.returnHomePage();
+            
+        // });
 
-        });
+        // // save after edit?
+        // saveButton.setOnAction(e -> {
+        //     ingredients.setEditable(false);
+        //     steps.setEditable(false);
+        //     if (id == null) {
+        //         try {
+        //             RecipeManager.insertRecipe(title.getText(), ingredients.getText(), steps.getText());
+        //             id = RecipeManager.getStringID();
+        //         } catch (IOException e1) {
+        //             // TODO Auto-generated catch block
+        //             e1.printStackTrace();
+        //         }
+        //     }
+        //     else {
+        //         System.out.println("hello");
+        //         try {
+        //             System.out.println("hello1");
+        //             RecipeManager.updateRecipe(id, title.getText(), steps.getText(), ingredients.getText());
+        //         } catch (IOException e1) {
+        //             // TODO Auto-generated catch block
+        //             e1.printStackTrace();
+        //         }
+        //     }
+
+        // deleteButton.setOnAction( e -> {
+        //     UI.returnHomePage();
+        // });
+
+        //     saveButton.setOnAction(e -> {
+        //     ingredients.setEditable(false);
+        //     steps.setEditable(false);
+        //     if (id == null) {
+        //         try {
+        //             RecipeManager.insertRecipe(title.getText(), ingredients.getText(), steps.getText());
+        //             id = RecipeManager.getStringID();
+        //         } catch (IOException e1) {
+        //             // TODO Auto-generated catch block
+        //             e1.printStackTrace();
+        //         }
+        //     }
+        //     else {
+        //         try {
+        //             RecipeManager.updateRecipe(id, title.getText(), steps.getText(), ingredients.getText());
+        //         } catch (IOException e1) {
+        //             // TODO Auto-generated catch block
+        //             e1.printStackTrace();
+        //         }
+        //     }
+
+        // });
         
     // }
+     }
 }
-}
+
 
 /**
  * Contains start & stop buttons
@@ -644,6 +713,15 @@ class RecButtons extends VBox {
 
     public TextArea getRecipeText(){
         return recipeText;
+    
+    }
+
+    public void setRecordingLabel(String label){
+        this.recordingLabel.setText(label);
+    }
+
+    public void setRecipeText(String label){
+        this.recipeText.setText(label);
     }
 }
 
@@ -656,14 +734,12 @@ class InputAppFrame extends BorderPane {
     private Button startButton,stopButton,backButton;
     private Label recordingLabel;
     private RecButtons recButton;
-    private String promptType;
     private TextArea recipeText;
 
     private RecipeList recipeList;
 
     InputAppFrame() {
         // header = new Header();
-        promptType = "MealType";
         recButton = new RecButtons();
         header = new ReturnHeader();
         backButton = header.getBackButton();
@@ -685,7 +761,7 @@ class InputAppFrame extends BorderPane {
         this.setCenter(recButton);
 
         // Add the listeners to the buttons
-        addListeners();
+        // addListeners();
 
 
     }
@@ -693,85 +769,91 @@ class InputAppFrame extends BorderPane {
    public ReturnHeader getReturnHeader() {
         return header;
     }
-
-    public void addListeners() {
-        // Back Button
-        backButton.setOnAction( e -> {
-            try {
-                UI.returnHomePage();
-            } catch (IOException e1) {
-                // TODO Auto-generated catch block
-                e1.printStackTrace();
-            }
-            recordingLabel.setText("");
-        });
-        // Start Button
-        startButton.setOnAction(e -> {
-            recordingLabel.setText("Recording");
-            Input.captureAudio();
-        });
-
-        // Stop Button
-        stopButton.setOnAction(e -> {
-            if(Input.stopCapture(promptType)){
-                if(promptType.equals("MealType")){
-                    promptType = "Ingredients";
-                    recipeText.setText("");
-                    recordingLabel.setText("Please input Ingredients");
-                }
-                else{
-                    recordingLabel.setText("Recipe Displayed");
-                    RecipeDisplay rec = new RecipeDisplay();
-                    promptType = "MealType";
-                    try {
-                        RecipeParser.parse();
-                        // rec.setID(RecipeParser.getID());
-                        rec.setID(null);
-                        rec.setTitle(RecipeParser.getTitle());
-                        rec.setIngreds(RecipeParser.getStringIngredients());
-                        rec.setSteps(RecipeParser.getStringSteps());
-                        // System.out.println(rec.getIngredients().getText());
-                        // System.out.println(rec.getSteps().getText());
-                        RecipeDisplayAppFrame displayRec = new RecipeDisplayAppFrame(rec);
-                        // RecipeTitle recipeTitle = new RecipeTitle(RecipeParser.getTitle(), displayRec);
-                        // recipeTitle.setRecipeDisplay(rec);
-                        UI.getRoot().setCenter(displayRec);
-                        UI.getRoot().setTop(displayRec.getRecipeDisplayHeader());
-                        // recipeText.setText(text);
-                        // br.close();
-                    } catch(Exception err){
-                        err.printStackTrace();
-                    }
-                    // HomePageAppFrame.getRecipeList().getChildren().add(rec);
-                }
-            }
-            else{
-                recordingLabel.setText("Invalid Input. Please say a proper meal type");
-            }
-        });
+    public void setStopButtonAction(EventHandler<ActionEvent> eventHandler) {
+        stopButton.setOnAction(eventHandler);
     }
+
+    public void setStartButtonAction(EventHandler<ActionEvent> eventHandler) {
+        startButton.setOnAction(eventHandler);
+    }
+
+    public void setBackButtonAction(EventHandler<ActionEvent> eventHandler) {
+        backButton.setOnAction(eventHandler);
+    }
+
+
+
+    public RecButtons getRecButtons(){
+        return recButton;
+    }
+    
+
+        
+    
 }
 
-public class UI extends Application {
+class UI  {
 
-    private static BorderPane root;
-    private static HomePageAppFrame HomePage;
+    private BorderPane root;
+    private HomePageAppFrame HomePage;
+    private InputAppFrame inputPage;
+    private RecipeDisplayAppFrame displayPage;
 
-    public static HomePageAppFrame getHomePage() {
+    public UI(BorderPane r, HomePageAppFrame hp, InputAppFrame ip, RecipeDisplayAppFrame dp){
+
+        this.root = r;
+        this.HomePage = hp; 
+        this.inputPage = ip;
+        this.displayPage = dp;
+    }
+
+    public HomePageAppFrame getHomePage() {
         return HomePage;
     }
+    
+
+    public BorderPane getRoot() {
+        return root;
+    }
+    
+    public void returnHomePage() {
+        
+        root.setCenter(HomePage);
+        root.setTop(HomePage.getHomePageHeader());
+    }
+
+    public InputAppFrame getInputPage(){
+        return inputPage;
+    }
+
+    public RecipeDisplayAppFrame getDisplayPage() {
+        return displayPage;
+    }
+
+    public void setDisplayPage(RecipeDisplayAppFrame dp) {
+        this.displayPage = dp;
+    }
+    
+}
+
+public class App extends Application {
     public static void main(String[] args) {
         launch(args);
     }
     public void start(Stage stage) throws Exception {
-        InputAppFrame inputPage = new InputAppFrame();
-        //RecipeDisplay recipe = new RecipeDisplay();
-        //RecipeDisplayAppFrame displayPage = new RecipeDisplayAppFrame(recipe);
-        root = new BorderPane();
-        HomePage = new HomePageAppFrame(inputPage);
-        root.setCenter(HomePage);
-        root.setTop(HomePage.getHomePageHeader());
+
+        BorderPane root = new BorderPane();
+        InputAppFrame ip = new InputAppFrame();
+        HomePageAppFrame hp = new HomePageAppFrame(ip);
+        RecipeDisplayAppFrame dp = new RecipeDisplayAppFrame(new RecipeDisplay());
+        UI ui = new UI(root, hp, ip, dp);
+
+        root.setCenter(hp);
+        root.setTop(hp.getHomePageHeader());
         
+        Controller controller = new Controller(ui);
+        controller.loadRecipes();
+
         // Set the title of the app
         stage.setTitle("Recipe Details");
         // Create scene of mentioned size with the border pane
@@ -779,18 +861,7 @@ public class UI extends Application {
         // Make window non-resizable
         stage.setResizable(false);
         // Show the app
+
         stage.show();
     }
-
-    public static BorderPane getRoot() {
-        return root;
-    }
-    
-    public static void returnHomePage() throws IOException {
-        HomePageAppFrame.getRecipeList().getChildren().removeIf(RecipeTitle -> RecipeTitle instanceof RecipeTitle && true);  
-        RecipeManager.loadRecipes(); // loads recipe
-        root.setCenter(HomePage);
-        root.setTop(HomePage.getHomePageHeader());
-    }
-    
 }

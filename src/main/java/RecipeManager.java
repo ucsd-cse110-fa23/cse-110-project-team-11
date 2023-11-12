@@ -37,7 +37,10 @@ public class RecipeManager {
         return stringID;
     }
 
-    public static void loadRecipes() throws IOException {
+    public static ArrayList<String[]> loadRecipes(){
+
+        ArrayList<String[]> recipes = new ArrayList<String[]>();
+        
         try (MongoClient mongoClient = MongoClients.create(URI)) {
             MongoDatabase recipeDB = mongoClient.getDatabase("recipes_db");
             MongoCollection<Document> recipeCollections = recipeDB.getCollection("recipes");
@@ -50,20 +53,19 @@ public class RecipeManager {
                     String title = document.get("title").toString();
                     String ingredients = document.get("ingredients").toString();
                     String steps = document.get("steps").toString();
-                    RecipeDisplayAppFrame displayRec = new RecipeDisplayAppFrame(new RecipeDisplay(stringID, title, ingredients, steps));
-                    RecipeTitle recipeTitle = new RecipeTitle(stringID, title, displayRec);
-                    HomePageAppFrame.getRecipeList().getChildren().add(recipeTitle);
-                    // RecipeDisplay recipeDisplay = new RecipeDisplay(stringID, title, ingredients, steps);
-                    // HomePageAppFrame.getRecipeList().getChildren().add(recipeDisplay);
+                    String[] rec = {stringID, title, ingredients, steps};
+                    
+                    recipes.add(rec);
                 }
                 mongoClient.close();
             }
         }
+        return recipes;
     }
     /**
      * inserts recipe, gets instance variables from parser
      */
-    public static void insertRecipe(String title, String ingredients, String steps) throws IOException{
+    public static String[] insertRecipe(String title, String ingredients, String steps) throws IOException{
         try (MongoClient mongoClient = MongoClients.create(URI)) {
             MongoDatabase recipeDB = mongoClient.getDatabase("recipes_db");
             MongoCollection<Document> recipeCollections = recipeDB.getCollection("recipes");
@@ -76,13 +78,16 @@ public class RecipeManager {
             recipe.append("title", title)
             .append("ingredients", ingredients)
             .append("steps", steps);
+            
             //System.out.println(recipe);
             recipeCollections.insertOne(recipe); // inserts into MongoDB
-            RecipeDisplayAppFrame displayRec = new RecipeDisplayAppFrame(new RecipeDisplay(stringID, title, ingredients, steps));
-            RecipeTitle recipeTitle = new RecipeTitle(stringID, title, displayRec);
-            HomePageAppFrame.getRecipeList().getChildren().add(recipeTitle);
+            String[] rec = {stringID, title, ingredients, steps};
+            // RecipeDisplay recipeDisplay = new RecipeDisplay(stringID, title, ingredients, steps);
+            // RecipeDisplayAppFrame rec = new RecipeDisplayAppFrame(recipeDisplay);
+            // RecipeTitle recipeTitle = new RecipeTitle(stringID, title, rec);
             System.out.println("Insert successful");
             mongoClient.close();
+            return rec;
         }
     }
     
