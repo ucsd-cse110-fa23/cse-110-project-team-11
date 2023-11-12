@@ -133,7 +133,7 @@ class HomePageHeader extends HBox {
  */
 class HomePageAppFrame extends BorderPane{
     private HomePageHeader homePageHeader;
-    private RecipeList recipeList;
+    private static RecipeList recipeList;
     private Button createButton;
 
 
@@ -153,7 +153,7 @@ class HomePageAppFrame extends BorderPane{
         addListeners(InputPage);
     }
 
-    public RecipeList getRecipeList() {
+    public static RecipeList getRecipeList() {
         return recipeList;
     }
 
@@ -452,11 +452,9 @@ class RecipeDisplayAppFrame extends BorderPane {
 
         deleteButton.setOnAction( e -> {
             RecipeManager.deleteRecipe(id);
-            /*
-            for (int i = 0; i < UI.HomePageAppFrame.getRecipeList().getChildren().size(); i++) {
+            for (int i = 0; i < HomePageAppFrame.getRecipeList().getChildren().size(); i++) {
                 
             }
-            */
             UI.returnHomePage();
             
         });
