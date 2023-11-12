@@ -9,7 +9,8 @@
             "name": "RecipeCreator",
             "request": "launch",
             "mainClass": "RecipeCreator",
-            "projectName": "cse-110-project-team-11"
+            "projectName": "cse-110-project-team-11",
+            "vmArgs": "--module-path 'lib' --add-modules javafx.controls,javafx.fxml"
         },
         {
             "type": "java",
@@ -21,19 +22,11 @@
         },
         {
             "type": "java",
-            "name": "UI",
-            "request": "launch",
-            "mainClass": "UI",
-            "projectName": "cse-110-project-team-11",
-            "vmArgs": "--module-path '\\Users\\trank\\Downloads\\openjfx-21_windows-x64_bin-sdk\\javafx-sdk-21\\lib' --add-modules javafx.controls,javafx.fxml"
-        },
-        {
-            "type": "java",
             "name": "InputUI",
             "request": "launch",
             "mainClass": "InputUI",
             "projectName": "cse-110-project-team-11",
-            "vmArgs": "--module-path '\\Users\\trank\\Downloads\\openjfx-21_windows-x64_bin-sdk\\javafx-sdk-21\\lib' --add-modules javafx.controls,javafx.fxml"
+            "vmArgs": "--module-path 'lib' --add-modules javafx.controls,javafx.fxml"
         },
         {
             "type": "java",
@@ -41,7 +34,7 @@
             "request": "launch",
             "mainClass": "RecipeDisplay",
             "projectName": "cse-110-project-team-11",
-            "vmArgs": "--module-path '\\Users\\trank\\Downloads\\openjfx-21_windows-x64_bin-sdk\\javafx-sdk-21\\lib' --add-modules javafx.controls,javafx.fxml"
+            "vmArgs": "--module-path 'lib' --add-modules javafx.controls,javafx.fxml"
         },
         {
             "type": "java",
@@ -49,7 +42,7 @@
             "request": "launch",
             "mainClass": "UI",
             "projectName": "cse-110-project-team-11",
-            "vmArgs": "--module-path '\\Users\\trank\\Downloads\\openjfx-21_windows-x64_bin-sdk\\javafx-sdk-21\\lib' --add-modules javafx.controls,javafx.fxml"
+            "vmArgs": "--module-path 'lib' --add-modules javafx.controls,javafx.fxml"
         }
     ]
 }
