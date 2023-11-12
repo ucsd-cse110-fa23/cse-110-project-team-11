@@ -49,9 +49,13 @@ public class RecipeManager {
                     String title = document.get("title").toString();
                     String ingredients = document.get("ingredients").toString();
                     String steps = document.get("steps").toString();
-                    RecipeDisplay recipeDisplay = new RecipeDisplay(stringID, title, ingredients, steps);
-                    HomePageAppFrame.getRecipeList().getChildren().add(recipeDisplay);
+                    RecipeDisplayAppFrame displayRec = new RecipeDisplayAppFrame(new RecipeDisplay(stringID, title, ingredients, steps));
+                    RecipeTitle recipeTitle = new RecipeTitle(stringID, title, displayRec);
+                    HomePageAppFrame.getRecipeList().getChildren().add(recipeTitle);
+                    // RecipeDisplay recipeDisplay = new RecipeDisplay(stringID, title, ingredients, steps);
+                    // HomePageAppFrame.getRecipeList().getChildren().add(recipeDisplay);
                 }
+                mongoClient.close();
             }
         }
     }
@@ -72,9 +76,11 @@ public class RecipeManager {
             .append("steps", steps);
             //System.out.println(recipe);
             recipeCollections.insertOne(recipe); // inserts into MongoDB
-            RecipeDisplay recipeDisplay = new RecipeDisplay(stringID, title, ingredients, steps);
-            HomePageAppFrame.getRecipeList().getChildren().add(recipeDisplay);
+            RecipeDisplayAppFrame displayRec = new RecipeDisplayAppFrame(new RecipeDisplay(stringID, title, ingredients, steps));
+            RecipeTitle recipeTitle = new RecipeTitle(stringID, title, displayRec);
+            HomePageAppFrame.getRecipeList().getChildren().add(recipeTitle);
             System.out.println("Insert successful");
+            mongoClient.close();
         }
     }
     
@@ -101,15 +107,18 @@ public class RecipeManager {
             MongoCollection<Document> recipeCollections = recipeDB.getCollection("recipes");
 
             // search for old recipe in database using the ID and get the titel, ing, steps
-            Document recipe = searchRecipe(objID);
+            Document recipe = searchRecipe(title);
+            
+            // Document recipe = recipeCollections.find(new Document("title", title)).first();
             if (recipe == null) {
+                System.out.println("hello2");
                 return;
             }
             // compare if they are different to properly update
             String oldTitle = recipe.getString("title");
             String oldIngredients = recipe.getString("ingredients");
             String oldSteps = recipe.getString("steps");
-            
+            System.out.println(steps);
             if (!oldTitle.equals(title)) { // if title is updated
                 Bson filter = eq("_id", id);
                 Bson updateOperation = set("title", title);
@@ -128,6 +137,7 @@ public class RecipeManager {
                 UpdateResult updateResult = recipeCollections.updateOne(filter, updateOperation);
                 System.out.println("updated title from " + oldSteps + "to " + steps);
             }
+            mongoClient.close();
         }
         
     }
@@ -136,17 +146,17 @@ public class RecipeManager {
      * Deletes one recipe, given a name
      * @param recipeName recipe to delete
      */
-    public static void deleteRecipe(String id) {
+    public static void deleteRecipe(String title) {
         try (MongoClient mongoClient = MongoClients.create(URI)) {
             MongoDatabase recipeDB = mongoClient.getDatabase("recipe_db");
             MongoCollection<Document> recipeCollections = recipeDB.getCollection("recipes");
-            Bson filter = eq("_id", id);
+            Bson filter = eq("title", title);
             DeleteResult result = recipeCollections.deleteOne(filter);
 
             // delete one document
             System.out.println(result);
-            ObjectId objectID = new ObjectId(id);
-            Document document = searchRecipe(objectID);
+            // ObjectId objectID = new ObjectId(id);
+            // Document document = searchRecipe(title);
             //delete from MongoDB
             recipeCollections.deleteOne(filter);
             // //delete from App
@@ -156,6 +166,7 @@ public class RecipeManager {
             // RecipeDisplay recipe = new RecipeDisplay(id, title, ingredients, steps);
 
             // HomePageAppFrame.getRecipeList().getChildren().remove(recipe);
+            mongoClient.close();
         }
     }
 
@@ -165,14 +176,43 @@ public class RecipeManager {
      * @param id
      * @return document of id 
      */
-    public static Document searchRecipe(ObjectId id) {
+    public static Document searchRecipe(String title) {
         try (MongoClient mongoClient = MongoClients.create(URI)) {
             MongoDatabase recipeDB = mongoClient.getDatabase("recipe_db");
             MongoCollection<Document> recipeCollections = recipeDB.getCollection("recipes");
+
             
             // filter based on id
-            Bson filter = eq("_id", id);
-            return recipeCollections.find(filter).first();
+            Bson filter = eq("title", title);
+            Document query = new Document("title", title);
+            Document document = recipeCollections.find(filter).first();
+            if (document != null) {
+                System.out.println("Recipe found: " + document.toJson());
+                return document;
+            } else {
+                System.out.println("Recipe not found: " + title);
+                return null;
+            }
+            /*
+
+            try (MongoCursor<Document> cursor = recipeCollections.find().iterator()) {
+                while(cursor.hasNext()) {
+                    Document doc = cursor.next();
+                    if(doc.get("title") == title) {
+                        System.out.println("HOLY FUCK");
+                        return doc;
+                    }
+                }
+            }
+            System.out.println("NOOOOOOO");
+            */
+            // mongoClient.close();
+            //return recipeCollections.find(filter).first();
+            // //System.out.println("recipe found: " + title);
+            // System.out.println("HI PLS PRINT");
+            // System.out.println(recipeCollections.find(eq("title", title)).first());
+            // //System.out.println(recipeCollections.find(filter).first());
+            // return recipeCollections.find(filter).first();
         }
     }
 

@@ -8,7 +8,6 @@
  * 
  * Each of these pages have their respective headers, bodies, buttons, etc.
  */
-import javax.print.attribute.HashDocAttributeSet;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -21,20 +20,20 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Label;
 import javafx.geometry.Insets;
 import javafx.scene.text.*;
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
 
 
 class RecipeTitle extends HBox {
+    private String id = null;
     private Label index;
-    private String id;
     private TextField title;
     private Button viewButton;
+    private RecipeDisplayAppFrame recipeDetail;
+    // private RecipeDisplay recipeDetail;
     /**
      * Constructor for generating format and recipe page. Handles indexing of the recipes
      */
-    RecipeTitle () {
+    RecipeTitle (String recipeTitle) {
         this.setPrefSize(500, 20); // sets size of task
         this.setStyle("-fx-background-color: #DAE5EA; -fx-border-width: 0; -fx-font-weight: bold;");
 
@@ -45,18 +44,54 @@ class RecipeTitle extends HBox {
         index.setPadding(new Insets(10, 0, 10, 0)); 
         this.getChildren().add(index); 
 
-        title = new TextField(); 
+        title = new TextField(recipeTitle); 
         title.setPrefSize(380, 20); 
         title.setStyle("-fx-background-color: #DAE5EA; -fx-border-width: 0;"); 
         index.setTextAlignment(TextAlignment.LEFT); 
         title.setPadding(new Insets(10, 0, 10, 0)); 
         this.getChildren().add(title); 
 
-        viewButton = new Button("Done"); 
+        viewButton = new Button("View"); 
         viewButton.setPrefSize(100, 20);
         viewButton.setPrefHeight(Double.MAX_VALUE);
         viewButton.setStyle("-fx-background-color: #DAE5EA; -fx-border-width: 0;"); 
         this.getChildren().add(viewButton);
+    }
+
+    RecipeTitle (String idString, String recipeTitle, RecipeDisplayAppFrame recDet) {
+        this.id = idString;
+        this.setPrefSize(500, 20); // sets size of task
+        this.setStyle("-fx-background-color: #DAE5EA; -fx-border-width: 0; -fx-font-weight: bold;");
+
+        recipeDetail = recDet;
+        
+        index = new Label();
+        index.setText(""); 
+        index.setPrefSize(40, 20); 
+        index.setTextAlignment(TextAlignment.CENTER); 
+        index.setPadding(new Insets(10, 0, 10, 0)); 
+        this.getChildren().add(index); 
+
+        title = new TextField(recipeTitle); 
+        title.setEditable(false);
+        title.setPrefSize(380, 20); 
+        title.setStyle("-fx-background-color: #DAE5EA; -fx-border-width: 0;"); 
+        index.setTextAlignment(TextAlignment.LEFT); 
+        title.setPadding(new Insets(10, 0, 10, 0)); 
+        this.getChildren().add(title); 
+
+        viewButton = new Button("View"); 
+        viewButton.setPrefSize(100, 20);
+        viewButton.setPrefHeight(Double.MAX_VALUE);
+        viewButton.setStyle("-fx-background-color: #DAE5EA; -fx-border-width: 0;"); 
+        this.getChildren().add(viewButton);
+        
+        viewButton.setOnAction( e -> {
+            System.out.println("bye");
+            UI.getRoot().setCenter(recipeDetail);
+            UI.getRoot().setTop(recipeDetail.getRecipeDisplayHeader());
+            //UI.getRoot().setTop(recipeDetail.getRecipeDisplayHeader());
+        });
     }
 
     public void setRecipeIndex(int num) {
@@ -70,7 +105,24 @@ class RecipeTitle extends HBox {
 
     public Button getViewButton () {
         return viewButton;
-    }   
+    } 
+
+    public RecipeDisplayAppFrame getRecipeDetail() {
+        return recipeDetail;
+    }  
+
+    public String getRecipeTitle() {
+        return title.toString();
+    }
+
+    public String getID() {
+        return this.id;
+    }
+    // Getters for recipe metadata
+    public void setID(String id) {
+        this.id = id;
+    }
+
 }
 
 /**
@@ -129,7 +181,7 @@ class HomePageHeader extends HBox {
 class HomePageAppFrame extends BorderPane{
     private HomePageHeader homePageHeader;
     private static RecipeList recipeList;
-    private Button createButton;
+    private Button createButton, viewButton;
 
 
     HomePageAppFrame(InputAppFrame InputPage) {
@@ -138,7 +190,7 @@ class HomePageAppFrame extends BorderPane{
         RecipeManager.loadRecipes(); // loads recipe
 
         createButton = homePageHeader.getCreateButton();    
-        
+
         ScrollPane scrollPane = new ScrollPane(recipeList);
         scrollPane.setFitToWidth(true);
         scrollPane.setFitToHeight(true);
@@ -447,9 +499,6 @@ class RecipeDisplayAppFrame extends BorderPane {
 
         deleteButton.setOnAction( e -> {
             RecipeManager.deleteRecipe(id);
-            for (int i = 0; i < HomePageAppFrame.getRecipeList().getChildren().size(); i++) {
-                
-            }
             UI.returnHomePage();
             
         });
@@ -468,7 +517,9 @@ class RecipeDisplayAppFrame extends BorderPane {
                 }
             }
             else {
+                System.out.println("hello");
                 try {
+                    System.out.println("hello1");
                     RecipeManager.updateRecipe(id, title.getText(), steps.getText(), ingredients.getText());
                 } catch (IOException e1) {
                     // TODO Auto-generated catch block
@@ -587,6 +638,8 @@ class InputAppFrame extends BorderPane {
     private String promptType;
     private TextArea recipeText;
 
+    private RecipeList recipeList;
+
     InputAppFrame() {
         // header = new Header();
         promptType = "MealType";
@@ -654,6 +707,8 @@ class InputAppFrame extends BorderPane {
                         // System.out.println(rec.getIngredients().getText());
                         // System.out.println(rec.getSteps().getText());
                         RecipeDisplayAppFrame displayRec = new RecipeDisplayAppFrame(rec);
+                        // RecipeTitle recipeTitle = new RecipeTitle(RecipeParser.getTitle(), displayRec);
+                        // recipeTitle.setRecipeDisplay(rec);
                         UI.getRoot().setCenter(displayRec);
                         UI.getRoot().setTop(displayRec.getRecipeDisplayHeader());
                         // recipeText.setText(text);
@@ -706,6 +761,8 @@ public class UI extends Application {
     }
     
     public static void returnHomePage() {
+        HomePageAppFrame.getRecipeList().getChildren().removeIf(RecipeTitle -> RecipeTitle instanceof RecipeTitle && true);  
+        RecipeManager.loadRecipes(); // loads recipe
         root.setCenter(HomePage);
         root.setTop(HomePage.getHomePageHeader());
     }
