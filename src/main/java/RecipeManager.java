@@ -3,10 +3,11 @@
  * Should handle delete recipe, insert recipe, save recipe (after editing).
  * TODO: add functionality to those buttons to call these methods.
  */
-
+import com.mongodb.client.*;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.FindOneAndUpdateOptions;
 import com.mongodb.client.model.ReturnDocument;
@@ -29,20 +30,50 @@ import static com.mongodb.client.model.Updates.*;
  */
 public class RecipeManager {
     public static final String URI = "mongodb+srv://hek007:7GVnvvaUfbPZsgnq@recipemanager.ksn9u3g.mongodb.net/?retryWrites=true&w=majority";
+    public static ObjectId id = new ObjectId();
+    public static String stringID;
 
+    public static String getStringID() {
+        return stringID;
+    }
+
+    public static void loadRecipes(){
+        try (MongoClient mongoClient = MongoClients.create(URI)) {
+            MongoDatabase recipeDB = mongoClient.getDatabase("recipes_db");
+            MongoCollection<Document> recipeCollections = recipeDB.getCollection("recipes");
+
+            try (MongoCursor<Document> cursor = recipeCollections.find().iterator()) {
+                while (cursor.hasNext()) {
+                    Document document = cursor.next();
+                    String stringID = document.get("_id").toString();
+                    String title = document.get("title").toString();
+                    String ingredients = document.get("ingredients").toString();
+                    String steps = document.get("steps").toString();
+                    RecipeDisplay recipeDisplay = new RecipeDisplay(stringID, title, ingredients, steps);
+                    HomePageAppFrame.getRecipeList().getChildren().add(recipeDisplay);
+                }
+            }
+        }
+    }
+    /**
+     * inserts recipe, gets instance variables from parser
+     */
     public static void insertRecipe(String title, String ingredients, String steps) throws IOException{
         try (MongoClient mongoClient = MongoClients.create(URI)) {
             MongoDatabase recipeDB = mongoClient.getDatabase("recipes_db");
             MongoCollection<Document> recipeCollections = recipeDB.getCollection("recipes");
 
             // recipe details: id, title, ingredients, steps
-            Document recipe = new Document("_id", new ObjectId());
+            ObjectId objectID = new ObjectId();
+            stringID = objectID.toString();
+            Document recipe = new Document("_id", objectID);
             recipe.append("title", title)
             .append("ingredients", ingredients)
             .append("steps", steps);
-
-            System.out.println(recipe);
+            //System.out.println(recipe);
             recipeCollections.insertOne(recipe); // inserts into MongoDB
+            RecipeDisplay recipeDisplay = new RecipeDisplay(stringID, title, ingredients, steps);
+            HomePageAppFrame.getRecipeList().getChildren().add(recipeDisplay);
             System.out.println("Insert successful");
         }
     }
@@ -54,22 +85,26 @@ public class RecipeManager {
      * -> Take all entries, and update 
      */
     /**
-     * done_button() {
+     * save_button() {
      *      string = title;
      *      string = ingredidentes;
      *       ...
      *      updateRecipe(id, title, ing, steps)
      * }
      * @param recipe
+     * @throws IOException
      */
-    public static void updateRecipe(ObjectId id, String title, String ingredients, String steps) {
-        try (MongoClient mongoClient = MongoClients.create(URI)) {
+    public static void updateRecipe(String id, String title, String ingredients, String steps) throws IOException {
+            ObjectId objID = new ObjectId(id); // wrap in ObjectID
+            try (MongoClient mongoClient = MongoClients.create(URI)) {
             MongoDatabase recipeDB = mongoClient.getDatabase("recipe_db");
             MongoCollection<Document> recipeCollections = recipeDB.getCollection("recipes");
 
             // search for old recipe in database using the ID and get the titel, ing, steps
-            Document recipe = searchRecipe(id);
-            
+            Document recipe = searchRecipe(objID);
+            if (recipe == null) {
+                return;
+            }
             // compare if they are different to properly update
             String oldTitle = recipe.getString("title");
             String oldIngredients = recipe.getString("ingredients");
@@ -94,13 +129,14 @@ public class RecipeManager {
                 System.out.println("updated title from " + oldSteps + "to " + steps);
             }
         }
+        
     }
 
     /**
      * Deletes one recipe, given a name
      * @param recipeName recipe to delete
      */
-    public static void deleteRecipe(ObjectId id) {
+    public static void deleteRecipe(String id) {
         try (MongoClient mongoClient = MongoClients.create(URI)) {
             MongoDatabase recipeDB = mongoClient.getDatabase("recipe_db");
             MongoCollection<Document> recipeCollections = recipeDB.getCollection("recipes");
@@ -109,6 +145,17 @@ public class RecipeManager {
 
             // delete one document
             System.out.println(result);
+            ObjectId objectID = new ObjectId(id);
+            Document document = searchRecipe(objectID);
+            //delete from MongoDB
+            recipeCollections.deleteOne(filter);
+            // //delete from App
+            // String title = document.get("title").toString();
+            // String ingredients = document.get("ingredients").toString();
+            // String steps = document.get("steps").toString();
+            // RecipeDisplay recipe = new RecipeDisplay(id, title, ingredients, steps);
+
+            // HomePageAppFrame.getRecipeList().getChildren().remove(recipe);
         }
     }
 
