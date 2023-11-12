@@ -541,7 +541,7 @@ class RecipeDisplayAppFrame extends BorderPane {
                 System.out.println("hello");
                 try {
                     System.out.println("hello1");
-                    RecipeManager.updateRecipe(id, title.getText(), ingredients.getText(), steps.getText());
+                    RecipeManager.updateRecipe(title.getText(), ingredients.getText(), steps.getText());
                 } catch (IOException e1) {
                     // TODO Auto-generated catch block
                     e1.printStackTrace();

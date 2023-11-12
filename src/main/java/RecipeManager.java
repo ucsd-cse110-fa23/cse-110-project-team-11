@@ -102,41 +102,27 @@ public class RecipeManager {
      * @param recipe
      * @throws IOException
      */
-    public static void updateRecipe(String id, String title, String ingredients, String steps) throws IOException {
-            ObjectId objID = new ObjectId(id); // wrap in ObjectID
-            try (MongoClient mongoClient = MongoClients.create(URI)) {
-            MongoDatabase recipeDB = mongoClient.getDatabase("recipe_db");
+    public static void updateRecipe(String title, String ingredients, String steps) throws IOException {
+        try (MongoClient mongoClient = MongoClients.create(URI)) {
+            MongoDatabase recipeDB = mongoClient.getDatabase("recipes_db");
             MongoCollection<Document> recipeCollections = recipeDB.getCollection("recipes");
-            System.out.println("Steps:" + steps);
+            System.out.println("opened mongoDB?");
+            // back up; does not correct the indices
+            // deleteRecipe(title);
+            // insertRecipe(title, ingredients, steps);
 
-            deleteRecipe(title);
-            insertRecipe(title, ingredients, steps);
-            // compare if they are different to properly update
-        //     String oldTitle = recipe.getString("title");
-        //     String oldIngredients = recipe.getString("ingredients");
-        //     String oldSteps = recipe.getString("steps");
-        //     System.out.println(steps);
-        //     if (!oldTitle.equals(title)) { // if title is updated
-                // Bson filter = eq("_id", id);
-                // Bson updateOperation = set("title", title);
-                // UpdateResult updateResult = recipeCollections.updateOne(filter, updateOperation);
-        //         System.out.println("updated title from " + oldTitle + "to " + title);
-        //     }
-        //     if (!oldIngredients.equals(ingredients)) { // if ingredients is updated
-        //         Bson filter = eq("_id", id);
-        //         Bson updateOperation = set("ingredients", ingredients);
-        //         UpdateResult updateResult = recipeCollections.updateOne(filter, updateOperation);
-        //         System.out.println("updated title from " + oldIngredients + "to " + ingredients);
-        //     }
-        //     if (!oldSteps.equals(steps)) {
-        //         Bson filter = eq("_id", id);
-        //         Bson updateOperation = set("steps", steps);
-        //         UpdateResult updateResult = recipeCollections.updateOne(filter, updateOperation);
-        //         System.out.println("updated title from " + oldSteps + "to " + steps);
-        //     }
-        //     mongoClient.close();
+            // update ingredients
+            Bson filter = eq("title", title);
+            Bson update = set("ingredients", ingredients);
+            UpdateResult result = recipeCollections.updateOne(filter, update);
+            System.out.println("update ingredients: " + result);
+            // update steps
+            update = set("steps", steps);
+            result = recipeCollections.updateOne(filter, update);
+            System.out.println("update steps: " + result);
+
+            mongoClient.close();
         }
-        
     }
 
     /**
