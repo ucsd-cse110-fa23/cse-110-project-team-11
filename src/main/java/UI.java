@@ -528,8 +528,8 @@ class InputAppFrame extends BorderPane {
                     try {
                         RecipeParser.parse(); 
                         rec.setTitle(RecipeParser.getTitle());
-                        rec.setIngreds(RecipeParser.getIngredients());
-                        rec.setSteps(RecipeParser.getSteps());
+                        rec.setIngreds(RecipeParser.getStringIngredients());
+                        rec.setSteps(RecipeParser.getStringSteps());
                         System.out.println(rec.getIngredients().getText());
                         System.out.println(rec.getSteps().getText());
                         RecipeDisplayAppFrame displayRec = new RecipeDisplayAppFrame(rec);
