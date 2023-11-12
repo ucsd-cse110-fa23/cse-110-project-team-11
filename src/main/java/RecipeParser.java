@@ -16,7 +16,7 @@ public class RecipeParser {
     private static String ingredients = "Ingredients: \n";
     private static String steps = "Steps: \n";
     private static final String RECIPE_FILE = "./recipe.txt";
-    public static String id = RecipeManager.stringID;
+  public static String id = RecipeManager.stringID;
 
     // getter methods for private variables
     public static String getID() {
@@ -26,7 +26,6 @@ public class RecipeParser {
         return TITLE;
     }
     public static String getStringSteps() {
-        // System.out.println("This is what recipe parser got for steps: \n" + steps);
         return steps;
     }
     public static String getStringIngredients() {
