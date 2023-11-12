@@ -1,28 +1,34 @@
-
+/** 
+ * This file contains RecipeParser.java
+*/
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.*;
 
+/**
+ * This class reads text from "recipe.txt" and parses it into title, list of ingredients, and list of steps
+ */
 public class RecipeParser{
-    private String TITLE;
-    private List<String> INGREDIENTS = new ArrayList<>();
-    private List<String> STEPS = new ArrayList<>();
+    private static String TITLE;
+    private static String INGREDIENTS = "Ingredients \n";
+    private static String STEPS = "Steps \n";
 
     // getter methods for private variables
-    public String getTitle() {
+    public static String getTitle() {
         return TITLE;
     }
-    public List<String> getIngredients() {
+    public static String getIngredients() {
         return INGREDIENTS;
     }
-    public List<String> getSteps() {
+    public static String getSteps() {
         return STEPS;
     }
 
-    public void parse() throws IOException, InterruptedException {
+    /**
+     * Parse recipe
+     */
+    public static void parse() throws IOException, InterruptedException {
         FileReader fr
         = new FileReader("recipe.txt"); // reads recipes text created by RecipeCreator
         BufferedReader br = new BufferedReader(fr);
@@ -36,16 +42,15 @@ public class RecipeParser{
                         TITLE = line.substring(7); // start of recipe title
                         break;
                     case '-': // Ingredients
-                        line = line.substring(1); // gets rid of dash
+                        // line = line.substring(1); // gets rid of dash
                         first = line.charAt(0); // check for space
                         if (first == ' ') {
                             line = line.substring(1); // gets rid of space
                         }
-                        INGREDIENTS.add(line);
+                        INGREDIENTS += line + "\n";
                         break;
                     case '#': // Steps
-                        line = line.substring(3); // start of step
-                        STEPS.add(line);
+                        STEPS += line + "\n";
                 }
             }
         }
