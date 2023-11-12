@@ -29,6 +29,7 @@ public class Controller {
     private HomePageHeader hph;
     private HomePageAppFrame hp;
     private RecipeDisplayAppFrame rd;
+    private RecipeTitle rt = new RecipeTitle("");
 
     public Controller(UI ui) {
         this.ui = ui;
@@ -52,6 +53,7 @@ public class Controller {
         this.hp.setCreateButtonAction(this::handleCreateButton);
         this.rd.setSaveButtonAction(this::handleSaveButton);
         this.rd.setEditButtonAction(this::handleEditButton);
+        this.rt.setViewButtonAction(this::handleViewButton);
     }
 
     private void handleCreateButton(ActionEvent event) {
@@ -84,6 +86,7 @@ public class Controller {
                 rc.generateRecipe();
                 try {
                     rp.parse(); 
+                    rec.setID(null);
                     rec.setTitle(rp.getTitle());
                     rec.setIngreds(rp.getStringIngredients());
                     rec.setSteps(rp.getStringSteps());
@@ -150,8 +153,11 @@ public class Controller {
         if (rd.getID() == null) {
             try {
 
-                RecipeDisplay recipeDis = RecipeManager.insertRecipe(rd.getTitle().getText(), rd.getIngredients().getText(), rd.getSteps().getText());
+                RecipeTitle recipeDis = RecipeManager.insertRecipe(rd.getTitle().getText(), rd.getIngredients().getText(), rd.getSteps().getText());
                 rd.setID(RecipeManager.getStringID());
+                recipeDis.setViewButtonAction(this::handleViewButton);
+                recipeDis.getRecipeDetail().setBackButtonAction2(this::handleBackButton2);
+                this.rt = recipeDis;
                 hp.getRecipeList().getChildren().add(recipeDis);
             } catch (IOException e1) {
                 // TODO Auto-generated catch block
@@ -168,12 +174,24 @@ public class Controller {
         }
     }
 
+    private void handleViewButton(ActionEvent event){
+   
+        ui.getRoot().setCenter(this.rt.getRecipeDetail()); 
+        ui.getRoot().setTop(this.rt.getRecipeDetail().getRecipeDisplayHeader());
+    }
+
     public void loadRecipes(){
-        ArrayList<RecipeDisplay> recipes = RecipeManager.loadRecipes();
+        ArrayList<RecipeTitle> recipes = RecipeManager.loadRecipes();
         
         for(int i = 0; i < recipes.size(); i++){
+            //recipes.get(i).setViewButtonAction(this::handleViewButton);
+            RecipeTitle title = recipes.get(i);
+            recipes.get(i).getViewButton().setOnAction(e1->{
+                ui.getRoot().setCenter(title.getRecipeDetail()); 
+                ui.getRoot().setTop(title.getRecipeDetail().getRecipeDisplayHeader());
+            });
             hp.getRecipeList().getChildren().add(recipes.get(i));
-            
+            title.getRecipeDetail().setBackButtonAction2(this::handleBackButton2);
         }
 
     }
