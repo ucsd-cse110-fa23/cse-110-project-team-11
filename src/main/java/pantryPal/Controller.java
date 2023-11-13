@@ -71,12 +71,12 @@ public class Controller {
         this.rt.setViewButtonAction(this::handleViewButton);
     }
 
-    private void handleCreateButton(ActionEvent event) {
+    public void handleCreateButton(ActionEvent event) {
         ui.getRoot().setCenter(inputFrame);
         ui.getRoot().setTop(inputFrame.getReturnHeader());
     }
 
-    private void handleStartButton(ActionEvent event) {
+    public void handleStartButton(ActionEvent event) {
         RecButtons rb = inputFrame.getRecButtons();
         rb.setRecordingLabel("Recording");
         input.captureAudio();
@@ -85,7 +85,7 @@ public class Controller {
     }
     //TODO auto stop when press back
 
-    private void handleStopButton(ActionEvent event) throws InterruptedException, IOException {
+    public void handleStopButton(ActionEvent event) throws InterruptedException, IOException {
         // Stop Button
 
         String promptType = input.getPromptType();
@@ -191,7 +191,7 @@ public class Controller {
         }
     }
 
-    private void handleSaveButton(ActionEvent event) {
+    public void handleSaveButton(ActionEvent event) {
         rd.getIngredients().setEditable(false);
         rd.getSteps();
         if (rd.getID() == null) { // if does not exist in MongoDB (?)
