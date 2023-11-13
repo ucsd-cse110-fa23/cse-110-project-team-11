@@ -107,7 +107,7 @@ public class RecipeManagerTest {
             }
         });
         thread.start();// Initialize the thread
-            Thread.sleep(50); // Time to use the app, with out this, the thread
+            Thread.sleep(3000); // Time to use the app, with out this, the thread
     }
 
      @Test
