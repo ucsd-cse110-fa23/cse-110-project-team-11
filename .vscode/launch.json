@@ -6,17 +6,35 @@
     "configurations": [
         {
             "type": "java",
-            "name": "RecipeCreator",
+            "name": "RecipeManager",
             "request": "launch",
-            "mainClass": "RecipeCreator",
+            "mainClass": "pantryPal.RecipeManager",
             "projectName": "cse-110-project-team-11",
             "vmArgs": "--module-path 'lib' --add-modules javafx.controls,javafx.fxml"
+
+        },
+        {
+            "type": "java",
+            "name": "Server",
+            "request": "launch",
+            "mainClass": "pantryPal.Server",
+            "projectName": "cse-110-project-team-11",
+            "vmArgs": "--module-path 'lib' --add-modules javafx.controls,javafx.fxml"
+
         },
         {
             "type": "java",
             "name": "App",
             "request": "launch",
-            "mainClass": "App",
+            "mainClass": "pantryPal.View.App",
+            "projectName": "cse-110-project-team-11",
+            "vmArgs": "--module-path 'lib' --add-modules javafx.controls,javafx.fxml"
+        },
+        {
+            "type": "java",
+            "name": "RecipeCreator",
+            "request": "launch",
+            "mainClass": "RecipeCreator",
             "projectName": "cse-110-project-team-11",
             "vmArgs": "--module-path 'lib' --add-modules javafx.controls,javafx.fxml"
         },
@@ -26,7 +44,7 @@
             "request": "launch",
             "mainClass": "UI",
             "projectName": "cse-110-project-team-11",
-            "vmArgs": "--module-path '\\Users\\trank\\Downloads\\openjfx-21_windows-x64_bin-sdk\\javafx-sdk-21\\lib' --add-modules javafx.controls,javafx.fxml"
+            "vmArgs": "--module-path 'lib' --add-modules javafx.controls,javafx.fxml"
         },
         {
             "type": "java",

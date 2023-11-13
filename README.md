@@ -15,8 +15,6 @@ After navigating to the project's `java` folder (should be found in `cse-110-pro
 ### Visual Studio Code 
 Try to run the app, by pressing the UI.java launch button.\
 <img width="166" alt="image" src="https://github.com/ucsd-cse110-fa23/cse-110-project-team-11/assets/97645890/f6a7f837-fe2a-4911-9616-0c3b4f06315c">
-### Eclipse
-Run the UI.java
 ## Expected Output
 <img width="300" alt="Screenshot 2023-11-11 at 11 19 30 PM" src="https://github.com/ucsd-cse110-fa23/cse-110-project-team-11/assets/97645890/fc81f816-9cdc-4279-83ce-b68fc1aac760">
 
