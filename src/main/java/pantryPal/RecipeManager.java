@@ -133,6 +133,23 @@ public class RecipeManager {
     }
 
     /**
+     * Deletes one recipe, given a id
+     * @param id recipe to delete
+     */
+    public static DeleteResult deleteRecipeByID(String id) throws IOException {
+        ObjectId objID = new ObjectId(id);
+        try (MongoClient mongoClient = MongoClients.create(URI)) {
+            MongoDatabase recipeDB = mongoClient.getDatabase("recipes_db");
+            MongoCollection<Document> recipeCollections = recipeDB.getCollection("recipes");
+            System.out.println("opened mongoDB?");
+            Bson filter = eq("_id", objID);
+            DeleteResult result = recipeCollections.deleteOne(filter);
+            System.out.println("delete: " + result);
+            return result;
+        }
+    }
+
+        /**
      * Deletes one recipe, given a name
      * @param title recipe to delete
      */
