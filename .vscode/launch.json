@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "RecipeManager",
+            "request": "launch",
+            "mainClass": "pantryPal.RecipeManager",
+            "projectName": "cse-110-project-team-11"
+        },
+        {
+            "type": "java",
             "name": "App",
             "request": "launch",
             "mainClass": "pantryPal.View.App",

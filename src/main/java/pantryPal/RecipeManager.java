@@ -160,9 +160,16 @@ public class RecipeManager {
             
             // filter based on id
             Bson filter = eq("title", title);
-            Document doc = recipeCollections.find(filter).first();
-            System.out.println("found: " + doc.toJson());
-            return doc;
+            Document doc = recipeCollections.findOne(filter).first();
+            if(doc != null) {
+                System.out.println("found: " + doc.toJson());
+                return doc;
+
+            }
+            else {
+                System.out.println("doc not found");
+                return null;
+            }
         }
     }
 
@@ -176,5 +183,9 @@ public class RecipeManager {
 
             recipeCollections.deleteMany(new Document());
         }
+    }
+
+    public static void main(String[] args) {
+        System.out.println(RecipeManager.searchRecipe("Apple Pie").get("title"));
     }
 }

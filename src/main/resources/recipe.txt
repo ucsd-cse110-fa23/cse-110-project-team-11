@@ -1,20 +1,21 @@
 
 
-Title: Steak with Garlic-Butter Mushrooms
+Title: Bacon and Egg Breakfast
 
-Ingredients:
-- Steak
-- Garlic
-- Butter
-- Mushrooms
-- Salt
-- Pepper
+Ingredients: 
+- Bacon 
+- Egg 
+- Salt 
+- Pepper 
+- Butter 
+- Toast
 
-#1 Preheat oven to 350°F.
-#2 Place steak on a baking sheet.
-#3 Sprinkle steak with salt and pepper.
-#4 Bake steak in preheated oven for 15 minutes.
-#5 Meanwhile, melt butter in a large skillet over medium-high heat.
-#6 Add mushrooms and garlic to the skillet and cook, stirring occasionally, until mushrooms are golden brown, about 5 minutes.
-#7 Remove steak from oven and let rest for 5 minutes.
-#8 Serve steak with garlic-butter mushrooms.
+#1 Heat a skillet over medium heat. 
+#2 Add bacon to the skillet and cook until desired crispness. 
+#3 Remove bacon from skillet and set aside. 
+#4 Crack the egg into the skillet. 
+#5 Sprinkle with salt and pepper. 
+#6 Cook until desired doneness. 
+#7 Place a pat of butter onto each slice of toast. 
+#8 Place the cooked egg onto one slice of toast and the bacon onto the other. 
+#9 Serve and enjoy!

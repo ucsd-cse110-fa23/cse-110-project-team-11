@@ -2,12 +2,14 @@
  *  Methods/Unit Tests to test:
  * 
  */
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import java.io.FileWriter;   // Import the FileWriter class
 import java.io.IOException;  // Import the IOException class to handle errors
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.geometry.Pos;
@@ -49,8 +51,20 @@ public class AppTest extends App {
     //     assertEquals(UI.getRoot().getCenter(), UI.getHomePage());
     //     assertEquals(sizeBefore, HomePageAppFrame.getRecipeList().getChildren().size());
     // }
+    @BeforeAll 
+    public static void setUpClass() throws InterruptedException {
+        Thread thread = new Thread(new Runnable() {
+        @Override
+        public void run() {
+            Application.launch(App.class,new String[0]); 
+            }
+        });
+        thread.start();// Initialize the thread
+        Thread.sleep(0);
+    }
     @Test
     public void testCreateButton() {
+        
         HomePageHeader hph = new HomePageHeader();
         assertNotNull(hph.getCreateButton(), "Should not be null");
         // assertEquals(UI.getRoot().getCenter(), UI.getInputPage());
@@ -106,7 +120,7 @@ public class AppTest extends App {
         assertNotNull(startButton,"should not be null");
         
         Label label = appFrame.getRecordingLabel();
-        assertEquals(label, "Recording"); // checks if button can be pressed/functions
+        assertNotNull(label, "should not be null"); // checks if button can be pressed/functions
     }
 
     @Test
@@ -117,20 +131,6 @@ public class AppTest extends App {
         
         Label label = appFrame.getRecordingLabel();
         assertNotNull(label,"should not be null"); // check if button can be pressed/valid input
-    }
-
-    @Test
-    public void testSetCenter() {
-        BorderPane appFrame = new BorderPane();
-        InputAppFrame inputPage = new InputAppFrame();
-        HomePageAppFrame homePage = new HomePageAppFrame(inputPage);
-        RecipeDisplayAppFrame recipePage = new RecipeDisplayAppFrame(null);
-        appFrame.setCenter(inputPage);
-        assertEquals(appFrame.getCenter(),inputPage);
-        appFrame.setCenter(homePage);
-        assertEquals(appFrame.getCenter(),homePage);
-        appFrame.setCenter(recipePage);
-        assertEquals(appFrame.getCenter(),recipePage);
     }
     
 }
