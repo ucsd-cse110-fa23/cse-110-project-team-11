@@ -32,17 +32,17 @@ public class AppTest extends App {
     //     assertEquals(UI.getRoot().getCenter(), UI.getHomePage());
     //     assertEquals(sizeBefore, HomePageAppFrame.getRecipeList().getChildren().size());
     // }
-    @BeforeAll 
-    public static void setUpClass() throws InterruptedException {
-        Thread thread = new Thread(new Runnable() {
-        @Override
-        public void run() {
-            Application.launch(App.class,new String[0]); 
-            }
-        });
-        thread.start();// Initialize the thread
-        Thread.sleep(0);
-    }
+    // @BeforeAll 
+    // public static void setUpClass() throws InterruptedException {
+    //     Thread thread = new Thread(new Runnable() {
+    //     @Override
+    //     public void run() {
+    //         Application.launch(App.class,new String[0]); 
+    //         }
+    //     });
+    //     thread.start();// Initialize the thread
+    //     Thread.sleep(0);
+    // }
     @Test
     public void testCreateButton() {
         
