@@ -34,7 +34,7 @@ public class Input {
     }
 
     private String promptType = "MealType";
-
+    
     public  void captureAudio(){
         try{
 
@@ -138,7 +138,7 @@ public class Input {
     public TargetDataLine getMic(){
         return mic;
     }
-    
+
     public void setPromptType(String promptType){
         this.promptType = promptType;
     }

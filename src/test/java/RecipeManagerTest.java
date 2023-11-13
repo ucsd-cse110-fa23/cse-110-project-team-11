@@ -36,31 +36,6 @@ public class RecipeManagerTest {
             thread.start();// Initialize the thread
     }
 
-    // @Test
-    // void testLoad() throws IOException {
-    //     InputAppFrame ip = new InputAppFrame();
-    //     HomePageAppFrame home = new HomePageAppFrame(ip);
-
-    //     ArrayList<String[]> recipes = RecipeManager.loadRecipes();
-    //     for(int i = 0; i < recipes.size(); i++){
-
-    //         String stringID = recipes.get(i)[0];
-    //         String title = recipes.get(i)[1];
-    //         String ingredients = recipes.get(i)[2];
-    //         String steps = recipes.get(i)[3];
-    //         RecipeDisplay recipeDisplay = new RecipeDisplay(stringID, title, ingredients, steps);
-    //         RecipeDisplayAppFrame rec = new RecipeDisplayAppFrame(recipeDisplay);
-    //         RecipeTitle recipeTitle = new RecipeTitle(stringID, title, rec);
-    //         //recipes.get(i).setViewButtonAction(this::handleViewButton);
-    //         // RecipeTitle title = recipes.get(i);
-    //         //System.out.println(title.getID());
-    //         // RecipeDisplayAppFrame recDisp = title.getRecipeDetail();
-    //         rec.setID(recipeTitle.getID());
-    //         // System.out.println(rec.getID());
-    //         home.getRecipeList().getChildren().add(recipeTitle);
-    //     }
-    //     assertEquals(home.getRecipeList().getChildren().size(), RecipeManager.loadRecipes().size());
-    // }
 
     @Test
     public void testLoad() throws InterruptedException {
@@ -107,10 +82,11 @@ public class RecipeManagerTest {
             }
         });
         thread.start();// Initialize the thread
-            Thread.sleep(3000); // Time to use the app, with out this, the thread
+        Thread.sleep(3000); // Time to use the app, with out this, the thread
     }
 
      @Test
+
     void testInsert() throws IOException {
         RecipeManager.insertRecipe("test test test test test", "Test Ingredients", "Test Steps");
         //Document doc = RecipeManager.searchRecipe("Apple Pie");

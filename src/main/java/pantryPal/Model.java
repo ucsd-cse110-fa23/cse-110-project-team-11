@@ -1,12 +1,8 @@
 package pantryPal;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
-
-import pantryPal.View.RecipeTitle;
 
 import java.net.URI;
 
@@ -27,21 +23,17 @@ public class Model {
 
             if (method.equals("PUT")) {
                 String[] strings = RecipeManager.insertRecipe(title, ingredients, steps);
-                OutputStreamWriter out = new OutputStreamWriter(conn.getOutputStream());
-                out.write("insert: " + title + ", " + ingredients + ", " + steps + ", " + id);
-                out.flush();
-                out.close();
                 return strings;
             }
             else if (method.equals("GET")) {
+                OutputStreamWriter out = new OutputStreamWriter(conn.getOutputStream());
+                out.write("LOADING RECIPES");
+                out.flush();
+                out.close();
                 RecipeManager.loadRecipes();
             }
             else if (method.equals("DELETE")) {
                 System.out.println("HI THIS IS IN MODEL.JAVA");
-                OutputStreamWriter out = new OutputStreamWriter(conn.getOutputStream());
-                out.write("to delete: " + title + ", " + ingredients + ", " + steps + ", " + id);
-                out.flush();
-                out.close();
                 RecipeManager.deleteRecipeByID(id);
             }
             return null;

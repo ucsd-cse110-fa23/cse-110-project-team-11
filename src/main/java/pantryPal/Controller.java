@@ -6,11 +6,6 @@ import javafx.scene.control.TextArea;
 import java.io.IOException;
 import java.util.*;
 
-import javax.print.attribute.HashDocAttributeSet;
-
-import com.mongodb.client.result.UpdateResult;
-
-import pantryPal.RecipeParser;
 import pantryPal.View.HomePageAppFrame;
 import pantryPal.View.HomePageHeader;
 import pantryPal.View.InputAppFrame;
@@ -19,19 +14,6 @@ import pantryPal.View.RecButtons;
 import pantryPal.View.RecipeDisplay;
 import pantryPal.View.RecipeTitle;
 import pantryPal.View.UI;
-import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
-import javafx.geometry.Pos;
-import javafx.scene.layout.*;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
-import javafx.scene.control.Label;
-import javafx.geometry.Insets;
-import javafx.scene.text.*;
-import java.io.BufferedReader;
-import java.io.FileReader;
-import javafx.event.EventHandler;
 public class Controller {
     
     private Input input = new Input();
@@ -71,21 +53,21 @@ public class Controller {
         this.rt.setViewButtonAction(this::handleViewButton);
     }
 
-    private void handleCreateButton(ActionEvent event) {
+    public void handleCreateButton(ActionEvent event) {
         ui.getRoot().setCenter(inputFrame);
         ui.getRoot().setTop(inputFrame.getReturnHeader());
     }
 
-    private void handleStartButton(ActionEvent event) {
+    public void handleStartButton(ActionEvent event) {
         RecButtons rb = inputFrame.getRecButtons();
         rb.setRecordingLabel("Recording");
         input.captureAudio();
         inputFrame.getRecButtons().getButtonBox().getChildren().remove(inputFrame.getRecButtons().getStartButton());
         inputFrame.getRecButtons().getButtonBox().getChildren().add(inputFrame.getRecButtons().getStopButton());
     }
-    //TODO auto stop when press back
+    // TODO auto stop when press back
 
-    private void handleStopButton(ActionEvent event) throws InterruptedException, IOException {
+    public void handleStopButton(ActionEvent event) throws InterruptedException, IOException {
         // Stop Button
 
         String promptType = input.getPromptType();
@@ -189,7 +171,7 @@ public class Controller {
         }
     }
 
-    private void handleSaveButton(ActionEvent event) {
+    public void handleSaveButton(ActionEvent event) {
         rd.getIngredients().setEditable(false);
         rd.getSteps();
         if (rd.getID() == null) { // if does not exist in MongoDB (?)
@@ -202,6 +184,7 @@ public class Controller {
             RecipeDisplay recipeDisplay = new RecipeDisplay(stringID, title, ingredients, steps);
             RecipeDisplayAppFrame rec = new RecipeDisplayAppFrame(recipeDisplay);
             RecipeTitle recipeDis = new RecipeTitle(stringID, title, rec);
+            model.performRequest("PUT", rd.getTitle().getText(), rd.getIngredients().getText(), rd.getSteps().getText(), rd.getID());
             rd.setID(RecipeManager.getStringID());
             recipeDis.setViewButtonAction(this::handleViewButton);
             recipeDis.getRecipeDetail().setBackButtonAction2(this::handleBackButton2);

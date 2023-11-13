@@ -4,24 +4,18 @@ package pantryPal;
  * Should handle delete recipe, insert recipe, save recipe (after editing).
  * TODO: add functionality to those buttons to call these methods.
  */
-import com.mongodb.client.*;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
-import com.mongodb.client.model.FindOneAndUpdateOptions;
-import com.mongodb.client.model.ReturnDocument;
-import com.mongodb.client.model.UpdateOptions;
 import com.mongodb.client.result.DeleteResult;
 import com.mongodb.client.result.UpdateResult;
 import org.bson.Document;
 import org.bson.conversions.Bson;
-import org.bson.json.JsonWriterSettings;
 import org.bson.types.ObjectId;
 import java.util.*;
 import java.io.*;
-import static com.mongodb.client.model.Filters.and;
 import static com.mongodb.client.model.Filters.eq;
 import static com.mongodb.client.model.Updates.*;
 
@@ -142,7 +136,7 @@ public class RecipeManager {
         try (MongoClient mongoClient = MongoClients.create(URI)) {
             MongoDatabase recipeDB = mongoClient.getDatabase("recipes_db");
             MongoCollection<Document> recipeCollections = recipeDB.getCollection("recipes");
-            System.out.println("opened mongoDB (delete by ID)");
+            System.out.println("opened mongoDB?");
             Bson filter = eq("_id", objID);
             DeleteResult result = recipeCollections.deleteOne(filter);
             System.out.println("delete: " + result);
