@@ -1,3 +1,4 @@
+package pantryPal;
 /**
  * This file contains RecipeCreator
  */
@@ -76,7 +77,7 @@ public class RecipeCreator implements IRecipeCreator {
         String generatedText = choices.getJSONObject(0).getString("text");
 
         // write recipe to "recipe.txt"
-        try (FileWriter writer = new FileWriter("recipe.txt");
+        try (FileWriter writer = new FileWriter("src/main/resources/recipe.txt");
                 BufferedWriter bw = new BufferedWriter(writer)) {
 
                bw.write(generatedText);

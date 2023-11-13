@@ -1,3 +1,4 @@
+package pantryPal;
 /**
  * Goal of RecipeParser.java:
  * 
@@ -9,13 +10,12 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.*;
 
 public class RecipeParser {
     private String TITLE;
     private String ingredients = "Ingredients: \n";
     private String steps = "Steps: \n";
-    private final String RECIPE_FILE = "./recipe.txt";
+    private final String RECIPE_FILE = "src/main/resources/recipe.txt";
     public String id = RecipeManager.stringID;
 
     // getter methods for private variables

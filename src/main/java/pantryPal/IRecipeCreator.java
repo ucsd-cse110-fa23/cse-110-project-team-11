@@ -1,7 +1,7 @@
+package pantryPal;
 /**
  * Interface for RecipeCreator objects
  */
-import java.io.IOException;
 
 public interface IRecipeCreator
 {

@@ -1,4 +1,5 @@
 
+package pantryPal;
 import java.io.*;
 import java.net.*;
 import org.json.*;
@@ -10,6 +11,9 @@ import javax.sound.sampled.*;
 // https://www.developer.com/java/java-sound-capturing-microphone-data-into-an-audio-file/#Run%20the%20program 
 
 public class Input {
+
+    
+
 
     private  final String API_ENDPOINT = "https://api.openai.com/v1/audio/transcriptions";
     private  final String TOKEN = "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";
@@ -30,7 +34,7 @@ public class Input {
     }
 
     private String promptType = "MealType";
-
+    
     public  void captureAudio(){
         try{
 
@@ -130,9 +134,11 @@ public class Input {
         return false;
     }
 
+
     public TargetDataLine getMic(){
         return mic;
     }
+
     public void setPromptType(String promptType){
         this.promptType = promptType;
     }

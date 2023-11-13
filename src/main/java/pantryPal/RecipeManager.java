@@ -1,26 +1,21 @@
+package pantryPal;
 /**
  * This file should handle the functions that change our database in MongoDB.
  * Should handle delete recipe, insert recipe, save recipe (after editing).
  * TODO: add functionality to those buttons to call these methods.
  */
-import com.mongodb.client.*;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
-import com.mongodb.client.model.FindOneAndUpdateOptions;
-import com.mongodb.client.model.ReturnDocument;
-import com.mongodb.client.model.UpdateOptions;
 import com.mongodb.client.result.DeleteResult;
 import com.mongodb.client.result.UpdateResult;
 import org.bson.Document;
 import org.bson.conversions.Bson;
-import org.bson.json.JsonWriterSettings;
 import org.bson.types.ObjectId;
 import java.util.*;
 import java.io.*;
-import static com.mongodb.client.model.Filters.and;
 import static com.mongodb.client.model.Filters.eq;
 import static com.mongodb.client.model.Updates.*;
 
@@ -73,7 +68,7 @@ public class RecipeManager {
             // recipe details: id, title, ingredients, steps
             ObjectId objectID = new ObjectId();
             stringID = objectID.toString();
-            System.out.println("Steps:" + steps);
+            // System.out.println("Steps:" + steps);
             Document recipe = new Document("_id", objectID);
             recipe.append("title", title)
             .append("ingredients", ingredients)
@@ -107,41 +102,61 @@ public class RecipeManager {
      * @param recipe
      * @throws IOException
      */
-    public static void updateRecipe(String title, String ingredients, String steps) throws IOException {
+    public static UpdateResult updateRecipe(String title, String ingredients, String steps, String id) throws IOException {
+        ObjectId objID = new ObjectId(id);
         try (MongoClient mongoClient = MongoClients.create(URI)) {
             MongoDatabase recipeDB = mongoClient.getDatabase("recipes_db");
             MongoCollection<Document> recipeCollections = recipeDB.getCollection("recipes");
-            System.out.println("opened mongoDB?");
+            System.out.println("opened mongoDB? (update recipe)");
             // back up; does not correct the indices
             // deleteRecipe(title);
             // insertRecipe(title, ingredients, steps);
 
             // update ingredients
-            Bson filter = eq("title", title);
+            Bson filter = eq("_id", objID);
             Bson update = set("ingredients", ingredients);
             UpdateResult result = recipeCollections.updateOne(filter, update);
-            System.out.println("update ingredients: " + result);
+            // System.out.println("update ingredients: " + result);
             // update steps
             update = set("steps", steps);
             result = recipeCollections.updateOne(filter, update);
-            System.out.println("update steps: " + result);
+            // System.out.println("update steps: " + result);
 
             mongoClient.close();
+            return result;
         }
     }
 
     /**
-     * Deletes one recipe, given a name
-     * @param title recipe to delete
+     * Deletes one recipe, given a id
+     * @param id recipe to delete
      */
-    public static void deleteRecipe(String title) throws IOException {
+    public static DeleteResult deleteRecipeByID(String id) throws IOException {
+        ObjectId objID = new ObjectId(id);
         try (MongoClient mongoClient = MongoClients.create(URI)) {
             MongoDatabase recipeDB = mongoClient.getDatabase("recipes_db");
             MongoCollection<Document> recipeCollections = recipeDB.getCollection("recipes");
             System.out.println("opened mongoDB?");
+            Bson filter = eq("_id", objID);
+            DeleteResult result = recipeCollections.deleteOne(filter);
+            System.out.println("delete: " + result);
+            return result;
+        }
+    }
+
+        /**
+     * Deletes one recipe, given a name
+     * @param title recipe to delete
+     */
+    public static DeleteResult deleteRecipe(String title) throws IOException {
+        try (MongoClient mongoClient = MongoClients.create(URI)) {
+            MongoDatabase recipeDB = mongoClient.getDatabase("recipes_db");
+            MongoCollection<Document> recipeCollections = recipeDB.getCollection("recipes");
+            System.out.println("opened mongoDB (delete recipe)");
             Bson filter = eq("title", title);
             DeleteResult result = recipeCollections.deleteOne(filter);
             System.out.println("delete: " + result);
+            return result;
         }
     }
 
@@ -160,8 +175,15 @@ public class RecipeManager {
             // filter based on id
             Bson filter = eq("title", title);
             Document doc = recipeCollections.find(filter).first();
-            System.out.println("found: " + doc.toJson());
-            return doc;
+            if(doc != null) {
+                System.out.println("found: " + doc.toJson());
+                return doc;
+
+            }
+            else {
+                System.out.println("doc not found");
+                return null;
+            }
         }
     }
 
@@ -176,4 +198,5 @@ public class RecipeManager {
             recipeCollections.deleteMany(new Document());
         }
     }
+
 }

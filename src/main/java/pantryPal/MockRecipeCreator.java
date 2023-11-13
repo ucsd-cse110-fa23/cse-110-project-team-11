@@ -1,3 +1,4 @@
+package pantryPal;
 /**
  * This file contains MockRecipeCreator and MockChatGPT
  */
