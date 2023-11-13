@@ -49,7 +49,6 @@ public class AppTest extends App {
     //     assertEquals(UI.getRoot().getCenter(), UI.getHomePage());
     //     assertEquals(sizeBefore, HomePageAppFrame.getRecipeList().getChildren().size());
     // }
-    
     @Test
     public void testCreateButton() {
         HomePageHeader hph = new HomePageHeader();
