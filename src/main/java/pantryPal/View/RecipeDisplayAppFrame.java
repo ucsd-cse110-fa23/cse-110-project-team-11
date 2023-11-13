@@ -43,7 +43,7 @@ public class RecipeDisplayAppFrame extends BorderPane {
         steps = recipe.getSteps();
         System.out.println(steps.getText());
         
-        System.out.println("aaaaaaaaaaaaaaaa");
+        // System.out.println("aaaaaaaaaaaaaaaa");
 
         ScrollPane scrollPane = new ScrollPane(recipe);
         scrollPane.setFitToWidth(true);

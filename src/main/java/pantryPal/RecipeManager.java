@@ -74,7 +74,7 @@ public class RecipeManager {
             // recipe details: id, title, ingredients, steps
             ObjectId objectID = new ObjectId();
             stringID = objectID.toString();
-            System.out.println("Steps:" + steps);
+            // System.out.println("Steps:" + steps);
             Document recipe = new Document("_id", objectID);
             recipe.append("title", title)
             .append("ingredients", ingredients)
@@ -121,11 +121,11 @@ public class RecipeManager {
             Bson filter = eq("title", title);
             Bson update = set("ingredients", ingredients);
             UpdateResult result = recipeCollections.updateOne(filter, update);
-            System.out.println("update ingredients: " + result);
+            // System.out.println("update ingredients: " + result);
             // update steps
             update = set("steps", steps);
             result = recipeCollections.updateOne(filter, update);
-            System.out.println("update steps: " + result);
+            // System.out.println("update steps: " + result);
 
             mongoClient.close();
         }

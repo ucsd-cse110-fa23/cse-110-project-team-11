@@ -6,9 +6,15 @@
     "configurations": [
         {
             "type": "java",
+<<<<<<< HEAD
             "name": "RecipeManager",
             "request": "launch",
             "mainClass": "pantryPal.RecipeManager",
+=======
+            "name": "Server",
+            "request": "launch",
+            "mainClass": "pantryPal.Server",
+>>>>>>> ac568fff822bf7a9e60b472b6a9afb55ac40893c
             "projectName": "cse-110-project-team-11"
         },
         {

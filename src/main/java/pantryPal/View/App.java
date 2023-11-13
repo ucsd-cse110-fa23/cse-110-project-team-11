@@ -13,6 +13,7 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import pantryPal.Controller;
+import pantryPal.Model;
 import pantryPal.View.RecipeDisplay;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -758,7 +759,8 @@ public class App extends Application {
         root.setCenter(hp);
         root.setTop(hp.getHomePageHeader());
         
-        Controller controller = new Controller(ui);
+        Model model = new Model();
+        Controller controller = new Controller(ui, model);
         controller.loadRecipes();
 
         // Set the title of the app
