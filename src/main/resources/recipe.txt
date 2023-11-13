@@ -1,24 +1,19 @@
 
 
-Title: Raspberry Dinner
+Title: Baked Salmon with Asparagus
 
 Ingredients: 
-- Raspberry 
-- Olive oil 
-- Salt 
-- Pepper 
-- Garlic 
-- Onion 
-- Chicken 
-- Rice
+- Salmon fillet
+- Asparagus
+- Olive oil
+- Salt
+- Pepper
+- Lemon
 
 #1 Preheat oven to 375 degrees F.
-#2 Heat olive oil in a large skillet over medium heat.
-#3 Add garlic, onion, salt, and pepper to the skillet and cook until the onion is translucent.
-#4 Add the chicken to the skillet and cook until the chicken is cooked through.
-#5 Grease a baking dish with olive oil.
-#6 Place the chicken in the baking dish.
-#7 Top the chicken with the raspberry.
-#8 Bake in the preheated oven for 25 minutes.
-#9 While the chicken is baking, cook the rice according to package instructions.
-#10 Serve the chicken and raspberry over the cooked rice. Enjoy!
+#2 Place salmon fillet on a baking sheet.
+#3 Drizzle with olive oil, salt, and pepper.
+#4 Place asparagus around the salmon.
+#5 Squeeze lemon juice over the salmon and asparagus.
+#6 Bake for 25 minutes.
+#7 Serve and enjoy!
