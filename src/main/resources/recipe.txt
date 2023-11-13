@@ -1,21 +1,24 @@
 
 
-Title: Bacon and Egg Breakfast
+Title: Raspberry Dinner
 
 Ingredients: 
-- Bacon 
-- Egg 
+- Raspberry 
+- Olive oil 
 - Salt 
 - Pepper 
-- Butter 
-- Toast
+- Garlic 
+- Onion 
+- Chicken 
+- Rice
 
-#1 Heat a skillet over medium heat. 
-#2 Add bacon to the skillet and cook until desired crispness. 
-#3 Remove bacon from skillet and set aside. 
-#4 Crack the egg into the skillet. 
-#5 Sprinkle with salt and pepper. 
-#6 Cook until desired doneness. 
-#7 Place a pat of butter onto each slice of toast. 
-#8 Place the cooked egg onto one slice of toast and the bacon onto the other. 
-#9 Serve and enjoy!
+#1 Preheat oven to 375 degrees F.
+#2 Heat olive oil in a large skillet over medium heat.
+#3 Add garlic, onion, salt, and pepper to the skillet and cook until the onion is translucent.
+#4 Add the chicken to the skillet and cook until the chicken is cooked through.
+#5 Grease a baking dish with olive oil.
+#6 Place the chicken in the baking dish.
+#7 Top the chicken with the raspberry.
+#8 Bake in the preheated oven for 25 minutes.
+#9 While the chicken is baking, cook the rice according to package instructions.
+#10 Serve the chicken and raspberry over the cooked rice. Enjoy!

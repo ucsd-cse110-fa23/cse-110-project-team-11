@@ -176,6 +176,9 @@ public class RecipeDisplay extends VBox {
         contentBox.setStyle("-fx-background-color: #FFCCE5; -fx-border-width: 0;"); // light pin
     }
 
+    public String getID() {
+        return this.id;
+    }
 
     public Button getDeleteButton() {
         return this.deleteButton;

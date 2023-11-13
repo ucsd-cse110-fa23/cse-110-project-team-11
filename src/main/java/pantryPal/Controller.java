@@ -165,7 +165,8 @@ public class Controller {
             steps.setEditable(false);
             editButton.setText("Edit");
             r.setEditable(false);
-
+            reload();
+            ui.returnHomePage();
         }
     }
 
@@ -185,6 +186,8 @@ public class Controller {
             steps.setEditable(false);
             editButton.setText("Edit");
             rd.setEditable(false);
+            reload();
+            ui.returnHomePage();
         }
     }
 
@@ -193,7 +196,7 @@ public class Controller {
         rd.getSteps();
         if (rd.getID() == null) { // if does not exist in MongoDB (?)
             // String[] recipe = RecipeManager.insertRecipe(rd.getTitle().getText(), rd.getIngredients().getText(), rd.getSteps().getText());
-            String[] recipe = model.performRequest("PUT", rd.getTitle().getText(), rd.getIngredients().getText(), rd.getSteps().getText());
+            String[] recipe = model.performRequest("PUT", rd.getTitle().getText(), rd.getIngredients().getText(), rd.getSteps().getText(), rd.getID());
             String stringID = recipe[0];
             String title = recipe[1];
             String ingredients = recipe[2];
@@ -201,7 +204,7 @@ public class Controller {
             RecipeDisplay recipeDisplay = new RecipeDisplay(stringID, title, ingredients, steps);
             RecipeDisplayAppFrame rec = new RecipeDisplayAppFrame(recipeDisplay);
             RecipeTitle recipeDis = new RecipeTitle(stringID, title, rec);
-            model.performRequest("PUT", rd.getTitle().getText(), rd.getIngredients().getText(), rd.getSteps().getText());
+            model.performRequest("PUT", rd.getTitle().getText(), rd.getIngredients().getText(), rd.getSteps().getText(), rd.getID());
             rd.setID(RecipeManager.getStringID());
             recipeDis.setViewButtonAction(this::handleViewButton);
             recipeDis.getRecipeDetail().setBackButtonAction2(this::handleBackButton2);
@@ -211,7 +214,7 @@ public class Controller {
         }
         else {
             try {
-                RecipeManager.updateRecipe(rd.getTitle().getText(), rd.getIngredients().getText(), rd.getSteps().getText());
+                RecipeManager.updateRecipe(rd.getTitle().getText(), rd.getIngredients().getText(), rd.getSteps().getText(), rd.getID());
             } catch (IOException e1) {
                 // TODO Auto-generated catch block
                 e1.printStackTrace();
@@ -227,7 +230,7 @@ public class Controller {
 
     private void handleDeleteButton(ActionEvent event) {
         System.out.println("HELLOOO");
-        model.performRequest("DELETE", rd.getTitle().getText(), rd.getIngredients().getText(), rd.getSteps().getText());
+        model.performRequest("DELETE", rd.getTitle().getText(), rd.getIngredients().getText(), rd.getSteps().getText(), rd.getID());
         reload();
         ui.returnHomePage();
     }

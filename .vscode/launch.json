@@ -9,14 +9,18 @@
             "name": "RecipeManager",
             "request": "launch",
             "mainClass": "pantryPal.RecipeManager",
-            "projectName": "cse-110-project-team-11"
+            "projectName": "cse-110-project-team-11",
+            "vmArgs": "--module-path 'lib' --add-modules javafx.controls,javafx.fxml"
+
         },
         {
             "type": "java",
             "name": "Server",
             "request": "launch",
             "mainClass": "pantryPal.Server",
-            "projectName": "cse-110-project-team-11"
+            "projectName": "cse-110-project-team-11",
+            "vmArgs": "--module-path 'lib' --add-modules javafx.controls,javafx.fxml"
+
         },
         {
             "type": "java",

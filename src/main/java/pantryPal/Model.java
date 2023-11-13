@@ -12,22 +12,25 @@ import java.net.URI;
 
 
 public class Model {
-    public String[] performRequest(String method, String title, String ingredients, String steps) {
+    public String[] performRequest(String method, String title, String ingredients, String steps, String id) {
         // Implement your HTTP request logic here and return the response
 
         try {
             String urlString = "http://localhost:8100/";
-            if (title != null) {
-                urlString += "?=" + title;
+            if (id != null) {
+                urlString += "?=" + id;
             }
             URL url = new URI(urlString).toURL();
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod(method);
             conn.setDoOutput(true);
 
-            RecipeManager rm = new RecipeManager();
             if (method.equals("PUT")) {
                 String[] strings = RecipeManager.insertRecipe(title, ingredients, steps);
+                OutputStreamWriter out = new OutputStreamWriter(conn.getOutputStream());
+                out.write("insert: " + title + ", " + ingredients + ", " + steps + ", " + id);
+                out.flush();
+                out.close();
                 return strings;
             }
             else if (method.equals("GET")) {
@@ -35,7 +38,11 @@ public class Model {
             }
             else if (method.equals("DELETE")) {
                 System.out.println("HI THIS IS IN MODEL.JAVA");
-                RecipeManager.deleteRecipe(title);
+                OutputStreamWriter out = new OutputStreamWriter(conn.getOutputStream());
+                out.write("to delete: " + title + ", " + ingredients + ", " + steps + ", " + id);
+                out.flush();
+                out.close();
+                RecipeManager.deleteRecipeByID(id);
             }
             return null;
         } catch (Exception ex) {

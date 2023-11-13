@@ -108,17 +108,18 @@ public class RecipeManager {
      * @param recipe
      * @throws IOException
      */
-    public static UpdateResult updateRecipe(String title, String ingredients, String steps) throws IOException {
+    public static UpdateResult updateRecipe(String title, String ingredients, String steps, String id) throws IOException {
+        ObjectId objID = new ObjectId(id);
         try (MongoClient mongoClient = MongoClients.create(URI)) {
             MongoDatabase recipeDB = mongoClient.getDatabase("recipes_db");
             MongoCollection<Document> recipeCollections = recipeDB.getCollection("recipes");
-            System.out.println("opened mongoDB?");
+            System.out.println("opened mongoDB? (update recipe)");
             // back up; does not correct the indices
             // deleteRecipe(title);
             // insertRecipe(title, ingredients, steps);
 
             // update ingredients
-            Bson filter = eq("title", title);
+            Bson filter = eq("_id", objID);
             Bson update = set("ingredients", ingredients);
             UpdateResult result = recipeCollections.updateOne(filter, update);
             // System.out.println("update ingredients: " + result);
@@ -133,6 +134,23 @@ public class RecipeManager {
     }
 
     /**
+     * Deletes one recipe, given a id
+     * @param id recipe to delete
+     */
+    public static DeleteResult deleteRecipeByID(String id) throws IOException {
+        ObjectId objID = new ObjectId(id);
+        try (MongoClient mongoClient = MongoClients.create(URI)) {
+            MongoDatabase recipeDB = mongoClient.getDatabase("recipes_db");
+            MongoCollection<Document> recipeCollections = recipeDB.getCollection("recipes");
+            System.out.println("opened mongoDB (delete by ID)");
+            Bson filter = eq("_id", objID);
+            DeleteResult result = recipeCollections.deleteOne(filter);
+            System.out.println("delete: " + result);
+            return result;
+        }
+    }
+
+        /**
      * Deletes one recipe, given a name
      * @param title recipe to delete
      */
@@ -140,7 +158,7 @@ public class RecipeManager {
         try (MongoClient mongoClient = MongoClients.create(URI)) {
             MongoDatabase recipeDB = mongoClient.getDatabase("recipes_db");
             MongoCollection<Document> recipeCollections = recipeDB.getCollection("recipes");
-            System.out.println("opened mongoDB?");
+            System.out.println("opened mongoDB (delete recipe)");
             Bson filter = eq("title", title);
             DeleteResult result = recipeCollections.deleteOne(filter);
             System.out.println("delete: " + result);
