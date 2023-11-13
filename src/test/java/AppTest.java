@@ -5,31 +5,12 @@
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
-import java.io.FileWriter;   // Import the FileWriter class
-import java.io.IOException;  // Import the IOException class to handle errors
 
 import javafx.application.Application;
-import javafx.application.Platform;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
-import javafx.geometry.Pos;
 import javafx.scene.control.Button;
-import javafx.scene.layout.*;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
 import javafx.scene.control.Label;
-import javafx.geometry.Insets;
-import javafx.scene.text.*;
-import java.io.BufferedReader;
-import java.io.FileReader;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import java.io.IOException;
-import org.junit.*;
-import pantryPal.*;
+
 import pantryPal.View.App;
-import pantryPal.View.HomePageAppFrame;
 import pantryPal.View.HomePageHeader;
 import pantryPal.View.InputAppFrame;
 import pantryPal.View.RecipeDisplay;

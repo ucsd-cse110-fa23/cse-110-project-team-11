@@ -1,6 +1,5 @@
 // package test.java;
 
-import org.bson.Document;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -10,7 +9,6 @@ import javafx.application.Application;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.io.FileWriter;   // Import the FileWriter class
 import java.io.IOException;  // Import the IOException class to handle errors
 import java.util.ArrayList;
 

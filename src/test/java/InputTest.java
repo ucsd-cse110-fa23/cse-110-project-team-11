@@ -1,6 +1,5 @@
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import pantryPal.Input;
 import pantryPal.TranscriptionService;
 
 import java.io.File;
