@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Server",
+            "request": "launch",
+            "mainClass": "pantryPal.Server",
+            "projectName": "cse-110-project-team-11"
+        },
+        {
+            "type": "java",
             "name": "App",
             "request": "launch",
             "mainClass": "pantryPal.View.App",

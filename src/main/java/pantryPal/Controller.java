@@ -41,8 +41,10 @@ public class Controller {
     private HomePageAppFrame hp;
     private RecipeDisplayAppFrame rd;
     private RecipeTitle rt = new RecipeTitle("");
+    private Model model;
 
-    public Controller(UI ui) {
+    public Controller(UI ui, Model model) {
+        this.model = model;
         this.ui = ui;
         this.inputFrame = ui.getInputPage();
         this.hp = ui.getHomePage();
@@ -60,7 +62,7 @@ public class Controller {
         });
         this.inputFrame.setBackButtonAction(this::handleBackButton);
         this.rd.setBackButtonAction2(this::handleBackButton2);
-        this.rd.setDeleteButtonAction(this::handleBackButton);
+        this.rd.setDeleteButtonAction(this::handleDeleteButton);
         this.hp.setCreateButtonAction(this::handleCreateButton);
         this.rd.setSaveButtonAction(this::handleSaveButton);
         this.rd.setEditButtonAction(this::handleEditButton);
@@ -184,30 +186,26 @@ public class Controller {
         }
     }
 
-    private void handleSaveButton(ActionEvent event){
+    private void handleSaveButton(ActionEvent event) {
         rd.getIngredients().setEditable(false);
         rd.getSteps();
         if (rd.getID() == null) { // if does not exist in MongoDB (?)
-            try {
-                String[] recipe = RecipeManager.insertRecipe(rd.getTitle().getText(), rd.getIngredients().getText(), rd.getSteps().getText());
-                String stringID = recipe[0];
-                String title = recipe[1];
-                String ingredients = recipe[2];
-                String steps = recipe[3];
-                
-                RecipeDisplay recipeDisplay = new RecipeDisplay(stringID, title, ingredients, steps);
-                RecipeDisplayAppFrame rec = new RecipeDisplayAppFrame(recipeDisplay);
-                RecipeTitle recipeDis = new RecipeTitle(stringID, title, rec);
-                rd.setID(RecipeManager.getStringID());
-                recipeDis.setViewButtonAction(this::handleViewButton);
-                recipeDis.getRecipeDetail().setBackButtonAction2(this::handleBackButton2);
-                this.rt = recipeDis;
-                hp.getRecipeList().getChildren().add(recipeDis);
-                reload();
-            } catch (IOException e1) {
-                // TODO Auto-generated catch block
-                e1.printStackTrace();
-            }
+            // String[] recipe = RecipeManager.insertRecipe(rd.getTitle().getText(), rd.getIngredients().getText(), rd.getSteps().getText());
+            String[] recipe = model.performRequest("PUT", rd.getTitle().getText(), rd.getIngredients().getText(), rd.getSteps().getText());
+            String stringID = recipe[0];
+            String title = recipe[1];
+            String ingredients = recipe[2];
+            String steps = recipe[3];
+            RecipeDisplay recipeDisplay = new RecipeDisplay(stringID, title, ingredients, steps);
+            RecipeDisplayAppFrame rec = new RecipeDisplayAppFrame(recipeDisplay);
+            RecipeTitle recipeDis = new RecipeTitle(stringID, title, rec);
+            model.performRequest("PUT", rd.getTitle().getText(), rd.getIngredients().getText(), rd.getSteps().getText());
+            rd.setID(RecipeManager.getStringID());
+            recipeDis.setViewButtonAction(this::handleViewButton);
+            recipeDis.getRecipeDetail().setBackButtonAction2(this::handleBackButton2);
+            this.rt = recipeDis;
+            hp.getRecipeList().getChildren().add(recipeDis);
+            reload();
         }
         else {
             try {
@@ -226,17 +224,10 @@ public class Controller {
     }
 
     private void handleDeleteButton(ActionEvent event) {
-        TextArea title = rd.getTitle();
-        System.out.println("THE TITLE: " + title.getText());
-            try {
-                RecipeManager.deleteRecipe(title.getText());
-            } catch (IOException e1) {
-                // TODO Auto-generated catch block
-                e1.printStackTrace();
-            }
-            reload();
-            ui.returnHomePage();
-
+        System.out.println("HELLOOO");
+        model.performRequest("DELETE", rd.getTitle().getText(), rd.getIngredients().getText(), rd.getSteps().getText());
+        reload();
+        ui.returnHomePage();
     }
 
     public void reload(){
