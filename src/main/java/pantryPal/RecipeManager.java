@@ -108,7 +108,7 @@ public class RecipeManager {
      * @param recipe
      * @throws IOException
      */
-    public static void updateRecipe(String title, String ingredients, String steps) throws IOException {
+    public static UpdateResult updateRecipe(String title, String ingredients, String steps) throws IOException {
         try (MongoClient mongoClient = MongoClients.create(URI)) {
             MongoDatabase recipeDB = mongoClient.getDatabase("recipes_db");
             MongoCollection<Document> recipeCollections = recipeDB.getCollection("recipes");
@@ -128,6 +128,7 @@ public class RecipeManager {
             // System.out.println("update steps: " + result);
 
             mongoClient.close();
+            return result;
         }
     }
 
@@ -135,7 +136,7 @@ public class RecipeManager {
      * Deletes one recipe, given a name
      * @param title recipe to delete
      */
-    public static void deleteRecipe(String title) throws IOException {
+    public static DeleteResult deleteRecipe(String title) throws IOException {
         try (MongoClient mongoClient = MongoClients.create(URI)) {
             MongoDatabase recipeDB = mongoClient.getDatabase("recipes_db");
             MongoCollection<Document> recipeCollections = recipeDB.getCollection("recipes");
@@ -143,6 +144,7 @@ public class RecipeManager {
             Bson filter = eq("title", title);
             DeleteResult result = recipeCollections.deleteOne(filter);
             System.out.println("delete: " + result);
+            return result;
         }
     }
 
@@ -160,7 +162,7 @@ public class RecipeManager {
             
             // filter based on id
             Bson filter = eq("title", title);
-            Document doc = recipeCollections.findOne(filter).first();
+            Document doc = recipeCollections.find(filter).first();
             if(doc != null) {
                 System.out.println("found: " + doc.toJson());
                 return doc;
@@ -185,7 +187,4 @@ public class RecipeManager {
         }
     }
 
-    public static void main(String[] args) {
-        System.out.println(RecipeManager.searchRecipe("Apple Pie").get("title"));
-    }
 }

@@ -8,6 +8,8 @@ import java.util.*;
 
 import javax.print.attribute.HashDocAttributeSet;
 
+import com.mongodb.client.result.UpdateResult;
+
 import pantryPal.RecipeParser;
 import pantryPal.View.HomePageAppFrame;
 import pantryPal.View.HomePageHeader;
