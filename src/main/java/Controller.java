@@ -128,6 +128,12 @@ public class Controller {
             input.getMic().stop();
             input.getMic().close();
         }
+        if (inputFrame.getRecButtons().getButtonBox().getChildren().contains(inputFrame.getRecButtons().getStopButton())){
+            System.out.println("TEST");
+            inputFrame.getRecButtons().getButtonBox().getChildren().remove(inputFrame.getRecButtons().getStopButton());
+            inputFrame.getRecButtons().getButtonBox().getChildren().add(inputFrame.getRecButtons().getStartButton());
+        
+        }
     }
 
     private void handleBackButton2(ActionEvent event){
