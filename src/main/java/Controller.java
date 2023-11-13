@@ -65,6 +65,8 @@ public class Controller {
         RecButtons rb = inputFrame.getRecButtons();
         rb.setRecordingLabel("Recording");
         input.captureAudio();
+        inputFrame.getRecButtons().getButtonBox().getChildren().remove(inputFrame.getRecButtons().getStartButton());
+        inputFrame.getRecButtons().getButtonBox().getChildren().add(inputFrame.getRecButtons().getStopButton());
     }
     //TODO auto stop when press back
 
@@ -72,6 +74,8 @@ public class Controller {
         // Stop Button
 
         String promptType = input.getPromptType();
+        inputFrame.getRecButtons().getButtonBox().getChildren().remove(inputFrame.getRecButtons().getStopButton());
+        inputFrame.getRecButtons().getButtonBox().getChildren().add(inputFrame.getRecButtons().getStartButton());
         
         if(input.stopCapture(promptType)){
             if(promptType.equals("MealType")){
@@ -120,6 +124,10 @@ public class Controller {
         ui.returnHomePage();   
         input.setPromptType("MealType"); 
         inputFrame.getRecButtons().setRecordingLabel("Select Meal Type: Breakfast, Lunch, or Dinner");    
+        if(input.getMic() != null){
+            input.getMic().stop();
+            input.getMic().close();
+        }
     }
 
     private void handleBackButton2(ActionEvent event){

@@ -566,6 +566,7 @@ class RecButtons extends VBox {
     private Button startButton, stopButton;
     private Label recordingLabel; 
     private TextArea recipeText;
+    private HBox buttonBox;
 
     // Set a default style for buttons and fields - background color, font size,
     // italics
@@ -575,14 +576,14 @@ class RecButtons extends VBox {
 
     RecButtons() {
 
-        HBox buttonBox = new HBox();
+        buttonBox = new HBox();
         startButton = new Button("Start");
         startButton.setStyle(defaultButtonStyle);
 
         stopButton = new Button("Stop");
         stopButton.setStyle(defaultButtonStyle);
 
-        buttonBox.getChildren().addAll(startButton, stopButton);
+        buttonBox.getChildren().addAll(startButton);
 
         recordingLabel = new Label("Select Meal Type: Breakfast, Lunch, or Dinner");
         recordingLabel.setStyle(defaultLabelStyle);
@@ -602,6 +603,10 @@ class RecButtons extends VBox {
 
     public Button getStopButton() {
         return stopButton;
+    }
+
+    public HBox getButtonBox(){
+        return buttonBox;
     }
 
     public Label getRecordingLabel() {

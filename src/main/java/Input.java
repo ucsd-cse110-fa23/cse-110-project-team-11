@@ -130,6 +130,9 @@ public class Input {
         return false;
     }
 
+    public TargetDataLine getMic(){
+        return mic;
+    }
     public void setPromptType(String promptType){
         this.promptType = promptType;
     }
