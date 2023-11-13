@@ -5,6 +5,7 @@ import java.io.FileWriter;   // Import the FileWriter class
 import java.io.IOException;  // Import the IOException class to handle errors
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.scene.layout.*;
 import javafx.event.ActionEvent;
 import pantryPal.*;
@@ -50,53 +51,84 @@ public class IntegrationTest {
     }
     
     @Test 
-    public void Integration1() throws IOException, InterruptedException {
+    public void Integration1() throws InterruptedException {
 
-        
-        // Check if the click button is created
-        Model model = new Model();
-        BorderPane root = new BorderPane();
-        InputAppFrame ip = new InputAppFrame();
-        HomePageAppFrame hp = new HomePageAppFrame(ip);
-        RecipeDisplayAppFrame dp = new RecipeDisplayAppFrame(new RecipeDisplay());
-        HomePageHeader hph = new HomePageHeader();
-        UI ui = new UI(root, hp, ip, dp);
-        Controller c = new Controller(ui, model);
-        ActionEvent actionEvent = new ActionEvent();
+        Thread thread = new Thread(new Runnable() {
 
-        
-        c.handleCreateButton(actionEvent);
-        assertEquals(ui.getRoot().getCenter(), ip);
+            @Override
+            public void run() {
+                try {
+                    setUpClass();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                Platform.runLater(new Runnable() {
 
-        c.handleStartButton(actionEvent);
-        assertTrue(ip.getRecButtons().getButtonBox().getChildren().contains(ip.getRecButtons().getStopButton()));
+                    @Override
+                    public void run() {
+                            // Check if the click button is created
+                    Model model = new Model();
+                    BorderPane root = new BorderPane();
+                    InputAppFrame ip = new InputAppFrame();
+                    HomePageAppFrame hp = new HomePageAppFrame(ip);
+                    RecipeDisplayAppFrame dp = new RecipeDisplayAppFrame(new RecipeDisplay());
+                    HomePageHeader hph = new HomePageHeader();
+                    UI ui = new UI(root, hp, ip, dp);
+                    Controller c = new Controller(ui, model);
+                    ActionEvent actionEvent = new ActionEvent();
 
-        MockTranscriptionService mockService = new MockTranscriptionService();
-        File audioFile = new File("input.wav");
-        String output = mockService.transcribe(audioFile);
-        assertEquals("lunch", output, "The transcribe method should return 'lunch'");
+                    
+                    c.handleCreateButton(actionEvent);
+                    assertEquals(ui.getRoot().getCenter(), ip);
 
-        c.handleStopButton(actionEvent);
-        assertTrue(ip.getRecButtons().getButtonBox().getChildren().contains(ip.getRecButtons().getStartButton()));
+                    c.handleStartButton(actionEvent);
+                    assertTrue(ip.getRecButtons().getButtonBox().getChildren().contains(ip.getRecButtons().getStopButton()));
 
-        
-        c.handleStartButton(actionEvent);
-        assertTrue(ip.getRecButtons().getButtonBox().getChildren().contains(ip.getRecButtons().getStopButton()));
-        
-        c.handleStopButton(actionEvent);
-        assertTrue(ip.getRecButtons().getButtonBox().getChildren().contains(ip.getRecButtons().getStartButton()));
+                    MockTranscriptionService mockService = new MockTranscriptionService();
+                    File audioFile = new File("input.wav");
+                    String output = mockService.transcribe(audioFile);
+                    assertEquals("lunch", output, "The transcribe method should return 'lunch'");
 
-        
-        assertTrue(ui.getRoot().getCenter() instanceof RecipeDisplayAppFrame);
+                    try {
+                        c.handleStopButton(actionEvent);
+                    } catch (InterruptedException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+                    assertTrue(ip.getRecButtons().getButtonBox().getChildren().contains(ip.getRecButtons().getStartButton()));
 
-        c.handleSaveButton(actionEvent);
+                    
+                    c.handleStartButton(actionEvent);
+                    assertTrue(ip.getRecButtons().getButtonBox().getChildren().contains(ip.getRecButtons().getStopButton()));
+                    
+                    try {
+                        c.handleStopButton(actionEvent);
+                    } catch (InterruptedException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+                    assertTrue(ip.getRecButtons().getButtonBox().getChildren().contains(ip.getRecButtons().getStartButton()));
 
-        assertEquals(ui.getRoot().getCenter(), hp);
-    
+                    
+                    assertTrue(ui.getRoot().getCenter() instanceof RecipeDisplayAppFrame);
+
+                    c.handleSaveButton(actionEvent);
+
+                    assertEquals(ui.getRoot().getCenter(), hp);
+
+                    }
+                });
+            }
+        });
+        thread.start();// Initialize the thread
+        Thread.sleep(2000); // Time to use the app, with out this, the thread
     }
-    
-    
-
     
     
 }
