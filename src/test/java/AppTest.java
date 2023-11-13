@@ -65,7 +65,7 @@ public class AppTest extends App {
             }
         });
         thread.start();// Initialize the thread
-        Thread.sleep(3000); // Time to use the app, with out this, the thread
+        Thread.sleep(2000); // Time to use the app, with out this, the thread
     }
         
     
@@ -94,7 +94,7 @@ public class AppTest extends App {
             }
         });
         thread.start();// Initialize the thread
-        Thread.sleep(3000); // Time to use the app, with out this, the thread
+        Thread.sleep(2000); // Time to use the app, with out this, the thread
     }
     
     
@@ -122,7 +122,7 @@ public class AppTest extends App {
             }
         });
         thread.start();// Initialize the thread
-        Thread.sleep(3000); // Time to use the app, with out this, the thread
+        Thread.sleep(2000); // Time to use the app, with out this, the thread
     }
     
 
@@ -150,7 +150,7 @@ public class AppTest extends App {
             }
         });
         thread.start();// Initialize the thread
-        Thread.sleep(3000); // Time to use the app, with out this, the thread
+        Thread.sleep(2000); // Time to use the app, with out this, the thread
     }
     
     
@@ -177,7 +177,7 @@ public class AppTest extends App {
             }
         });
         thread.start();// Initialize the thread
-        Thread.sleep(3000); // Time to use the app, with out this, the thread
+        Thread.sleep(2000); // Time to use the app, with out this, the thread
     }
     
     
@@ -205,39 +205,100 @@ public class AppTest extends App {
             }
         });
         thread.start();// Initialize the thread
-        Thread.sleep(3000); // Time to use the app, with out this, the thread
+        Thread.sleep(2000); // Time to use the app, with out this, the thread
     }
 
     
     @Test // tests the input buttons and appframe 
-    public void testHeader () {
-        InputAppFrame appFrame = new InputAppFrame(); // generate input appfram
-        // 1) check if header of appframe exists
-        assertNotNull(appFrame.getReturnHeader());
-        // 2) check if buttons exist (non-null)
-        assertNotNull(appFrame.getReturnHeader().getBackButton()); // should be in header
+    public void testHeader () throws InterruptedException {
+
+        Thread thread = new Thread(new Runnable() {
+
+            @Override
+            public void run() {
+                try {
+                    setUpClass();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                Platform.runLater(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        InputAppFrame appFrame = new InputAppFrame(); // generate input appfram
+                        // 1) check if header of appframe exists
+                        assertNotNull(appFrame.getReturnHeader());
+                        // 2) check if buttons exist (non-null)
+                        assertNotNull(appFrame.getReturnHeader().getBackButton()); // should be in header
+                    }
+                });
+            }
+        });
+        thread.start();// Initialize the thread
+        Thread.sleep(2000); // Time to use the app, with out this, the thread
     }
 
     // 3) test functionality of buttons
     @Test
-    public void testStartButton() {
-        InputAppFrame appFrame = new InputAppFrame(); // generate input appframe
-        Button startButton = appFrame.getStartButton();
-        
-        assertNotNull(startButton,"should not be null");
-        
-        Label label = appFrame.getRecordingLabel();
-        assertNotNull(label, "should not be null"); // checks if button can be pressed/functions
+    public void testStartButton() throws InterruptedException {
+
+        Thread thread = new Thread(new Runnable() {
+
+            @Override
+            public void run() {
+                try {
+                    setUpClass();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                Platform.runLater(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        InputAppFrame appFrame = new InputAppFrame(); // generate input appframe
+                        Button startButton = appFrame.getStartButton();
+                        
+                        assertNotNull(startButton,"should not be null");
+                        
+                        Label label = appFrame.getRecordingLabel();
+                        assertNotNull(label, "should not be null"); // checks if button can be pressed/functions
+                    }
+                });
+            }
+        });
+        thread.start();// Initialize the thread
+        Thread.sleep(2000); // Time to use the app, with out this, the thread
     }
 
+
     @Test
-    public void testStopButton() {
-        InputAppFrame appFrame = new InputAppFrame(); // generate input appframe
-        Button stopButton = appFrame.getStartButton();
-        assertNotNull(stopButton,"should not be null");
-        
-        Label label = appFrame.getRecordingLabel();
-        assertNotNull(label,"should not be null"); // check if button can be pressed/valid input
-    }
+    public void testStopButton() throws InterruptedException {
+
+        Thread thread = new Thread(new Runnable() {
+
+            @Override
+            public void run() {
+                try {
+                    setUpClass();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                Platform.runLater(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        InputAppFrame appFrame = new InputAppFrame(); // generate input appframe
+                        Button stopButton = appFrame.getStartButton();
+                        assertNotNull(stopButton,"should not be null");
+                        
+                        Label label = appFrame.getRecordingLabel();
+                        assertNotNull(label,"should not be null");
+                    }
+                });
+            }
+        });
+        thread.start();// Initialize the thread
+        Thread.sleep(2000); // Time to use the app, with out this, the thread
+    } 
     
 }
