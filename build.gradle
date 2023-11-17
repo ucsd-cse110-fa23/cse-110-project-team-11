@@ -36,6 +36,10 @@ dependencies {
     def javaFXPlatform = getJavaFXPlatform()
     def javaFXVersion = "21"
     
+    testImplementation "org.junit.jupiter:junit-jupiter-api:$junitVersion"
+    // This provides the TestEngine to actually run the tests.
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$junitVersion"
+
     implementation 'org.json:json:20230227'
     implementation "org.openjfx:javafx-base:${javaFXVersion}:${javaFXPlatform}"
     implementation "org.openjfx:javafx-controls:${javaFXVersion}:${javaFXPlatform}"
@@ -51,9 +55,7 @@ dependencies {
     // This provides the TestEngine to actually run the tests.
     //testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$junitVersion"
     //testRuntimeOnly "org.junit.platform:junit-platform-launcher"
-    testImplementation "org.junit.jupiter:junit-jupiter-api:$junitVersion"
-    // This provides the TestEngine to actually run the tests.
-    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$junitVersion"
+
     
     implementation 'org.mongodb:mongodb-driver-sync:4.11.0'
 }

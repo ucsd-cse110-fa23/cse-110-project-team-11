@@ -1,4 +1,5 @@
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
@@ -30,12 +31,12 @@ import static org.testfx.assertions.api.Assertions.assertThat;
 }
 
 @ExtendWith(ApplicationExtension.class)
-public class AppGuiTest extends ApplicationTest{
+public class AppGuiTest {
 
-    public static Label message;
+    private Label message;
 
     @Start
-    public void onStart(Stage stage) {
+    protected void start(Stage stage) {
         message = new Label("Welcome!");
 
         stage.setScene(new Scene(new StackPane(message)));
@@ -52,4 +53,5 @@ public class AppGuiTest extends ApplicationTest{
         robot.interact(() -> message.setText("Bye!"));
         assertThat(message).hasText("Bye!");
     }
+
 }
