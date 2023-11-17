@@ -9,13 +9,30 @@ import org.junit.jupiter.api.extension.ExtendWith;
 
 import org.testfx.api.FxRobot;
 import org.testfx.framework.junit5.ApplicationExtension;
+import org.testfx.framework.junit5.ApplicationTest;
 import org.testfx.framework.junit5.Start;
 import static org.testfx.assertions.api.Assertions.assertThat;
 
-@ExtendWith(ApplicationExtension.class)
-public class AppGuiTest{
+ class AppGui extends Application {
+    public static Label message;
 
-    private Label message;
+    @Override
+    public void start(Stage stage) {
+        message = new Label("Welcome!");
+
+        stage.setScene(new Scene(new StackPane(message)));
+        stage.show();
+    }
+
+    public static Label getLabel() {
+        return message;
+    }
+}
+
+@ExtendWith(ApplicationExtension.class)
+public class AppGuiTest extends ApplicationTest{
+
+    public static Label message;
 
     @Start
     public void onStart(Stage stage) {
