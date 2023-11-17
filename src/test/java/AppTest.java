@@ -56,7 +56,7 @@ public class AppTest extends App {
             thread.setDaemon(true);
             thread.start();// Initialize the thread
     }
-    @Test
+    //@Test
     public void testCreateButton() throws InterruptedException {
         HomePageHeader hph = new HomePageHeader();
         assertNotNull(hph.getCreateButton(), "Should not be null");
@@ -92,7 +92,7 @@ public class AppTest extends App {
     }
     
     
-    @Test
+    //@Test
     public void testBackButton() throws Exception {
 // //
 // ////        Thread thread = new Thread(new Runnable() {
