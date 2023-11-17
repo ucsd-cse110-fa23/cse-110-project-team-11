@@ -21,6 +21,8 @@ import pantryPal.View.RecipeDisplay;
 import pantryPal.View.RecipeDisplayAppFrame;
 import pantryPal.View.RecipeTitle;
 import pantryPal.View.ReturnHeader;
+import javafx.application.Platform;
+
 //import org.testfx.framework.junit.ApplicationTest;
 /**
  * UITest
@@ -29,6 +31,11 @@ import pantryPal.View.ReturnHeader;
 public class AppTest extends App {
    
     @BeforeAll
+    static void initJfxRuntime() {
+        Platform.startup(() -> {});
+    }
+    
+    //@BeforeAll
     public static void setUpClass() throws InterruptedException {
         Thread thread = new Thread(new Runnable() {
             @Override
@@ -41,31 +48,8 @@ public class AppTest extends App {
     }
     @Test
     public void testCreateButton() throws InterruptedException {
-
-        Thread thread = new Thread(new Runnable() {
-
-            @Override
-            public void run() {
-                try {
-
-                    setUpClass();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                Platform.runLater(new Runnable() {
-
-                    @Override
-                    public void run() {
-                           HomePageHeader hph = new HomePageHeader();
-                            assertNotNull(hph.getCreateButton(), "Should not be null");
-                         // assertEquals(UI.getRoot().getCenter(), UI.getInputPage());
-
-                    }
-                });
-            }
-        });
-        thread.start();// Initialize the thread
-        Thread.sleep(2000); // Time to use the app, with out this, the thread
+        HomePageHeader hph = new HomePageHeader();
+        assertNotNull(hph.getCreateButton(), "Should not be null");
     }
         
     
