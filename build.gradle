@@ -45,8 +45,12 @@ dependencies {
     implementation "org.openjfx:javafx-controls:${javaFXVersion}:${javaFXPlatform}"
     implementation "org.openjfx:javafx-graphics:${javaFXVersion}:${javaFXPlatform}"
     implementation "org.openjfx:javafx-swing:${javaFXVersion}:${javaFXPlatform}"
-    implementation "org.testfx:testfx-junit5:4.0.16-alpha"
-    implementation "org.testfx:testfx-core:4.0.16-alpha"
+    testImplementation "org.openjfx:javafx-base:${javaFXVersion}:${javaFXPlatform}"
+    testImplementation "org.openjfx:javafx-controls:${javaFXVersion}:${javaFXPlatform}"
+    testImplementation "org.openjfx:javafx-graphics:${javaFXVersion}:${javaFXPlatform}"
+    testImplementation "org.openjfx:javafx-swing:${javaFXVersion}:${javaFXPlatform}"
+    testImplementation "org.testfx:testfx-junit5:4.0.16-alpha"
+    testImplementation "org.testfx:testfx-core:4.0.16-alpha"
     
     //implementation "org.junit.jupiter:junit-jupiter-api:$junitVersion"  
 
@@ -75,6 +79,7 @@ private static String getJavaFXPlatform() {
 
 
 test {
+    forkEvery = 1
     useJUnitPlatform()
     testLogging {
     // set options for log level LIFECYCLE
