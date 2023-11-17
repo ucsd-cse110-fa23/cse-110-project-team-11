@@ -1,3 +1,4 @@
+import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
@@ -12,12 +13,12 @@ import org.testfx.framework.junit5.Start;
 import static org.testfx.assertions.api.Assertions.assertThat;
 
 @ExtendWith(ApplicationExtension.class)
-public class AppGuiTest {
+public class AppGuiTest{
 
     private Label message;
 
     @Start
-    protected void start(Stage stage) {
+    public void onStart(Stage stage) {
         message = new Label("Welcome!");
 
         stage.setScene(new Scene(new StackPane(message)));
