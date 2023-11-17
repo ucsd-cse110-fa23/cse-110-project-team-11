@@ -69,6 +69,14 @@
             "mainClass": "UI",
             "projectName": "cse-110-project-team-11",
             "vmArgs": "--module-path 'lib' --add-modules javafx.controls,javafx.fxml"
+        },
+        {
+            "type": "java",
+            "name": "AppGuiTest",
+            "request": "launch",
+            "mainClass": "AppGuiTest",
+            "projectName": "cse-110-project-team-11",
+            "vmArgs": "--module-path 'lib' --add-modules javafx.controls,javafx.fxml,javafx.swing --add-exports javafx.graphics/com.sun.javafx.application=ALL-UNNAMED"
         }
     ]
 }

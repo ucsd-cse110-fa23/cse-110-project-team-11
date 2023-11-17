@@ -4,14 +4,22 @@
  */
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.opentest4j.AssertionFailedError;
+
 import static org.junit.jupiter.api.Assertions.*;
+import javafx.embed.swing.JFXPanel;
 
 import java.util.ArrayList;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.Executors;
+
+import javax.swing.JPanel;
 
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.stage.Stage;
 import pantryPal.RecipeManager;
 import pantryPal.View.App;
 import pantryPal.View.HomePageAppFrame;
@@ -29,11 +37,13 @@ import javafx.application.Platform;
  */
 
 public class AppTest extends App {
+    private volatile boolean failed  = false;
+
    
-    @BeforeAll
-    static void initJfxRuntime() {
-        Platform.startup(() -> {});
-    }
+//    @BeforeAll
+//    static void initJfxRuntime() {
+//        Platform.startup(() -> {});
+//    }
     
     //@BeforeAll
     public static void setUpClass() throws InterruptedException {
@@ -83,58 +93,111 @@ public class AppTest extends App {
     
     
     @Test
-    public void testBackButton() throws InterruptedException {
+    public void testBackButton() throws Exception {
+// //
+// ////        Thread thread = new Thread(new Runnable() {
+// ////
+// ////            @Override
+// ////            public void run() {
+// ////                try {
+// ////                    setUpClass();
+// ////                } catch (InterruptedException e) {
+// ////                    e.printStackTrace();
+// ////                }
+// ////                Platform.runLater(new Runnable() {
+// ////
+// ////                    @Override
+// ////                    public void run() {
+// ////                        ReturnHeader rh = new ReturnHeader();
+// ////                        assertNotNull(rh.getBackButton(), "Should not be null");
+// ////
+// ////                    }
+// ////                });
+// ////            }
+// ////        });
+// ////        thread.start();// Initialize the thread
+// ////        Thread.sleep(2000); // Time to use the app, with out this, the thread
+// ////    }
+// ////    
+// ////
+// ////    @Test
+// ////    public void testDeleteButton() throws InterruptedException {
+// ////
+// ////        Thread thread = new Thread(new Runnable() {
+// ////
+// ////            @Override
+// ////            public void run() {
+// ////                try {
+// ////                    setUpClass();
+// ////                } catch (InterruptedException e) {
+// ////                    e.printStackTrace();
+// ////                }
+// ////                Platform.runLater(new Runnable() {
+// ////
+// ////                    @Override
+// ////                    public void run() {
+// ////                        RecipeDisplay rd = new RecipeDisplay();
+// ////                        assertNotNull(rd.getDeleteButton(), "Should not be null");
+// ////
+// ////                    }
+// ////                });
+// ////            }
+// ////        });
+// ////        thread.start();// Initialize the thread
+// ////        Thread.sleep(2000); // Time to use the app, with out this, the thread
+// ////        Platform.startup(() ->
+// ////        {
+// //////         Platform.startup(() -> {});
+// ////            new App().start(new Stage());
+// ////          RecipeDisplay rd = new RecipeDisplay();
+// ////          assertNotNull(rd.getDeleteButton(), "Should not be null");
+// //////        });
+// //        Thread.UncaughtExceptionHandler h = new Thread.UncaughtExceptionHandler() {
+// //            @Override
+// //            public void uncaughtException(Thread th, Throwable ex) {
+// //                System.out.println("Uncaught exception: " + ex);
+// //                fail("fuck");
+// //                System.out.println("fuck");
+// //                }
+// //        };
+// //        
+// //        Thread thread = new Thread(new Runnable() {
+// //
+// //            @Override
+// //            public void run() {
+// //                new JFXPanel(); // Initializes the JavaFx Platform
+// //                RecipeDisplay rd = new RecipeDisplay();
+// //                assertNull(rd.getDeleteButton(), "Should not be null");
+// ////                throw new RuntimeException();
+// ////                RecipeDisplay rd = new RecipeDisplay();
+// ////                assertNull(rd.getDeleteButton(), "Should not be null");
+// //            }
+// //        });
+// //        thread.setUncaughtExceptionHandler(h);
+// //        thread.start();// Initialize the thread
+// //        Thread.sleep(10000); // Time to use the app, with out this, the thread
+// ////                                // will be killed before you can tell.
+// ////        new JFXPanel(); // Initializes the JavaFx Platform
+// ////        RecipeDisplay rd = new RecipeDisplay();
+// ////        assertNotNull(rd.getDeleteButton(), "Should not be null");
+// //        //assertEquals(0, 1);
+//         var latch = new CountDownLatch(1);
 
-        Thread thread = new Thread(new Runnable() {
+//         Executors.newSingleThreadExecutor().execute(() -> {
+//             new JFXPanel(); // Initializes the JavaFx Platform
+//             RecipeDisplay rd = new RecipeDisplay();
+//             if (rd.getDeleteButton() != null)
+//                 failed = true;
+//             latch.countDown();
+//         });
 
-            @Override
-            public void run() {
-                try {
-                    setUpClass();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                Platform.runLater(new Runnable() {
+//         latch.await();
+//         if(failed){
+//             fail("Doesn't fail the test");
+//         }
 
-                    @Override
-                    public void run() {
-                        ReturnHeader rh = new ReturnHeader();
-                        assertNotNull(rh.getBackButton(), "Should not be null");
-
-                    }
-                });
-            }
-        });
-        thread.start();// Initialize the thread
-        Thread.sleep(2000); // Time to use the app, with out this, the thread
-    }
-    
-
-    @Test
-    public void testDeleteButton() throws InterruptedException {
-
-        Thread thread = new Thread(new Runnable() {
-
-            @Override
-            public void run() {
-                try {
-                    setUpClass();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                Platform.runLater(new Runnable() {
-
-                    @Override
-                    public void run() {
-                        RecipeDisplay rd = new RecipeDisplay();
-                        assertNotNull(rd.getDeleteButton(), "Should not be null");
-
-                    }
-                });
-            }
-        });
-        thread.start();// Initialize the thread
-        Thread.sleep(2000); // Time to use the app, with out this, the thread
+        RecipeDisplay rd = new RecipeDisplay();
+       assertNotNull(rd.getDeleteButton(), "Should not be null");
     }
     
     

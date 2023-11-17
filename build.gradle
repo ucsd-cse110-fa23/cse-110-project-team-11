@@ -40,6 +40,9 @@ dependencies {
     implementation "org.openjfx:javafx-base:${javaFXVersion}:${javaFXPlatform}"
     implementation "org.openjfx:javafx-controls:${javaFXVersion}:${javaFXPlatform}"
     implementation "org.openjfx:javafx-graphics:${javaFXVersion}:${javaFXPlatform}"
+    implementation "org.openjfx:javafx-swing:${javaFXVersion}:${javaFXPlatform}"
+    implementation "org.testfx:testfx-junit5:4.0.16-alpha"
+    implementation "org.testfx:testfx-core:4.0.16-alpha"
     
     //implementation "org.junit.jupiter:junit-jupiter-api:$junitVersion"  
 
@@ -62,7 +65,7 @@ private static String getJavaFXPlatform() {
     } else if (currentOS.isLinux()) {
         return 'linux'
     } else if (currentOS.isMacOsX()) {
-        return 'mac'
+        return 'mac-aarch64'
     }
     return null
 }
