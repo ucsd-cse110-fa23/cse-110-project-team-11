@@ -27,7 +27,6 @@ public class App extends Application {
         HomePageAppFrame hp = new HomePageAppFrame(ip);
         RecipeDisplayAppFrame dp = new RecipeDisplayAppFrame(new RecipeDisplay());
         UI ui = new UI(root, hp, ip, dp);
-
         root.setCenter(hp);
         root.setTop(hp.getHomePageHeader());
         
@@ -37,10 +36,9 @@ public class App extends Application {
 
         // Set the title of the app
         stage.setTitle("Recipe Details");
+        stage.setResizable(true);
         // Create scene of mentioned size with the border pane
         stage.setScene(new Scene(root, 500, 600));
-        // Make window non-resizable
-        stage.setResizable(false);
         // Show the app
 
         stage.show();
