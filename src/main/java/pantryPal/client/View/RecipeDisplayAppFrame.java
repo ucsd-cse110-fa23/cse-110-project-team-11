@@ -1,4 +1,4 @@
-package pantryPal.View;
+package pantryPal.client.View;
 import javafx.scene.control.Button;
 import javafx.scene.layout.*;
 import javafx.scene.control.ScrollPane;
@@ -31,16 +31,11 @@ public class RecipeDisplayAppFrame extends BorderPane {
         System.out.println(ingredients.getText());
         steps = recipe.getSteps();
         System.out.println(steps.getText());
-        
-        // System.out.println("aaaaaaaaaaaaaaaa");
-
         ScrollPane scrollPane = new ScrollPane(recipe);
         scrollPane.setFitToWidth(true);
         scrollPane.setFitToHeight(true);
         
         this.setCenter(scrollPane);
-
-        // addListeners();
     }
 
     public RecipeDisplay getRecipe(){

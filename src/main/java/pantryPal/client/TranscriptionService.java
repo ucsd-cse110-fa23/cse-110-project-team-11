@@ -1,4 +1,4 @@
-package pantryPal;
+package pantryPal.client;
 import java.io.File;
 
 public interface TranscriptionService {

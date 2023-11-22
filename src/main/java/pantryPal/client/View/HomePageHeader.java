@@ -1,13 +1,13 @@
-package pantryPal.View;
+package pantryPal.client.View;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.layout.*;
 import javafx.scene.text.*;
 
-public class ReturnHeader extends HBox {
-    private Button backButton;
+public class HomePageHeader extends HBox {
+    private Button createButton;
 
-    public ReturnHeader() {
+    public HomePageHeader() {
         this.setPrefSize(500, 60); // Size of the header
         this.setStyle("-fx-background-color: #F2F2F2;");
         this.setAlignment(Pos.TOP_CENTER);
@@ -23,18 +23,18 @@ public class ReturnHeader extends HBox {
         pantryPal.setPrefWidth(300);// prefWidth
         this.getChildren().add(pantryPal);
 
-        backButton = new Button("Back");
-        backButton.setPrefSize(100,50);
-        this.getChildren().add(backButton);
+        createButton = new Button("create");
+        createButton.setPrefSize(100,50);
+        this.getChildren().add(createButton);
 
-        VBox buttonBox = new VBox(backButton);
+        VBox buttonBox = new VBox(createButton);
         buttonBox.setAlignment(Pos.TOP_RIGHT);
         buttonBox.setSpacing(15);
         buttonBox.setPrefWidth(300);// prefWidth
         this.getChildren().add(buttonBox);
     }
 
-    public Button getBackButton() {
-        return backButton;
+    public Button getCreateButton() {
+        return createButton;
     }
 }

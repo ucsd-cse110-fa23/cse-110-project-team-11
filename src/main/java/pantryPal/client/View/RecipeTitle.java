@@ -1,4 +1,4 @@
-package pantryPal.View;
+package pantryPal.client.View;
 import javafx.scene.control.Button;
 import javafx.scene.layout.*;
 import javafx.scene.control.TextField;
@@ -14,7 +14,7 @@ public class RecipeTitle extends HBox {
     private TextField title;
     private Button viewButton;
     private RecipeDisplayAppFrame recipeDetail;
-    // private RecipeDisplay recipeDetail;
+    
     /**
      * Constructor for generating format and recipe page. Handles indexing of the recipes
      */

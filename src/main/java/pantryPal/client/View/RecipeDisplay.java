@@ -1,4 +1,4 @@
-package pantryPal.View;
+package pantryPal.client.View;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.layout.*;
@@ -22,8 +22,7 @@ public class RecipeDisplay extends VBox {
         title.setEditable(false);
         title.setPrefSize(230, 20); // set size of text field
         title.setStyle("-fx-background-color: #FFFF00; -fx-border-width: 0;"); // set background color of textfield, yellow
-        // title.setPadding(new Insets(10, 0, 10, 0)); // adds some padding to the text field
-        // title.setPromptText("Name");
+
         this.getChildren().add(title); // add textlabel to task
 
         ingredients = new TextArea(); // create task name text field
@@ -31,8 +30,7 @@ public class RecipeDisplay extends VBox {
         ingredients.setEditable(false);
         ingredients.setPrefSize(200,800); // set size of text field
         ingredients.setStyle("-fx-background-color: #FFFF00; -fx-border-width: 0;"); // set background color of textfield, yellow
-        // ingredients.setPadding(new Insets(0, 0, 0, 0)); // adds some padding to the text field
-        // ingredients.setPromptText("1. ingredient");
+
         this.getChildren().add(ingredients); // add textlabel to task
         
         steps = new TextArea(); // create task name text field
@@ -40,8 +38,7 @@ public class RecipeDisplay extends VBox {
         steps.setEditable(false);
         steps.setPrefSize(400, 800); // set size of text field
         steps.setStyle("-fx-background-color: #FFFF00; -fx-border-width: 0;"); // set background color of textfield, yellow
-        // steps.setPadding(new Insets(0, 0, 0, 0)); // adds some padding to the text field
-        // steps.setPromptText("Step 1");
+
         this.getChildren().add(steps); // add textlabel to task
 
         editButton = new Button("Edit");
@@ -98,8 +95,7 @@ public class RecipeDisplay extends VBox {
         title.setEditable(false);
         title.setPrefSize(230, 20); // set size of text field
         title.setStyle("-fx-background-color: #FFFF00; -fx-border-width: 0;"); // set background color of textfield, yellow
-        // title.setPadding(new Insets(10, 0, 10, 0)); // adds some padding to the text field
-        // title.setPromptText("Name");
+
         this.getChildren().add(title); // add textlabel to task
 
         ingredients = new TextArea(ingredientString); // create task name text field
@@ -107,8 +103,7 @@ public class RecipeDisplay extends VBox {
         ingredients.setEditable(false);
         ingredients.setPrefSize(200,800); // set size of text field
         ingredients.setStyle("-fx-background-color: #FFFF00; -fx-border-width: 0;"); // set background color of textfield, yellow
-        // ingredients.setPadding(new Insets(0, 0, 0, 0)); // adds some padding to the text field
-        // ingredients.setPromptText("1. ingredient");
+
         this.getChildren().add(ingredients); // add textlabel to task
         
         steps = new TextArea(stepsString); // create task name text field
@@ -116,8 +111,7 @@ public class RecipeDisplay extends VBox {
         steps.setEditable(false);
         steps.setPrefSize(400, 800); // set size of text field
         steps.setStyle("-fx-background-color: #FFFF00; -fx-border-width: 0;"); // set background color of textfield, yellow
-        // steps.setPadding(new Insets(0, 0, 0, 0)); // adds some padding to the text field
-        // steps.setPromptText("Step 1");
+
         this.getChildren().add(steps); // add textlabel to task
 
         editButton = new Button("Edit");

@@ -1,4 +1,4 @@
-package pantryPal;
+package pantryPal.client;
 /**
  * Goal of RecipeParser.java:
  * 
@@ -26,7 +26,7 @@ public class RecipeParser {
         return TITLE;
     }
     public String getStringSteps() {
-        // System.out.println("This is what recipe parser got for steps: \n" + steps);
+        
         return steps;
     }
     public String getStringIngredients() {
@@ -68,13 +68,7 @@ public class RecipeParser {
             }   
         }
         System.out.println("Inserting recipe...");
-        // RecipeManager.insertRecipe(TITLE, ingredients, steps);
 
         br.close();
     }
-
-    // public static void main(String[] args) throws IOException, InterruptedException {
-    //     //System.out.println("HELLO");
-    //     RecipeParser.parse();
-    // }
 }

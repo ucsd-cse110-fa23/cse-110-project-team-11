@@ -1,4 +1,4 @@
-package pantryPal.View;
+package pantryPal.client.View;
 import javafx.scene.control.Button;
 import javafx.scene.layout.*;
 import javafx.scene.control.TextArea;

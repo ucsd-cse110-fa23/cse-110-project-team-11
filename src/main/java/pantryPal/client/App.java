@@ -8,12 +8,17 @@
  * 
  * Each of these pages have their respective headers, bodies, buttons, etc.
  */
-package pantryPal.View;
+package pantryPal.client;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import pantryPal.Controller;
-import pantryPal.Model;
+import pantryPal.client.Controller;
+import pantryPal.client.Model;
+import pantryPal.client.View.RecipeDisplayAppFrame;
+import pantryPal.client.View.InputAppFrame;
+import pantryPal.client.View.RecipeDisplay;
+import pantryPal.client.View.HomePageAppFrame;
+import pantryPal.client.View.UI;
 import javafx.scene.layout.*;
 
 public class App extends Application {
@@ -34,13 +39,11 @@ public class App extends Application {
         Controller controller = new Controller(ui, model);
         controller.loadRecipes();
 
-        // Set the title of the app
         stage.setTitle("Recipe Details");
         stage.setResizable(true);
         // Create scene of mentioned size with the border pane
         stage.setScene(new Scene(root, 500, 600));
-        // Show the app
-
-        stage.show();
+        
+        stage.show(); // Show the app
     }
 }

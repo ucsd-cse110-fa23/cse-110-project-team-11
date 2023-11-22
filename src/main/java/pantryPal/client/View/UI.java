@@ -1,4 +1,4 @@
-package pantryPal.View;
+package pantryPal.client.View;
 import javafx.scene.layout.*;
 
 public class UI  {

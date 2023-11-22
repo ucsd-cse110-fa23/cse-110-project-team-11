@@ -1,4 +1,4 @@
-package pantryPal.View;
+package pantryPal.client.View;
 import javafx.scene.control.Button;
 import javafx.scene.layout.*;
 import javafx.scene.control.ScrollPane;
@@ -14,7 +14,6 @@ public class HomePageAppFrame extends BorderPane{
     public HomePageAppFrame(InputAppFrame InputPage) {
         homePageHeader = new HomePageHeader();
         recipeList = new RecipeList();
-        // loadRecipes(); // loads recipe
 
         createButton = homePageHeader.getCreateButton();    
 
@@ -23,8 +22,6 @@ public class HomePageAppFrame extends BorderPane{
         scrollPane.setFitToHeight(true);
 
         this.setCenter(scrollPane);
-
-        // addListeners(InputPage);
     }
 
     public HomePageHeader getHomePageHeader() {
@@ -34,11 +31,7 @@ public class HomePageAppFrame extends BorderPane{
     public void setCreateButtonAction(EventHandler<ActionEvent> eventHandler){
         createButton.setOnAction(eventHandler);
     }
-
-    // public void loadRecipes(){
-    //     Controller.loadRecipes();
-    // }
-
+    
     public RecipeList getRecipeList() {
         return recipeList;
     }    

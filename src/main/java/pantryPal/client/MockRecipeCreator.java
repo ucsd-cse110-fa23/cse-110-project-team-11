@@ -1,4 +1,4 @@
-package pantryPal;
+ package pantryPal.client;
 /**
  * This file contains MockRecipeCreator and MockChatGPT
  */
@@ -8,6 +8,12 @@ import java.io.IOException;
 import java.util.List;
 import java.util.StringTokenizer;
 import java.util.ArrayList;
+
+
+/*  To run code (VSCode)
+    *  javac -cp ../lib/json-20230227.jar:. *.java
+    *  java -cp ../lib/json-20230227.jar:. *
+    */
 
 /**
  * This class mocks RecipeCreator for unit testing
@@ -43,14 +49,9 @@ public class MockRecipeCreator implements IRecipeCreator {
     
     public static void main(String[] args) throws IOException, InterruptedException {
         MockRecipeCreator rc = new MockRecipeCreator();
-        //System.out.println(rc.generateRecipe());
-        //System.out.println(IRecipeCreator.formatPrompt("breakfast","I have chicken, balut, and carrots."));
     }
 
-    /*  To run code (VSCode)
-     *  javac -cp ../lib/json-20230227.jar:. *.java
-     *  java -cp ../lib/json-20230227.jar:. *
-     */
+
 }
 
 /**

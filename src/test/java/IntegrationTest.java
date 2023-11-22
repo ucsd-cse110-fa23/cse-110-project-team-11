@@ -9,13 +9,16 @@ import javafx.application.Platform;
 import javafx.scene.layout.*;
 import javafx.event.ActionEvent;
 import pantryPal.*;
-import pantryPal.View.App;
-import pantryPal.View.HomePageAppFrame;
-import pantryPal.View.HomePageHeader;
-import pantryPal.View.InputAppFrame;
-import pantryPal.View.RecipeDisplay;
-import pantryPal.View.RecipeDisplayAppFrame;
-import pantryPal.View.UI;
+import pantryPal.client.App;
+import pantryPal.client.Controller;
+import pantryPal.client.Model;
+import pantryPal.client.TranscriptionService;
+import pantryPal.client.View.HomePageAppFrame;
+import pantryPal.client.View.HomePageHeader;
+import pantryPal.client.View.InputAppFrame;
+import pantryPal.client.View.RecipeDisplay;
+import pantryPal.client.View.RecipeDisplayAppFrame;
+import pantryPal.client.View.UI;
 import java.io.File;
  
 

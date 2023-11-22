@@ -1,20 +1,11 @@
-
-package pantryPal;
+package pantryPal.client;
 import java.io.*;
 import java.net.*;
 import org.json.*;
 import javax.sound.sampled.*;
 
 
-
-// TODO: Add reference or change code to make it our own
-// https://www.developer.com/java/java-sound-capturing-microphone-data-into-an-audio-file/#Run%20the%20program 
-
 public class Input {
-
-    
-
-
     private  final String API_ENDPOINT = "https://api.openai.com/v1/audio/transcriptions";
     private  final String TOKEN = "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";
     private  final String MODEL = "whisper-1";
@@ -36,8 +27,7 @@ public class Input {
     private String promptType = "MealType";
     
     public  void captureAudio(){
-        try{
-
+        try {
             DataLine.Info line = new DataLine.Info(
                                 TargetDataLine.class,
                                 format);
@@ -74,7 +64,7 @@ public class Input {
         
     }
 
-    public  boolean stopCapture(String inputType){
+    public boolean stopCapture(String inputType){
         if (mic != null){
             mic.stop();
             mic.close();
@@ -171,13 +161,9 @@ public class Input {
         else{
             return meal;
         }
-
-
-
-
-
     }
-    private  String whisper() throws IOException, URISyntaxException{
+
+    private  String whisper() throws IOException, URISyntaxException {
         // Create file object from file path
         File file = new File("input.wav");
 
@@ -236,8 +222,6 @@ public class Input {
         connection.disconnect();
 
         return generatedText;
-
-
     }
 
     // Helper method to write a parameter to the output stream in multipart form data format
@@ -327,11 +311,7 @@ public class Input {
         System.out.println("Error Result: " + errorResult);
     }
 
-
-
-    public  void main(String[] args) throws InterruptedException {
-        
-
+    public void main(String[] args) throws InterruptedException {
         System.out.println("Recording");
         captureAudio();
 
@@ -350,10 +330,5 @@ public class Input {
         else{
             System.out.println("Failed");
         }
-
-
     }
-
-
 }
-

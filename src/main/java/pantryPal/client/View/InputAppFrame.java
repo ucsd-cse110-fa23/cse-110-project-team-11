@@ -1,4 +1,4 @@
-package pantryPal.View;
+package pantryPal.client.View;
 import javafx.scene.control.Button;
 import javafx.scene.layout.*;
 import javafx.scene.control.TextArea;
@@ -13,9 +13,6 @@ public class InputAppFrame extends BorderPane {
     private Button startButton,stopButton,backButton;
     private Label recordingLabel;
     private RecButtons recButton;
-    private TextArea recipeText;
-
-    private RecipeList recipeList;
 
     public InputAppFrame() {
         // header = new Header();
@@ -25,7 +22,6 @@ public class InputAppFrame extends BorderPane {
         startButton = recButton.getStartButton();
         stopButton = recButton.getStopButton();
         recordingLabel = recButton.getRecordingLabel();
-        recipeText = recButton.getRecipeText();
 
         // Set properties for the flowpane
         this.setPrefSize(500, 600);
@@ -33,10 +29,6 @@ public class InputAppFrame extends BorderPane {
 
         // Add the buttons and text fields
         this.setCenter(recButton);
-
-        // Add the listeners to the buttons
-        // addListeners();
-
 
     }
     
