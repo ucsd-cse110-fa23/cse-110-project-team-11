@@ -209,9 +209,6 @@ public class Controller {
     private void handleDeleteButton(ActionEvent event) {
         //System.out.println("HELLOOO");
         String stringID = rd.getID();
-        String title = rd.getTitle().getText();
-        String ingredients = rd.getIngredients().getText();
-        String steps = rd.getSteps().getText();
         model.performRequest("DELETE", stringID, null, null, null);
         reload();
         ui.returnHomePage();
