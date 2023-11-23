@@ -1,9 +1,16 @@
-/src/Input.wav
-/src/prompt.txt
-/src/promptTest.txt
-/src/recipe.txt
-/bin/
-/prompt.txt
-/Input.wav
-/promptTest.txt
-/recipe.txt
+#ignore compiled files
+*.class
+*.jar
+
+# ignore log files
+*.log
+
+#ignoring specific directories
+.vscode/
+src/main/resources
+src/test/resources
+Input.wav
+prompt.txt
+promptTest.txt
+recipe.txt
+recipes.csv
