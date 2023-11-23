@@ -9,6 +9,7 @@
 .vscode/
 src/main/resources
 src/test/resources
+bin/
 Input.wav
 prompt.txt
 promptTest.txt
