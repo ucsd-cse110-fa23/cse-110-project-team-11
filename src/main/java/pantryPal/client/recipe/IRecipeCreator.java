@@ -1,4 +1,4 @@
-package pantryPal.client;
+package pantryPal.client.recipe;
 /**
  * Interface for RecipeCreator objects
  */

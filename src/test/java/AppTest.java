@@ -12,7 +12,6 @@ import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import pantryPal.client.RecipeManager;
 import pantryPal.client.App;
 import pantryPal.client.View.HomePageAppFrame;
 import pantryPal.client.View.HomePageHeader;
@@ -21,6 +20,7 @@ import pantryPal.client.View.RecipeDisplay;
 import pantryPal.client.View.RecipeDisplayAppFrame;
 import pantryPal.client.View.RecipeTitle;
 import pantryPal.client.View.ReturnHeader;
+import pantryPal.client.recipe.RecipeManager;
 //import org.testfx.framework.junit.ApplicationTest;
 /**
  * UITest

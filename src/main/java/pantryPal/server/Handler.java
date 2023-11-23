@@ -2,7 +2,7 @@ package pantryPal.server;
 
 import com.sun.net.httpserver.*;
 
-import pantryPal.client.RecipeManager;
+import pantryPal.client.recipe.RecipeManager;
 
 import com.sun.net.httpserver.*;
 import java.io.*;

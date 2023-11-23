@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="RecipeParserTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2023-11-23T08:19:50" hostname="Stanleys-Air.home" time="0.001">
+  <properties/>
+  <testcase name="testParseSpecificInputWithDashSpace()" classname="RecipeParserTest" time="0.0"/>
+  <testcase name="testParseSpecificInputWithoutDashSpace()" classname="RecipeParserTest" time="0.0"/>
+  <system-out><![CDATA[file not found :/
+file not found :/
+]]></system-out>
+  <system-err><![CDATA[IOException: java.io.FileNotFoundException: /src/main/resources/recipe.txt (No such file or directory)
+IOException: java.io.FileNotFoundException: /src/main/resources/recipe.txt (No such file or directory)
+]]></system-err>
+</testsuite>

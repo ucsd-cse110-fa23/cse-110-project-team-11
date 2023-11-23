@@ -8,7 +8,6 @@ import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.layout.*;
 import javafx.event.ActionEvent;
-import pantryPal.*;
 import pantryPal.client.App;
 import pantryPal.client.Controller;
 import pantryPal.client.Model;

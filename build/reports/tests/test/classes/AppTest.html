@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="x-ua-compatible" content="IE=edge"/>
+<title>Test results - Class AppTest</title>
+<link href="../css/base-style.css" rel="stylesheet" type="text/css"/>
+<link href="../css/style.css" rel="stylesheet" type="text/css"/>
+<script src="../js/report.js" type="text/javascript"></script>
+</head>
+<body>
+<div id="content">
+<h1>Class AppTest</h1>
+<div class="breadcrumbs">
+<a href="../index.html">all</a> &gt; 
+<a href="../packages/default-package.html">default-package</a> &gt; AppTest</div>
+<div id="summary">
+<table>
+<tr>
+<td>
+<div class="summaryGroup">
+<table>
+<tr>
+<td>
+<div class="infoBox" id="tests">
+<div class="counter">9</div>
+<p>tests</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="failures">
+<div class="counter">0</div>
+<p>failures</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="ignored">
+<div class="counter">0</div>
+<p>ignored</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="duration">
+<div class="counter">18.063s</div>
+<p>duration</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</td>
+<td>
+<div class="infoBox success" id="successRate">
+<div class="percent">100%</div>
+<p>successful</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div id="tabs">
+<ul class="tabLinks">
+<li>
+<a href="#tab0">Tests</a>
+</li>
+<li>
+<a href="#tab1">Standard error</a>
+</li>
+</ul>
+<div id="tab0" class="tab">
+<h2>Tests</h2>
+<table>
+<thead>
+<tr>
+<th>Test</th>
+<th>Duration</th>
+<th>Result</th>
+</tr>
+</thead>
+<tr>
+<td class="success">testBackButton()</td>
+<td class="success">2.002s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">testCreateButton()</td>
+<td class="success">2.005s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">testDeleteButton()</td>
+<td class="success">2.019s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">testEditbutton()</td>
+<td class="success">2.006s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">testHeader()</td>
+<td class="success">2.003s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">testSaveButton()</td>
+<td class="success">2.007s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">testStartButton()</td>
+<td class="success">2.007s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">testStopButton()</td>
+<td class="success">2.008s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">testViewButton()</td>
+<td class="success">2.006s</td>
+<td class="success">passed</td>
+</tr>
+</table>
+</div>
+<div id="tab1" class="tab">
+<h2>Standard error</h2>
+<span class="code">
+<pre>Exception in thread &quot;Thread-6&quot; java.lang.IllegalStateException: Application launch must not be called more than once
+	at com.sun.javafx.application.LauncherImpl.launchApplication(LauncherImpl.java:176)
+	at com.sun.javafx.application.LauncherImpl.launchApplication(LauncherImpl.java:154)
+	at javafx.application.Application.launch(Application.java:233)
+	at AppTest$1.run(AppTest.java:36)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+Nov 23, 2023 12:19:24 AM com.sun.javafx.application.PlatformImpl startup
+WARNING: Unsupported JavaFX configuration: classes were loaded from 'unnamed module @4c402120'
+Loading library prism_es2 from resource failed: java.lang.UnsatisfiedLinkError: Can't load library: /Users/stanleypan/.openjfx/cache/21+31/aarch64/libprism_es2.dylib
+java.lang.UnsatisfiedLinkError: Can't load library: /Users/stanleypan/.openjfx/cache/21+31/aarch64/libprism_es2.dylib
+	at java.base/java.lang.ClassLoader.loadLibrary(ClassLoader.java:2393)
+	at java.base/java.lang.Runtime.load0(Runtime.java:755)
+	at java.base/java.lang.System.load(System.java:1953)
+	at com.sun.glass.utils.NativeLibLoader.installLibraryFromResource(NativeLibLoader.java:218)
+	at com.sun.glass.utils.NativeLibLoader.loadLibraryFromResource(NativeLibLoader.java:198)
+	at com.sun.glass.utils.NativeLibLoader.loadLibraryInternal(NativeLibLoader.java:140)
+	at com.sun.glass.utils.NativeLibLoader.loadLibrary(NativeLibLoader.java:56)
+	at com.sun.prism.es2.ES2Pipeline.lambda$static$0(ES2Pipeline.java:63)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:318)
+	at com.sun.prism.es2.ES2Pipeline.&lt;clinit&gt;(ES2Pipeline.java:52)
+	at java.base/java.lang.Class.forName0(Native Method)
+	at java.base/java.lang.Class.forName(Class.java:375)
+	at com.sun.prism.GraphicsPipeline.createPipeline(GraphicsPipeline.java:218)
+	at com.sun.javafx.tk.quantum.QuantumRenderer$PipelineRunnable.init(QuantumRenderer.java:92)
+	at com.sun.javafx.tk.quantum.QuantumRenderer$PipelineRunnable.run(QuantumRenderer.java:125)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+Loading library prism_sw from resource failed: java.lang.UnsatisfiedLinkError: Can't load library: /Users/stanleypan/.openjfx/cache/21+31/aarch64/libprism_sw.dylib
+java.lang.UnsatisfiedLinkError: Can't load library: /Users/stanleypan/.openjfx/cache/21+31/aarch64/libprism_sw.dylib
+	at java.base/java.lang.ClassLoader.loadLibrary(ClassLoader.java:2393)
+	at java.base/java.lang.Runtime.load0(Runtime.java:755)
+	at java.base/java.lang.System.load(System.java:1953)
+	at com.sun.glass.utils.NativeLibLoader.installLibraryFromResource(NativeLibLoader.java:218)
+	at com.sun.glass.utils.NativeLibLoader.loadLibraryFromResource(NativeLibLoader.java:198)
+	at com.sun.glass.utils.NativeLibLoader.loadLibraryInternal(NativeLibLoader.java:140)
+	at com.sun.glass.utils.NativeLibLoader.loadLibrary(NativeLibLoader.java:56)
+	at com.sun.prism.sw.SWPipeline.lambda$static$0(SWPipeline.java:43)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:318)
+	at com.sun.prism.sw.SWPipeline.&lt;clinit&gt;(SWPipeline.java:42)
+	at java.base/java.lang.Class.forName0(Native Method)
+	at java.base/java.lang.Class.forName(Class.java:375)
+	at com.sun.prism.GraphicsPipeline.createPipeline(GraphicsPipeline.java:218)
+	at com.sun.javafx.tk.quantum.QuantumRenderer$PipelineRunnable.init(QuantumRenderer.java:92)
+	at com.sun.javafx.tk.quantum.QuantumRenderer$PipelineRunnable.run(QuantumRenderer.java:125)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+Graphics Device initialization failed for :  es2, sw
+Error initializing QuantumRenderer: no suitable pipeline found
+java.lang.RuntimeException: java.lang.RuntimeException: Error initializing QuantumRenderer: no suitable pipeline found
+	at com.sun.javafx.tk.quantum.QuantumRenderer.getInstance(QuantumRenderer.java:283)
+	at com.sun.javafx.tk.quantum.QuantumToolkit.init(QuantumToolkit.java:253)
+	at com.sun.javafx.tk.Toolkit.getToolkit(Toolkit.java:263)
+	at com.sun.javafx.application.PlatformImpl.startup(PlatformImpl.java:290)
+	at com.sun.javafx.application.PlatformImpl.startup(PlatformImpl.java:162)
+	at com.sun.javafx.application.LauncherImpl.startToolkit(LauncherImpl.java:651)
+	at com.sun.javafx.application.LauncherImpl.launchApplication1(LauncherImpl.java:671)
+	at com.sun.javafx.application.LauncherImpl.lambda$launchApplication$2(LauncherImpl.java:196)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+Caused by: java.lang.RuntimeException: Error initializing QuantumRenderer: no suitable pipeline found
+	at com.sun.javafx.tk.quantum.QuantumRenderer$PipelineRunnable.init(QuantumRenderer.java:95)
+	at com.sun.javafx.tk.quantum.QuantumRenderer$PipelineRunnable.run(QuantumRenderer.java:125)
+	... 1 more
+Exception in thread &quot;Thread-3&quot; java.lang.RuntimeException: No toolkit found
+	at com.sun.javafx.tk.Toolkit.getToolkit(Toolkit.java:275)
+	at com.sun.javafx.application.PlatformImpl.startup(PlatformImpl.java:290)
+	at com.sun.javafx.application.PlatformImpl.startup(PlatformImpl.java:162)
+	at com.sun.javafx.application.LauncherImpl.startToolkit(LauncherImpl.java:651)
+	at com.sun.javafx.application.LauncherImpl.launchApplication1(LauncherImpl.java:671)
+	at com.sun.javafx.application.LauncherImpl.lambda$launchApplication$2(LauncherImpl.java:196)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+Exception in thread &quot;Thread-9&quot; java.lang.IllegalStateException: Application launch must not be called more than once
+	at com.sun.javafx.application.LauncherImpl.launchApplication(LauncherImpl.java:176)
+	at com.sun.javafx.application.LauncherImpl.launchApplication(LauncherImpl.java:154)
+	at javafx.application.Application.launch(Application.java:233)
+	at AppTest$1.run(AppTest.java:36)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+Exception in thread &quot;Thread-11&quot; java.lang.IllegalStateException: Application launch must not be called more than once
+	at com.sun.javafx.application.LauncherImpl.launchApplication(LauncherImpl.java:176)
+	at com.sun.javafx.application.LauncherImpl.launchApplication(LauncherImpl.java:154)
+	at javafx.application.Application.launch(Application.java:233)
+	at AppTest$1.run(AppTest.java:36)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+Exception in thread &quot;Thread-13&quot; java.lang.IllegalStateException: Application launch must not be called more than once
+	at com.sun.javafx.application.LauncherImpl.launchApplication(LauncherImpl.java:176)
+	at com.sun.javafx.application.LauncherImpl.launchApplication(LauncherImpl.java:154)
+	at javafx.application.Application.launch(Application.java:233)
+	at AppTest$1.run(AppTest.java:36)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+Exception in thread &quot;Thread-15&quot; java.lang.IllegalStateException: Application launch must not be called more than once
+	at com.sun.javafx.application.LauncherImpl.launchApplication(LauncherImpl.java:176)
+	at com.sun.javafx.application.LauncherImpl.launchApplication(LauncherImpl.java:154)
+	at javafx.application.Application.launch(Application.java:233)
+	at AppTest$1.run(AppTest.java:36)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+Exception in thread &quot;Thread-17&quot; java.lang.IllegalStateException: Application launch must not be called more than once
+	at com.sun.javafx.application.LauncherImpl.launchApplication(LauncherImpl.java:176)
+	at com.sun.javafx.application.LauncherImpl.launchApplication(LauncherImpl.java:154)
+	at javafx.application.Application.launch(Application.java:233)
+	at AppTest$1.run(AppTest.java:36)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+Exception in thread &quot;Thread-19&quot; java.lang.IllegalStateException: Application launch must not be called more than once
+	at com.sun.javafx.application.LauncherImpl.launchApplication(LauncherImpl.java:176)
+	at com.sun.javafx.application.LauncherImpl.launchApplication(LauncherImpl.java:154)
+	at javafx.application.Application.launch(Application.java:233)
+	at AppTest$1.run(AppTest.java:36)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+Exception in thread &quot;Thread-21&quot; java.lang.IllegalStateException: Application launch must not be called more than once
+	at com.sun.javafx.application.LauncherImpl.launchApplication(LauncherImpl.java:176)
+	at com.sun.javafx.application.LauncherImpl.launchApplication(LauncherImpl.java:154)
+	at javafx.application.Application.launch(Application.java:233)
+	at AppTest$1.run(AppTest.java:36)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+Exception in thread &quot;Thread-23&quot; java.lang.IllegalStateException: Application launch must not be called more than once
+	at com.sun.javafx.application.LauncherImpl.launchApplication(LauncherImpl.java:176)
+	at com.sun.javafx.application.LauncherImpl.launchApplication(LauncherImpl.java:154)
+	at javafx.application.Application.launch(Application.java:233)
+	at AppTest$1.run(AppTest.java:36)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+</pre>
+</span>
+</div>
+</div>
+<div id="footer">
+<p>
+<div>
+<label class="hidden" id="label-for-line-wrapping-toggle" for="line-wrapping-toggle">Wrap lines
+<input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
+</label>
+</div>Generated by 
+<a href="http://www.gradle.org">Gradle 7.4.2</a> at Nov 23, 2023, 12:19:50 AM</p>
+</div>
+</div>
+</body>
+</html>

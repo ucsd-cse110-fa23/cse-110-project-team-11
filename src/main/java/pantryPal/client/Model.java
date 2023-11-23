@@ -7,8 +7,15 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URI;
 import java.util.Base64;
+import pantryPal.client.UserAccount.User;
 
 public class Model {
+    // TODO: perform request for user
+    public String performRequest(String method, User user) {
+        return "";
+    }
+
+    // perform request for recipe
     public String performRequest (String method, String id, String title, String ingredients, String steps) {
         try {
             String urlString = "http://localhost:8100/";

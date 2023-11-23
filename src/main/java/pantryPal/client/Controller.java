@@ -4,6 +4,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import java.io.IOException;
 import java.util.*;
+
 import pantryPal.client.View.HomePageAppFrame;
 import pantryPal.client.View.HomePageHeader;
 import pantryPal.client.View.InputAppFrame;
@@ -12,6 +13,11 @@ import pantryPal.client.View.RecButtons;
 import pantryPal.client.View.RecipeDisplay;
 import pantryPal.client.View.RecipeTitle;
 import pantryPal.client.View.UI;
+import pantryPal.client.recipe.Input;
+import pantryPal.client.recipe.RecipeCreator;
+import pantryPal.client.recipe.RecipeManager;
+import pantryPal.client.recipe.RecipeParser;
+
 import com.sun.net.httpserver.*;
 import java.io.*;
 import java.net.*;
@@ -213,6 +219,12 @@ public class Controller {
         model.performRequest("DELETE", stringID, null, null, null);
         reload();
         ui.returnHomePage();
+    }
+
+    // TODO: handle create account button
+    private void handleCreateAccountButton(ActionEvent event) {
+        
+        // model.performRequest(null, null, null, null, null)
     }
 
     public void reload(){

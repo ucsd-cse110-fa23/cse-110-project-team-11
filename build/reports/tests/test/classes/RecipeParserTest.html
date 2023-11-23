@@ -3,17 +3,17 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 <meta http-equiv="x-ua-compatible" content="IE=edge"/>
-<title>Test results - Class MockRecipeCreatorTest</title>
+<title>Test results - Class RecipeParserTest</title>
 <link href="../css/base-style.css" rel="stylesheet" type="text/css"/>
 <link href="../css/style.css" rel="stylesheet" type="text/css"/>
 <script src="../js/report.js" type="text/javascript"></script>
 </head>
 <body>
 <div id="content">
-<h1>Class MockRecipeCreatorTest</h1>
+<h1>Class RecipeParserTest</h1>
 <div class="breadcrumbs">
 <a href="../index.html">all</a> &gt; 
-<a href="../packages/default-package.html">default-package</a> &gt; MockRecipeCreatorTest</div>
+<a href="../packages/default-package.html">default-package</a> &gt; RecipeParserTest</div>
 <div id="summary">
 <table>
 <tr>
@@ -23,7 +23,7 @@
 <tr>
 <td>
 <div class="infoBox" id="tests">
-<div class="counter">3</div>
+<div class="counter">2</div>
 <p>tests</p>
 </div>
 </td>
@@ -41,7 +41,7 @@
 </td>
 <td>
 <div class="infoBox" id="duration">
-<div class="counter">0.011s</div>
+<div class="counter">0s</div>
 <p>duration</p>
 </div>
 </td>
@@ -66,6 +66,9 @@
 <li>
 <a href="#tab1">Standard output</a>
 </li>
+<li>
+<a href="#tab2">Standard error</a>
+</li>
 </ul>
 <div id="tab0" class="tab">
 <h2>Tests</h2>
@@ -78,18 +81,13 @@
 </tr>
 </thead>
 <tr>
-<td class="success">testFormatPrompt()</td>
-<td class="success">0.003s</td>
+<td class="success">testParseSpecificInputWithDashSpace()</td>
+<td class="success">0s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
-<td class="success">testGenerateRecipe()</td>
-<td class="success">0.005s</td>
-<td class="success">passed</td>
-</tr>
-<tr>
-<td class="success">testReadFile()</td>
-<td class="success">0.003s</td>
+<td class="success">testParseSpecificInputWithoutDashSpace()</td>
+<td class="success">0s</td>
 <td class="success">passed</td>
 </tr>
 </table>
@@ -97,21 +95,16 @@
 <div id="tab1" class="tab">
 <h2>Standard output</h2>
 <span class="code">
-<pre>Title: chicken and carrots dish
-
-Ingredients: chicken, balut, carrots
-
-Steps: [steps]
-Title: chicken and carrots dish
-
-Ingredients: chicken, balut, carrots
-
-Steps: [steps]
-Title: chicken and carrots dish
-
-Ingredients: chicken, balut, carrots
-
-Steps: [steps]
+<pre>file not found :/
+file not found :/
+</pre>
+</span>
+</div>
+<div id="tab2" class="tab">
+<h2>Standard error</h2>
+<span class="code">
+<pre>IOException: java.io.FileNotFoundException: /src/main/resources/recipe.txt (No such file or directory)
+IOException: java.io.FileNotFoundException: /src/main/resources/recipe.txt (No such file or directory)
 </pre>
 </span>
 </div>

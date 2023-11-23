@@ -1,16 +1,16 @@
 
 
-Title: Baked Chicken 
-- Chicken 
+Title: Sausage and Egg Breakfast 
+Ingredients:
+- Egg 
+- Sausage 
+- Oil 
 - Salt 
 - Pepper 
-- Olive oil 
-- Garlic 
-- Parsley 
 
-#1 Preheat oven to 375°F.
-#2 Place chicken in baking dish.
-#3 Drizzle with olive oil.
-#4 Sprinkle with salt, pepper, garlic, and parsley.
-#5 Bake for 30 minutes or until chicken is cooked through.
-#6 Serve and enjoy!
+#1 Heat oil in a skillet over medium-high heat.
+#2 Add sausage and cook until browned and cooked through.
+#3 Remove sausage from skillet and set aside.
+#4 In the same skillet, add the egg and season with salt and pepper.
+#5 Cook egg until desired doneness.
+#6 Serve egg and sausage together.

@@ -1,4 +1,4 @@
-package pantryPal.client;
+package pantryPal.client.recipe;
 /**
  * RecipeManager.java should handle the functions that change our database in MongoDB.
  * Should handle delete recipe, insert recipe, save recipe (after editing).

@@ -1,32 +1,33 @@
-
+package pantryPal.client.recipe;
 import java.io.*;
 import java.net.*;
 import org.json.*;
 import javax.sound.sampled.*;
 
 
-
-// TODO: Add reference or change code to make it our own
-// https://www.developer.com/java/java-sound-capturing-microphone-data-into-an-audio-file/#Run%20the%20program 
-
 public class Input {
+    private  final String API_ENDPOINT = "https://api.openai.com/v1/audio/transcriptions";
+    private  final String TOKEN = "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";
+    private  final String MODEL = "whisper-1";
 
-    private static final String API_ENDPOINT = "https://api.openai.com/v1/audio/transcriptions";
-    private static final String TOKEN = "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";
-    private static final String MODEL = "whisper-1";
-
-    AudioFormat format = new AudioFormat(8000.0F,
+    private  AudioFormat format = new AudioFormat(8000.0F,
                                 16,
                                 1,
                                 true,
                                 false);
-    TargetDataLine mic; 
-    private Thread thread;
-    private File audioFile = new File("Input.wav");
 
-    public void captureAudio(){
-        try{
+    private  TargetDataLine mic; 
+    private  Thread thread;
+    private  File audioFile = new File("Input.wav");
 
+    public  AudioFormat getAudioFormat() {
+        return format;
+    }
+
+    private String promptType = "MealType";
+    
+    public  void captureAudio(){
+        try {
             DataLine.Info line = new DataLine.Info(
                                 TargetDataLine.class,
                                 format);
@@ -63,23 +64,106 @@ public class Input {
         
     }
 
-    public void stopCapture(){
+    public boolean stopCapture(String inputType){
         if (mic != null){
             mic.stop();
             mic.close();
 
-            try {
-                thread.join();
-                whisper();
+            if(inputType.equals("MealType")){
+                try {
 
-            } catch(Exception e) {
-                e.printStackTrace();
+                    thread.join();
+                    String transcription = whisper();
+                    String type = typeParser(transcription);
+                    if(type.equals("Invalid")){
+                        return false;
+                    }
+                    else{
+                        try {
+                            File file = new File("prompt.txt");
+                            file.createNewFile();
+                            BufferedWriter br = new BufferedWriter(new FileWriter(file));
+                            br.write(type);
+                            br.write("\n");
+                            br.close();
+                            
+                        } catch(Exception e) {
+                            System.out.println("File not found");
+                        }
+                        return true;
+                    }
+
+
+                } catch(Exception e) {
+                    e.printStackTrace();
+                }
+
             }
+            else if (inputType.equals("Ingredients")){
+                try {
+                    thread.join();
+                    String transcription = whisper();
+                    try {
+                        File file = new File("prompt.txt");
+                        file.createNewFile();
+                        BufferedWriter br = new BufferedWriter(new FileWriter(file, true));
+                        br.write(transcription);
+                        br.close();
+                        
+                    } catch(Exception e) {
+                        System.out.println("File not found");
+                    }
+                    return true;
+                } catch(Exception e) {
+                    e.printStackTrace();
+                }
+            }
+            
+        
+        }
+        return false;
+    }
 
+
+    public TargetDataLine getMic(){
+        return mic;
+    }
+
+    public void setPromptType(String promptType){
+        this.promptType = promptType;
+    }
+
+    public String getPromptType(){
+        return this.promptType;
+    }
+
+    private  String typeParser(String input) {
+
+        input = input.toLowerCase();
+
+        int count = 0;
+
+        String[] meals = {"breakfast","lunch","dinner"};
+
+        String meal = "";
+
+        for(int i = 0; i  < meals.length; i++){
+
+            if(input.contains(meals[i])){
+                count++;
+                meal = meals[i];
+            }
+        }
+
+        if(count != 1){
+            return "Invalid";
+        }
+        else{
+            return meal;
         }
     }
 
-    private void whisper() throws IOException, URISyntaxException{
+    private  String whisper() throws IOException, URISyntaxException {
         // Create file object from file path
         File file = new File("input.wav");
 
@@ -124,10 +208,11 @@ public class Input {
         // Get response code
         int responseCode = connection.getResponseCode();
 
+        String generatedText = "";
 
         // Check response code and handle response accordingly
         if (responseCode == HttpURLConnection.HTTP_OK) {
-            handleSuccessResponse(connection);
+            generatedText = handleSuccessResponse(connection);
         } else {
             handleErrorResponse(connection);
         }
@@ -136,12 +221,11 @@ public class Input {
         // Disconnect connection
         connection.disconnect();
 
-
-
+        return generatedText;
     }
 
     // Helper method to write a parameter to the output stream in multipart form data format
-    private static void writeParameterToOutputStream(
+    private  void writeParameterToOutputStream(
         OutputStream outputStream,
         String parameterName,
         String parameterValue,
@@ -158,7 +242,7 @@ public class Input {
     
     
     // Helper method to write a file to the output stream in multipart form data format
-    private static void writeFileToOutputStream(
+    private  void writeFileToOutputStream(
         OutputStream outputStream,
         File file,
         String boundary
@@ -185,7 +269,7 @@ public class Input {
     }
     
     // Helper method to handle a successful response
-    private static void handleSuccessResponse(HttpURLConnection connection)
+    private  String handleSuccessResponse(HttpURLConnection connection)
     throws IOException, JSONException {
         BufferedReader in = new BufferedReader(
             new InputStreamReader(connection.getInputStream())
@@ -208,20 +292,11 @@ public class Input {
         System.out.println("Transcription Result: " + generatedText);
 
         
-        try {
-            File file = new File("prompt.txt");
-            file.createNewFile();
-            BufferedWriter br = new BufferedWriter(new FileWriter(file));
-            br.write(generatedText);
-            br.close();
-        
-        } catch(Exception e) {
-            System.out.println("File not found");
-        }
+        return generatedText;
     }
 
     // Helper method to handle an error response
-    private static void handleErrorResponse(HttpURLConnection connection)
+    private  void handleErrorResponse(HttpURLConnection connection)
     throws IOException, JSONException {
         BufferedReader errorReader = new BufferedReader(
             new InputStreamReader(connection.getErrorStream())
@@ -236,23 +311,24 @@ public class Input {
         System.out.println("Error Result: " + errorResult);
     }
 
-
-
-    public static void main(String[] args) throws InterruptedException {
-        
-        Input i = new Input();
-
+    public void main(String[] args) throws InterruptedException {
         System.out.println("Recording");
-        i.captureAudio();
+        captureAudio();
 
-        Thread.sleep(10000);
+        Thread.sleep(5000);
 
         System.out.println("Stopped");
-        i.stopCapture();
+        boolean t = stopCapture("MealType");
 
-
+        if(t){
+            System.out.println("Recording");
+            captureAudio();
+            Thread.sleep(10000);
+            System.out.println("Stopped");
+            stopCapture("Ingredients");
+        }
+        else{
+            System.out.println("Failed");
+        }
     }
-
-
 }
-

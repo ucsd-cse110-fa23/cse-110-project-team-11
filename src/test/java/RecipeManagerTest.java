@@ -13,13 +13,13 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.io.IOException;  // Import the IOException class to handle errors
 import java.util.ArrayList;
 
-import pantryPal.client.RecipeManager;
 import pantryPal.client.App;
 import pantryPal.client.View.HomePageAppFrame;
 import pantryPal.client.View.InputAppFrame;
 import pantryPal.client.View.RecipeDisplay;
 import pantryPal.client.View.RecipeDisplayAppFrame;
 import pantryPal.client.View.RecipeTitle;
+import pantryPal.client.recipe.RecipeManager;
 
 public class RecipeManagerTest {
 

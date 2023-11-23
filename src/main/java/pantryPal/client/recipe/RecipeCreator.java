@@ -1,4 +1,9 @@
-package pantryPal.client;
+/**
+ * RecipeCreator.java sends a request to ChatGPT and asks it to generate a recipe given a certain meal type and list of ingredients,
+ * which are received from the file "prompt.txt"
+ */
+
+package pantryPal.client.recipe;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
@@ -12,10 +17,6 @@ import java.net.http.HttpResponse;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-/**
- * This file sends a request to ChatGPT and asks it to generate a recipe given a certain meal type and list of ingredients,
- * which are received from the file "prompt.txt"
- */
 public class RecipeCreator implements IRecipeCreator {
     ChatGPT api = new ChatGPT();
     /**

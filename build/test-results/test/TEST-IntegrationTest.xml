@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="IntegrationTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2023-11-23T08:19:42" hostname="Stanleys-Air.home" time="2.005">
+  <properties/>
+  <testcase name="Integration1()" classname="IntegrationTest" time="2.005"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[Exception in thread "Thread-24" java.lang.IllegalStateException: Application launch must not be called more than once
+	at com.sun.javafx.application.LauncherImpl.launchApplication(LauncherImpl.java:176)
+	at com.sun.javafx.application.LauncherImpl.launchApplication(LauncherImpl.java:154)
+	at javafx.application.Application.launch(Application.java:233)
+	at IntegrationTest$1.run(IntegrationTest.java:41)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+Exception in thread "Thread-26" java.lang.IllegalStateException: Application launch must not be called more than once
+	at com.sun.javafx.application.LauncherImpl.launchApplication(LauncherImpl.java:176)
+	at com.sun.javafx.application.LauncherImpl.launchApplication(LauncherImpl.java:154)
+	at javafx.application.Application.launch(Application.java:233)
+	at IntegrationTest$1.run(IntegrationTest.java:41)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+]]></system-err>
+</testsuite>
