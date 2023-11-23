@@ -15,3 +15,5 @@ src/main/.DS_Store
 bin/main/java
 bin/test
 .DS_Store
+Input.wav
+prompt.txt
