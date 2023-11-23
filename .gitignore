@@ -9,9 +9,11 @@
 .vscode/
 src/main/resources
 src/test/resources
+src/main/.DS_Store
 bin/
 Input.wav
 prompt.txt
 promptTest.txt
 recipe.txt
 recipes.csv
+.DS_Store
