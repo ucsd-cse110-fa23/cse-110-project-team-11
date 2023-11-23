@@ -225,7 +225,6 @@ public class Controller {
         ArrayList<String[]> recipes = RecipeManager.loadRecipes();
         
         for(int i = 0; i < recipes.size(); i++){
-
             String stringID = recipes.get(i)[0];
             String title = recipes.get(i)[1];
             String ingredients = recipes.get(i)[2];
