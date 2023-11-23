@@ -175,6 +175,7 @@ public class Controller {
         rd.getIngredients().setEditable(false);
         rd.getSteps();
         if (rd.getID() == null) { // if does not exist in MongoDB 
+            // System.out.println("HANDLE SAVE BUTTON (CONTROLLER)");
             String stringID = rd.getID();
             String title = rd.getTitle().getText();
             String ingredients = rd.getIngredients().getText();

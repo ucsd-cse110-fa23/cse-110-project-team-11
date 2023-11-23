@@ -17,9 +17,9 @@ public class Handler implements HttpHandler {
      * DELETE a recipe (from MongoDB)
      */
     public void handle(HttpExchange httpExchange) throws IOException {
-
         String method = httpExchange.getRequestMethod(); // gets method from Model.java
         String response = "Request Received";
+        System.out.println(response);
         try {
             if (method.equals("GET")) {
                 response = handleGet(httpExchange);
@@ -73,23 +73,38 @@ public class Handler implements HttpHandler {
      * @throws IOException
      */
     private String handlePut (HttpExchange httpExchange) throws IOException {
-        // Should read the stuff from the httpRequest from Model
-        InputStream inStream = httpExchange.getRequestBody();
-        Scanner scanner = new Scanner(inStream);
-        String postData = scanner.nextLine();
-        scanner.close();
+        try {
+            // Should read the stuff from the httpRequest from Model
+            InputStream inStream = httpExchange.getRequestBody();
+            BufferedReader br = new BufferedReader(new InputStreamReader(inStream));
+            StringBuilder postData = new StringBuilder();
 
-        String[] recipe = postData.split(";");
-        String title = recipe[0];
-        String ingredients = recipe[1];
-        String steps = recipe[2];
+            // adds all the data into one line
+            String line;
+            while ((line = br.readLine()) != null) {
+                postData.append(line);
+            }
 
-        RecipeManager.insertRecipe(title, ingredients, steps);
+            // System.out.println("postdata: " + postData);
+            String[] recipe = postData.toString().split(";");
+            String decodedTitle = new String(Base64.getDecoder().decode(recipe[0]));
+            String decodedIngredients = new String(Base64.getDecoder().decode(recipe[1]));
+            String decodedSteps = new String(Base64.getDecoder().decode(recipe[2]));
 
-        String response = "Inserted " + title;
-        System.out.println(response);
+            // System.out.println("Decoded Title: " + decodedTitle);
+            // System.out.println("Decoded Ingredients: " + decodedIngredients);
+            // System.out.println("Decoded Steps: " + decodedSteps);
 
-        return response;
+            String[] result = RecipeManager.insertRecipe(decodedTitle, decodedIngredients, decodedSteps);
+
+            String response = "INSERTED THE RECIPE" + result;
+            // System.out.println(response);
+            return response;
+        }
+        catch (Exception e) {
+            e.printStackTrace(); // Log the exception
+            return "Error handling PUT request";
+        }
     }
 
     /**

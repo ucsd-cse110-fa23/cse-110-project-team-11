@@ -1,20 +1,29 @@
 
 
-Title: Chicken Lunch
+Title: Chicken and Broccoli Alfredo 
 
 Ingredients: 
-- Chicken
-- Olive oil
-- Salt
-- Pepper
-- Garlic
-- Onion
-- Carrot
-- Celery
+- Chicken Breast 
+- Broccoli 
+- Alfredo Sauce 
+- Butter 
+- Garlic 
+- Salt 
+- Pepper 
+- Olive Oil 
+- Pasta 
 
-Instructions:
-# Heat a large skillet over medium-high heat and add olive oil.
-# Add the chicken to the skillet and season with salt and pepper.
-# Cook for about 5 minutes, stirring occasionally, until the chicken is cooked through.
-# Add the garlic, onion, carrot, and celery to the skillet and cook for an additional 5 minutes.
-# Serve the chicken and vegetables with your favorite sides. Enjoy!
+#1 Heat a large pot of salted water to a boil over high heat. 
+#2 Add pasta to boiling water and cook until al dente. 
+#3 Meanwhile, heat olive oil in a large skillet over medium-high heat. 
+#4 Add chicken and season with salt and pepper. 
+#5 Cook chicken until golden brown and cooked through, about 8 minutes. 
+#6 Remove chicken from skillet and set aside. 
+#7 Add butter and garlic to skillet and cook until fragrant, about 1 minute. 
+#8 Add broccoli to skillet and season with salt and pepper. 
+#9 Cook broccoli until tender, about 5 minutes. 
+#10 Add Alfredo sauce and cooked chicken to skillet and stir to combine. 
+#11 Reduce heat to low and simmer until sauce is heated through, about 5 minutes. 
+#12 Drain cooked pasta and add to skillet with chicken and broccoli. 
+#13 Stir to combine and season with salt and pepper, to taste. 
+#14 Serve chicken and broccoli Alfredo immediately.
