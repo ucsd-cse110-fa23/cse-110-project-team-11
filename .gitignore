@@ -6,14 +6,12 @@
 *.log
 
 #ignoring specific directories
-.vscode/
-src/main/resources
-src/test/resources
+.vscode/launch.json
+src/main/resources/Input.wav
+src/main/resources/prompt.txt
+src/main/resources/recipe.txt
+src/test/resources/promptText.txt
 src/main/.DS_Store
-bin/
-Input.wav
-prompt.txt
-promptTest.txt
-recipe.txt
-recipes.csv
+bin/main/java
+bin/test
 .DS_Store
