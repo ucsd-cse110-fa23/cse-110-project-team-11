@@ -1,0 +1,34 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        
+        {
+            "type": "java",
+            "name": "Server",
+            "request": "launch",
+            "mainClass": "pantryPal.server.Server",
+            "projectName": "cse-110-project-team-11",
+
+        },
+        {
+            "type": "java",
+            "name": "App_mac",
+            "request": "launch",
+            "mainClass": "pantryPal.client.App",
+            "projectName": "cse-110-project-team-11",
+            "vmArgs": "--module-path 'lib/mac' --add-modules javafx.controls,javafx.fxml"
+        },
+        {
+            "type": "java",
+            "name": "App_win",
+            "request": "launch",
+            "mainClass": "pantryPal.client.App",
+            "projectName": "cse-110-project-team-11",
+            "vmArgs": "--module-path 'lib/win/lib' --add-modules javafx.controls,javafx.fxml"
+        },
+        //C:\\Users\\trank\\Downloads\\openjfx-21_windows-x64_bin-sdk\\javafx-sdk-21\\lib
+    ]
+}

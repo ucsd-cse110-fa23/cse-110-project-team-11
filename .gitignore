@@ -6,7 +6,7 @@
 *.log
 
 #ignoring specific directories
-.vscode/launch.json
+# .vscode/launch.json
 src/main/resources/Input.wav
 src/main/resources/prompt.txt
 src/main/resources/recipe.txt
