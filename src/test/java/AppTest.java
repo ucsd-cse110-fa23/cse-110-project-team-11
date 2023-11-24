@@ -20,7 +20,6 @@ import javafx.application.Platform;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
-import pantryPal.RecipeManager;
 import pantryPal.View.App;
 import pantryPal.View.HomePageAppFrame;
 import pantryPal.View.HomePageHeader;
