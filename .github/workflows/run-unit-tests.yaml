@@ -1,10 +1,6 @@
-name: Test
+name: Java CI
 
-on:
-  pull_request:
-    branches:
-      - master
-      - development
+on: [push]
 
 permissions:
   contents: read
