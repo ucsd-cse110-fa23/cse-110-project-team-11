@@ -90,6 +90,7 @@ public class AppTest extends App {
         // });
         // thread.start();// Initialize the thread
         // Thread.sleep(2000); // Time to use the app, with out this, the thread
+        //sadofjaisdofoi
         setUpClass();
         RecipeDisplay rd = new RecipeDisplay();
         assertNotNull(rd.getEditButton(), "Should not be null");
