@@ -12,7 +12,7 @@ public class ReturnHeader extends BorderPane {
         this.setStyle("-fx-background-color: #F2F2F2;");
         
         Text titleText = new Text("PantryPal"); // Text of the Header
-        titleText.setStyle("-fx-font-weight: bold; -fx-font-size: 20;");
+        titleText.setStyle("-fx-font-weight: bold; -fx-font-size: 40;");
 
         VBox pantryPal = new VBox(titleText);
         pantryPal.setAlignment(Pos.TOP_CENTER);

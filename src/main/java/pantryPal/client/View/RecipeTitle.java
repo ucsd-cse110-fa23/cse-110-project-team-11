@@ -8,7 +8,7 @@ import javafx.scene.text.*;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 
-public class RecipeTitle extends HBox {
+public class RecipeTitle extends BorderPane {
     private String id = null;
     private Label index;
     private TextField title;
@@ -26,22 +26,21 @@ public class RecipeTitle extends HBox {
         index = new Label();
         index.setText(""); 
         index.setPrefSize(40, 20); 
-        index.setTextAlignment(TextAlignment.CENTER); 
+        index.setTextAlignment(TextAlignment.LEFT); 
         index.setPadding(new Insets(10, 0, 10, 0)); 
-        this.getChildren().add(index); 
+        this.setLeft(index);
 
         title = new TextField(recipeTitle); 
         title.setPrefSize(380, 20); 
         title.setStyle("-fx-background-color: #DAE5EA; -fx-border-width: 0;"); 
-        index.setTextAlignment(TextAlignment.LEFT); 
         title.setPadding(new Insets(10, 0, 10, 0)); 
-        this.getChildren().add(title); 
+        this.setCenter(title);
 
         viewButton = new Button("View"); 
         viewButton.setPrefSize(100, 20);
         viewButton.setPrefHeight(Double.MAX_VALUE);
         viewButton.setStyle("-fx-background-color: #DAE5EA; -fx-border-width: 0;"); 
-        this.getChildren().add(viewButton);
+        this.setRight(viewButton);
     }
 
     public RecipeTitle (String idString, String recipeTitle, RecipeDisplayAppFrame recDet) {
@@ -56,7 +55,7 @@ public class RecipeTitle extends HBox {
         index.setPrefSize(40, 20); 
         index.setTextAlignment(TextAlignment.CENTER); 
         index.setPadding(new Insets(10, 0, 10, 0)); 
-        this.getChildren().add(index); 
+        this.setLeft(index); 
 
         title = new TextField(recipeTitle); 
         title.setEditable(false);
@@ -64,13 +63,13 @@ public class RecipeTitle extends HBox {
         title.setStyle("-fx-background-color: #DAE5EA; -fx-border-width: 0;"); 
         index.setTextAlignment(TextAlignment.LEFT); 
         title.setPadding(new Insets(10, 0, 10, 0)); 
-        this.getChildren().add(title); 
+        this.setCenter(title); 
 
         viewButton = new Button("View"); 
         viewButton.setPrefSize(100, 20);
         viewButton.setPrefHeight(Double.MAX_VALUE);
         viewButton.setStyle("-fx-background-color: #DAE5EA; -fx-border-width: 0;"); 
-        this.getChildren().add(viewButton);
+        this.setRight(viewButton);
   
     }
 

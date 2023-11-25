@@ -21,7 +21,6 @@ public class InputAppFrame extends BorderPane {
         backButton = header.getBackButton();
         startButton = recButton.getStartButton();
         stopButton = recButton.getStopButton();
-        recordingLabel = recButton.getRecordingLabel();
 
         // Set properties for the flowpane
         this.setPrefSize(500, 600);

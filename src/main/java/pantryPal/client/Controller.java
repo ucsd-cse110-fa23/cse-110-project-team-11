@@ -2,6 +2,9 @@ package pantryPal.client;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+
 import java.io.IOException;
 import java.util.*;
 import pantryPal.client.View.HomePageAppFrame;
@@ -68,7 +71,7 @@ public class Controller {
 
     public void handleStartButton(ActionEvent event) {
         RecButtons rb = inputFrame.getRecButtons();
-        rb.setRecordingLabel("Recording");
+        rb.setRecipeText("Recording");
         input.captureAudio();
         inputFrame.getRecButtons().getButtonBox().getChildren().remove(inputFrame.getRecButtons().getStartButton());
         inputFrame.getRecButtons().getButtonBox().getChildren().add(inputFrame.getRecButtons().getStopButton());
@@ -84,13 +87,12 @@ public class Controller {
         if(input.stopCapture(promptType)){
             
             if(promptType.equals("MealType")){
-                inputFrame.getRecButtons().getRecipeText().setText("Meal Type: " + input.getTranscription());
+                inputFrame.getRecButtons().setRecipeText("Please input Ingredients.\n\nMeal Type: " + input.getTranscription());
                 input.setPromptType("Ingredients");
-                inputFrame.getRecButtons().setRecordingLabel("Please input Ingredients");
             }
             else{
                 
-                inputFrame.getRecButtons().setRecordingLabel("Recipe Displayed");
+                inputFrame.getRecButtons().setRecipeText("Recipe Displayed");
                 RecipeDisplay rec = new RecipeDisplay();
                 input.setPromptType("MealType");
                 rc.generateRecipe();
@@ -130,8 +132,7 @@ public class Controller {
         }
         else{
             
-            inputFrame.getRecButtons().getRecipeText().setText("Transcription: " + input.getTranscription());
-            inputFrame.getRecButtons().setRecordingLabel("Invalid Input. Please say a proper meal type");
+            inputFrame.getRecButtons().setRecipeText("Invalid Input. Please say a proper meal type.\n\nTranscription: " + input.getTranscription());
         }
         
         
@@ -140,7 +141,7 @@ public class Controller {
     private void handleBackButton(ActionEvent event){
         ui.returnHomePage();   
         input.setPromptType("MealType"); 
-        inputFrame.getRecButtons().setRecordingLabel("Select Meal Type: Breakfast, Lunch, or Dinner");  
+        inputFrame.getRecButtons().setRecipeText("Select Meal Type: Breakfast, Lunch, or Dinner");  
         if(input.getMic() != null){
             input.getMic().stop();
             input.getMic().close();
@@ -155,7 +156,7 @@ public class Controller {
     private void handleBackButton2(ActionEvent event){
         ui.returnHomePage();   
         input.setPromptType("MealType"); 
-        inputFrame.getRecButtons().setRecordingLabel("Select Meal Type: Breakfast, Lunch, or Dinner");    
+        inputFrame.getRecButtons().setRecipeText("Select Meal Type: Breakfast, Lunch, or Dinner");    
         if(this.rd.getEditable()){
             RecipeDisplayAppFrame r = this.rd;
             TextArea ingredients = r.getIngredients();
@@ -163,7 +164,11 @@ public class Controller {
             TextArea steps = r.getSteps();
             ingredients.setEditable(false);
             steps.setEditable(false);
-            editButton.setText("Edit");
+            ImageView editImage = new ImageView(new Image("file:graphics/e2.png"));
+            editImage.setPreserveRatio(true);
+            editImage.setFitHeight(25);
+            editImage.setFitWidth(45);
+            editButton.setGraphic(editImage);
             r.setEditable(false);
             reload();
             ui.returnHomePage();
@@ -178,13 +183,21 @@ public class Controller {
         if (!editable) {
                 ingredients.setEditable(true);
                 steps.setEditable(true);
-                editButton.setText("Stop");
+                ImageView editImage = new ImageView(new Image("file:graphics/st2.png"));
+                editImage.setPreserveRatio(true);
+                editImage.setFitHeight(25);
+                editImage.setFitWidth(45);
+                editButton.setGraphic(editImage);
                 rd.setEditable(true);
             }
         else {
             ingredients.setEditable(false);
             steps.setEditable(false);
-            editButton.setText("Edit");
+            ImageView editImage = new ImageView(new Image("file:graphics/e2.png"));
+            editImage.setPreserveRatio(true);
+            editImage.setFitHeight(25);
+            editImage.setFitWidth(45);
+            editButton.setGraphic(editImage);
             rd.setEditable(false);
             reload();
             ui.returnHomePage();
