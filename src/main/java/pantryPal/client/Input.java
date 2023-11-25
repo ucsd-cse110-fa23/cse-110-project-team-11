@@ -20,6 +20,8 @@ public class Input {
     private  Thread thread;
     private  File audioFile = new File("Input.wav");
 
+    private String transcription = "";
+
     public  AudioFormat getAudioFormat() {
         return format;
     }
@@ -73,7 +75,7 @@ public class Input {
                 try {
 
                     thread.join();
-                    String transcription = whisper();
+                    transcription = whisper();
                     String type = typeParser(transcription);
                     if(type.equals("Invalid")){
                         return false;
@@ -102,7 +104,7 @@ public class Input {
             else if (inputType.equals("Ingredients")){
                 try {
                     thread.join();
-                    String transcription = whisper();
+                    transcription = whisper();
                     try {
                         File file = new File("prompt.txt");
                         file.createNewFile();
@@ -124,6 +126,9 @@ public class Input {
         return false;
     }
 
+    public String getTranscription(){
+        return transcription;
+    }
 
     public TargetDataLine getMic(){
         return mic;

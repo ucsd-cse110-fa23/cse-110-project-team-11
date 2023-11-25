@@ -73,14 +73,15 @@ public class Controller {
         String promptType = input.getPromptType();
         inputFrame.getRecButtons().getButtonBox().getChildren().remove(inputFrame.getRecButtons().getStopButton());
         inputFrame.getRecButtons().getButtonBox().getChildren().add(inputFrame.getRecButtons().getStartButton());
-        
         if(input.stopCapture(promptType)){
+            
             if(promptType.equals("MealType")){
+                inputFrame.getRecButtons().getRecipeText().setText("Meal Type: " + input.getTranscription());
                 input.setPromptType("Ingredients");
-                inputFrame.getRecButtons().setRecipeText("");
                 inputFrame.getRecButtons().setRecordingLabel("Please input Ingredients");
             }
             else{
+                
                 inputFrame.getRecButtons().setRecordingLabel("Recipe Displayed");
                 RecipeDisplay rec = new RecipeDisplay();
                 input.setPromptType("MealType");
@@ -112,8 +113,11 @@ public class Controller {
             }
         }
         else{
+            
+            inputFrame.getRecButtons().getRecipeText().setText("Transcription: " + input.getTranscription());
             inputFrame.getRecButtons().setRecordingLabel("Invalid Input. Please say a proper meal type");
         }
+        
         
     }
 
