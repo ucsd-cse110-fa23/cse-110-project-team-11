@@ -3,6 +3,8 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.layout.*;
 import javafx.scene.control.TextArea;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.geometry.Insets;
 
 /** RecipeDisplay: window that shows the detailed recipe. 
@@ -11,7 +13,7 @@ import javafx.geometry.Insets;
 public class RecipeDisplay extends VBox {
     private String id = null;
     private TextArea title, ingredients, steps;
-    private Button editButton, saveButton, deleteButton;
+    private Button editButton, saveButton, deleteButton, regenerateButton;
 
 
     public RecipeDisplay() {
@@ -41,25 +43,51 @@ public class RecipeDisplay extends VBox {
 
         this.getChildren().add(steps); // add textlabel to task
 
-        editButton = new Button("Edit");
+        editButton = new Button();
         editButton.setPrefSize(50,30);
         editButton.setStyle("-fx-background-color: #DAE5EA; -fx-border-width: 0;"); // light blue
         editButton.setAlignment(Pos.CENTER);
+        ImageView editImage = new ImageView(new Image("file:graphics/e2.png"));
+        editImage.setPreserveRatio(true);
+        editImage.setFitHeight(25);
+        editImage.setFitWidth(45);
+        editButton.setGraphic(editImage);
         this.getChildren().add(editButton);
 
-        saveButton = new Button("Save");
+        saveButton = new Button();
         saveButton.setPrefSize(50,30);
         saveButton.setStyle("-fx-background-color: #DAE5EA; -fx-border-width: 0;");
         saveButton.setAlignment(Pos.CENTER);
+        ImageView saveImage = new ImageView(new Image("file:graphics/s2.png"));
+        saveImage.setPreserveRatio(true);
+        saveImage.setFitHeight(25);
+        saveImage.setFitWidth(45);
+        saveButton.setGraphic(saveImage);
         this.getChildren().add(saveButton);
 
-        deleteButton = new Button("Delete");
+        deleteButton = new Button();
         deleteButton.setPrefSize(50,30);
         deleteButton.setStyle("-fx-background-color: #DAE5EA; -fx-border-width: 0;");
         deleteButton.setAlignment(Pos.CENTER);
+        ImageView delImage = new ImageView(new Image("file:graphics/d2.png"));
+        delImage.setPreserveRatio(true);
+        delImage.setFitHeight(25);
+        delImage.setFitWidth(45);
+        deleteButton.setGraphic(delImage);
         this.getChildren().add(deleteButton);
 
-        HBox headerBox = new HBox(title, editButton, saveButton, deleteButton); // orange
+        regenerateButton = new Button();
+        regenerateButton.setPrefSize(50,30);
+        regenerateButton.setStyle("-fx-background-color: #DAE5EA; -fx-border-width: 0;");
+        regenerateButton.setAlignment(Pos.CENTER);
+        ImageView reloadImage = new ImageView(new Image("file:graphics/r2.png"));
+        reloadImage.setPreserveRatio(true);
+        reloadImage.setFitHeight(25);
+        reloadImage.setFitWidth(45);
+        regenerateButton.setGraphic(reloadImage);
+        this.getChildren().add(regenerateButton);
+
+        HBox headerBox = new HBox(title, editButton, saveButton, deleteButton, regenerateButton); // orange
         headerBox.setSpacing(30);
         headerBox.setStyle("-fx-background-color: #008080; -fx-border-width: 0;"); // teal
         headerBox.setAlignment(Pos.TOP_CENTER);
@@ -114,22 +142,37 @@ public class RecipeDisplay extends VBox {
 
         this.getChildren().add(steps); // add textlabel to task
 
-        editButton = new Button("Edit");
+        editButton = new Button();
         editButton.setPrefSize(50,30);
         editButton.setStyle("-fx-background-color: #DAE5EA; -fx-border-width: 0;"); // light blue
         editButton.setAlignment(Pos.CENTER);
+        ImageView editImage = new ImageView(new Image("file:graphics/e2.png"));
+        editImage.setPreserveRatio(true);
+        editImage.setFitHeight(25);
+        editImage.setFitWidth(45);
+        editButton.setGraphic(editImage);
         this.getChildren().add(editButton);
 
-        saveButton = new Button("Save");
+        saveButton = new Button();
         saveButton.setPrefSize(50,30);
         saveButton.setStyle("-fx-background-color: #DAE5EA; -fx-border-width: 0;");
         saveButton.setAlignment(Pos.CENTER);
+        ImageView saveImage = new ImageView(new Image("file:graphics/s2.png"));
+        saveImage.setPreserveRatio(true);
+        saveImage.setFitHeight(25);
+        saveImage.setFitWidth(45);
+        saveButton.setGraphic(saveImage);
         this.getChildren().add(saveButton);
 
-        deleteButton = new Button("Delete");
+        deleteButton = new Button();
         deleteButton.setPrefSize(50,30);
         deleteButton.setStyle("-fx-background-color: #DAE5EA; -fx-border-width: 0;");
         deleteButton.setAlignment(Pos.CENTER);
+        ImageView delImage = new ImageView(new Image("file:graphics/d2.png"));
+        delImage.setPreserveRatio(true);
+        delImage.setFitHeight(25);
+        delImage.setFitWidth(45);
+        deleteButton.setGraphic(delImage);
         this.getChildren().add(deleteButton);
 
         HBox headerBox = new HBox(title, editButton, saveButton, deleteButton); // orange
@@ -172,6 +215,10 @@ public class RecipeDisplay extends VBox {
 
     public Button getSaveButton() {
         return this.saveButton;
+    }
+
+    public Button getRegenerateButton() {
+        return this.regenerateButton;
     }
 
     public TextArea getTitle() {

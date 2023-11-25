@@ -51,6 +51,14 @@ public class Controller {
         this.rd.setSaveButtonAction(this::handleSaveButton);
         this.rd.setEditButtonAction(this::handleEditButton);
         this.rt.setViewButtonAction(this::handleViewButton);
+        this.rd.setRegenerateButtonAction(event -> {
+            try {
+                handleRegenerateButton(event);
+            } catch (InterruptedException | IOException  e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        });
     }
 
     public void handleCreateButton(ActionEvent event) {
@@ -100,6 +108,14 @@ public class Controller {
                     displayRec.setDeleteButtonAction(this::handleDeleteButton);
                     displayRec.setSaveButtonAction(this::handleSaveButton);
                     displayRec.setEditButtonAction(this::handleEditButton);
+                    displayRec.setRegenerateButtonAction(ev -> {
+                        try {
+                            handleRegenerateButton(ev);
+                        } catch (InterruptedException | IOException  e) {
+                            // TODO Auto-generated catch block
+                            e.printStackTrace();
+                        }
+                    });
                     this.rd = displayRec;
                                 
                     ui.setDisplayPage(displayRec);
@@ -217,6 +233,43 @@ public class Controller {
         model.performRequest("DELETE", stringID, null, null, null);
         reload();
         ui.returnHomePage();
+    }
+
+    private void handleRegenerateButton(ActionEvent event) throws IOException, InterruptedException { 
+
+        RecipeDisplay rec = new RecipeDisplay();
+        input.setPromptType("MealType");
+        rc.generateRecipe();
+        try {
+            rp.parse(); 
+            rec.setID(null);
+            rec.setTitle(rp.getTitle());
+            rec.setIngreds(rp.getStringIngredients());
+            rec.setSteps(rp.getStringSteps());
+            System.out.println(rec.getIngredients().getText());
+            System.out.println(rec.getSteps().getText());
+            System.out.println("SDUHFIOSDHFIOSHDOFHSDIOFHSDIOFSIDHFOSDIFHSODi");
+            RecipeDisplayAppFrame displayRec = new RecipeDisplayAppFrame(rec);
+            displayRec.setBackButtonAction2(this::handleBackButton2);
+            displayRec.setDeleteButtonAction(this::handleDeleteButton);
+            displayRec.setSaveButtonAction(this::handleSaveButton);
+            displayRec.setEditButtonAction(this::handleEditButton);
+            displayRec.setRegenerateButtonAction(ev -> {
+                try {
+                    handleRegenerateButton(ev);
+                } catch (InterruptedException | IOException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+            });
+            this.rd = displayRec;
+                        
+            ui.setDisplayPage(displayRec);
+            ui.getRoot().setCenter(displayRec);
+            ui.getRoot().setTop(displayRec.getRecipeDisplayHeader());
+        } catch(Exception err){
+            err.printStackTrace();
+        }
     }
 
     public void reload(){

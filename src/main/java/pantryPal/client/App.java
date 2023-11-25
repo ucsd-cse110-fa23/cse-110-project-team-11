@@ -39,7 +39,7 @@ public class App extends Application {
         Controller controller = new Controller(ui, model);
         controller.loadRecipes();
 
-        stage.setTitle("Recipe Details");
+        stage.setTitle("PantryPal");
         stage.setResizable(true);
         // Create scene of mentioned size with the border pane
         stage.setScene(new Scene(root, 500, 600));
