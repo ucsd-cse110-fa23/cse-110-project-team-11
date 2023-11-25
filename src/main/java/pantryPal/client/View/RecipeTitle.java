@@ -19,7 +19,8 @@ public class RecipeTitle extends HBox {
      * Constructor for generating format and recipe page. Handles indexing of the recipes
      */
     public RecipeTitle (String recipeTitle) {
-        this.setPrefSize(500, 20); // sets size of task
+        this.setPrefSize(500, 20); 
+        
         this.setStyle("-fx-background-color: #DAE5EA; -fx-border-width: 0; -fx-font-weight: bold;");
 
         index = new Label();

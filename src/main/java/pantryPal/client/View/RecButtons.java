@@ -3,7 +3,7 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.*;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.Label;
-public class RecButtons extends VBox {
+public class RecButtons extends BorderPane {
     private Button startButton, stopButton;
     private Label recordingLabel; 
     private TextArea recipeText;
@@ -34,8 +34,12 @@ public class RecButtons extends VBox {
         recipeText.setStyle(defaultTextStyle);
         recipeText.setEditable(false);
         recipeText.setMinHeight(400);
+        
+        VBox header = new VBox(buttonBox, recordingLabel);
+        this.setTop(header);
+        this.setCenter(recipeText);
 
-        this.getChildren().addAll(buttonBox, recordingLabel, recipeText);
+       
     }
     
     public Button getStartButton() {
