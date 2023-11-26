@@ -198,8 +198,6 @@ public class Controller {
             editImage.setFitWidth(45);
             editButton.setGraphic(editImage);
             rd.setEditable(false);
-            reload();
-            ui.returnHomePage();
         }
     }
 
