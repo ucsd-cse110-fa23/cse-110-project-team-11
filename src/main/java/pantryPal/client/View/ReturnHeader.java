@@ -7,12 +7,17 @@ import javafx.scene.text.*;
 public class ReturnHeader extends BorderPane {
     private Button backButton, logoutButton;
 
+    String defaultTitleStyle = "-fx-font: 50px Tahoma; -fx-font-weight: bold; \r\n" + //
+            "    -fx-fill: linear-gradient(from 0% 0% to 100% 200%, repeat, black 0%, white 50%);\r\n" + //
+            "    -fx-stroke: black;\r\n" + //
+            "    -fx-stroke-width: 1;";
+
     public ReturnHeader() {
         this.setPrefSize(500, 60); // Size of the header
         this.setStyle("-fx-background-color: #F2F2F2;");
         
         Text titleText = new Text("PantryPal"); // Text of the Header
-        titleText.setStyle("-fx-font-weight: bold; -fx-font-size: 40;");
+        titleText.setStyle(defaultTitleStyle);
 
         VBox pantryPal = new VBox(titleText);
         pantryPal.setAlignment(Pos.TOP_CENTER);
