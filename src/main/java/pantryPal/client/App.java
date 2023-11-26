@@ -16,6 +16,7 @@ import pantryPal.client.Controller;
 import pantryPal.client.Model;
 import pantryPal.client.View.RecipeDisplayAppFrame;
 import pantryPal.client.View.InputAppFrame;
+import pantryPal.client.View.LoginPageAppFrame;
 import pantryPal.client.View.RecipeDisplay;
 import pantryPal.client.View.HomePageAppFrame;
 import pantryPal.client.View.UI;
@@ -31,9 +32,10 @@ public class App extends Application {
         InputAppFrame ip = new InputAppFrame();
         HomePageAppFrame hp = new HomePageAppFrame(ip);
         RecipeDisplayAppFrame dp = new RecipeDisplayAppFrame(new RecipeDisplay());
-        UI ui = new UI(root, hp, ip, dp);
-        root.setCenter(hp);
-        root.setTop(hp.getHomePageHeader());
+        LoginPageAppFrame lp = new LoginPageAppFrame();
+        UI ui = new UI(root, hp, ip, dp, lp);
+        root.setCenter(lp);
+        // root.setTop(hp.getHomePageHeader());
         
         Model model = new Model();
         Controller controller = new Controller(ui, model);

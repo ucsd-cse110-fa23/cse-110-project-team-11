@@ -16,6 +16,7 @@ import pantryPal.client.TranscriptionService;
 import pantryPal.client.View.HomePageAppFrame;
 import pantryPal.client.View.HomePageHeader;
 import pantryPal.client.View.InputAppFrame;
+import pantryPal.client.View.LoginPageAppFrame;
 import pantryPal.client.View.RecipeDisplay;
 import pantryPal.client.View.RecipeDisplayAppFrame;
 import pantryPal.client.View.UI;
@@ -75,8 +76,9 @@ public class IntegrationTest {
                     InputAppFrame ip = new InputAppFrame();
                     HomePageAppFrame hp = new HomePageAppFrame(ip);
                     RecipeDisplayAppFrame dp = new RecipeDisplayAppFrame(new RecipeDisplay());
+                    LoginPageAppFrame lp = new LoginPageAppFrame();
                     HomePageHeader hph = new HomePageHeader();
-                    UI ui = new UI(root, hp, ip, dp);
+                    UI ui = new UI(root, hp, ip, dp, lp);
                     Controller c = new Controller(ui, model);
                     ActionEvent actionEvent = new ActionEvent();
 

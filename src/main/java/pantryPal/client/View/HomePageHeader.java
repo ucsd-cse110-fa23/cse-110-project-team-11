@@ -5,7 +5,7 @@ import javafx.scene.layout.*;
 import javafx.scene.text.*;
 
 public class HomePageHeader extends BorderPane {
-    private Button createButton;
+    private Button createButton, logoutButton;
 
     public HomePageHeader() {
         this.setPrefSize(500, 60); // Size of the header
@@ -21,8 +21,11 @@ public class HomePageHeader extends BorderPane {
         
         this.setCenter(pantryPal);
 
-        createButton = new Button("create");
+        createButton = new Button("Create");
         createButton.setPrefSize(100,50);
+
+        logoutButton = new Button("Log out");
+        logoutButton.setPrefSize(100,50);
 
         VBox buttonBox = new VBox(createButton);
         buttonBox.setAlignment(Pos.TOP_RIGHT);
@@ -30,14 +33,19 @@ public class HomePageHeader extends BorderPane {
         buttonBox.setPrefWidth(300);
 
         this.setRight(createButton);
+        this.setLeft(logoutButton);
 
-        VBox placeholder = new VBox();
-        placeholder.setSpacing(15);
-        placeholder.setPrefWidth(100);
-        this.setLeft(placeholder);
+        // VBox placeholder = new VBox();
+        // placeholder.setSpacing(15);
+        // placeholder.setPrefWidth(100);
+        // this.setLeft(placeholder);
     }
 
     public Button getCreateButton() {
         return createButton;
+    }
+
+    public Button getLogoutButton() {
+        return logoutButton;
     }
 }

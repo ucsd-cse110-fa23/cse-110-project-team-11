@@ -9,7 +9,7 @@ import javafx.event.EventHandler;
 public class RecipeDisplayAppFrame extends BorderPane {
 
     private ReturnHeader header;
-    private Button backButton,editButton,deleteButton, saveButton, regenerateButton;
+    private Button backButton,editButton,deleteButton, saveButton, regenerateButton, logoutButton;
     private TextArea title, ingredients, steps;
     private String id;
     private Boolean editable = false;
@@ -19,6 +19,7 @@ public class RecipeDisplayAppFrame extends BorderPane {
 
         header = new ReturnHeader();
         backButton = header.getBackButton();
+        logoutButton = header.getLogoutButton();
         recipe = r;
 
         this.id = r.getId();
@@ -96,5 +97,9 @@ public class RecipeDisplayAppFrame extends BorderPane {
 
     public void setRegenerateButtonAction(EventHandler<ActionEvent> eventHandler) {
         regenerateButton.setOnAction(eventHandler);
+    }
+
+    public void setLogoutButtonAction(EventHandler<ActionEvent> eventHandler) {
+        logoutButton.setOnAction(eventHandler);
     }
 }

@@ -9,6 +9,7 @@ public class HomePageAppFrame extends BorderPane{
     private HomePageHeader homePageHeader;
     private RecipeList recipeList;
     private Button createButton;
+    private Button logoutButton;
 
 
     public HomePageAppFrame(InputAppFrame InputPage) {
@@ -16,6 +17,7 @@ public class HomePageAppFrame extends BorderPane{
         recipeList = new RecipeList();
 
         createButton = homePageHeader.getCreateButton();    
+        logoutButton = homePageHeader.getLogoutButton();
 
         ScrollPane scrollPane = new ScrollPane(recipeList);
         scrollPane.setFitToWidth(true);
@@ -30,6 +32,10 @@ public class HomePageAppFrame extends BorderPane{
     
     public void setCreateButtonAction(EventHandler<ActionEvent> eventHandler){
         createButton.setOnAction(eventHandler);
+    }
+
+    public void setLogoutButtonAction(EventHandler<ActionEvent> eventHandler){
+        logoutButton.setOnAction(eventHandler);
     }
     
     public RecipeList getRecipeList() {

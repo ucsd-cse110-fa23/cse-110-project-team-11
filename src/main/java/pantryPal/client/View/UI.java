@@ -7,13 +7,15 @@ public class UI  {
     private HomePageAppFrame HomePage;
     private InputAppFrame inputPage;
     private RecipeDisplayAppFrame displayPage;
+    private LoginPageAppFrame loginPage;
 
-    public UI(BorderPane r, HomePageAppFrame hp, InputAppFrame ip, RecipeDisplayAppFrame dp){
+    public UI(BorderPane r, HomePageAppFrame hp, InputAppFrame ip, RecipeDisplayAppFrame dp, LoginPageAppFrame lp){
 
         this.root = r;
         this.HomePage = hp; 
         this.inputPage = ip;
         this.displayPage = dp;
+        this.loginPage = lp;
     }
 
     public HomePageAppFrame getHomePage() {
@@ -29,6 +31,7 @@ public class UI  {
         
         root.setCenter(HomePage);
         root.setTop(HomePage.getHomePageHeader());
+        root.setBottom(null);
     }
 
     public InputAppFrame getInputPage(){
@@ -42,5 +45,14 @@ public class UI  {
     public void setDisplayPage(RecipeDisplayAppFrame dp) {
         this.displayPage = dp;
     }
-    
+    public LoginPageAppFrame getLoginPage(){
+        return loginPage;
+    }
+
+    public void setLoginPage(){
+
+        root.setTop(this.loginPage.getIntro());
+        root.setCenter(this.loginPage.getTitle());
+        root.setBottom(this.loginPage.getLogin());
+    }
 }

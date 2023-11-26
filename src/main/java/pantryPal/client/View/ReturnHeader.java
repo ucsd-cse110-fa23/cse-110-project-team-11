@@ -5,7 +5,7 @@ import javafx.scene.layout.*;
 import javafx.scene.text.*;
 
 public class ReturnHeader extends BorderPane {
-    private Button backButton;
+    private Button backButton, logoutButton;
 
     public ReturnHeader() {
         this.setPrefSize(500, 60); // Size of the header
@@ -23,21 +23,19 @@ public class ReturnHeader extends BorderPane {
 
         backButton = new Button("Back");
         backButton.setPrefSize(100,50);
-        this.getChildren().add(backButton);
-
-        VBox buttonBox = new VBox(backButton);
-        buttonBox.setAlignment(Pos.TOP_RIGHT);
-        buttonBox.setSpacing(15);
-        buttonBox.setPrefWidth(300);// prefWidth
+        logoutButton = new Button("Log out");
+        logoutButton.setPrefSize(100,50);
+        
         this.setRight(backButton);
+        this.setLeft(logoutButton);
 
-        VBox placeholder = new VBox();
-        placeholder.setSpacing(15);
-        placeholder.setPrefWidth(100);
-        this.setLeft(placeholder);
     }
 
     public Button getBackButton() {
         return backButton;
+    }
+
+    public Button getLogoutButton() {
+        return logoutButton;
     }
 }

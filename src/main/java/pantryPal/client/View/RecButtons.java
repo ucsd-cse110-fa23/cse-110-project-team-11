@@ -14,7 +14,6 @@ public class RecButtons extends GridPane {
     // Set a default style for buttons and fields - background color, font size,
     // italics
     String defaultButtonStyle = "-fx-border-color: #000000; -fx-font: 25 arial; -fx-pref-width: 175px; -fx-pref-height: 50px;";
-    String defaultLabelStyle = "-fx-font: 13 arial; -fx-pref-width: 175px; -fx-pref-height: 100px; -fx-text-fill: black;";
     String defaultTextStyle = " -fx-text-alignment: center; -fx-font: 20 arial; -fx-pref-width: 175px; -fx-pref-height: 100px; -fx-text-fill: black;";
 
     public RecButtons() {

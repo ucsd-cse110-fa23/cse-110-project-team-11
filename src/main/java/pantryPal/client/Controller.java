@@ -10,6 +10,7 @@ import java.util.*;
 import pantryPal.client.View.HomePageAppFrame;
 import pantryPal.client.View.HomePageHeader;
 import pantryPal.client.View.InputAppFrame;
+import pantryPal.client.View.LoginPageAppFrame;
 import pantryPal.client.View.RecipeDisplayAppFrame;
 import pantryPal.client.View.RecButtons;
 import pantryPal.client.View.RecipeDisplay;
@@ -25,6 +26,7 @@ public class Controller {
     private RecipeCreator rc = new RecipeCreator();
     private InputAppFrame inputFrame;
     private RecipeParser rp = new RecipeParser();
+    private LoginPageAppFrame lp;
     private UI ui;
     private HomePageAppFrame hp;
     private RecipeDisplayAppFrame rd;
@@ -36,7 +38,8 @@ public class Controller {
         this.ui = ui;
         this.inputFrame = ui.getInputPage();
         this.hp = ui.getHomePage();
-        this.rd = ui.getDisplayPage();        
+        this.rd = ui.getDisplayPage(); 
+        this.lp = ui.getLoginPage();       
         
         this.inputFrame.setStartButtonAction(this::handleStartButton);
         this.inputFrame.setStopButtonAction(event -> {
@@ -62,6 +65,11 @@ public class Controller {
                 e.printStackTrace();
             }
         });
+        this.lp.setLoginButtonAction(this::handleLoginButton);
+        this.inputFrame.setLogoutButtonAction(this::handleLogoutButton2);
+        this.rd.setLogoutButtonAction(this::handleLogoutButton);
+        this.hp.setLogoutButtonAction(this::handleLogoutButton);
+        
     }
 
     public void handleCreateButton(ActionEvent event) {
@@ -107,6 +115,7 @@ public class Controller {
                     System.out.println("SDUHFIOSDHFIOSHDOFHSDIOFHSDIOFSIDHFOSDIFHSODi");
                     RecipeDisplayAppFrame displayRec = new RecipeDisplayAppFrame(rec);
                     displayRec.setBackButtonAction2(this::handleBackButton2);
+                    displayRec.setLogoutButtonAction(this::handleLogoutButton);
                     displayRec.setDeleteButtonAction(this::handleDeleteButton);
                     displayRec.setSaveButtonAction(this::handleSaveButton);
                     displayRec.setEditButtonAction(this::handleEditButton);
@@ -140,17 +149,7 @@ public class Controller {
 
     private void handleBackButton(ActionEvent event){
         ui.returnHomePage();   
-        input.setPromptType("MealType"); 
-        inputFrame.getRecButtons().setRecipeText("Select Meal Type: Breakfast, Lunch, or Dinner");  
-        if(input.getMic() != null){
-            input.getMic().stop();
-            input.getMic().close();
-        }  
-        if (inputFrame.getRecButtons().getButtonBox().getChildren().contains(inputFrame.getRecButtons().getStopButton())){
-            System.out.println("TEST");
-            inputFrame.getRecButtons().getButtonBox().getChildren().remove(inputFrame.getRecButtons().getStopButton());
-            inputFrame.getRecButtons().getButtonBox().getChildren().add(inputFrame.getRecButtons().getStartButton());
-        }
+        resetInput();
     }
 
     private void handleBackButton2(ActionEvent event){
@@ -221,6 +220,7 @@ public class Controller {
             rd.setID(RecipeManager.getStringID());
             recipeDis.setViewButtonAction(this::handleViewButton);
             recipeDis.getRecipeDetail().setBackButtonAction2(this::handleBackButton2);
+            recipeDis.getRecipeDetail().setLogoutButtonAction(this::handleLogoutButton);
             this.rt = recipeDis;
             hp.getRecipeList().getChildren().add(recipeDis);
             reload();
@@ -264,6 +264,7 @@ public class Controller {
             System.out.println("SDUHFIOSDHFIOSHDOFHSDIOFHSDIOFSIDHFOSDIFHSODi");
             RecipeDisplayAppFrame displayRec = new RecipeDisplayAppFrame(rec);
             displayRec.setBackButtonAction2(this::handleBackButton2);
+            displayRec.setLogoutButtonAction(this::handleLogoutButton);
             displayRec.setDeleteButtonAction(this::handleDeleteButton);
             displayRec.setSaveButtonAction(this::handleSaveButton);
             displayRec.setEditButtonAction(this::handleEditButton);
@@ -285,9 +286,40 @@ public class Controller {
         }
     }
 
+    private void handleLoginButton(ActionEvent event){
+
+        ui.returnHomePage(); 
+    }
+
+    private void handleLogoutButton(ActionEvent event){
+
+        System.out.println("TESTTESTSTESTSETSETSET");
+        ui.setLoginPage();
+    }
+    private void handleLogoutButton2(ActionEvent event){
+
+        System.out.println("from i");
+        ui.setLoginPage();
+        resetInput();
+    }
+
     public void reload(){
         hp.getRecipeList().getChildren().removeIf(RecipeTitle -> RecipeTitle instanceof RecipeTitle && true);  
         loadRecipes(); // loads recipe
+    }
+
+    private void resetInput(){
+        input.setPromptType("MealType"); 
+        inputFrame.getRecButtons().setRecipeText("Select Meal Type: Breakfast, Lunch, or Dinner");  
+        if(input.getMic() != null){
+            input.getMic().stop();
+            input.getMic().close();
+        }  
+        if (inputFrame.getRecButtons().getButtonBox().getChildren().contains(inputFrame.getRecButtons().getStopButton())){
+            System.out.println("TEST");
+            inputFrame.getRecButtons().getButtonBox().getChildren().remove(inputFrame.getRecButtons().getStopButton());
+            inputFrame.getRecButtons().getButtonBox().getChildren().add(inputFrame.getRecButtons().getStartButton());
+        }
     }
 
     public void loadRecipes(){
@@ -316,6 +348,7 @@ public class Controller {
             
             hp.getRecipeList().getChildren().add(recipeTitle);
             recipeTitle.getRecipeDetail().setBackButtonAction2(this::handleBackButton2);
+            recipeTitle.getRecipeDetail().setLogoutButtonAction(this::handleLogoutButton);
         }
     }
 }

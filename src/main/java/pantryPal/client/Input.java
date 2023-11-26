@@ -152,7 +152,7 @@ public class Input {
 
         int count = 0;
 
-        String[] meals = {"Breakfast","Lunch","Dinner"};
+        String[] meals = {"breakfast","lunch","dinner"};
 
         String meal = "";
 
@@ -168,7 +168,7 @@ public class Input {
             return "Invalid";
         }
         else{
-            return meal;
+            return meal.substring(0, 1).toUpperCase() + meal.substring(1);
         }
     }
 

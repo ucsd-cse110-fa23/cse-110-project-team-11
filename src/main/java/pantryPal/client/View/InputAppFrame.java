@@ -10,7 +10,7 @@ import javafx.event.EventHandler;
 public class InputAppFrame extends BorderPane {
     // Input in = new Input();
     private ReturnHeader header;
-    private Button startButton,stopButton,backButton;
+    private Button startButton,stopButton,backButton, logoutButton;
     private Label recordingLabel;
     private RecButtons recButton;
 
@@ -21,6 +21,7 @@ public class InputAppFrame extends BorderPane {
         backButton = header.getBackButton();
         startButton = recButton.getStartButton();
         stopButton = recButton.getStopButton();
+        logoutButton = header.getLogoutButton();
 
         // Set properties for the flowpane
         this.setPrefSize(500, 600);
@@ -44,6 +45,9 @@ public class InputAppFrame extends BorderPane {
 
     public void setBackButtonAction(EventHandler<ActionEvent> eventHandler) {
         backButton.setOnAction(eventHandler);
+    }
+    public void setLogoutButtonAction(EventHandler<ActionEvent> eventHandler) {
+        logoutButton.setOnAction(eventHandler);
     }
 
     public Button getStartButton() {
