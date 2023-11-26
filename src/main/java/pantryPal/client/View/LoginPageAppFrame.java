@@ -76,7 +76,7 @@ public class LoginPageAppFrame extends BorderPane {
         buttonBox.setAlignment(Pos.CENTER);
 
         CheckBox auto = new CheckBox("Auto Log-In?");
-        auto.setPrefSize(50, 50);
+        auto.setPrefSize(100, 50);
         
 
         loginBox = new VBox(usernameBox, passwordBox, buttonBox, auto);
