@@ -1,4 +1,4 @@
-package cse110_lab4;
+package pantryPal.client;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -24,13 +24,9 @@ public class DallE {
  private static final String MODEL = "dall-e-2";
 
 
-
-    public static void main(String[] args)
-            throws IOException, InterruptedException, URISyntaxException {
-            // Set request parameters
-            String prompt = "A monkey eating a banana";
+  public void callAPI(String prompt) throws IOException, InterruptedException, URISyntaxException {
+                // Set request parameters
             int n = 1;
-
 
             // Create a request body which you will pass into request object
             JSONObject requestBody = new JSONObject();
@@ -64,11 +60,6 @@ public class DallE {
             // Process the response
             String responseBody = response.body();
             JSONObject responseJson = new JSONObject(responseBody);
-
-            
-
-            
-            // TODO: Process the response
             
             JSONArray data = responseJson.getJSONArray("data");
             String generatedImageURL = data.getJSONObject(0).getString("url");
@@ -82,11 +73,20 @@ public class DallE {
                 InputStream in = new URI(generatedImageURL).toURL().openStream()
             )
             {
-                Files.copy(in, Paths.get("image.jpg"));
+              // Path path = (Path)Paths.get("/usr", "local", "bin",
+              //                       "fileIn.txt");
+                Files.copy(in, Paths.get("generated_img/temp.jpg"));
             }
           }
+  
+
+
+    public static void main(String[] args)
+            throws IOException, InterruptedException, URISyntaxException {
+        
          
-
+              DallE api = new DallE();
+              api.callAPI("banana");
     
-
+    }
 }

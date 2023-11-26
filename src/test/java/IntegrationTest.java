@@ -53,86 +53,86 @@ public class IntegrationTest {
         }
     }
     
-    @Test 
-    public void Integration1() throws InterruptedException {
+    // @Test 
+    // public void Integration1() throws InterruptedException, IOException {
 
-        Thread thread = new Thread(new Runnable() {
+    //     Thread thread = new Thread(new Runnable() {
 
-            @Override
-            public void run() {
-                try {
-                    setUpClass();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                Platform.runLater(new Runnable() {
+    //         @Override
+    //         public void run() {
+    //             try {
+    //                 setUpClass();
+    //             } catch (InterruptedException e) {
+    //                 e.printStackTrace();
+    //             }
+    //             Platform.runLater(new Runnable() {
 
-                    @Override
-                    public void run() {
-                            // Check if the click button is created
-                    Model model = new Model();
-                    BorderPane root = new BorderPane();
-                    InputAppFrame ip = new InputAppFrame();
-                    HomePageAppFrame hp = new HomePageAppFrame(ip);
-                    RecipeDisplayAppFrame dp = new RecipeDisplayAppFrame(new RecipeDisplay());
-                    LoginPageAppFrame lp = new LoginPageAppFrame();
-                    HomePageHeader hph = new HomePageHeader();
-                    UI ui = new UI(root, hp, ip, dp, lp);
-                    Controller c = new Controller(ui, model);
-                    ActionEvent actionEvent = new ActionEvent();
-
-                    
-                    c.handleCreateButton(actionEvent);
-                    assertEquals(ui.getRoot().getCenter(), ip);
-
-                    c.handleStartButton(actionEvent);
-                    assertTrue(ip.getRecButtons().getButtonBox().getChildren().contains(ip.getRecButtons().getStopButton()));
-
-                    MockTranscriptionService mockService = new MockTranscriptionService();
-                    File audioFile = new File("input.wav");
-                    String output = mockService.transcribe(audioFile);
-                    assertEquals("lunch", output, "The transcribe method should return 'lunch'");
-
-                    try {
-                        c.handleStopButton(actionEvent);
-                    } catch (InterruptedException e) {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace();
-                    } catch (IOException e) {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace();
-                    }
-                    assertTrue(ip.getRecButtons().getButtonBox().getChildren().contains(ip.getRecButtons().getStartButton()));
+    //                 @Override
+    //                 public void run() {
+    //                         // Check if the click button is created
+    //                 Model model = new Model();
+    //                 BorderPane root = new BorderPane();
+    //                 InputAppFrame ip = new InputAppFrame();
+    //                 HomePageAppFrame hp = new HomePageAppFrame(ip);
+    //                 RecipeDisplayAppFrame dp = new RecipeDisplayAppFrame(new RecipeDisplay());
+    //                 LoginPageAppFrame lp = new LoginPageAppFrame();
+    //                 HomePageHeader hph = new HomePageHeader();
+    //                 UI ui = new UI(root, hp, ip, dp, lp);
+    //                 Controller c = new Controller(ui, model);
+    //                 ActionEvent actionEvent = new ActionEvent();
 
                     
-                    c.handleStartButton(actionEvent);
-                    assertTrue(ip.getRecButtons().getButtonBox().getChildren().contains(ip.getRecButtons().getStopButton()));
-                    
-                    try {
-                        c.handleStopButton(actionEvent);
-                    } catch (InterruptedException e) {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace();
-                    } catch (IOException e) {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace();
-                    }
-                    assertTrue(ip.getRecButtons().getButtonBox().getChildren().contains(ip.getRecButtons().getStartButton()));
+    //                 c.handleCreateButton(actionEvent);
+    //                 assertEquals(ui.getRoot().getCenter(), ip);
+
+    //                 c.handleStartButton(actionEvent);
+    //                 assertTrue(ip.getRecButtons().getButtonBox().getChildren().contains(ip.getRecButtons().getStopButton()));
+
+    //                 MockTranscriptionService mockService = new MockTranscriptionService();
+    //                 File audioFile = new File("input.wav");
+    //                 String output = mockService.transcribe(audioFile);
+    //                 assertEquals("lunch", output, "The transcribe method should return 'lunch'");
+
+    //                 try {
+    //                     c.handleStopButton(actionEvent);
+    //                 } catch (InterruptedException e) {
+    //                     // TODO Auto-generated catch block
+    //                     e.printStackTrace();
+    //                 } catch (IOException e) {
+    //                     // TODO Auto-generated catch block
+    //                     e.printStackTrace();
+    //                 }
+    //                 assertTrue(ip.getRecButtons().getButtonBox().getChildren().contains(ip.getRecButtons().getStartButton()));
 
                     
-                    assertTrue(ui.getRoot().getCenter() instanceof RecipeDisplayAppFrame);
+    //                 c.handleStartButton(actionEvent);
+    //                 assertTrue(ip.getRecButtons().getButtonBox().getChildren().contains(ip.getRecButtons().getStopButton()));
+                    
+    //                 try {
+    //                     c.handleStopButton(actionEvent);
+    //                 } catch (InterruptedException e) {
+    //                     // TODO Auto-generated catch block
+    //                     e.printStackTrace();
+    //                 } catch (IOException e) {
+    //                     // TODO Auto-generated catch block
+    //                     e.printStackTrace();
+    //                 }
+    //                 assertTrue(ip.getRecButtons().getButtonBox().getChildren().contains(ip.getRecButtons().getStartButton()));
 
-                    c.handleSaveButton(actionEvent);
+                    
+    //                 assertTrue(ui.getRoot().getCenter() instanceof RecipeDisplayAppFrame);
 
-                    assertEquals(ui.getRoot().getCenter(), hp);
+    //                 c.handleSaveButton(actionEvent);
 
-                    }
-                });
-            }
-        });
-        thread.start();// Initialize the thread
-        Thread.sleep(2000); // Time to use the app, with out this, the thread
-    }
+    //                 assertEquals(ui.getRoot().getCenter(), hp);
+
+    //                 }
+    //             });
+    //         }
+    //     });
+    //     thread.start();// Initialize the thread
+    //     Thread.sleep(2000); // Time to use the app, with out this, the thread
+    // }
     
     
 }

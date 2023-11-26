@@ -22,6 +22,12 @@ import com.sun.net.httpserver.*;
 import java.io.*;
 import java.net.*;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.Files;
+
+import java.io.File;
+
 public class Controller {
 
     private Input input = new Input();
@@ -34,6 +40,7 @@ public class Controller {
     private RecipeDisplayAppFrame rd;
     private RecipeTitle rt = new RecipeTitle("");
     private Model model;
+    ImageGenerator img = new ImageGenerator();
 
     public Controller(UI ui, Model model) {
         this.model = model;
@@ -56,13 +63,20 @@ public class Controller {
         this.rd.setBackButtonAction2(this::handleBackButton2);
         this.rd.setDeleteButtonAction(this::handleDeleteButton);
         this.hp.setCreateButtonAction(this::handleCreateButton);
-        this.rd.setSaveButtonAction(this::handleSaveButton);
+        this.rd.setSaveButtonAction(event -> {
+            try {
+                handleSaveButton(event);
+            } catch (IOException  e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        });
         this.rd.setEditButtonAction(this::handleEditButton);
         this.rt.setViewButtonAction(this::handleViewButton);
         this.rd.setRegenerateButtonAction(event -> {
             try {
                 handleRegenerateButton(event);
-            } catch (InterruptedException | IOException  e) {
+            } catch (InterruptedException | IOException | URISyntaxException  e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
@@ -113,6 +127,9 @@ public class Controller {
                     rec.setTitle(rp.getTitle());
                     rec.setIngreds(rp.getStringIngredients());
                     rec.setSteps(rp.getStringSteps());
+
+                    img.generateImage(rp.getTitle(), rp.getStringIngredients());
+
                     System.out.println(rec.getIngredients().getText());
                     System.out.println(rec.getSteps().getText());
                     System.out.println("SDUHFIOSDHFIOSHDOFHSDIOFHSDIOFSIDHFOSDIFHSODi");
@@ -120,12 +137,19 @@ public class Controller {
                     displayRec.setBackButtonAction2(this::handleBackButton2);
                     displayRec.setLogoutButtonAction(this::handleLogoutButton);
                     displayRec.setDeleteButtonAction(this::handleDeleteButton);
-                    displayRec.setSaveButtonAction(this::handleSaveButton);
+                    displayRec.setSaveButtonAction(e1 -> {
+                        try {
+                            handleSaveButton(event);
+                        } catch (IOException e) {
+                            // TODO Auto-generated catch block
+                            e.printStackTrace();
+                        }
+                    });
                     displayRec.setEditButtonAction(this::handleEditButton);
                     displayRec.setRegenerateButtonAction(ev -> {
                         try {
                             handleRegenerateButton(ev);
-                        } catch (InterruptedException | IOException  e) {
+                        } catch (InterruptedException | IOException | URISyntaxException e) {
                             // TODO Auto-generated catch block
                             e.printStackTrace();
                         }
@@ -204,7 +228,7 @@ public class Controller {
         }
     }
 
-    public void handleSaveButton(ActionEvent event) {
+    public void handleSaveButton(ActionEvent event) throws IOException {
         rd.getIngredients().setEditable(false);
         rd.getSteps();
         if (rd.getID() == null) { // if does not exist in MongoDB 
@@ -213,12 +237,22 @@ public class Controller {
             String title = rd.getTitle().getText();
             String ingredients = rd.getIngredients().getText();
             String steps = rd.getSteps().getText();
+
+            
+            // Path source = Paths.get("generated_img/temp");
+            // Files.move(source, source.resolveSibling("generated_img/" + stringID + ".jpg"));
+
             model.performRequest("PUT", stringID, title, ingredients, steps);
             
             RecipeDisplay recipeDisplay = new RecipeDisplay(stringID, title, ingredients, steps);
             RecipeDisplayAppFrame rec = new RecipeDisplayAppFrame(recipeDisplay);
             RecipeTitle recipeDis = new RecipeTitle(stringID, title, rec);
             rd.setID(RecipeManager.getStringID());
+
+            File oldFile = new File("generated_img/temp.jpg");
+            File newFile = new File("generated_img/" + rd.getID() + ".jpg");
+            boolean success = oldFile.renameTo(newFile);
+
             recipeDis.setViewButtonAction(this::handleViewButton);
             recipeDis.getRecipeDetail().setBackButtonAction2(this::handleBackButton2);
             recipeDis.getRecipeDetail().setLogoutButtonAction(this::handleLogoutButton);
@@ -257,7 +291,7 @@ public class Controller {
         ui.returnHomePage();
     }
 
-    private void handleRegenerateButton(ActionEvent event) throws IOException, InterruptedException { 
+    private void handleRegenerateButton(ActionEvent event) throws IOException, InterruptedException, URISyntaxException { 
 
         RecipeDisplay rec = new RecipeDisplay();
         input.setPromptType("MealType");
@@ -268,6 +302,9 @@ public class Controller {
             rec.setTitle(rp.getTitle());
             rec.setIngreds(rp.getStringIngredients());
             rec.setSteps(rp.getStringSteps());
+
+            img.generateImage(rp.getTitle(), rp.getStringIngredients());
+
             System.out.println(rec.getIngredients().getText());
             System.out.println(rec.getSteps().getText());
             System.out.println("SDUHFIOSDHFIOSHDOFHSDIOFHSDIOFSIDHFOSDIFHSODi");
@@ -275,12 +312,22 @@ public class Controller {
             displayRec.setBackButtonAction2(this::handleBackButton2);
             displayRec.setLogoutButtonAction(this::handleLogoutButton);
             displayRec.setDeleteButtonAction(this::handleDeleteButton);
-            displayRec.setSaveButtonAction(this::handleSaveButton);
+            //displayRec.setSaveButtonAction(this::handleSaveButton);
+            displayRec.setSaveButtonAction(ev -> {
+                try {
+                    handleSaveButton(ev);
+                } catch (IOException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+            });
+
+            
             displayRec.setEditButtonAction(this::handleEditButton);
             displayRec.setRegenerateButtonAction(ev -> {
                 try {
                     handleRegenerateButton(ev);
-                } catch (InterruptedException | IOException e) {
+                } catch (InterruptedException | IOException | URISyntaxException e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
@@ -290,7 +337,7 @@ public class Controller {
             ui.setDisplayPage(displayRec);
             ui.getRoot().setCenter(displayRec);
             ui.getRoot().setTop(displayRec.getRecipeDisplayHeader());
-        } catch(Exception err){
+        } catch(IOException err){
             err.printStackTrace();
         }
     }
@@ -355,7 +402,14 @@ public class Controller {
                     this.rd = rec;
 
                     rec.setEditButtonAction(this::handleEditButton);
-                    rec.setSaveButtonAction(this::handleSaveButton);
+                    rec.setSaveButtonAction(event -> {
+                        try {
+                            handleSaveButton(event);
+                        } catch (IOException  e) {
+                            // TODO Auto-generated catch block
+                            e.printStackTrace();
+                        }
+                    });
                     rec.setDeleteButtonAction(this::handleDeleteButton);
 
             });
