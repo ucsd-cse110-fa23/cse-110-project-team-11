@@ -52,6 +52,7 @@ public class RecipeManager {
                     String title = document.get("title").toString();
                     String ingredients = document.get("ingredients").toString();
                     String steps = document.get("steps").toString();
+                    // String type = document.get()
                     String[] rec = {stringID, title, ingredients, steps};
                     
                     recipes.add(rec);
@@ -70,7 +71,7 @@ public class RecipeManager {
      * @return recipe to be inserted
      * @throws IOException
      */
-    public static String[] insertRecipe(String title, String ingredients, String steps) throws IOException{
+    public static String[] insRecipe(String type, String title, String ingredients, String steps) throws IOException{
         try (MongoClient mongoClient = MongoClients.create(URI)) {
             MongoDatabase recipeDB = mongoClient.getDatabase("recipes_db");
             MongoCollection<Document> recipeCollections = recipeDB.getCollection("recipes");

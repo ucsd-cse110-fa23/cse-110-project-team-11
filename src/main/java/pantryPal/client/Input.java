@@ -120,8 +120,7 @@ public class Input {
                 } catch(Exception e) {
                     e.printStackTrace();
                 }
-            }
-            
+            } 
         
         }
         return false;
@@ -131,7 +130,7 @@ public class Input {
         return transcription;
     }
 
-    public String getType(){
+    public String getMealType(){
         return type;
     }
     public TargetDataLine getMic(){

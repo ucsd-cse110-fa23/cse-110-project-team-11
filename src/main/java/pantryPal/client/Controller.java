@@ -89,8 +89,8 @@ public class Controller {
     }
     // TODO auto stop when press back
 
-    public void handleStopButton(ActionEvent event) throws InterruptedException, IOException {
-        // Stop Button
+    public void handle
+                // Stop Button
 
         String promptType = input.getPromptType();
         inputFrame.getRecButtons().getButtonBox().getChildren().remove(inputFrame.getRecButtons().getStopButton());
@@ -213,7 +213,8 @@ public class Controller {
             String title = rd.getTitle().getText();
             String ingredients = rd.getIngredients().getText();
             String steps = rd.getSteps().getText();
-            model.performRequest("PUT", stringID, title, ingredients, steps);
+            String mealType = input.getMealType();
+            model.performRequest("PUT", stringID, mealType, title, ingredients, steps);
             
             RecipeDisplay recipeDisplay = new RecipeDisplay(stringID, title, ingredients, steps);
             RecipeDisplayAppFrame rec = new RecipeDisplayAppFrame(recipeDisplay);
@@ -252,7 +253,7 @@ public class Controller {
     private void handleDeleteButton(ActionEvent event) {
         //System.out.println("HELLOOO");
         String stringID = rd.getID();
-        model.performRequest("DELETE", stringID, null, null, null);
+        model.performRequest("DELETE", stringID, null , null, null, null);
         reload();
         ui.returnHomePage();
     }
