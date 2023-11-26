@@ -89,7 +89,7 @@ public class Controller {
     }
     // TODO auto stop when press back
 
-    public void handle
+    public void handleStopButton(ActionEvent event) throws InterruptedException, IOException {
                 // Stop Button
 
         String promptType = input.getPromptType();
@@ -98,7 +98,7 @@ public class Controller {
         if(input.stopCapture(promptType)){
             
             if(promptType.equals("MealType")){
-                inputFrame.getRecButtons().setRecipeText("Please input Ingredients.\n\nMeal Type: " + input.getType());
+                inputFrame.getRecButtons().setRecipeText("Please input Ingredients.\n\nMeal Type: " + input.getMealType());
                 input.setPromptType("Ingredients");
             }
             else{

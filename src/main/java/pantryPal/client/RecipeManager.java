@@ -52,9 +52,8 @@ public class RecipeManager {
                     String title = document.get("title").toString();
                     String ingredients = document.get("ingredients").toString();
                     String steps = document.get("steps").toString();
-                    // String type = document.get()
-                    String[] rec = {stringID, title, ingredients, steps};
-                    
+                    String mealType = document.getString("mealType"); // Retrieve mealType
+                    String[] rec = {stringID, title, ingredients, steps, mealType}; // Include mealType in the array
                     recipes.add(rec);
                 }
                 mongoClient.close();
@@ -71,7 +70,7 @@ public class RecipeManager {
      * @return recipe to be inserted
      * @throws IOException
      */
-    public static String[] insRecipe(String type, String title, String ingredients, String steps) throws IOException{
+    public static String[] insertRecipe(String mealType, String title, String ingredients, String steps) throws IOException{
         try (MongoClient mongoClient = MongoClients.create(URI)) {
             MongoDatabase recipeDB = mongoClient.getDatabase("recipes_db");
             MongoCollection<Document> recipeCollections = recipeDB.getCollection("recipes");
@@ -83,7 +82,8 @@ public class RecipeManager {
             Document recipe = new Document("_id", objectID);
             recipe.append("title", title)
             .append("ingredients", ingredients)
-            .append("steps", steps);
+            .append("steps", steps)
+            .append("mealType", mealType); 
             
             recipeCollections.insertOne(recipe); // inserts into MongoDB
             String[] rec = {stringID, title, ingredients, steps};
