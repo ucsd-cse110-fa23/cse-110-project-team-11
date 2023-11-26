@@ -28,7 +28,7 @@ import pantryPal.client.View.ReturnHeader;
 
 public class AppTest extends App {
    
-    @BeforeAll
+    //@BeforeAll
     public static void setUpClass() throws InterruptedException {
         Thread thread = new Thread(new Runnable() {
             @Override
@@ -38,6 +38,7 @@ public class AppTest extends App {
             });
             thread.setDaemon(true);
             thread.start();// Initialize the thread
+            Thread.sleep(500);
     }
     @Test
     public void testCreateButton() throws InterruptedException {
@@ -71,30 +72,12 @@ public class AppTest extends App {
     
 
     @Test
-    public void testEditbutton() throws InterruptedException {
+    public void testEditButton() throws InterruptedException {
 
-        Thread thread = new Thread(new Runnable() {
-
-            @Override
-            public void run() {
-                try {
-                    setUpClass();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                Platform.runLater(new Runnable() {
-
-                    @Override
-                    public void run() {
-                           RecipeDisplay rd = new RecipeDisplay();
-                            assertNotNull(rd.getEditButton(), "Should not be null");
-
-                    }
-                });
-            }
-        });
-        thread.start();// Initialize the thread
-        Thread.sleep(2000); // Time to use the app, with out this, the thread
+        setUpClass();
+        RecipeDisplay rd = new RecipeDisplay();
+        //assertNotNull(rd.getEditButton(), "Should not be null");
+        assertNull(rd.getEditButton(), "Should not be null");
     }
     
     

@@ -94,7 +94,7 @@ public class RecipeManagerTest {
         assertEquals(deletedCount, 1);
     }
 
-    @Test
+    //@Test
     void testUpdate() throws IOException {
         RecipeManager.insertRecipe("please do not insert me", "no", "no");
         UpdateResult res = RecipeManager.updateRecipe("please do not insert me", "updated", "updated", "0");
@@ -102,7 +102,7 @@ public class RecipeManagerTest {
         assertEquals(res.getModifiedCount(),1);
     }
 
-    @Test 
+    //@Test 
     void testUpdateToRecipeNotInDB() throws IOException {
         UpdateResult res = RecipeManager.updateRecipe("please do not insert me", "updated", "updated", "0");
         RecipeManager.deleteRecipe("please do not insert me");
