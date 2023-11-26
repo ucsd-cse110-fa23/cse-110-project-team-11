@@ -73,20 +73,10 @@ public class DallE {
                 InputStream in = new URI(generatedImageURL).toURL().openStream()
             )
             {
-              // Path path = (Path)Paths.get("/usr", "local", "bin",
-              //                       "fileIn.txt");
-                Files.copy(in, Paths.get("generated_img/temp.jpg"));
+              Files.copy(in, Paths.get("generated_img/temp.jpg"));
             }
           }
   
 
 
-    public static void main(String[] args)
-            throws IOException, InterruptedException, URISyntaxException {
-        
-         
-              DallE api = new DallE();
-              api.callAPI("banana");
-    
-    }
 }

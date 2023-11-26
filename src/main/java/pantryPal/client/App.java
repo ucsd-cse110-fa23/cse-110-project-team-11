@@ -21,6 +21,8 @@ import pantryPal.client.View.RecipeDisplay;
 import pantryPal.client.View.HomePageAppFrame;
 import pantryPal.client.View.UI;
 import javafx.scene.layout.*;
+import java.io.File;
+
 
 public class App extends Application {
     public static void main(String[] args) {
@@ -40,12 +42,23 @@ public class App extends Application {
         Model model = new Model();
         Controller controller = new Controller(ui, model);
         controller.loadRecipes();
+        controller.loadImagesAtStartup();
 
         stage.setTitle("PantryPal");
         stage.setResizable(true);
         // Create scene of mentioned size with the border pane
         stage.setScene(new Scene(root, 500, 600));
-        
+        stage.setOnCloseRequest(event -> {
+            AppImageManager.cleanImageFolder();
+        });
         stage.show(); // Show the app
+    }
+}
+
+class AppImageManager {
+    public static void cleanImageFolder() {
+        for(File file: new File("generated_img").listFiles()) 
+        if (!file.isDirectory()) 
+            file.delete();
     }
 }

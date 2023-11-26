@@ -22,9 +22,6 @@ import com.sun.net.httpserver.*;
 import java.io.*;
 import java.net.*;
 
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.Files;
 
 import java.io.File;
 
@@ -128,6 +125,8 @@ public class Controller {
                     rec.setIngreds(rp.getStringIngredients());
                     rec.setSteps(rp.getStringSteps());
 
+                    File oldFile = new File("generated_img/temp.jpg");
+                    oldFile.delete();
                     img.generateImage(rp.getTitle(), rp.getStringIngredients());
 
                     System.out.println(rec.getIngredients().getText());
@@ -250,7 +249,7 @@ public class Controller {
             rd.setID(RecipeManager.getStringID());
 
             File oldFile = new File("generated_img/temp.jpg");
-            File newFile = new File("generated_img/" + rd.getID() + ".jpg");
+            File newFile = new File("generated_img/" + title.replace(" ","") + ".jpg");
             boolean success = oldFile.renameTo(newFile);
 
             recipeDis.setViewButtonAction(this::handleViewButton);
@@ -259,6 +258,7 @@ public class Controller {
             this.rt = recipeDis;
             hp.getRecipeList().getChildren().add(recipeDis);
             reload();
+
         }
         else {
             try {
@@ -417,6 +417,20 @@ public class Controller {
             hp.getRecipeList().getChildren().add(recipeTitle);
             recipeTitle.getRecipeDetail().setBackButtonAction2(this::handleBackButton2);
             recipeTitle.getRecipeDetail().setLogoutButtonAction(this::handleLogoutButton);
+        }
+    }
+
+    public void loadImagesAtStartup() throws IOException, InterruptedException, URISyntaxException {
+        //for (int i = 0; i < hp.getRecipeList().getChildren().size(); i++) {
+        for (int i = 0; i < 5; i++) {
+            RecipeTitle rt = (RecipeTitle)hp.getRecipeList().getChildren().get(i);
+            RecipeDisplay rd = rt.getRecipeDetail().getRecipe();
+            String title = rd.getTitle().getText();
+            String ingredients = rd.getIngredients().getText();
+            img.generateImage(title,ingredients);
+            File oldFile = new File("generated_img/temp.jpg");
+            File newFile = new File("generated_img/" + title.replace(" ","") + ".jpg");
+            oldFile.renameTo(newFile);
         }
     }
 }
