@@ -8,14 +8,17 @@ import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.layout.*;
 import javafx.event.ActionEvent;
-import pantryPal.*;
-import pantryPal.View.App;
-import pantryPal.View.HomePageAppFrame;
-import pantryPal.View.HomePageHeader;
-import pantryPal.View.InputAppFrame;
-import pantryPal.View.RecipeDisplay;
-import pantryPal.View.RecipeDisplayAppFrame;
-import pantryPal.View.UI;
+import pantryPal.client.App;
+import pantryPal.client.Controller;
+import pantryPal.client.Model;
+import pantryPal.client.TranscriptionService;
+import pantryPal.client.View.HomePageAppFrame;
+import pantryPal.client.View.HomePageHeader;
+import pantryPal.client.View.InputAppFrame;
+import pantryPal.client.View.LoginPageAppFrame;
+import pantryPal.client.View.RecipeDisplay;
+import pantryPal.client.View.RecipeDisplayAppFrame;
+import pantryPal.client.View.UI;
 import java.io.File;
  
 
@@ -72,8 +75,9 @@ public class IntegrationTest {
                     InputAppFrame ip = new InputAppFrame();
                     HomePageAppFrame hp = new HomePageAppFrame(ip);
                     RecipeDisplayAppFrame dp = new RecipeDisplayAppFrame(new RecipeDisplay());
+                    LoginPageAppFrame lp = new LoginPageAppFrame();
                     HomePageHeader hph = new HomePageHeader();
-                    UI ui = new UI(root, hp, ip, dp);
+                    UI ui = new UI(root, hp, ip, dp, lp);
                     Controller c = new Controller(ui, model);
                     ActionEvent actionEvent = new ActionEvent();
 

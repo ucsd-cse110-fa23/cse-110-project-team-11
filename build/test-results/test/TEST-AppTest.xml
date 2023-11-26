@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="AppTest" tests="9" skipped="0" failures="0" errors="0" timestamp="2023-11-26T05:47:48" hostname="DESKTOP-7QFM5N9" time="1.085">
+  <properties/>
+  <testcase name="testDeleteButton()" classname="AppTest" time="0.916"/>
+  <testcase name="testSaveButton()" classname="AppTest" time="0.008"/>
+  <testcase name="testEditButton()" classname="AppTest" time="0.009"/>
+  <testcase name="testBackButton()" classname="AppTest" time="0.072"/>
+  <testcase name="testViewButton()" classname="AppTest" time="0.048"/>
+  <testcase name="testStartButton()" classname="AppTest" time="0.003"/>
+  <testcase name="testHeader()" classname="AppTest" time="0.005"/>
+  <testcase name="testStopButton()" classname="AppTest" time="0.006"/>
+  <testcase name="testCreateButton()" classname="AppTest" time="0.002"/>
+  <system-out><![CDATA[
+
+
+
+
+
+]]></system-out>
+  <system-err><![CDATA[Nov 25, 2023 9:47:47 PM com.sun.javafx.application.PlatformImpl startup
+WARNING: Unsupported JavaFX configuration: classes were loaded from 'unnamed module @60015ef5'
+]]></system-err>
+</testsuite>

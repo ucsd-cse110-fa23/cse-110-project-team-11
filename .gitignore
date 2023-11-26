@@ -1,9 +1,19 @@
-/src/Input.wav
-/src/prompt.txt
-/src/promptTest.txt
-/src/recipe.txt
-/bin/
-/prompt.txt
-/Input.wav
-/promptTest.txt
-/recipe.txt
+#ignore compiled files
+*.class
+*.jar
+
+# ignore log files
+*.log
+
+#ignoring specific directories
+# .vscode/launch.json
+src/main/resources/Input.wav
+src/main/resources/prompt.txt
+src/main/resources/recipe.txt
+src/test/resources/promptTest.txt
+src/main/.DS_Store
+bin/main/java
+bin/test
+.DS_Store
+Input.wav
+prompt.txt
