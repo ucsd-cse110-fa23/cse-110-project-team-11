@@ -20,6 +20,7 @@ public class Input {
     private  Thread thread;
     private  File audioFile = new File("Input.wav");
 
+    private String type = "";
     private String transcription = "";
 
     public  AudioFormat getAudioFormat() {
@@ -76,7 +77,7 @@ public class Input {
 
                     thread.join();
                     transcription = whisper();
-                    String type = typeParser(transcription);
+                    type = typeParser(transcription);
                     if(type.equals("Invalid")){
                         return false;
                     }
@@ -130,6 +131,9 @@ public class Input {
         return transcription;
     }
 
+    public String getType(){
+        return type;
+    }
     public TargetDataLine getMic(){
         return mic;
     }
@@ -148,7 +152,7 @@ public class Input {
 
         int count = 0;
 
-        String[] meals = {"breakfast","lunch","dinner"};
+        String[] meals = {"Breakfast","Lunch","Dinner"};
 
         String meal = "";
 

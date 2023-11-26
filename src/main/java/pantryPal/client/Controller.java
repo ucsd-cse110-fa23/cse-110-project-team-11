@@ -87,7 +87,7 @@ public class Controller {
         if(input.stopCapture(promptType)){
             
             if(promptType.equals("MealType")){
-                inputFrame.getRecButtons().setRecipeText("Please input Ingredients.\n\nMeal Type: " + input.getTranscription());
+                inputFrame.getRecButtons().setRecipeText("Please input Ingredients.\n\nMeal Type: " + input.getType());
                 input.setPromptType("Ingredients");
             }
             else{
