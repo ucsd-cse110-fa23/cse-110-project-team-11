@@ -1,10 +1,338 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="RecipeManagerTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2023-11-26T05:24:18" hostname="MacBook-Pro-12.local" time="5.058">
+<testsuite name="RecipeManagerTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2023-11-26T05:48:00" hostname="DESKTOP-7QFM5N9" time="4.776">
   <properties/>
-  <testcase name="testLoad()" classname="RecipeManagerTest" time="3.007"/>
-  <testcase name="testDelete()" classname="RecipeManagerTest" time="0.668"/>
-  <testcase name="testInsert()" classname="RecipeManagerTest" time="1.381"/>
-  <system-out><![CDATA[Error Result: {  "error": {    "message": "Audio file is too short. Minimum audio length is 0.1 seconds.",    "type": "invalid_request_error",    "param": "file",    "code": "audio_too_short"  }}
+  <testcase name="testLoad()" classname="RecipeManagerTest" time="3.027"/>
+  <testcase name="testDelete()" classname="RecipeManagerTest" time="0.614"/>
+  <testcase name="testInsert()" classname="RecipeManagerTest" time="1.133"/>
+  <system-out><![CDATA[loading
+loading
+loading
+loading
+loading
+loading
+loading
+loading
+loading
+loading
+loading
+loading
+loading
+loading
+loading
+loading
+opened mongoDB (delete recipe)
+Fried Rice with Tofu and Veggies 
+Ingredients: 
+- Rice 
+- Tofu 
+- Carrots 
+- Peas 
+- Onion 
+- Garlic 
+- Soy sauce 
+- Sesame oil 
+- Vegetable oil
+
+Steps: 
+#1 Cook the rice according to package instructions. 
+#2 Heat vegetable oil in a large skillet over medium-high heat. 
+#3 Add the tofu and cook until lightly browned, about 5 minutes. 
+#4 Add the carrots, peas, onion, and garlic. Cook for another 5 minutes. 
+#5 Add the cooked rice to the skillet and mix everything together. 
+#6 Pour soy sauce and sesame oil over the rice and mix until everything is evenly coated. 
+#7 Cook for an additional 5 minutes, stirring occasionally. 
+#8 Serve and enjoy!
+
+Chicken Breakfast
+Ingredients: 
+- Chicken 
+- Eggs
+- Milk
+- Flour
+- Salt
+- Pepper
+- Oil
+
+Steps: 
+#1 Heat oil in a pan over medium heat.
+#2 Cut chicken into cubes and season with salt and pepper.
+#3 Add chicken to the pan and cook until lightly browned.
+#4 In a bowl, beat eggs with milk, salt, and pepper.
+#5 Add flour to the egg mixture and mix until combined.
+#6 Add the egg mixture to the pan with the chicken and cook until eggs are set.
+#7 Serve hot.
+
+Pork Breakfast 
+Ingredients: 
+- Pork
+- Eggs
+- Milk
+- Salt
+- Pepper
+- Butter
+
+Steps: 
+#1 Heat a skillet over medium heat.
+#2 Add butter to the skillet and let it melt.
+#3 Add pork to the skillet and cook until it is browned and cooked through.
+#4 Crack eggs into a bowl and whisk together with milk, salt, and pepper.
+#5 Pour egg mixture into the skillet and cook until eggs are set, stirring occasionally.
+#6 Serve the pork and eggs. Enjoy!
+
+Egg and Cheese Omelette
+Ingredients: 
+- Eggs
+- Cheese
+- Milk
+- Butter
+- Salt
+- Pepper
+
+Steps: 
+#1 Crack 2 eggs into a bowl.
+#2 Add 2 tablespoons of milk and whisk together.
+#3 Add a pinch of salt and pepper to the egg mixture.
+#4 Heat a non-stick pan over medium heat and add 1 tablespoon of butter.
+#5 Pour the egg mixture into the pan and let cook for 2 minutes.
+#6 Sprinkle 1/4 cup of cheese over the egg mixture.
+#7 Fold the omelette in half and let cook for an additional 2 minutes.
+#8 Slide the omelette onto a plate and enjoy!
+
+Baked Salmon with Roasted Asparagus
+Ingredients: 
+- Salmon fillet
+- Asparagus
+- Olive oil
+- Salt
+- Pepper
+- Garlic powder
+- Lemon
+
+Steps: 
+#1 Preheat oven to 375 degrees F.
+#2 Line a baking sheet with parchment paper.
+#3 Place salmon fillet on baking sheet.
+#4 Drizzle with olive oil and season with salt, pepper, and garlic powder.
+#5 Place asparagus around salmon and drizzle with olive oil.
+#6 Squeeze lemon juice over salmon and asparagus.
+#7 Bake for 15 minutes, or until salmon is cooked through.
+#8 Serve and enjoy!
+
+Sausage Breakfast
+Ingredients: 
+- Sausage
+- Eggs
+- Milk
+- Flour
+- Salt
+- Pepper
+
+Steps: 
+#1 Heat a skillet over medium heat.
+#2 Place sausage in the skillet and cook until browned.
+#3 Remove sausage from skillet and set aside.
+#4 In a medium bowl, whisk together eggs, milk, flour, salt, and pepper.
+#5 Return skillet to medium heat and add egg mixture.
+#6 Cook until eggs are set, stirring occasionally.
+#7 Return sausage to the skillet and cook for an additional minute.
+#8 Serve sausage and eggs.
+
+Caramel Melon Ice Cream Bowl
+Ingredients: 
+- Strawberries
+- Melons
+- Caramel
+- Honey
+- Ice Cream
+- Cream
+- Milk
+
+Steps: 
+#1 Cut the strawberries and melons into small pieces.
+#2 Place the pieces of strawberries and melons into a bowl.
+#3 Drizzle the caramel and honey over the fruit.
+#4 Scoop the ice cream into the bowl.
+#5 Pour cream and milk over the ice cream.
+#6 Mix all the ingredients together.
+#7 Serve the Caramel Melon Ice Cream Bowl.
+
+Strawberry Bread 
+Ingredients: 
+- Strawberries 
+- Bread 
+- Sugar 
+- Butter 
+
+Steps: 
+#1 Preheat oven to 350°F. 
+#2 Cut the bread into thick slices. 
+#3 Spread butter on the slices of bread. 
+#4 Place the bread slices on a baking sheet. 
+#5 Slice the strawberries and place them on top of the bread slices. 
+#6 Sprinkle sugar over the strawberries. 
+#7 Bake for 15 minutes. 
+#8 Serve and enjoy!!!
+
+Fruit Salad
+Ingredients: 
+- Melon
+- Strawberry
+- Grapes
+- Mango
+- Honey
+- Lime juice
+- Mint leaves
+
+Steps: 
+#1 Cut the melon, strawberry, grapes, and mango into cubes.
+#2 In a bowl, mix the cubed fruits together.
+#3 Drizzle honey and lime juice over the fruit mix.
+#4 Add a few mint leaves to the mix.
+#5 Stir the ingredients together.
+#6 Serve chilled.
+
+Pickles Breakfast
+Ingredients: 
+- Pickles
+- Eggs
+- Milk
+- Butter
+- Salt
+- Pepper
+
+Steps: 
+#1 Crack eggs into a bowl.
+#2 Add milk, salt and pepper to the eggs and mix until combined.
+#3 Heat a pan over medium heat and add butter.
+#4 Pour egg mixture into the pan and scramble until cooked.
+#5 Place scrambled eggs onto a plate.
+#6 Add pickles to the plate.
+#7 Enjoy your pickles breakfast!
+
+Cheesy Dinner
+Ingredients: 
+- Cheese
+- American Cheese
+- Mozzarella Cheese
+- Swiss Cheese
+- Shredded Cheese
+- Milk
+- Flour
+- Butter
+
+Steps: 
+# Preheat oven to 375°F.
+# In a medium bowl, combine cheeses and mix until evenly distributed.
+# In a separate bowl, combine 1/4 cup of milk, 1/4 cup of flour, and 1/4 cup of butter.
+# Mix the ingredients in the second bowl until a dough forms.
+# Grease a baking dish with butter.
+# Spread the cheese mixture in the baking dish.
+# Place the dough on top of the cheese mixture.
+# Bake in preheated oven for 25 minutes or until golden brown. 
+# Serve and enjoy!
+
+Beef Cheese Bread 
+Ingredients: 
+- Beef 
+- Cheese 
+- Bread 
+- Butter 
+- Salt 
+- Pepper 
+
+Steps: 
+#1 Preheat oven to 375°F.
+#2 Slice the bread into 1/2 inch thick slices.
+#3 Spread butter on one side of each slice of bread.
+#4 Place the slices of bread, butter side up, on a baking sheet.
+#5 Top each slice of bread with a thin layer of beef.
+#6 Sprinkle cheese on top of the beef.
+#7 Sprinkle salt and pepper on top of the cheese.
+#8 Bake in preheated oven for 10-15 minutes, or until cheese is melted and bread is lightly toasted.
+#9 Serve and enjoy!
+
+Beef and Cheese Tortilla
+Ingredients: 
+- Beef
+- Tortilla
+- Cheese
+- Oil
+- Salt
+- Pepper
+
+Steps: 
+#1 Heat oil in a pan over medium heat.
+#2 Add the beef to the pan and season with salt and pepper.
+#3 Cook the beef until it is browned and cooked through.
+#4 Remove the beef from the pan and set aside.
+#5 Place a tortilla in the pan and top with the cooked beef and cheese.
+#6 Cover the pan and cook until the cheese is melted and the tortilla is lightly browned.
+#7 Remove the tortilla from the pan and serve.
+
+Beef and Cheese Breakfast Tortilla 
+Ingredients: 
+- Beef 
+- Tortilla 
+- Cheese 
+- Oil 
+- Salt 
+- Pepper
+
+Steps: 
+#1 Heat a skillet over medium heat and add oil.
+#2 Add the beef and season with salt and pepper. Cook until the beef is browned.
+#3 Remove the beef from the skillet and set aside.
+#4 Place the tortilla in the skillet and cook until lightly browned.
+#5 Add the beef back to the skillet and top with cheese.
+#6 Fold the tortilla in half and cook for another minute.
+#7 Serve warm.
+
+Beef and Cheese Tortilla Wrap
+Ingredients: 
+- Tortilla
+- Beef
+- Cheese
+- Oil
+- Salt
+
+Steps: 
+#1 Heat a pan over medium heat and add oil.
+#2 Add beef to pan and season with salt.
+#3 Cook beef until lightly browned.
+#4 Place the tortilla on a plate.
+#5 Spread cheese over the tortilla.
+#6 Place cooked beef over the cheese.
+#7 Fold the tortilla in half.
+#8 Heat a pan over medium heat.
+#9 Place the folded tortilla in the pan and cook until golden brown on both sides.
+#10 Serve warm.
+
+please do not insert me
+no
+no
+delete: AcknowledgedDeleteResult{deletedCount=0}
+loading
+loading
+loading
+loading
+loading
+loading
+loading
+loading
+loading
+loading
+loading
+loading
+loading
+loading
+loading
+loading
+
+
+
+Insert successful
+opened mongoDB (delete recipe)
+loading
 loading
 loading
 loading
@@ -310,59 +638,20 @@ Steps:
 please do not insert me
 no
 no
-loading
-loading
-loading
-loading
-loading
-loading
-loading
-loading
-loading
-loading
-loading
-loading
-loading
-loading
-loading
-loading
-opened mongoDB (delete recipe)
-delete: AcknowledgedDeleteResult{deletedCount=0}
-Insert successful
-opened mongoDB (delete recipe)
+test test test test test
+Test Ingredients
+Test Steps
 delete: AcknowledgedDeleteResult{deletedCount=1}
 ]]></system-out>
-  <system-err><![CDATA[--- Exception in Async Thread ---
-java.lang.IllegalStateException: Application launch must not be called more than once
-	com.sun.javafx.application.LauncherImpl.launchApplication(LauncherImpl.java:176)
-	com.sun.javafx.application.LauncherImpl.launchApplication(LauncherImpl.java:154)
-	javafx.application.Application.launch(Application.java:233)
-	RecipeManagerTest$1.run(RecipeManagerTest.java:32)
-	java.base/java.lang.Thread.run(Thread.java:842)
-
---- Exception in Async Thread ---
-java.lang.IllegalStateException: Application launch must not be called more than once
-	com.sun.javafx.application.LauncherImpl.launchApplication(LauncherImpl.java:176)
-	com.sun.javafx.application.LauncherImpl.launchApplication(LauncherImpl.java:154)
-	javafx.application.Application.launch(Application.java:233)
-	RecipeManagerTest$1.run(RecipeManagerTest.java:32)
-	java.base/java.lang.Thread.run(Thread.java:842)
-
---- Exception in Async Thread ---
-org.opentest4j.AssertionFailedError: expected: <true> but was: <false>
-	org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)
-	org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:132)
-	org.junit.jupiter.api.AssertTrue.failNotTrue(AssertTrue.java:63)
-	org.junit.jupiter.api.AssertTrue.assertTrue(AssertTrue.java:36)
-	org.junit.jupiter.api.AssertTrue.assertTrue(AssertTrue.java:31)
-	org.junit.jupiter.api.Assertions.assertTrue(Assertions.java:179)
-	IntegrationTest$2$1.run(IntegrationTest.java:123)
-	com.sun.javafx.application.PlatformImpl.lambda$runLater$10(PlatformImpl.java:456)
-	java.base/java.security.AccessController.doPrivileged(AccessController.java:399)
-	com.sun.javafx.application.PlatformImpl.lambda$runLater$11(PlatformImpl.java:455)
-	com.sun.glass.ui.InvokeLaterDispatcher$Future.run(InvokeLaterDispatcher.java:95)
-
-Nov 25, 2023 9:24:19 PM com.mongodb.internal.diagnostics.logging.Loggers shouldUseSLF4J
+  <system-err><![CDATA[Exception in thread "Thread-6" java.lang.IllegalStateException: Application launch must not be called more than once
+	at com.sun.javafx.application.LauncherImpl.launchApplication(LauncherImpl.java:176)
+	at com.sun.javafx.application.LauncherImpl.launchApplication(LauncherImpl.java:154)
+	at javafx.application.Application.launch(Application.java:233)
+	at RecipeManagerTest$1.run(RecipeManagerTest.java:32)
+	at java.base/java.lang.Thread.run(Thread.java:840)
+Nov 25, 2023 9:48:00 PM com.sun.javafx.application.PlatformImpl startup
+WARNING: Unsupported JavaFX configuration: classes were loaded from 'unnamed module @31f9b85e'
+Nov 25, 2023 9:48:01 PM com.mongodb.internal.diagnostics.logging.Loggers shouldUseSLF4J
 WARNING: SLF4J not found on the classpath.  Logging is disabled for the 'org.mongodb.driver' component
 ]]></system-err>
 </testsuite>

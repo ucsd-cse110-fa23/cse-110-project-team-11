@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="InputTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2023-11-26T05:24:16" hostname="MacBook-Pro-12.local" time="0.001">
+<testsuite name="InputTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2023-11-26T05:47:51" hostname="DESKTOP-7QFM5N9" time="0.022">
   <properties/>
-  <testcase name="FakeResponse()" classname="InputTest" time="0.001"/>
+  <testcase name="FakeResponse()" classname="InputTest" time="0.022"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

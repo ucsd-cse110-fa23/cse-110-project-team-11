@@ -68,6 +68,7 @@ public class Controller {
             }
         });
         this.lp.setLoginButtonAction(this::handleLoginButton);
+        this.lp.setCreateAccButtonAction(this::handleCreateAccButton);
         this.inputFrame.setLogoutButtonAction(this::handleLogoutButton2);
         this.rd.setLogoutButtonAction(this::handleLogoutButton);
         this.hp.setLogoutButtonAction(this::handleLogoutButton);
@@ -295,6 +296,11 @@ public class Controller {
     }
 
     private void handleLoginButton(ActionEvent event){
+
+        ui.returnHomePage(); 
+    }
+
+    private void handleCreateAccButton(ActionEvent event){
 
         ui.returnHomePage(); 
     }

@@ -19,7 +19,7 @@
             "request": "launch",
             "mainClass": "pantryPal.client.App",
             "projectName": "cse-110-project-team-11",
-            "vmArgs": "--module-path 'lib/mac' --add-modules javafx.controls,javafx.fxml"
+            "vmArgs": "--module-path 'lib' --add-modules javafx.controls,javafx.fxml"
         },
         {
             "type": "java",

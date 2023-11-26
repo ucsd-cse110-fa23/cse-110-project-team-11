@@ -1,27 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="IntegrationTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2023-11-26T05:24:16" hostname="MacBook-Pro-12.local" time="2.006">
+<testsuite name="IntegrationTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2023-11-26T05:47:53" hostname="DESKTOP-7QFM5N9" time="2.028">
   <properties/>
-  <testcase name="Integration1()" classname="IntegrationTest" time="2.006"/>
+  <testcase name="Integration1()" classname="IntegrationTest" time="2.028"/>
   <system-out><![CDATA[
 
 
-Error Result: {  "error": {    "message": "Audio file is too short. Minimum audio length is 0.1 seconds.",    "type": "invalid_request_error",    "param": "file",    "code": "audio_too_short"  }}
 ]]></system-out>
-  <system-err><![CDATA[--- Exception in Async Thread ---
-java.lang.IllegalStateException: Application launch must not be called more than once
-	com.sun.javafx.application.LauncherImpl.launchApplication(LauncherImpl.java:176)
-	com.sun.javafx.application.LauncherImpl.launchApplication(LauncherImpl.java:154)
-	javafx.application.Application.launch(Application.java:233)
-	IntegrationTest$1.run(IntegrationTest.java:42)
-	java.base/java.lang.Thread.run(Thread.java:842)
-
---- Exception in Async Thread ---
-java.lang.IllegalStateException: Application launch must not be called more than once
-	com.sun.javafx.application.LauncherImpl.launchApplication(LauncherImpl.java:176)
-	com.sun.javafx.application.LauncherImpl.launchApplication(LauncherImpl.java:154)
-	javafx.application.Application.launch(Application.java:233)
-	IntegrationTest$1.run(IntegrationTest.java:42)
-	java.base/java.lang.Thread.run(Thread.java:842)
-
+  <system-err><![CDATA[Exception in thread "Thread-6" java.lang.IllegalStateException: Application launch must not be called more than once
+	at com.sun.javafx.application.LauncherImpl.launchApplication(LauncherImpl.java:176)
+	at com.sun.javafx.application.LauncherImpl.launchApplication(LauncherImpl.java:154)
+	at javafx.application.Application.launch(Application.java:233)
+	at IntegrationTest$1.run(IntegrationTest.java:42)
+	at java.base/java.lang.Thread.run(Thread.java:840)
+Nov 25, 2023 9:47:53 PM com.sun.javafx.application.PlatformImpl startup
+WARNING: Unsupported JavaFX configuration: classes were loaded from 'unnamed module @31f9b85e'
 ]]></system-err>
 </testsuite>

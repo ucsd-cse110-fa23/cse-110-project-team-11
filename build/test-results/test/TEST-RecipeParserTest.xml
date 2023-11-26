@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="RecipeParserTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2023-11-26T05:24:24" hostname="MacBook-Pro-12.local" time="0.001">
+<testsuite name="RecipeParserTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2023-11-26T05:48:06" hostname="DESKTOP-7QFM5N9" time="0.048">
   <properties/>
-  <testcase name="testParseSpecificInputWithDashSpace()" classname="RecipeParserTest" time="0.001"/>
-  <testcase name="testParseSpecificInputWithoutDashSpace()" classname="RecipeParserTest" time="0.0"/>
+  <testcase name="testParseSpecificInputWithDashSpace()" classname="RecipeParserTest" time="0.044"/>
+  <testcase name="testParseSpecificInputWithoutDashSpace()" classname="RecipeParserTest" time="0.003"/>
   <system-out><![CDATA[file not found :/
 file not found :/
 ]]></system-out>
-  <system-err><![CDATA[IOException: java.io.FileNotFoundException: /src/main/resources/recipe.txt (No such file or directory)
-IOException: java.io.FileNotFoundException: /src/main/resources/recipe.txt (No such file or directory)
+  <system-err><![CDATA[IOException: java.io.FileNotFoundException: \src\main\resources\recipe.txt (The system cannot find the path specified)
+IOException: java.io.FileNotFoundException: \src\main\resources\recipe.txt (The system cannot find the path specified)
 ]]></system-err>
 </testsuite>
