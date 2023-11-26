@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="AppTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2023-11-24T12:31:20" hostname="MacBook-Pro-12.local" time="13.299">
+  <properties/>
+  <testcase name="testSaveButton()" classname="AppTest" time="2.011"/>
+  <testcase name="testEditButton()" classname="AppTest" time="3.248"/>
+  <testcase name="testViewButton()" classname="AppTest" time="2.006"/>
+  <testcase name="testStartButton()" classname="AppTest" time="2.005"/>
+  <testcase name="testHeader()" classname="AppTest" time="2.007"/>
+  <testcase name="testStopButton()" classname="AppTest" time="2.01"/>
+  <system-out><![CDATA[
+
+
+loading
+loading
+loading
+loading
+Fried Rice with Egg
+Ingredients: 
+- Rice 
+- Egg 
+- Olive oil 
+- Salt 
+- Soy sauce 
+- Garlic 
+- Onion 
+- Green onion
+
+Steps: 
+#1 Heat a pan over medium heat and add olive oil. 
+#2 Add garlic and onion and sauté until softened. 
+#3 Add the egg and scramble until cooked. 
+#4 Add the cooked rice to the pan and mix with the egg. 
+#5 Add salt, soy sauce, and green onion and mix together. 
+#6 Cook for a few minutes until everything is warm and mixed together. 
+#7 Serve and enjoy!
+
+Grilled Cheese Sandwich
+Ingredients: 
+- Bread 
+- Butter 
+- Cheese 
+- Salt 
+- Pepper 
+
+Steps: 
+#1 Preheat a skillet over medium heat.
+#2 Spread butter on one side of each slice of bread.
+#3 Place one slice of bread, butter-side down, in the skillet.
+#4 Sprinkle cheese over the slice of bread.
+#5 Sprinkle salt and pepper over the cheese.
+#6 Place the other slice of bread, butter-side up, on top of the cheese.
+#7 Grill the sandwich until the bread is golden brown and the cheese is melted, about 3 minutes per side.
+#8 Remove the sandwich from the skillet and serve.
+
+Sausage and Egg Breakfast 
+Ingredients: 
+- Egg 
+- Sausage 
+- Oil 
+- Salt 
+- Pepper 
+
+Steps: 
+#1 Heat oil in a skillet over medium-high heat.
+#2 Add sausage and cook until browned and cooked through.
+#3 Remove sausage from skillet and set aside.
+#4 In the same skillet, add the egg and season with salt and pepper.
+#5 Cook egg until desired doneness.
+#6 Serve egg and sausage together.
+
+Ice Cream Breakfast 
+Ingredients: 
+- Ice Cream 
+- Milk 
+- Cereal 
+- Fruit 
+
+Steps: 
+#1 Gather the ingredients. 
+#2 Place the cereal and milk in a bowl. 
+#3 Pour the ice cream over the cereal and milk. 
+#4 Add the fruit to the bowl. 
+#5 Mix the ingredients together!
+#6 Enjoy your ice cream breakfast!
+
+
+
+
+]]></system-out>
+  <system-err><![CDATA[Nov 24, 2023 4:31:20 AM com.sun.javafx.application.PlatformImpl startup
+WARNING: Unsupported JavaFX configuration: classes were loaded from 'unnamed module @77ad2aa5'
+Exception in thread "Thread-9" java.lang.IllegalStateException: Application launch must not be called more than once
+	at com.sun.javafx.application.LauncherImpl.launchApplication(LauncherImpl.java:176)
+	at com.sun.javafx.application.LauncherImpl.launchApplication(LauncherImpl.java:154)
+	at javafx.application.Application.launch(Application.java:233)
+	at AppTest$1.run(AppTest.java:52)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+Nov 24, 2023 4:31:25 AM com.sun.glass.ui.mac.MacApplication lambda$waitForReactivation$6
+WARNING: Timeout while waiting for app reactivation
+Exception in thread "Thread-11" java.lang.IllegalStateException: Application launch must not be called more than once
+	at com.sun.javafx.application.LauncherImpl.launchApplication(LauncherImpl.java:176)
+	at com.sun.javafx.application.LauncherImpl.launchApplication(LauncherImpl.java:154)
+	at javafx.application.Application.launch(Application.java:233)
+	at AppTest$1.run(AppTest.java:52)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+Nov 24, 2023 4:31:25 AM com.mongodb.internal.diagnostics.logging.Loggers shouldUseSLF4J
+WARNING: SLF4J not found on the classpath.  Logging is disabled for the 'org.mongodb.driver' component
+Exception in thread "Thread-13" java.lang.IllegalStateException: Application launch must not be called more than once
+	at com.sun.javafx.application.LauncherImpl.launchApplication(LauncherImpl.java:176)
+	at com.sun.javafx.application.LauncherImpl.launchApplication(LauncherImpl.java:154)
+	at javafx.application.Application.launch(Application.java:233)
+	at AppTest$1.run(AppTest.java:52)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+Exception in thread "Thread-15" java.lang.IllegalStateException: Application launch must not be called more than once
+	at com.sun.javafx.application.LauncherImpl.launchApplication(LauncherImpl.java:176)
+	at com.sun.javafx.application.LauncherImpl.launchApplication(LauncherImpl.java:154)
+	at javafx.application.Application.launch(Application.java:233)
+	at AppTest$1.run(AppTest.java:52)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+Exception in thread "Thread-17" java.lang.IllegalStateException: Application launch must not be called more than once
+	at com.sun.javafx.application.LauncherImpl.launchApplication(LauncherImpl.java:176)
+	at com.sun.javafx.application.LauncherImpl.launchApplication(LauncherImpl.java:154)
+	at javafx.application.Application.launch(Application.java:233)
+	at AppTest$1.run(AppTest.java:52)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+]]></system-err>
+</testsuite>

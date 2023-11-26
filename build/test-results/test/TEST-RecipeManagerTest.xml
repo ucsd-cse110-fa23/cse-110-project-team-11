@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="RecipeManagerTest" tests="5" skipped="0" failures="1" errors="0" timestamp="2023-11-24T12:31:38" hostname="MacBook-Pro-12.local" time="9.7">
+  <properties/>
+  <testcase name="testLoad()" classname="RecipeManagerTest" time="3.014"/>
+  <testcase name="testUpdateToRecipeNotInDB()" classname="RecipeManagerTest" time="1.972"/>
+  <testcase name="testDelete()" classname="RecipeManagerTest" time="0.788"/>
+  <testcase name="testInsert()" classname="RecipeManagerTest" time="1.584"/>
+  <testcase name="testUpdate()" classname="RecipeManagerTest" time="2.338">
+    <failure message="org.opentest4j.AssertionFailedError: expected: &lt;0&gt; but was: &lt;1&gt;" type="org.opentest4j.AssertionFailedError">org.opentest4j.AssertionFailedError: expected: &lt;0&gt; but was: &lt;1&gt;
+	at app//org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)
+	at app//org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:132)
+	at app//org.junit.jupiter.api.AssertEquals.failNotEqual(AssertEquals.java:197)
+	at app//org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:166)
+	at app//org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:161)
+	at app//org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:628)
+	at app//RecipeManagerTest.testUpdate(RecipeManagerTest.java:102)
+	at java.base@17.0.9/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base@17.0.9/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base@17.0.9/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base@17.0.9/java.lang.reflect.Method.invoke(Method.java:568)
+	at app//org.junit.platform.commons.util.ReflectionUtils.invokeMethod(ReflectionUtils.java:728)
+	at app//org.junit.jupiter.engine.execution.MethodInvocation.proceed(MethodInvocation.java:60)
+	at app//org.junit.jupiter.engine.execution.InvocationInterceptorChain$ValidatingInvocation.proceed(InvocationInterceptorChain.java:131)
+	at app//org.junit.jupiter.engine.extension.TimeoutExtension.intercept(TimeoutExtension.java:156)
+	at app//org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestableMethod(TimeoutExtension.java:147)
+	at app//org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestMethod(TimeoutExtension.java:86)
+	at app//org.junit.jupiter.engine.execution.InterceptingExecutableInvoker$ReflectiveInterceptorCall.lambda$ofVoidMethod$0(InterceptingExecutableInvoker.java:103)
+	at app//org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.lambda$invoke$0(InterceptingExecutableInvoker.java:93)
+	at app//org.junit.jupiter.engine.execution.InvocationInterceptorChain$InterceptedInvocation.proceed(InvocationInterceptorChain.java:106)
+	at app//org.junit.jupiter.engine.execution.InvocationInterceptorChain.proceed(InvocationInterceptorChain.java:64)
+	at app//org.junit.jupiter.engine.execution.InvocationInterceptorChain.chainAndInvoke(InvocationInterceptorChain.java:45)
+	at app//org.junit.jupiter.engine.execution.InvocationInterceptorChain.invoke(InvocationInterceptorChain.java:37)
+	at app//org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.invoke(InterceptingExecutableInvoker.java:92)
+	at app//org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.invoke(InterceptingExecutableInvoker.java:86)
+	at app//org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$invokeTestMethod$7(TestMethodTestDescriptor.java:218)
+	at app//org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at app//org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.invokeTestMethod(TestMethodTestDescriptor.java:214)
+	at app//org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:139)
+	at app//org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:69)
+	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:151)
+	at app//org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
+	at app//org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
+	at app//org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
+	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
+	at java.base@17.0.9/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at app//org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
+	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155)
+	at app//org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
+	at app//org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
+	at app//org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
+	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
+	at java.base@17.0.9/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at app//org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
+	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155)
+	at app//org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
+	at app//org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
+	at app//org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
+	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
+	at app//org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:35)
+	at app//org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:57)
+	at app//org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:54)
+	at app//org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:107)
+	at app//org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:88)
+	at app//org.junit.platform.launcher.core.EngineExecutionOrchestrator.lambda$execute$0(EngineExecutionOrchestrator.java:54)
+	at app//org.junit.platform.launcher.core.EngineExecutionOrchestrator.withInterceptedStreams(EngineExecutionOrchestrator.java:67)
+	at app//org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:52)
+	at app//org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:114)
+	at app//org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:86)
+	at app//org.junit.platform.launcher.core.DefaultLauncherSession$DelegatingLauncher.execute(DefaultLauncherSession.java:86)
+	at org.gradle.api.internal.tasks.testing.junitplatform.JUnitPlatformTestClassProcessor$CollectAllTestClassesExecutor.processAllTestClasses(JUnitPlatformTestClassProcessor.java:119)
+	at org.gradle.api.internal.tasks.testing.junitplatform.JUnitPlatformTestClassProcessor$CollectAllTestClassesExecutor.access$000(JUnitPlatformTestClassProcessor.java:94)
+	at org.gradle.api.internal.tasks.testing.junitplatform.JUnitPlatformTestClassProcessor.stop(JUnitPlatformTestClassProcessor.java:89)
+	at org.gradle.api.internal.tasks.testing.SuiteTestClassProcessor.stop(SuiteTestClassProcessor.java:62)
+	at java.base@17.0.9/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base@17.0.9/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base@17.0.9/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base@17.0.9/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:36)
+	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:24)
+	at org.gradle.internal.dispatch.ContextClassLoaderDispatch.dispatch(ContextClassLoaderDispatch.java:33)
+	at org.gradle.internal.dispatch.ProxyDispatchAdapter$DispatchingInvocationHandler.invoke(ProxyDispatchAdapter.java:94)
+	at jdk.proxy1/jdk.proxy1.$Proxy2.stop(Unknown Source)
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker$3.run(TestWorker.java:193)
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker.executeAndMaintainThreadName(TestWorker.java:129)
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker.execute(TestWorker.java:100)
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker.execute(TestWorker.java:60)
+	at org.gradle.process.internal.worker.child.ActionExecutionWorker.execute(ActionExecutionWorker.java:56)
+	at org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker.call(SystemApplicationClassLoaderWorker.java:113)
+	at org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker.call(SystemApplicationClassLoaderWorker.java:65)
+	at app//worker.org.gradle.process.internal.worker.GradleWorkerMain.run(GradleWorkerMain.java:69)
+	at app//worker.org.gradle.process.internal.worker.GradleWorkerMain.main(GradleWorkerMain.java:74)
+</failure>
+  </testcase>
+  <system-out><![CDATA[opened mongoDB? (update recipe)
+opened mongoDB (delete recipe)
+delete: AcknowledgedDeleteResult{deletedCount=0}
+opened mongoDB (delete recipe)
+delete: AcknowledgedDeleteResult{deletedCount=0}
+loading
+loading
+loading
+loading
+Fried Rice with Egg
+Ingredients: 
+- Rice 
+- Egg 
+- Olive oil 
+- Salt 
+- Soy sauce 
+- Garlic 
+- Onion 
+- Green onion
+
+Steps: 
+#1 Heat a pan over medium heat and add olive oil. 
+#2 Add garlic and onion and sauté until softened. 
+#3 Add the egg and scramble until cooked. 
+#4 Add the cooked rice to the pan and mix with the egg. 
+#5 Add salt, soy sauce, and green onion and mix together. 
+#6 Cook for a few minutes until everything is warm and mixed together. 
+#7 Serve and enjoy!
+
+Grilled Cheese Sandwich
+Ingredients: 
+- Bread 
+- Butter 
+- Cheese 
+- Salt 
+- Pepper 
+
+Steps: 
+#1 Preheat a skillet over medium heat.
+#2 Spread butter on one side of each slice of bread.
+#3 Place one slice of bread, butter-side down, in the skillet.
+#4 Sprinkle cheese over the slice of bread.
+#5 Sprinkle salt and pepper over the cheese.
+#6 Place the other slice of bread, butter-side up, on top of the cheese.
+#7 Grill the sandwich until the bread is golden brown and the cheese is melted, about 3 minutes per side.
+#8 Remove the sandwich from the skillet and serve.
+
+Sausage and Egg Breakfast 
+Ingredients: 
+- Egg 
+- Sausage 
+- Oil 
+- Salt 
+- Pepper 
+
+Steps: 
+#1 Heat oil in a skillet over medium-high heat.
+#2 Add sausage and cook until browned and cooked through.
+#3 Remove sausage from skillet and set aside.
+#4 In the same skillet, add the egg and season with salt and pepper.
+#5 Cook egg until desired doneness.
+#6 Serve egg and sausage together.
+
+Ice Cream Breakfast 
+Ingredients: 
+- Ice Cream 
+- Milk 
+- Cereal 
+- Fruit 
+
+Steps: 
+#1 Gather the ingredients. 
+#2 Place the cereal and milk in a bowl. 
+#3 Pour the ice cream over the cereal and milk. 
+#4 Add the fruit to the bowl. 
+#5 Mix the ingredients together!
+#6 Enjoy your ice cream breakfast!
+
+Insert successful
+opened mongoDB (delete recipe)
+loading
+loading
+loading
+loading
+loading
+delete: AcknowledgedDeleteResult{deletedCount=1}
+
+
+
+loading
+loading
+loading
+loading
+Insert successful
+Fried Rice with Egg
+Ingredients: 
+- Rice 
+- Egg 
+- Olive oil 
+- Salt 
+- Soy sauce 
+- Garlic 
+- Onion 
+- Green onion
+
+Steps: 
+#1 Heat a pan over medium heat and add olive oil. 
+#2 Add garlic and onion and sauté until softened. 
+#3 Add the egg and scramble until cooked. 
+#4 Add the cooked rice to the pan and mix with the egg. 
+#5 Add salt, soy sauce, and green onion and mix together. 
+#6 Cook for a few minutes until everything is warm and mixed together. 
+#7 Serve and enjoy!
+
+Grilled Cheese Sandwich
+Ingredients: 
+- Bread 
+- Butter 
+- Cheese 
+- Salt 
+- Pepper 
+
+Steps: 
+#1 Preheat a skillet over medium heat.
+#2 Spread butter on one side of each slice of bread.
+#3 Place one slice of bread, butter-side down, in the skillet.
+#4 Sprinkle cheese over the slice of bread.
+#5 Sprinkle salt and pepper over the cheese.
+#6 Place the other slice of bread, butter-side up, on top of the cheese.
+#7 Grill the sandwich until the bread is golden brown and the cheese is melted, about 3 minutes per side.
+#8 Remove the sandwich from the skillet and serve.
+
+Sausage and Egg Breakfast 
+Ingredients: 
+- Egg 
+- Sausage 
+- Oil 
+- Salt 
+- Pepper 
+
+Steps: 
+#1 Heat oil in a skillet over medium-high heat.
+#2 Add sausage and cook until browned and cooked through.
+#3 Remove sausage from skillet and set aside.
+#4 In the same skillet, add the egg and season with salt and pepper.
+#5 Cook egg until desired doneness.
+#6 Serve egg and sausage together.
+
+Ice Cream Breakfast 
+Ingredients: 
+- Ice Cream 
+- Milk 
+- Cereal 
+- Fruit 
+
+Steps: 
+#1 Gather the ingredients. 
+#2 Place the cereal and milk in a bowl. 
+#3 Pour the ice cream over the cereal and milk. 
+#4 Add the fruit to the bowl. 
+#5 Mix the ingredients together!
+#6 Enjoy your ice cream breakfast!
+
+opened mongoDB? (update recipe)
+opened mongoDB (delete recipe)
+delete: AcknowledgedDeleteResult{deletedCount=1}
+]]></system-out>
+  <system-err><![CDATA[Exception in thread "Thread-6" java.lang.IllegalStateException: Application launch must not be called more than once
+	at com.sun.javafx.application.LauncherImpl.launchApplication(LauncherImpl.java:176)
+	at com.sun.javafx.application.LauncherImpl.launchApplication(LauncherImpl.java:154)
+	at javafx.application.Application.launch(Application.java:233)
+	at RecipeManagerTest$1.run(RecipeManagerTest.java:32)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+Nov 24, 2023 4:31:38 AM com.sun.javafx.application.PlatformImpl startup
+WARNING: Unsupported JavaFX configuration: classes were loaded from 'unnamed module @77ad2aa5'
+Nov 24, 2023 4:31:41 AM com.mongodb.internal.diagnostics.logging.Loggers shouldUseSLF4J
+WARNING: SLF4J not found on the classpath.  Logging is disabled for the 'org.mongodb.driver' component
+Nov 24, 2023 4:31:43 AM com.sun.glass.ui.mac.MacApplication lambda$waitForReactivation$6
+WARNING: Timeout while waiting for app reactivation
+Exception in thread "JavaFX Application Thread" org.opentest4j.AssertionFailedError: expected: <4> but was: <5>
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)
+	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:132)
+	at org.junit.jupiter.api.AssertEquals.failNotEqual(AssertEquals.java:197)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:150)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:145)
+	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:527)
+	at RecipeManagerTest$2$1.run(RecipeManagerTest.java:78)
+	at com.sun.javafx.application.PlatformImpl.lambda$runLater$10(PlatformImpl.java:456)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:399)
+	at com.sun.javafx.application.PlatformImpl.lambda$runLater$11(PlatformImpl.java:455)
+	at com.sun.glass.ui.InvokeLaterDispatcher$Future.run(InvokeLaterDispatcher.java:95)
+]]></system-err>
+</testsuite>
