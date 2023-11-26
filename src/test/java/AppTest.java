@@ -104,20 +104,14 @@ public class AppTest extends App {
         Button startButton = appFrame.getStartButton();
         
         assertNotNull(startButton,"should not be null");
-        
-        Label label = appFrame.getRecordingLabel();
-        assertNotNull(label, "should not be null"); // checks if button can be pressed/functions
     }
 
 
     @Test
     public void testStopButton() throws InterruptedException {
-        InputAppFrame appFrame = new InputAppFrame(); // generate input appframe
-        Button stopButton = appFrame.getStartButton();
-        assertNotNull(stopButton,"should not be null");
-        
-        Label label = appFrame.getRecordingLabel();
-        assertNotNull(label,"should not be null");
+                        InputAppFrame appFrame = new InputAppFrame(); // generate input appframe
+                        Button stopButton = appFrame.getStartButton();
+                        assertNotNull(stopButton,"should not be null");
     } 
     
 }

@@ -23,7 +23,7 @@
 <tr>
 <td>
 <div class="infoBox" id="tests">
-<div class="counter">6</div>
+<div class="counter">9</div>
 <p>tests</p>
 </div>
 </td>
@@ -41,7 +41,7 @@
 </td>
 <td>
 <div class="infoBox" id="duration">
-<div class="counter">13.287s</div>
+<div class="counter">0.071s</div>
 <p>duration</p>
 </div>
 </td>
@@ -81,33 +81,48 @@
 </tr>
 </thead>
 <tr>
+<td class="success">testBackButton()</td>
+<td class="success">0s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">testCreateButton()</td>
+<td class="success">0.001s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">testDeleteButton()</td>
+<td class="success">0.045s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
 <td class="success">testEditButton()</td>
-<td class="success">3.248s</td>
+<td class="success">0.003s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">testHeader()</td>
-<td class="success">2.007s</td>
+<td class="success">0.001s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">testSaveButton()</td>
-<td class="success">2.011s</td>
+<td class="success">0.004s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">testStartButton()</td>
-<td class="success">2.005s</td>
+<td class="success">0.011s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">testStopButton()</td>
-<td class="success">2.010s</td>
+<td class="success">0.001s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">testViewButton()</td>
-<td class="success">2.006s</td>
+<td class="success">0.005s</td>
 <td class="success">passed</td>
 </tr>
 </table>
@@ -118,124 +133,20 @@
 <pre>
 
 
-loading
-loading
-loading
-loading
-Fried Rice with Egg
-Ingredients: 
-- Rice 
-- Egg 
-- Olive oil 
-- Salt 
-- Soy sauce 
-- Garlic 
-- Onion 
-- Green onion
-
-Steps: 
-#1 Heat a pan over medium heat and add olive oil. 
-#2 Add garlic and onion and sauté until softened. 
-#3 Add the egg and scramble until cooked. 
-#4 Add the cooked rice to the pan and mix with the egg. 
-#5 Add salt, soy sauce, and green onion and mix together. 
-#6 Cook for a few minutes until everything is warm and mixed together. 
-#7 Serve and enjoy!
-
-Grilled Cheese Sandwich
-Ingredients: 
-- Bread 
-- Butter 
-- Cheese 
-- Salt 
-- Pepper 
-
-Steps: 
-#1 Preheat a skillet over medium heat.
-#2 Spread butter on one side of each slice of bread.
-#3 Place one slice of bread, butter-side down, in the skillet.
-#4 Sprinkle cheese over the slice of bread.
-#5 Sprinkle salt and pepper over the cheese.
-#6 Place the other slice of bread, butter-side up, on top of the cheese.
-#7 Grill the sandwich until the bread is golden brown and the cheese is melted, about 3 minutes per side.
-#8 Remove the sandwich from the skillet and serve.
-
-Sausage and Egg Breakfast 
-Ingredients: 
-- Egg 
-- Sausage 
-- Oil 
-- Salt 
-- Pepper 
-
-Steps: 
-#1 Heat oil in a skillet over medium-high heat.
-#2 Add sausage and cook until browned and cooked through.
-#3 Remove sausage from skillet and set aside.
-#4 In the same skillet, add the egg and season with salt and pepper.
-#5 Cook egg until desired doneness.
-#6 Serve egg and sausage together.
-
-Ice Cream Breakfast 
-Ingredients: 
-- Ice Cream 
-- Milk 
-- Cereal 
-- Fruit 
-
-Steps: 
-#1 Gather the ingredients. 
-#2 Place the cereal and milk in a bowl. 
-#3 Pour the ice cream over the cereal and milk. 
-#4 Add the fruit to the bowl. 
-#5 Mix the ingredients together!
-#6 Enjoy your ice cream breakfast!
-
-
-
-
 </pre>
 </span>
 </div>
 <div id="tab2" class="tab">
 <h2>Standard error</h2>
 <span class="code">
-<pre>Nov 24, 2023 4:31:20 AM com.sun.javafx.application.PlatformImpl startup
-WARNING: Unsupported JavaFX configuration: classes were loaded from 'unnamed module @77ad2aa5'
-Exception in thread &quot;Thread-9&quot; java.lang.IllegalStateException: Application launch must not be called more than once
-	at com.sun.javafx.application.LauncherImpl.launchApplication(LauncherImpl.java:176)
-	at com.sun.javafx.application.LauncherImpl.launchApplication(LauncherImpl.java:154)
-	at javafx.application.Application.launch(Application.java:233)
-	at AppTest$1.run(AppTest.java:52)
-	at java.base/java.lang.Thread.run(Thread.java:842)
-Nov 24, 2023 4:31:25 AM com.sun.glass.ui.mac.MacApplication lambda$waitForReactivation$6
-WARNING: Timeout while waiting for app reactivation
-Exception in thread &quot;Thread-11&quot; java.lang.IllegalStateException: Application launch must not be called more than once
-	at com.sun.javafx.application.LauncherImpl.launchApplication(LauncherImpl.java:176)
-	at com.sun.javafx.application.LauncherImpl.launchApplication(LauncherImpl.java:154)
-	at javafx.application.Application.launch(Application.java:233)
-	at AppTest$1.run(AppTest.java:52)
-	at java.base/java.lang.Thread.run(Thread.java:842)
-Nov 24, 2023 4:31:25 AM com.mongodb.internal.diagnostics.logging.Loggers shouldUseSLF4J
-WARNING: SLF4J not found on the classpath.  Logging is disabled for the 'org.mongodb.driver' component
-Exception in thread &quot;Thread-13&quot; java.lang.IllegalStateException: Application launch must not be called more than once
-	at com.sun.javafx.application.LauncherImpl.launchApplication(LauncherImpl.java:176)
-	at com.sun.javafx.application.LauncherImpl.launchApplication(LauncherImpl.java:154)
-	at javafx.application.Application.launch(Application.java:233)
-	at AppTest$1.run(AppTest.java:52)
-	at java.base/java.lang.Thread.run(Thread.java:842)
-Exception in thread &quot;Thread-15&quot; java.lang.IllegalStateException: Application launch must not be called more than once
-	at com.sun.javafx.application.LauncherImpl.launchApplication(LauncherImpl.java:176)
-	at com.sun.javafx.application.LauncherImpl.launchApplication(LauncherImpl.java:154)
-	at javafx.application.Application.launch(Application.java:233)
-	at AppTest$1.run(AppTest.java:52)
-	at java.base/java.lang.Thread.run(Thread.java:842)
-Exception in thread &quot;Thread-17&quot; java.lang.IllegalStateException: Application launch must not be called more than once
-	at com.sun.javafx.application.LauncherImpl.launchApplication(LauncherImpl.java:176)
-	at com.sun.javafx.application.LauncherImpl.launchApplication(LauncherImpl.java:154)
-	at javafx.application.Application.launch(Application.java:233)
-	at AppTest$1.run(AppTest.java:52)
-	at java.base/java.lang.Thread.run(Thread.java:842)
+<pre>--- Exception in Async Thread ---
+java.lang.IllegalStateException: Application launch must not be called more than once
+	com.sun.javafx.application.LauncherImpl.launchApplication(LauncherImpl.java:176)
+	com.sun.javafx.application.LauncherImpl.launchApplication(LauncherImpl.java:154)
+	javafx.application.Application.launch(Application.java:233)
+	AppTest$1.run(AppTest.java:36)
+	java.base/java.lang.Thread.run(Thread.java:842)
+
 </pre>
 </span>
 </div>
@@ -247,7 +158,7 @@ Exception in thread &quot;Thread-17&quot; java.lang.IllegalStateException: Appli
 <input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
 </label>
 </div>Generated by 
-<a href="http://www.gradle.org">Gradle 8.4</a> at Nov 24, 2023, 4:31:57 AM</p>
+<a href="http://www.gradle.org">Gradle 7.4.2</a> at Nov 25, 2023, 9:24:24 PM</p>
 </div>
 </div>
 </body>

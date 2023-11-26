@@ -11,7 +11,6 @@ public class InputAppFrame extends BorderPane {
     // Input in = new Input();
     private ReturnHeader header;
     private Button startButton,stopButton,backButton, logoutButton;
-    private Label recordingLabel;
     private RecButtons recButton;
 
     public InputAppFrame() {
@@ -56,10 +55,6 @@ public class InputAppFrame extends BorderPane {
 
     public Button getStopButton() {
         return stopButton;
-    }
-
-    public Label getRecordingLabel() {
-        return recordingLabel;
     }
 
     public RecButtons getRecButtons(){

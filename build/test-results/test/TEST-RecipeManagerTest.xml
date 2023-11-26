@@ -1,295 +1,368 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="RecipeManagerTest" tests="5" skipped="0" failures="1" errors="0" timestamp="2023-11-24T12:31:38" hostname="MacBook-Pro-12.local" time="9.7">
+<testsuite name="RecipeManagerTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2023-11-26T05:24:18" hostname="MacBook-Pro-12.local" time="5.058">
   <properties/>
-  <testcase name="testLoad()" classname="RecipeManagerTest" time="3.014"/>
-  <testcase name="testUpdateToRecipeNotInDB()" classname="RecipeManagerTest" time="1.972"/>
-  <testcase name="testDelete()" classname="RecipeManagerTest" time="0.788"/>
-  <testcase name="testInsert()" classname="RecipeManagerTest" time="1.584"/>
-  <testcase name="testUpdate()" classname="RecipeManagerTest" time="2.338">
-    <failure message="org.opentest4j.AssertionFailedError: expected: &lt;0&gt; but was: &lt;1&gt;" type="org.opentest4j.AssertionFailedError">org.opentest4j.AssertionFailedError: expected: &lt;0&gt; but was: &lt;1&gt;
-	at app//org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)
-	at app//org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:132)
-	at app//org.junit.jupiter.api.AssertEquals.failNotEqual(AssertEquals.java:197)
-	at app//org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:166)
-	at app//org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:161)
-	at app//org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:628)
-	at app//RecipeManagerTest.testUpdate(RecipeManagerTest.java:102)
-	at java.base@17.0.9/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at java.base@17.0.9/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
-	at java.base@17.0.9/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.base@17.0.9/java.lang.reflect.Method.invoke(Method.java:568)
-	at app//org.junit.platform.commons.util.ReflectionUtils.invokeMethod(ReflectionUtils.java:728)
-	at app//org.junit.jupiter.engine.execution.MethodInvocation.proceed(MethodInvocation.java:60)
-	at app//org.junit.jupiter.engine.execution.InvocationInterceptorChain$ValidatingInvocation.proceed(InvocationInterceptorChain.java:131)
-	at app//org.junit.jupiter.engine.extension.TimeoutExtension.intercept(TimeoutExtension.java:156)
-	at app//org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestableMethod(TimeoutExtension.java:147)
-	at app//org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestMethod(TimeoutExtension.java:86)
-	at app//org.junit.jupiter.engine.execution.InterceptingExecutableInvoker$ReflectiveInterceptorCall.lambda$ofVoidMethod$0(InterceptingExecutableInvoker.java:103)
-	at app//org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.lambda$invoke$0(InterceptingExecutableInvoker.java:93)
-	at app//org.junit.jupiter.engine.execution.InvocationInterceptorChain$InterceptedInvocation.proceed(InvocationInterceptorChain.java:106)
-	at app//org.junit.jupiter.engine.execution.InvocationInterceptorChain.proceed(InvocationInterceptorChain.java:64)
-	at app//org.junit.jupiter.engine.execution.InvocationInterceptorChain.chainAndInvoke(InvocationInterceptorChain.java:45)
-	at app//org.junit.jupiter.engine.execution.InvocationInterceptorChain.invoke(InvocationInterceptorChain.java:37)
-	at app//org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.invoke(InterceptingExecutableInvoker.java:92)
-	at app//org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.invoke(InterceptingExecutableInvoker.java:86)
-	at app//org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$invokeTestMethod$7(TestMethodTestDescriptor.java:218)
-	at app//org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
-	at app//org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.invokeTestMethod(TestMethodTestDescriptor.java:214)
-	at app//org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:139)
-	at app//org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:69)
-	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:151)
-	at app//org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
-	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
-	at app//org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
-	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
-	at app//org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
-	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
-	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
-	at java.base@17.0.9/java.util.ArrayList.forEach(ArrayList.java:1511)
-	at app//org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
-	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155)
-	at app//org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
-	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
-	at app//org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
-	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
-	at app//org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
-	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
-	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
-	at java.base@17.0.9/java.util.ArrayList.forEach(ArrayList.java:1511)
-	at app//org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
-	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155)
-	at app//org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
-	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
-	at app//org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
-	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
-	at app//org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
-	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
-	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
-	at app//org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:35)
-	at app//org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:57)
-	at app//org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:54)
-	at app//org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:107)
-	at app//org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:88)
-	at app//org.junit.platform.launcher.core.EngineExecutionOrchestrator.lambda$execute$0(EngineExecutionOrchestrator.java:54)
-	at app//org.junit.platform.launcher.core.EngineExecutionOrchestrator.withInterceptedStreams(EngineExecutionOrchestrator.java:67)
-	at app//org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:52)
-	at app//org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:114)
-	at app//org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:86)
-	at app//org.junit.platform.launcher.core.DefaultLauncherSession$DelegatingLauncher.execute(DefaultLauncherSession.java:86)
-	at org.gradle.api.internal.tasks.testing.junitplatform.JUnitPlatformTestClassProcessor$CollectAllTestClassesExecutor.processAllTestClasses(JUnitPlatformTestClassProcessor.java:119)
-	at org.gradle.api.internal.tasks.testing.junitplatform.JUnitPlatformTestClassProcessor$CollectAllTestClassesExecutor.access$000(JUnitPlatformTestClassProcessor.java:94)
-	at org.gradle.api.internal.tasks.testing.junitplatform.JUnitPlatformTestClassProcessor.stop(JUnitPlatformTestClassProcessor.java:89)
-	at org.gradle.api.internal.tasks.testing.SuiteTestClassProcessor.stop(SuiteTestClassProcessor.java:62)
-	at java.base@17.0.9/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at java.base@17.0.9/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
-	at java.base@17.0.9/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.base@17.0.9/java.lang.reflect.Method.invoke(Method.java:568)
-	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:36)
-	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:24)
-	at org.gradle.internal.dispatch.ContextClassLoaderDispatch.dispatch(ContextClassLoaderDispatch.java:33)
-	at org.gradle.internal.dispatch.ProxyDispatchAdapter$DispatchingInvocationHandler.invoke(ProxyDispatchAdapter.java:94)
-	at jdk.proxy1/jdk.proxy1.$Proxy2.stop(Unknown Source)
-	at org.gradle.api.internal.tasks.testing.worker.TestWorker$3.run(TestWorker.java:193)
-	at org.gradle.api.internal.tasks.testing.worker.TestWorker.executeAndMaintainThreadName(TestWorker.java:129)
-	at org.gradle.api.internal.tasks.testing.worker.TestWorker.execute(TestWorker.java:100)
-	at org.gradle.api.internal.tasks.testing.worker.TestWorker.execute(TestWorker.java:60)
-	at org.gradle.process.internal.worker.child.ActionExecutionWorker.execute(ActionExecutionWorker.java:56)
-	at org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker.call(SystemApplicationClassLoaderWorker.java:113)
-	at org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker.call(SystemApplicationClassLoaderWorker.java:65)
-	at app//worker.org.gradle.process.internal.worker.GradleWorkerMain.run(GradleWorkerMain.java:69)
-	at app//worker.org.gradle.process.internal.worker.GradleWorkerMain.main(GradleWorkerMain.java:74)
-</failure>
-  </testcase>
-  <system-out><![CDATA[opened mongoDB? (update recipe)
-opened mongoDB (delete recipe)
-delete: AcknowledgedDeleteResult{deletedCount=0}
-opened mongoDB (delete recipe)
-delete: AcknowledgedDeleteResult{deletedCount=0}
+  <testcase name="testLoad()" classname="RecipeManagerTest" time="3.007"/>
+  <testcase name="testDelete()" classname="RecipeManagerTest" time="0.668"/>
+  <testcase name="testInsert()" classname="RecipeManagerTest" time="1.381"/>
+  <system-out><![CDATA[Error Result: {  "error": {    "message": "Audio file is too short. Minimum audio length is 0.1 seconds.",    "type": "invalid_request_error",    "param": "file",    "code": "audio_too_short"  }}
 loading
 loading
 loading
 loading
-Fried Rice with Egg
+loading
+loading
+loading
+loading
+loading
+loading
+loading
+loading
+loading
+loading
+loading
+loading
+Fried Rice with Tofu and Veggies 
 Ingredients: 
 - Rice 
-- Egg 
-- Olive oil 
-- Salt 
-- Soy sauce 
-- Garlic 
+- Tofu 
+- Carrots 
+- Peas 
 - Onion 
-- Green onion
+- Garlic 
+- Soy sauce 
+- Sesame oil 
+- Vegetable oil
 
 Steps: 
-#1 Heat a pan over medium heat and add olive oil. 
-#2 Add garlic and onion and sauté until softened. 
-#3 Add the egg and scramble until cooked. 
-#4 Add the cooked rice to the pan and mix with the egg. 
-#5 Add salt, soy sauce, and green onion and mix together. 
-#6 Cook for a few minutes until everything is warm and mixed together. 
-#7 Serve and enjoy!
+#1 Cook the rice according to package instructions. 
+#2 Heat vegetable oil in a large skillet over medium-high heat. 
+#3 Add the tofu and cook until lightly browned, about 5 minutes. 
+#4 Add the carrots, peas, onion, and garlic. Cook for another 5 minutes. 
+#5 Add the cooked rice to the skillet and mix everything together. 
+#6 Pour soy sauce and sesame oil over the rice and mix until everything is evenly coated. 
+#7 Cook for an additional 5 minutes, stirring occasionally. 
+#8 Serve and enjoy!
 
-Grilled Cheese Sandwich
+Chicken Breakfast
 Ingredients: 
+- Chicken 
+- Eggs
+- Milk
+- Flour
+- Salt
+- Pepper
+- Oil
+
+Steps: 
+#1 Heat oil in a pan over medium heat.
+#2 Cut chicken into cubes and season with salt and pepper.
+#3 Add chicken to the pan and cook until lightly browned.
+#4 In a bowl, beat eggs with milk, salt, and pepper.
+#5 Add flour to the egg mixture and mix until combined.
+#6 Add the egg mixture to the pan with the chicken and cook until eggs are set.
+#7 Serve hot.
+
+Pork Breakfast 
+Ingredients: 
+- Pork
+- Eggs
+- Milk
+- Salt
+- Pepper
+- Butter
+
+Steps: 
+#1 Heat a skillet over medium heat.
+#2 Add butter to the skillet and let it melt.
+#3 Add pork to the skillet and cook until it is browned and cooked through.
+#4 Crack eggs into a bowl and whisk together with milk, salt, and pepper.
+#5 Pour egg mixture into the skillet and cook until eggs are set, stirring occasionally.
+#6 Serve the pork and eggs. Enjoy!
+
+Egg and Cheese Omelette
+Ingredients: 
+- Eggs
+- Cheese
+- Milk
+- Butter
+- Salt
+- Pepper
+
+Steps: 
+#1 Crack 2 eggs into a bowl.
+#2 Add 2 tablespoons of milk and whisk together.
+#3 Add a pinch of salt and pepper to the egg mixture.
+#4 Heat a non-stick pan over medium heat and add 1 tablespoon of butter.
+#5 Pour the egg mixture into the pan and let cook for 2 minutes.
+#6 Sprinkle 1/4 cup of cheese over the egg mixture.
+#7 Fold the omelette in half and let cook for an additional 2 minutes.
+#8 Slide the omelette onto a plate and enjoy!
+
+Baked Salmon with Roasted Asparagus
+Ingredients: 
+- Salmon fillet
+- Asparagus
+- Olive oil
+- Salt
+- Pepper
+- Garlic powder
+- Lemon
+
+Steps: 
+#1 Preheat oven to 375 degrees F.
+#2 Line a baking sheet with parchment paper.
+#3 Place salmon fillet on baking sheet.
+#4 Drizzle with olive oil and season with salt, pepper, and garlic powder.
+#5 Place asparagus around salmon and drizzle with olive oil.
+#6 Squeeze lemon juice over salmon and asparagus.
+#7 Bake for 15 minutes, or until salmon is cooked through.
+#8 Serve and enjoy!
+
+Sausage Breakfast
+Ingredients: 
+- Sausage
+- Eggs
+- Milk
+- Flour
+- Salt
+- Pepper
+
+Steps: 
+#1 Heat a skillet over medium heat.
+#2 Place sausage in the skillet and cook until browned.
+#3 Remove sausage from skillet and set aside.
+#4 In a medium bowl, whisk together eggs, milk, flour, salt, and pepper.
+#5 Return skillet to medium heat and add egg mixture.
+#6 Cook until eggs are set, stirring occasionally.
+#7 Return sausage to the skillet and cook for an additional minute.
+#8 Serve sausage and eggs.
+
+Caramel Melon Ice Cream Bowl
+Ingredients: 
+- Strawberries
+- Melons
+- Caramel
+- Honey
+- Ice Cream
+- Cream
+- Milk
+
+Steps: 
+#1 Cut the strawberries and melons into small pieces.
+#2 Place the pieces of strawberries and melons into a bowl.
+#3 Drizzle the caramel and honey over the fruit.
+#4 Scoop the ice cream into the bowl.
+#5 Pour cream and milk over the ice cream.
+#6 Mix all the ingredients together.
+#7 Serve the Caramel Melon Ice Cream Bowl.
+
+Strawberry Bread 
+Ingredients: 
+- Strawberries 
+- Bread 
+- Sugar 
+- Butter 
+
+Steps: 
+#1 Preheat oven to 350°F. 
+#2 Cut the bread into thick slices. 
+#3 Spread butter on the slices of bread. 
+#4 Place the bread slices on a baking sheet. 
+#5 Slice the strawberries and place them on top of the bread slices. 
+#6 Sprinkle sugar over the strawberries. 
+#7 Bake for 15 minutes. 
+#8 Serve and enjoy!!!
+
+Fruit Salad
+Ingredients: 
+- Melon
+- Strawberry
+- Grapes
+- Mango
+- Honey
+- Lime juice
+- Mint leaves
+
+Steps: 
+#1 Cut the melon, strawberry, grapes, and mango into cubes.
+#2 In a bowl, mix the cubed fruits together.
+#3 Drizzle honey and lime juice over the fruit mix.
+#4 Add a few mint leaves to the mix.
+#5 Stir the ingredients together.
+#6 Serve chilled.
+
+Pickles Breakfast
+Ingredients: 
+- Pickles
+- Eggs
+- Milk
+- Butter
+- Salt
+- Pepper
+
+Steps: 
+#1 Crack eggs into a bowl.
+#2 Add milk, salt and pepper to the eggs and mix until combined.
+#3 Heat a pan over medium heat and add butter.
+#4 Pour egg mixture into the pan and scramble until cooked.
+#5 Place scrambled eggs onto a plate.
+#6 Add pickles to the plate.
+#7 Enjoy your pickles breakfast!
+
+Cheesy Dinner
+Ingredients: 
+- Cheese
+- American Cheese
+- Mozzarella Cheese
+- Swiss Cheese
+- Shredded Cheese
+- Milk
+- Flour
+- Butter
+
+Steps: 
+# Preheat oven to 375°F.
+# In a medium bowl, combine cheeses and mix until evenly distributed.
+# In a separate bowl, combine 1/4 cup of milk, 1/4 cup of flour, and 1/4 cup of butter.
+# Mix the ingredients in the second bowl until a dough forms.
+# Grease a baking dish with butter.
+# Spread the cheese mixture in the baking dish.
+# Place the dough on top of the cheese mixture.
+# Bake in preheated oven for 25 minutes or until golden brown. 
+# Serve and enjoy!
+
+Beef Cheese Bread 
+Ingredients: 
+- Beef 
+- Cheese 
 - Bread 
 - Butter 
-- Cheese 
 - Salt 
 - Pepper 
 
 Steps: 
-#1 Preheat a skillet over medium heat.
-#2 Spread butter on one side of each slice of bread.
-#3 Place one slice of bread, butter-side down, in the skillet.
-#4 Sprinkle cheese over the slice of bread.
-#5 Sprinkle salt and pepper over the cheese.
-#6 Place the other slice of bread, butter-side up, on top of the cheese.
-#7 Grill the sandwich until the bread is golden brown and the cheese is melted, about 3 minutes per side.
-#8 Remove the sandwich from the skillet and serve.
+#1 Preheat oven to 375°F.
+#2 Slice the bread into 1/2 inch thick slices.
+#3 Spread butter on one side of each slice of bread.
+#4 Place the slices of bread, butter side up, on a baking sheet.
+#5 Top each slice of bread with a thin layer of beef.
+#6 Sprinkle cheese on top of the beef.
+#7 Sprinkle salt and pepper on top of the cheese.
+#8 Bake in preheated oven for 10-15 minutes, or until cheese is melted and bread is lightly toasted.
+#9 Serve and enjoy!
 
-Sausage and Egg Breakfast 
+Beef and Cheese Tortilla
 Ingredients: 
-- Egg 
-- Sausage 
+- Beef
+- Tortilla
+- Cheese
+- Oil
+- Salt
+- Pepper
+
+Steps: 
+#1 Heat oil in a pan over medium heat.
+#2 Add the beef to the pan and season with salt and pepper.
+#3 Cook the beef until it is browned and cooked through.
+#4 Remove the beef from the pan and set aside.
+#5 Place a tortilla in the pan and top with the cooked beef and cheese.
+#6 Cover the pan and cook until the cheese is melted and the tortilla is lightly browned.
+#7 Remove the tortilla from the pan and serve.
+
+Beef and Cheese Breakfast Tortilla 
+Ingredients: 
+- Beef 
+- Tortilla 
+- Cheese 
 - Oil 
 - Salt 
-- Pepper 
+- Pepper
 
 Steps: 
-#1 Heat oil in a skillet over medium-high heat.
-#2 Add sausage and cook until browned and cooked through.
-#3 Remove sausage from skillet and set aside.
-#4 In the same skillet, add the egg and season with salt and pepper.
-#5 Cook egg until desired doneness.
-#6 Serve egg and sausage together.
+#1 Heat a skillet over medium heat and add oil.
+#2 Add the beef and season with salt and pepper. Cook until the beef is browned.
+#3 Remove the beef from the skillet and set aside.
+#4 Place the tortilla in the skillet and cook until lightly browned.
+#5 Add the beef back to the skillet and top with cheese.
+#6 Fold the tortilla in half and cook for another minute.
+#7 Serve warm.
 
-Ice Cream Breakfast 
+Beef and Cheese Tortilla Wrap
 Ingredients: 
-- Ice Cream 
-- Milk 
-- Cereal 
-- Fruit 
+- Tortilla
+- Beef
+- Cheese
+- Oil
+- Salt
 
 Steps: 
-#1 Gather the ingredients. 
-#2 Place the cereal and milk in a bowl. 
-#3 Pour the ice cream over the cereal and milk. 
-#4 Add the fruit to the bowl. 
-#5 Mix the ingredients together!
-#6 Enjoy your ice cream breakfast!
+#1 Heat a pan over medium heat and add oil.
+#2 Add beef to pan and season with salt.
+#3 Cook beef until lightly browned.
+#4 Place the tortilla on a plate.
+#5 Spread cheese over the tortilla.
+#6 Place cooked beef over the cheese.
+#7 Fold the tortilla in half.
+#8 Heat a pan over medium heat.
+#9 Place the folded tortilla in the pan and cook until golden brown on both sides.
+#10 Serve warm.
 
-Insert successful
+please do not insert me
+no
+no
+loading
+loading
+loading
+loading
+loading
+loading
+loading
+loading
+loading
+loading
+loading
+loading
+loading
+loading
+loading
+loading
 opened mongoDB (delete recipe)
-loading
-loading
-loading
-loading
-loading
-delete: AcknowledgedDeleteResult{deletedCount=1}
-
-
-
-loading
-loading
-loading
-loading
+delete: AcknowledgedDeleteResult{deletedCount=0}
 Insert successful
-Fried Rice with Egg
-Ingredients: 
-- Rice 
-- Egg 
-- Olive oil 
-- Salt 
-- Soy sauce 
-- Garlic 
-- Onion 
-- Green onion
-
-Steps: 
-#1 Heat a pan over medium heat and add olive oil. 
-#2 Add garlic and onion and sauté until softened. 
-#3 Add the egg and scramble until cooked. 
-#4 Add the cooked rice to the pan and mix with the egg. 
-#5 Add salt, soy sauce, and green onion and mix together. 
-#6 Cook for a few minutes until everything is warm and mixed together. 
-#7 Serve and enjoy!
-
-Grilled Cheese Sandwich
-Ingredients: 
-- Bread 
-- Butter 
-- Cheese 
-- Salt 
-- Pepper 
-
-Steps: 
-#1 Preheat a skillet over medium heat.
-#2 Spread butter on one side of each slice of bread.
-#3 Place one slice of bread, butter-side down, in the skillet.
-#4 Sprinkle cheese over the slice of bread.
-#5 Sprinkle salt and pepper over the cheese.
-#6 Place the other slice of bread, butter-side up, on top of the cheese.
-#7 Grill the sandwich until the bread is golden brown and the cheese is melted, about 3 minutes per side.
-#8 Remove the sandwich from the skillet and serve.
-
-Sausage and Egg Breakfast 
-Ingredients: 
-- Egg 
-- Sausage 
-- Oil 
-- Salt 
-- Pepper 
-
-Steps: 
-#1 Heat oil in a skillet over medium-high heat.
-#2 Add sausage and cook until browned and cooked through.
-#3 Remove sausage from skillet and set aside.
-#4 In the same skillet, add the egg and season with salt and pepper.
-#5 Cook egg until desired doneness.
-#6 Serve egg and sausage together.
-
-Ice Cream Breakfast 
-Ingredients: 
-- Ice Cream 
-- Milk 
-- Cereal 
-- Fruit 
-
-Steps: 
-#1 Gather the ingredients. 
-#2 Place the cereal and milk in a bowl. 
-#3 Pour the ice cream over the cereal and milk. 
-#4 Add the fruit to the bowl. 
-#5 Mix the ingredients together!
-#6 Enjoy your ice cream breakfast!
-
-opened mongoDB? (update recipe)
 opened mongoDB (delete recipe)
 delete: AcknowledgedDeleteResult{deletedCount=1}
 ]]></system-out>
-  <system-err><![CDATA[Exception in thread "Thread-6" java.lang.IllegalStateException: Application launch must not be called more than once
-	at com.sun.javafx.application.LauncherImpl.launchApplication(LauncherImpl.java:176)
-	at com.sun.javafx.application.LauncherImpl.launchApplication(LauncherImpl.java:154)
-	at javafx.application.Application.launch(Application.java:233)
-	at RecipeManagerTest$1.run(RecipeManagerTest.java:32)
-	at java.base/java.lang.Thread.run(Thread.java:842)
-Nov 24, 2023 4:31:38 AM com.sun.javafx.application.PlatformImpl startup
-WARNING: Unsupported JavaFX configuration: classes were loaded from 'unnamed module @77ad2aa5'
-Nov 24, 2023 4:31:41 AM com.mongodb.internal.diagnostics.logging.Loggers shouldUseSLF4J
+  <system-err><![CDATA[--- Exception in Async Thread ---
+java.lang.IllegalStateException: Application launch must not be called more than once
+	com.sun.javafx.application.LauncherImpl.launchApplication(LauncherImpl.java:176)
+	com.sun.javafx.application.LauncherImpl.launchApplication(LauncherImpl.java:154)
+	javafx.application.Application.launch(Application.java:233)
+	RecipeManagerTest$1.run(RecipeManagerTest.java:32)
+	java.base/java.lang.Thread.run(Thread.java:842)
+
+--- Exception in Async Thread ---
+java.lang.IllegalStateException: Application launch must not be called more than once
+	com.sun.javafx.application.LauncherImpl.launchApplication(LauncherImpl.java:176)
+	com.sun.javafx.application.LauncherImpl.launchApplication(LauncherImpl.java:154)
+	javafx.application.Application.launch(Application.java:233)
+	RecipeManagerTest$1.run(RecipeManagerTest.java:32)
+	java.base/java.lang.Thread.run(Thread.java:842)
+
+--- Exception in Async Thread ---
+org.opentest4j.AssertionFailedError: expected: <true> but was: <false>
+	org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)
+	org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:132)
+	org.junit.jupiter.api.AssertTrue.failNotTrue(AssertTrue.java:63)
+	org.junit.jupiter.api.AssertTrue.assertTrue(AssertTrue.java:36)
+	org.junit.jupiter.api.AssertTrue.assertTrue(AssertTrue.java:31)
+	org.junit.jupiter.api.Assertions.assertTrue(Assertions.java:179)
+	IntegrationTest$2$1.run(IntegrationTest.java:123)
+	com.sun.javafx.application.PlatformImpl.lambda$runLater$10(PlatformImpl.java:456)
+	java.base/java.security.AccessController.doPrivileged(AccessController.java:399)
+	com.sun.javafx.application.PlatformImpl.lambda$runLater$11(PlatformImpl.java:455)
+	com.sun.glass.ui.InvokeLaterDispatcher$Future.run(InvokeLaterDispatcher.java:95)
+
+Nov 25, 2023 9:24:19 PM com.mongodb.internal.diagnostics.logging.Loggers shouldUseSLF4J
 WARNING: SLF4J not found on the classpath.  Logging is disabled for the 'org.mongodb.driver' component
-Nov 24, 2023 4:31:43 AM com.sun.glass.ui.mac.MacApplication lambda$waitForReactivation$6
-WARNING: Timeout while waiting for app reactivation
-Exception in thread "JavaFX Application Thread" org.opentest4j.AssertionFailedError: expected: <4> but was: <5>
-	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)
-	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:132)
-	at org.junit.jupiter.api.AssertEquals.failNotEqual(AssertEquals.java:197)
-	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:150)
-	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:145)
-	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:527)
-	at RecipeManagerTest$2$1.run(RecipeManagerTest.java:78)
-	at com.sun.javafx.application.PlatformImpl.lambda$runLater$10(PlatformImpl.java:456)
-	at java.base/java.security.AccessController.doPrivileged(AccessController.java:399)
-	at com.sun.javafx.application.PlatformImpl.lambda$runLater$11(PlatformImpl.java:455)
-	at com.sun.glass.ui.InvokeLaterDispatcher$Future.run(InvokeLaterDispatcher.java:95)
 ]]></system-err>
 </testsuite>
