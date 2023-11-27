@@ -25,9 +25,10 @@ public class Model {
                 // System.out.println("PUT REQUEST (MODEL)");
                 // encode recipe details to allow to write \n characters
                 String encodedTitle = Base64.getEncoder().encodeToString(title.getBytes());
-                String encodedMealType = Base64.getEncoder().encodeToString(mealType.getBytes());
                 String encodedIngredients = Base64.getEncoder().encodeToString(ingredients.getBytes());
                 String encodedSteps = Base64.getEncoder().encodeToString(steps.getBytes());
+                String encodedMealType = Base64.getEncoder().encodeToString(mealType.getBytes());
+
                 
                 // Send data in the request body
                 try (OutputStreamWriter out = new OutputStreamWriter(conn.getOutputStream())) {

@@ -215,7 +215,7 @@ public class Controller {
             String steps = rd.getSteps().getText();
             String mealType = input.getMealType();
             model.performRequest("PUT", stringID, title, ingredients, steps, mealType);
-            
+            // TODO: Add mealType Tag to recipe display 
             RecipeDisplay recipeDisplay = new RecipeDisplay(stringID, title, ingredients, steps);
             RecipeDisplayAppFrame rec = new RecipeDisplayAppFrame(recipeDisplay);
             RecipeTitle recipeDis = new RecipeTitle(stringID, title, rec);
@@ -229,7 +229,7 @@ public class Controller {
         }
         else {
             try {
-                RecipeManager.updateRecipe(rd.getTitle().getText(), rd.getIngredients().getText(), rd.getSteps().getText(),input.getMealType(), rd.getID());
+                RecipeManager.updateRecipe(rd.getTitle().getText(), rd.getIngredients().getText(), rd.getSteps().getText(), rd.getID());
             } catch (IOException e1) {
                 
                 e1.printStackTrace();
@@ -317,6 +317,11 @@ public class Controller {
         ui.setLoginPage();
         resetInput();
     }
+
+    // filtering
+    // private void handleFilterByMealyButton(String mealType) {
+    //     String response = model.performRequest("GET", mealType, null, null, null, null);
+    // }
 
     public void reload(){
         hp.getRecipeList().getChildren().removeIf(RecipeTitle -> RecipeTitle instanceof RecipeTitle && true);  

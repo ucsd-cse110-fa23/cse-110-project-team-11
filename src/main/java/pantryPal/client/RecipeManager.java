@@ -111,7 +111,7 @@ public class RecipeManager {
      * 
      * TODO: update adds an entry if it doesnt exist? might need to remove the insert recipe
      */
-    public static UpdateResult updateRecipe(String title, String ingredients, String steps, String mealType, String id) throws IOException {
+    public static UpdateResult updateRecipe(String title, String ingredients, String steps, String id) throws IOException {
         ObjectId objID = new ObjectId(id);
         try (MongoClient mongoClient = MongoClients.create(URI)) {
             MongoDatabase recipeDB = mongoClient.getDatabase("recipes_db");
@@ -124,8 +124,7 @@ public class RecipeManager {
             Bson updates = combine(
                 set("title", title), // Assuming you also want to update the title
                 set("ingredients", ingredients),
-                set("steps", steps),
-                set("mealType", mealType)
+                set("steps", steps)
             );
     
             UpdateResult result = recipeCollections.updateOne(filter, updates);

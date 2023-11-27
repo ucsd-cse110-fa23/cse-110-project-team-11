@@ -97,14 +97,14 @@ public class RecipeManagerTest {
     //@Test
     void testUpdate() throws IOException {
         RecipeManager.insertRecipe("breakfast","please do not insert me", "no", "no");
-        UpdateResult res = RecipeManager.updateRecipe("please do not insert me", "updated", "updated","breakfast", "0");
+        UpdateResult res = RecipeManager.updateRecipe("please do not insert me", "updated", "updated", "0");
         RecipeManager.deleteRecipe("please do not insert me");
         assertEquals(res.getModifiedCount(),1);
     }
 
     //@Test 
     void testUpdateToRecipeNotInDB() throws IOException {
-        UpdateResult res = RecipeManager.updateRecipe("please do not insert me", "updated", "updated","breakfast", "0");
+        UpdateResult res = RecipeManager.updateRecipe("please do not insert me", "updated", "updated", "0");
         RecipeManager.deleteRecipe("please do not insert me");
         assertEquals(res.getModifiedCount(),0);
     }

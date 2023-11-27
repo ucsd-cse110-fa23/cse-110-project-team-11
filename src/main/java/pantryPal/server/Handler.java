@@ -87,19 +87,19 @@ public class Handler implements HttpHandler {
 
             // System.out.println("postdata: " + postData);
             String[] recipe = postData.toString().split(";");
-            String decodedTitle = new String(Base64.getDecoder().decode(recipe[0]));
-            String decodedIngredients = new String(Base64.getDecoder().decode(recipe[1]));
-            String decodedSteps = new String(Base64.getDecoder().decode(recipe[2]));
-            String decodedMealType = new String(Base64.getDecoder().decode(recipe[3]));
-
-            //String decodedMealType = new String(Base64.getDecoder().decode(recipe[3]));
+            String decodedMealType = new String(Base64.getDecoder().decode(recipe[0]));
+            String decodedTitle = new String(Base64.getDecoder().decode(recipe[1]));
+            String decodedIngredients = new String(Base64.getDecoder().decode(recipe[2]));
+            String decodedSteps = new String(Base64.getDecoder().decode(recipe[3]));
 
 
             // System.out.println("Decoded Title: " + decodedTitle);
             // System.out.println("Decoded Ingredients: " + decodedIngredients);
             // System.out.println("Decoded Steps: " + decodedSteps);
+            // System.out.println("Decoded Steps: " + decodedMealType);
 
-            String[] result = RecipeManager.insertRecipe(decodedTitle, decodedIngredients, decodedSteps, decodedMealType);
+
+            String[] result = RecipeManager.insertRecipe(decodedMealType, decodedTitle, decodedIngredients, decodedSteps);
 
             String response = "INSERTED THE RECIPE" + result;
             // System.out.println(response);
