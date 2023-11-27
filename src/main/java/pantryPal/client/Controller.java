@@ -214,7 +214,7 @@ public class Controller {
             String ingredients = rd.getIngredients().getText();
             String steps = rd.getSteps().getText();
             String mealType = input.getMealType();
-            model.performRequest("PUT", stringID, mealType, title, ingredients, steps);
+            model.performRequest("PUT", stringID, title, ingredients, steps, mealType);
             
             RecipeDisplay recipeDisplay = new RecipeDisplay(stringID, title, ingredients, steps);
             RecipeDisplayAppFrame rec = new RecipeDisplayAppFrame(recipeDisplay);

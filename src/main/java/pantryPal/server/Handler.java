@@ -90,12 +90,16 @@ public class Handler implements HttpHandler {
             String decodedTitle = new String(Base64.getDecoder().decode(recipe[0]));
             String decodedIngredients = new String(Base64.getDecoder().decode(recipe[1]));
             String decodedSteps = new String(Base64.getDecoder().decode(recipe[2]));
+            String decodedMealType = new String(Base64.getDecoder().decode(recipe[3]));
+
+            //String decodedMealType = new String(Base64.getDecoder().decode(recipe[3]));
+
 
             // System.out.println("Decoded Title: " + decodedTitle);
             // System.out.println("Decoded Ingredients: " + decodedIngredients);
             // System.out.println("Decoded Steps: " + decodedSteps);
 
-            String[] result = RecipeManager.insertRecipe(decodedTitle, decodedIngredients, decodedSteps);
+            String[] result = RecipeManager.insertRecipe(decodedTitle, decodedIngredients, decodedSteps, decodedMealType);
 
             String response = "INSERTED THE RECIPE" + result;
             // System.out.println(response);
