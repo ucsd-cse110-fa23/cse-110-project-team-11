@@ -1,6 +1,6 @@
 import org.junit.jupiter.api.Test;
 
-import pantryPal.RecipeParser;
+import pantryPal.client.RecipeParser;
 
 import static org.junit.jupiter.api.Assertions.*;
 import java.io.*;

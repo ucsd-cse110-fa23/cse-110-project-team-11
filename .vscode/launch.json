@@ -4,71 +4,31 @@
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
-        {
-            "type": "java",
-            "name": "RecipeManager",
-            "request": "launch",
-            "mainClass": "pantryPal.RecipeManager",
-            "projectName": "cse-110-project-team-11",
-            "vmArgs": "--module-path 'lib' --add-modules javafx.controls,javafx.fxml"
-
-        },
+        
         {
             "type": "java",
             "name": "Server",
             "request": "launch",
-            "mainClass": "pantryPal.Server",
+            "mainClass": "pantryPal.server.Server",
             "projectName": "cse-110-project-team-11",
-            "vmArgs": "--module-path 'lib' --add-modules javafx.controls,javafx.fxml"
 
         },
         {
             "type": "java",
-            "name": "App",
+            "name": "App_mac",
             "request": "launch",
-            "mainClass": "pantryPal.View.App",
+            "mainClass": "pantryPal.client.App",
             "projectName": "cse-110-project-team-11",
             "vmArgs": "--module-path 'lib' --add-modules javafx.controls,javafx.fxml"
         },
         {
             "type": "java",
-            "name": "RecipeCreator",
+            "name": "App_win",
             "request": "launch",
-            "mainClass": "RecipeCreator",
+            "mainClass": "pantryPal.client.App",
             "projectName": "cse-110-project-team-11",
-            "vmArgs": "--module-path 'lib' --add-modules javafx.controls,javafx.fxml"
+            "vmArgs": "--module-path 'lib/win/lib' --add-modules javafx.controls,javafx.fxml"
         },
-        {
-            "type": "java",
-            "name": "UI",
-            "request": "launch",
-            "mainClass": "UI",
-            "projectName": "cse-110-project-team-11",
-            "vmArgs": "--module-path 'lib' --add-modules javafx.controls,javafx.fxml"
-        },
-        {
-            "type": "java",
-            "name": "InputUI",
-            "request": "launch",
-            "mainClass": "InputUI",
-            "projectName": "cse-110-project-team-11",
-            "vmArgs": "--module-path 'lib' --add-modules javafx.controls,javafx.fxml"
-        },
-        {
-            "type": "java",
-            "name": "RecipeDisplay",
-            "request": "launch",
-            "mainClass": "RecipeDisplay",
-            "projectName": "cse-110-project-team-11",
-            "vmArgs": "--module-path 'lib' --add-modules javafx.controls,javafx.fxml"
-        },
-        {
-            "type": "java",
-            "name": "UI",
-            "request": "launch",
-            "mainClass": "UI",
-            "projectName": "cse-110-project-team-11",
-            "vmArgs": "--module-path 'lib' --add-modules javafx.controls,javafx.fxml"
-        }
+        //C:\\Users\\trank\\Downloads\\openjfx-21_windows-x64_bin-sdk\\javafx-sdk-21\\lib
     ]
 }

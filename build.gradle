@@ -36,10 +36,22 @@ dependencies {
     def javaFXPlatform = getJavaFXPlatform()
     def javaFXVersion = "21"
     
+    testImplementation "org.junit.jupiter:junit-jupiter-api:$junitVersion"
+    // This provides the TestEngine to actually run the tests.
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$junitVersion"
+
     implementation 'org.json:json:20230227'
     implementation "org.openjfx:javafx-base:${javaFXVersion}:${javaFXPlatform}"
     implementation "org.openjfx:javafx-controls:${javaFXVersion}:${javaFXPlatform}"
     implementation "org.openjfx:javafx-graphics:${javaFXVersion}:${javaFXPlatform}"
+    implementation "org.openjfx:javafx-swing:${javaFXVersion}:${javaFXPlatform}"
+    testImplementation "org.openjfx:javafx-base:${javaFXVersion}:${javaFXPlatform}"
+    testImplementation "org.openjfx:javafx-controls:${javaFXVersion}:${javaFXPlatform}"
+    testImplementation "org.openjfx:javafx-graphics:${javaFXVersion}:${javaFXPlatform}"
+    testImplementation "org.openjfx:javafx-swing:${javaFXVersion}:${javaFXPlatform}"
+    testImplementation "org.testfx:testfx-junit5:4.0.16-alpha"
+    testImplementation "org.testfx:testfx-core:4.0.16-alpha"
+    //testImplementation "org.testfx:openjfx-monocle:4.0.16-alpha"
     
     //implementation "org.junit.jupiter:junit-jupiter-api:$junitVersion"  
 
@@ -48,9 +60,7 @@ dependencies {
     // This provides the TestEngine to actually run the tests.
     //testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$junitVersion"
     //testRuntimeOnly "org.junit.platform:junit-platform-launcher"
-    testImplementation "org.junit.jupiter:junit-jupiter-api:$junitVersion"
-    // This provides the TestEngine to actually run the tests.
-    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$junitVersion"
+
     
     implementation 'org.mongodb:mongodb-driver-sync:4.11.0'
 }
@@ -62,7 +72,7 @@ private static String getJavaFXPlatform() {
     } else if (currentOS.isLinux()) {
         return 'linux'
     } else if (currentOS.isMacOsX()) {
-        return 'mac'
+        return 'mac-aarch64'
     }
     return null
 }
@@ -70,6 +80,7 @@ private static String getJavaFXPlatform() {
 
 
 test {
+    forkEvery = 1
     useJUnitPlatform()
     testLogging {
     // set options for log level LIFECYCLE
