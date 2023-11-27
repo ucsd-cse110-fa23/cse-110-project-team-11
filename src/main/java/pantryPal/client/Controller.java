@@ -229,7 +229,7 @@ public class Controller {
         }
         else {
             try {
-                RecipeManager.updateRecipe(rd.getTitle().getText(), rd.getIngredients().getText(), rd.getSteps().getText(), rd.getID());
+                RecipeManager.updateRecipe(rd.getTitle().getText(), rd.getIngredients().getText(), rd.getSteps().getText(),input.getMealType(), rd.getID());
             } catch (IOException e1) {
                 
                 e1.printStackTrace();
