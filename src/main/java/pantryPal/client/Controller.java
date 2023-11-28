@@ -115,9 +115,10 @@ public class Controller {
             else{
                 
                 inputFrame.getRecButtons().setRecipeText("Recipe Displayed");
-                RecipeDisplay rec = new RecipeDisplay();
                 input.setPromptType("MealType");
                 rc.generateRecipe();
+                RecipeDisplay rec = new RecipeDisplay();
+
                 try {
                     rp.parse(); 
                     rec.setID(null);
@@ -125,9 +126,11 @@ public class Controller {
                     rec.setIngreds(rp.getStringIngredients());
                     rec.setSteps(rp.getStringSteps());
 
-                    File oldFile = new File("generated_img/temp.jpg");
-                    oldFile.delete();
-                    img.generateImage(rp.getTitle(), rp.getStringIngredients());
+                    // File oldFile = new File("generated_img/temp.jpg");
+                    // oldFile.delete();
+                    String imgURL = img.generateImage(rp.getTitle(), rp.getStringIngredients());
+
+                    rec.setImage(imgURL);
 
                     System.out.println(rec.getIngredients().getText());
                     System.out.println(rec.getSteps().getText());
@@ -236,21 +239,22 @@ public class Controller {
             String title = rd.getTitle().getText();
             String ingredients = rd.getIngredients().getText();
             String steps = rd.getSteps().getText();
+            String imgURL = rd.getImage();
 
             
             // Path source = Paths.get("generated_img/temp");
             // Files.move(source, source.resolveSibling("generated_img/" + stringID + ".jpg"));
 
-            model.performRequest("PUT", stringID, title, ingredients, steps);
+            model.performRequest("PUT", stringID, title, ingredients, steps, imgURL);
             
-            RecipeDisplay recipeDisplay = new RecipeDisplay(stringID, title, ingredients, steps);
+            RecipeDisplay recipeDisplay = new RecipeDisplay(stringID, title, ingredients, steps, imgURL);
             RecipeDisplayAppFrame rec = new RecipeDisplayAppFrame(recipeDisplay);
             RecipeTitle recipeDis = new RecipeTitle(stringID, title, rec);
             rd.setID(RecipeManager.getStringID());
 
-            File oldFile = new File("generated_img/temp.jpg");
-            File newFile = new File("generated_img/" + title.replace(" ","") + ".jpg");
-            boolean success = oldFile.renameTo(newFile);
+            // File oldFile = new File("generated_img/temp.jpg");
+            // File newFile = new File("generated_img/" + title.replace(" ","") + ".jpg");
+            // boolean success = oldFile.renameTo(newFile);
 
             recipeDis.setViewButtonAction(this::handleViewButton);
             recipeDis.getRecipeDetail().setBackButtonAction2(this::handleBackButton2);
@@ -286,15 +290,15 @@ public class Controller {
     private void handleDeleteButton(ActionEvent event) {
         //System.out.println("HELLOOO");
         String stringID = rd.getID();
-        model.performRequest("DELETE", stringID, null, null, null);
+        model.performRequest("DELETE", stringID, null, null, null, null);
         reload();
         ui.returnHomePage();
     }
 
     private void handleRegenerateButton(ActionEvent event) throws IOException, InterruptedException, URISyntaxException { 
 
-        RecipeDisplay rec = new RecipeDisplay();
         input.setPromptType("MealType");
+        RecipeDisplay rec = new RecipeDisplay();
         rc.generateRecipe();
         try {
             rp.parse(); 
@@ -303,8 +307,11 @@ public class Controller {
             rec.setIngreds(rp.getStringIngredients());
             rec.setSteps(rp.getStringSteps());
 
-            img.generateImage(rp.getTitle(), rp.getStringIngredients());
+            // File oldFile = new File("generated_img/temp.jpg");
+            // oldFile.delete();
+            String imgURL = img.generateImage(rp.getTitle(), rp.getStringIngredients());
 
+            rec.setImage(imgURL);
             System.out.println(rec.getIngredients().getText());
             System.out.println(rec.getSteps().getText());
             System.out.println("SDUHFIOSDHFIOSHDOFHSDIOFHSDIOFSIDHFOSDIFHSODi");
@@ -340,6 +347,14 @@ public class Controller {
         } catch(IOException err){
             err.printStackTrace();
         }
+        this.rd.getRecipe().getRegenerateButton().setStyle("-fx-background-color: #5DBB63; -fx-border-width: 0;");
+        PauseTransition pause = new PauseTransition(
+            Duration.seconds(1)
+        );
+        pause.setOnFinished(e2 -> {
+            this.rd.getRecipe().getRegenerateButton().setStyle("-fx-background-color: #DAE5EA; -fx-border-width: 0;");
+        });
+        pause.play();
     }
 
     private void handleLoginButton(ActionEvent event){
@@ -392,7 +407,8 @@ public class Controller {
             String title = recipes.get(i)[1];
             String ingredients = recipes.get(i)[2];
             String steps = recipes.get(i)[3];
-            RecipeDisplay recipeDisplay = new RecipeDisplay(stringID, title, ingredients, steps);
+            String imgURL = recipes.get(i)[4];
+            RecipeDisplay recipeDisplay = new RecipeDisplay(stringID, title, ingredients, steps, imgURL);
             RecipeDisplayAppFrame rec = new RecipeDisplayAppFrame(recipeDisplay);
             RecipeTitle recipeTitle = new RecipeTitle(stringID, title, rec);
             rec.setID(recipeTitle.getID());
@@ -420,17 +436,17 @@ public class Controller {
         }
     }
 
-    public void loadImagesAtStartup() throws IOException, InterruptedException, URISyntaxException {
-        //for (int i = 0; i < hp.getRecipeList().getChildren().size(); i++) {
-        for (int i = 0; i < 5; i++) {
-            RecipeTitle rt = (RecipeTitle)hp.getRecipeList().getChildren().get(i);
-            RecipeDisplay rd = rt.getRecipeDetail().getRecipe();
-            String title = rd.getTitle().getText();
-            String ingredients = rd.getIngredients().getText();
-            img.generateImage(title,ingredients);
-            File oldFile = new File("generated_img/temp.jpg");
-            File newFile = new File("generated_img/" + title.replace(" ","") + ".jpg");
-            oldFile.renameTo(newFile);
-        }
-    }
+    // public void loadImagesAtStartup() throws IOException, InterruptedException, URISyntaxException {
+    //     //for (int i = 0; i < hp.getRecipeList().getChildren().size(); i++) {
+    //     for (int i = 0; i < 0; i++) {
+    //         RecipeTitle rt = (RecipeTitle)hp.getRecipeList().getChildren().get(i);
+    //         RecipeDisplay rd = rt.getRecipeDetail().getRecipe();
+    //         String title = rd.getTitle().getText();
+    //         String ingredients = rd.getIngredients().getText();
+    //         img.generateImage(title,ingredients);
+    //         File oldFile = new File("generated_img/temp.jpg");
+    //         File newFile = new File("generated_img/" + title.replace(" ","") + ".jpg");
+    //         oldFile.renameTo(newFile);
+    //     }
+    // }
 }

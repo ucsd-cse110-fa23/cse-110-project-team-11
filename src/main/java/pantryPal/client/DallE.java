@@ -24,7 +24,7 @@ public class DallE {
  private static final String MODEL = "dall-e-2";
 
 
-  public void callAPI(String prompt) throws IOException, InterruptedException, URISyntaxException {
+  public String callAPI(String prompt) throws IOException, InterruptedException, URISyntaxException {
                 // Set request parameters
             int n = 1;
 
@@ -73,7 +73,8 @@ public class DallE {
                 InputStream in = new URI(generatedImageURL).toURL().openStream()
             )
             {
-              Files.copy(in, Paths.get("generated_img/temp.jpg"));
+              // Files.copy(in, Paths.get("generated_img/temp.jpg"));
+              return generatedImageURL;
             }
           }
   

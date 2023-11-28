@@ -42,7 +42,7 @@ public class App extends Application {
         Model model = new Model();
         Controller controller = new Controller(ui, model);
         controller.loadRecipes();
-        controller.loadImagesAtStartup();
+        // controller.loadImagesAtStartup();
 
         stage.setTitle("PantryPal");
         stage.setResizable(true);
