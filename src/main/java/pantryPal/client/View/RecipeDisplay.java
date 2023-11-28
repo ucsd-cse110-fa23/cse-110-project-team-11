@@ -1,6 +1,7 @@
 package pantryPal.client.View;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.*;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
@@ -14,7 +15,8 @@ public class RecipeDisplay extends BorderPane {
     private String id = null;
     private TextArea title, ingredients, steps;
     private Button editButton, saveButton, deleteButton, regenerateButton;
-
+    private String imgURL = "https://hips.hearstapps.com/hmg-prod/images/dog-puppy-on-garden-royalty-free-image-1586966191.jpg?crop=0.752xw:1.00xh;0.175xw,0&resize=1200:*";
+    private ImageView mealImage;
     
     public RecipeDisplay() {
         this.setPrefSize(500, 20); // sets size of task
@@ -36,6 +38,9 @@ public class RecipeDisplay extends BorderPane {
         steps.setEditable(false);
         steps.setStyle("-fx-background-color: #008080; -fx-border-width: 0;"); // set background color of textfield, yellow
 
+        mealImage = new ImageView(new Image(imgURL));
+        mealImage.setPreserveRatio(true);
+        
         editButton = new Button();
         editButton.setPrefSize(50,30);
         editButton.setStyle("-fx-background-color: #DAE5EA; -fx-border-width: 0;"); // light blue
@@ -82,15 +87,23 @@ public class RecipeDisplay extends BorderPane {
         headerBox.setAlignment(Pos.TOP_CENTER);
         this.setTop(headerBox);
 
-        VBox leftBox = new VBox(ingredients); // dark greenish gray
-        leftBox.setSpacing(10);
+        VBox imageBox = new VBox(mealImage);
+        imageBox.setStyle("-fx-background-color: #FFFFFF;");
+        imageBox.setAlignment(Pos.CENTER);
+        imageBox.setPadding(new Insets(5));
+        
+        VBox leftBox = new VBox(imageBox, ingredients); // dark greenish gray
+        leftBox.setPadding(new Insets(5));
         leftBox.setAlignment(Pos.TOP_CENTER);
         leftBox.setStyle("-fx-background-color: #FFFFFF; -fx-border-width: 0;"); // light green
  
         VBox rightBox = new VBox(steps); // white
-        rightBox.setSpacing(0);
+        rightBox.setPadding(new Insets(5));
         rightBox.setStyle("-fx-background-color: #FFFFFF; -fx-border-width: 0;"); // light purple
         rightBox.setAlignment(Pos.TOP_CENTER);
+
+        mealImage.fitWidthProperty().bind(leftBox.widthProperty().divide(2));
+        
 
         ColumnConstraints col1 = new ColumnConstraints();
         col1.setPercentWidth(50);
@@ -108,7 +121,7 @@ public class RecipeDisplay extends BorderPane {
         this.setCenter(center);
     }
 
-    public RecipeDisplay(String idString, String titleString, String ingredientString, String stepsString) {
+    public RecipeDisplay(String idString, String titleString, String ingredientString, String stepsString, String imageURL) {
         this.id = idString;
 
         this.setPrefSize(500, 20); // sets size of task
@@ -123,12 +136,18 @@ public class RecipeDisplay extends BorderPane {
         ingredients.setWrapText(true);
         ingredients.setEditable(false);
         ingredients.setStyle("-fx-background-color: #008080; -fx-border-width: 0;"); // set background color of textfield, yellow
+        ScrollPane scrollPane = new ScrollPane(ingredients);
+        scrollPane.setFitToWidth(true);
+        scrollPane.setFitToHeight(true);
         
         steps = new TextArea(stepsString); // create task name text field
         steps.setWrapText(true);
         steps.setEditable(false);
         steps.setStyle("-fx-background-color: #008080; -fx-border-width: 0;"); // set background color of textfield, yellow
 
+        imgURL = imageURL;
+        mealImage = new ImageView(new Image(imgURL));
+        mealImage.setPreserveRatio(true);
 
         editButton = new Button();
         editButton.setPrefSize(50,30);
@@ -166,15 +185,22 @@ public class RecipeDisplay extends BorderPane {
         headerBox.setAlignment(Pos.TOP_CENTER);
         this.setTop(headerBox);
 
-        VBox leftBox = new VBox(ingredients); // dark greenish gray
-        leftBox.setSpacing(10);
+        VBox imageBox = new VBox(mealImage);
+        imageBox.setStyle("-fx-background-color: #FFFFFF;");
+        imageBox.setAlignment(Pos.CENTER);
+        imageBox.setPadding(new Insets(5));
+
+        VBox leftBox = new VBox(imageBox, ingredients); // dark greenish gray
+        leftBox.setPadding(new Insets(5));
         leftBox.setAlignment(Pos.TOP_CENTER);
         leftBox.setStyle("-fx-background-color: #008080; -fx-border-width: 0;"); // light green
  
         VBox rightBox = new VBox(steps); // white
-        rightBox.setSpacing(0);
+        rightBox.setPadding(new Insets(5));
         rightBox.setStyle("-fx-background-color: #008080; -fx-border-width: 0;"); // light purple
         rightBox.setAlignment(Pos.TOP_CENTER);
+
+        mealImage.fitWidthProperty().bind(leftBox.widthProperty().divide(2));
 
         ColumnConstraints col1 = new ColumnConstraints();
         col1.setPercentWidth(50);
@@ -221,6 +247,10 @@ public class RecipeDisplay extends BorderPane {
         return this.ingredients;
     }
 
+    public String getImage(){
+        return this.imgURL;
+    }
+
     public TextArea getSteps() {
         return this.steps;
     }
@@ -242,4 +272,9 @@ public class RecipeDisplay extends BorderPane {
     public void setSteps(String steps) {
         this.steps.setText(steps);
     } 
+
+    public void setImage(String imgURL){
+        this.imgURL = imgURL;
+        this.mealImage.setImage(new Image(imgURL));
+    }
 }

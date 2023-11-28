@@ -53,7 +53,8 @@ public class RecipeManager {
                     String ingredients = document.get("ingredients").toString();
                     String steps = document.get("steps").toString();
                     String mealType = document.getString("mealType"); // Retrieve mealType
-                    String[] rec = {stringID, title, ingredients, steps, mealType}; // Include mealType in the array
+                    String imgURL = document.get("imageURL").toString();
+                    String[] rec = {stringID, title, ingredients, steps, mealType, imgURL}; // Include mealType in the array
                     recipes.add(0, rec);
                 }
                 mongoClient.close();
@@ -70,7 +71,7 @@ public class RecipeManager {
      * @return recipe to be inserted
      * @throws IOException
      */
-    public static String[] insertRecipe(String mealType, String title, String ingredients, String steps) throws IOException{
+    public static String[] insertRecipe(String mealType, String title, String ingredients, String steps, String imgURL) throws IOException{
         try (MongoClient mongoClient = MongoClients.create(URI)) {
             MongoDatabase recipeDB = mongoClient.getDatabase("recipes_db");
             MongoCollection<Document> recipeCollections = recipeDB.getCollection("recipes");
@@ -83,7 +84,8 @@ public class RecipeManager {
             recipe.append("title", title)
             .append("ingredients", ingredients)
             .append("steps", steps)
-            .append("mealType", mealType); 
+            .append("mealType", mealType)
+            .append("imageURL", imgURL);
             
             recipeCollections.insertOne(recipe); // inserts into MongoDB
             String[] rec = {stringID, title, ingredients, steps};
@@ -220,7 +222,6 @@ public class RecipeManager {
 
         }
         else {
-        
         try (MongoClient mongoClient = MongoClients.create(URI)) {
             MongoDatabase recipeDB = mongoClient.getDatabase("recipes_db");
             MongoCollection<Document> recipeCollections = recipeDB.getCollection("recipes");
@@ -234,9 +235,10 @@ public class RecipeManager {
                     String ingredients = document.get("ingredients").toString();
                     String steps = document.get("steps").toString();
                     String mealType = document.getString("mealType"); // Retrieve mealType
+                    String imageURL = document.getString("imageURL");
                     if (selectedMealType.equals(mealType)) {
                         System.out.println("found a " + mealType);
-                        String[] rec = {stringID, title, ingredients, steps, mealType}; // Include mealType in the array
+                        String[] rec = {stringID, title, ingredients, steps, mealType, imageURL}; // Include mealType in the array
                         recipes.add(0, rec);
                     }
                 }
@@ -263,7 +265,10 @@ public class RecipeManager {
                     String ingredients = document.get("ingredients").toString();
                     String steps = document.get("steps").toString();
                     String mealType = document.getString("mealType"); // Retrieve mealType
-                    String[] rec = {stringID, title, ingredients, steps, mealType}; // Include mealType in the array
+                    String imageURL = document.getString("imageURL");
+
+                    String[] rec = {stringID, title, ingredients, steps, mealType, imageURL}; // Include mealType in the array
+
                     recipes.add(0, rec);
                 }
                 mongoClient.close();
