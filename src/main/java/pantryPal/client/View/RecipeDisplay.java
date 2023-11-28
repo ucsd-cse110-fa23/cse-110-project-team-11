@@ -14,7 +14,7 @@ import javafx.geometry.Insets;
 public class RecipeDisplay extends BorderPane {
     private String id = null;
     private TextArea title, ingredients, steps;
-    private Button editButton, saveButton, deleteButton, regenerateButton;
+    private Button editButton, saveButton, deleteButton, regenerateButton, shareButton;
     private String imgURL = "https://hips.hearstapps.com/hmg-prod/images/dog-puppy-on-garden-royalty-free-image-1586966191.jpg?crop=0.752xw:1.00xh;0.175xw,0&resize=1200:*";
     private ImageView mealImage;
     
@@ -71,6 +71,16 @@ public class RecipeDisplay extends BorderPane {
         delImage.setFitWidth(45);
         deleteButton.setGraphic(delImage);
 
+        shareButton = new Button();
+        shareButton.setPrefSize(50,30);
+        shareButton.setStyle("-fx-background-color: #DAE5EA; -fx-border-width: 0;");
+        shareButton.setAlignment(Pos.CENTER);
+        ImageView shareImage = new ImageView(new Image("file:graphics/share.png"));
+        shareImage.setPreserveRatio(true);
+        shareImage.setFitHeight(25);
+        shareImage.setFitWidth(45);
+        shareButton.setGraphic(shareImage);
+
         regenerateButton = new Button();
         regenerateButton.setPrefSize(50,30);
         regenerateButton.setStyle("-fx-background-color: #DAE5EA; -fx-border-width: 0;");
@@ -81,7 +91,7 @@ public class RecipeDisplay extends BorderPane {
         reloadImage.setFitWidth(45);
         regenerateButton.setGraphic(reloadImage);
 
-        HBox headerBox = new HBox(title, editButton, saveButton, deleteButton, regenerateButton); // orange
+        HBox headerBox = new HBox(title, editButton, saveButton, deleteButton, regenerateButton, shareButton); // orange
         headerBox.setSpacing(30);
         headerBox.setStyle("-fx-background-color: #008080; -fx-border-width: 0;"); // teal
         headerBox.setAlignment(Pos.TOP_CENTER);
@@ -179,7 +189,17 @@ public class RecipeDisplay extends BorderPane {
         delImage.setFitWidth(45);
         deleteButton.setGraphic(delImage);
 
-        HBox headerBox = new HBox(title, editButton, saveButton, deleteButton); // orange
+        shareButton = new Button();
+        shareButton.setPrefSize(50,30);
+        shareButton.setStyle("-fx-background-color: #DAE5EA; -fx-border-width: 0;");
+        shareButton.setAlignment(Pos.CENTER);
+        ImageView shareImage = new ImageView(new Image("file:graphics/share.png"));
+        shareImage.setPreserveRatio(true);
+        shareImage.setFitHeight(25);
+        shareImage.setFitWidth(45);
+        shareButton.setGraphic(shareImage);
+
+        HBox headerBox = new HBox(title, editButton, saveButton, deleteButton, shareButton); // orange
         headerBox.setSpacing(30);
         headerBox.setStyle("-fx-background-color: #008080; -fx-border-width: 0;"); // teal
         headerBox.setAlignment(Pos.TOP_CENTER);
@@ -237,6 +257,10 @@ public class RecipeDisplay extends BorderPane {
 
     public Button getRegenerateButton() {
         return this.regenerateButton;
+    }
+
+    public Button getShareButton() {
+        return this.shareButton;
     }
 
     public TextArea getTitle() {
