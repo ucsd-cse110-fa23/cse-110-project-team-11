@@ -24,7 +24,7 @@ public class DallE {
  private static final String MODEL = "dall-e-2";
 
 
-  public String callAPI(String prompt) throws IOException, InterruptedException, URISyntaxException {
+  public static String callAPI(String prompt) throws IOException, InterruptedException, URISyntaxException {
                 // Set request parameters
             int n = 1;
 

@@ -7,7 +7,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
 
-import java.io.IOException;
 import java.util.*;
 import pantryPal.client.View.HomePageAppFrame;
 import pantryPal.client.View.HomePageHeader;
@@ -22,9 +21,6 @@ import com.sun.net.httpserver.*;
 import java.io.*;
 import java.net.*;
 
-
-import java.io.File;
-
 public class Controller {
 
     private Input input = new Input();
@@ -37,7 +33,6 @@ public class Controller {
     private RecipeDisplayAppFrame rd;
     private RecipeTitle rt = new RecipeTitle("", "");
     private Model model;
-    ImageGenerator img = new ImageGenerator();
 
     public Controller(UI ui, Model model) {
         this.model = model;
@@ -161,7 +156,9 @@ public class Controller {
     public void handleStartButton(ActionEvent event) {
         RecButtons rb = inputFrame.getRecButtons();
         rb.setRecipeText("Recording");
-        input.captureAudio();
+        // perform request 
+        model.performRequest("GET", "start", "Whisper");
+        //input.captureAudio();
         inputFrame.getRecButtons().getButtonBox().getChildren().remove(inputFrame.getRecButtons().getStartButton());
         inputFrame.getRecButtons().getButtonBox().getChildren().add(inputFrame.getRecButtons().getStopButton());
     }
@@ -183,7 +180,8 @@ public class Controller {
                 
                 inputFrame.getRecButtons().setRecipeText("Recipe Displayed");
                 input.setPromptType("MealType");
-                rc.generateRecipe();
+                String prompt = generateRecipe();
+                model.performRequest("GET", prompt, "ChatGPT");
                 RecipeDisplay rec = new RecipeDisplay();
 
                 try {
@@ -195,7 +193,9 @@ public class Controller {
 
                     // File oldFile = new File("generated_img/temp.jpg");
                     // oldFile.delete();
-                    String imgURL = img.generateImage(rp.getTitle(), rp.getStringIngredients());
+                    String imagePrompt = "Display the dish: " + rp.getTitle() + ", a dish with the ingredients: " + rp.getStringIngredients() + ", like it is a dish in a Recipe Book";
+
+                    String imgURL = model.performRequest("GET", imagePrompt, "DallE");
 
                     rec.setImage(imgURL);
 
@@ -357,7 +357,8 @@ public class Controller {
 
         input.setPromptType("MealType");
         RecipeDisplay rec = new RecipeDisplay();
-        rc.generateRecipe();
+        String prompt = generateRecipe();
+        model.performRequest("GET", prompt, "ChatGPT");
         try {
             rp.parse(); 
             rec.setID(null);
@@ -367,7 +368,9 @@ public class Controller {
 
             // File oldFile = new File("generated_img/temp.jpg");
             // oldFile.delete();
-            String imgURL = img.generateImage(rp.getTitle(), rp.getStringIngredients());
+            String imagePrompt = "Display the dish: " + rp.getTitle() + ", a dish with the ingredients: " + rp.getStringIngredients() + ", like it is a dish in a Recipe Book";
+
+            String imgURL = model.performRequest("GET", imagePrompt, "DallE");
 
             rec.setImage(imgURL);
             System.out.println(rec.getIngredients().getText());
@@ -486,5 +489,25 @@ public class Controller {
         }
     }
 
+    public String[] readPrompt() throws IOException {
+        FileReader fr
+        = new FileReader("prompt.txt"); // PLACEHOLDER NAME
+        BufferedReader br = new BufferedReader(fr);
+        String mealType = br.readLine();
+        String prompt = br.readLine();
+        String [] info = {prompt,mealType};
+        br.close();
+        return info;
+    }
+
+    public String generateRecipe() throws IOException, InterruptedException {
+        String[] info = readPrompt();
+        String rawPrompt = info[0];
+        String mealType = info[1];
+        String formattedPrompt = IRecipeCreator.formatPrompt(mealType, rawPrompt);
+        // System.out.println(formattedPrompt);
+
+        return formattedPrompt;
+    }
 
 }

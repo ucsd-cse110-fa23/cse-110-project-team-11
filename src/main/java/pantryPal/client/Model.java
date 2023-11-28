@@ -51,4 +51,41 @@ public class Model {
             return null;
         }
     }
+
+    public String performRequest(String method, String input, String API){
+        try {
+            String urlString = "http://localhost:8100/";
+            
+            URL url = new URI(urlString).toURL();
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("GET");
+            conn.setDoOutput(true);
+
+            // insert/save
+            if (method.equals("GET")) {
+                // System.out.println("PUT REQUEST (MODEL)");
+                // encode recipe details to allow to write \n characters
+                String encodedInput = Base64.getEncoder().encodeToString(input.getBytes());
+                String encodedAPI = Base64.getEncoder().encodeToString(API.getBytes());
+                
+
+                // Send data in the request body
+                try (OutputStreamWriter out = new OutputStreamWriter(conn.getOutputStream())) {
+                    out.write(encodedInput + ";" + encodedAPI);
+                    out.flush();
+                }
+            }
+
+            // Sending request to the server
+            try (BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()))) {
+                String response = in.readLine(); // reading response from the server
+                System.out.println(response);
+                return response;
+            }
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return null;
+        }
+    }
 }

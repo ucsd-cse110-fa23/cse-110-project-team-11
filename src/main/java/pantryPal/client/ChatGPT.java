@@ -13,15 +13,15 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class ChatGPT {
-    private final String API_ENDPOINT = "https://api.openai.com/v1/completions";
-    private final String API_KEY = "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";
-    private final String MODEL = "text-davinci-003";
-    private final int MAX_TOKENS = 600;
+    private static final String API_ENDPOINT = "https://api.openai.com/v1/completions";
+    private static final String API_KEY = "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";
+    private static final String MODEL = "text-davinci-003";
+    private static final int MAX_TOKENS = 600;
     
     /**
      * Sends prompt to ChatGPT and returns the response
      */
-    public String callAPI(String prompt) throws IOException, InterruptedException {
+    public static String callAPI(String prompt) throws IOException, InterruptedException {
         // Create a request body which you will pass into request object
            JSONObject requestBody = new JSONObject();
            requestBody.put("model", MODEL);
