@@ -9,6 +9,9 @@ import javafx.util.Duration;
 
 import java.io.IOException;
 import java.util.*;
+
+import pantryPal.client.UserAccount.AccountManager;
+import pantryPal.client.UserAccount.User;
 import pantryPal.client.View.HomePageAppFrame;
 import pantryPal.client.View.HomePageHeader;
 import pantryPal.client.View.InputAppFrame;
@@ -34,6 +37,7 @@ public class Controller {
     private RecipeDisplayAppFrame rd;
     private RecipeTitle rt = new RecipeTitle("");
     private Model model;
+    //private User user;
 
     public Controller(UI ui, Model model) {
         this.model = model;
@@ -296,13 +300,18 @@ public class Controller {
     }
 
     private void handleLoginButton(ActionEvent event){
-
+        model.performRequest("GET", lp.getUsername(), lp.getPassword());
+        
         ui.returnHomePage(); 
     }
 
     private void handleCreateAccButton(ActionEvent event){
-
-        ui.returnHomePage(); 
+        String response = model.performRequest("PUT", lp.getUsername(), lp.getPassword());
+        if(!response.equals("Error handling PUT request")) {
+            ui.returnHomePage(); 
+        } else {
+            // TODO: display account creation error
+        }
     }
 
     private void handleLogoutButton(ActionEvent event){
@@ -319,7 +328,7 @@ public class Controller {
 
     public void reload(){
         hp.getRecipeList().getChildren().removeIf(RecipeTitle -> RecipeTitle instanceof RecipeTitle && true);  
-        loadRecipes(); // loads recipe
+        loadRecipes(); // loads recipef
     }
 
     private void resetInput(){

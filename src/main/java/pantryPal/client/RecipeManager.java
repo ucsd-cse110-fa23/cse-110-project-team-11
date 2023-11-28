@@ -180,7 +180,7 @@ public class RecipeManager {
      */
     public static Document searchRecipe(String title) {
         try (MongoClient mongoClient = MongoClients.create(URI)) {
-            MongoDatabase recipeDB = mongoClient.getDatabase("recipe_db");
+            MongoDatabase recipeDB = mongoClient.getDatabase("recipes_db");
             MongoCollection<Document> recipeCollections = recipeDB.getCollection("recipes");
             
             // filter based on id

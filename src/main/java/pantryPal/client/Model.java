@@ -9,6 +9,42 @@ import java.net.URI;
 import java.util.Base64;
 
 public class Model {
+    public String performRequest(String method, String username, String password) {
+        try {
+            String urlString = "http://localhost:8100/";
+            // if (id != null) {
+            //     urlString += "?id=" + id;
+            // }
+            URL url = new URI(urlString).toURL();
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod(method);
+            conn.setDoOutput(true);
+
+            // insert/save
+            if (method.equals("PUT") || method.equals("GET")) {
+                String encodedUsername = Base64.getEncoder().encodeToString(username.getBytes());
+                String encodedPassword = Base64.getEncoder().encodeToString(password.getBytes());
+                
+                // Send data in the request body
+                try (OutputStreamWriter out = new OutputStreamWriter(conn.getOutputStream())) {
+                    out.write(encodedUsername + ";" + encodedPassword);
+                    out.flush();
+                }
+            }
+            
+
+            // Sending request to the server
+            try (BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()))) {
+                String response = in.readLine(); // reading response from the server
+                System.out.println("RESPONSE: "+ response);
+                return response;
+            }
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return null;
+        }
+    }
     public String performRequest (String method, String id, String title, String ingredients, String steps) {
         try {
             String urlString = "http://localhost:8100/";
@@ -38,7 +74,7 @@ public class Model {
             // Sending request to the server
             try (BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()))) {
                 String response = in.readLine(); // reading response from the server
-                System.out.println(response);
+                System.out.println("RESPONSE" + response);
                 return response;
             }
 

@@ -3,6 +3,7 @@ package pantryPal.server;
 import com.sun.net.httpserver.*;
 
 import pantryPal.client.RecipeManager;
+import pantryPal.client.UserAccount.AccountManager;
 
 import com.sun.net.httpserver.*;
 import java.io.*;
@@ -74,6 +75,7 @@ public class Handler implements HttpHandler {
      */
     private String handlePut (HttpExchange httpExchange) throws IOException {
         try {
+            String response = "";
             // Should read the stuff from the httpRequest from Model
             InputStream inStream = httpExchange.getRequestBody();
             BufferedReader br = new BufferedReader(new InputStreamReader(inStream));
@@ -84,22 +86,34 @@ public class Handler implements HttpHandler {
             while ((line = br.readLine()) != null) {
                 postData.append(line);
             }
+            String [] info = postData.toString().split(";");
 
-            // System.out.println("postdata: " + postData);
-            String[] recipe = postData.toString().split(";");
-            String decodedTitle = new String(Base64.getDecoder().decode(recipe[0]));
-            String decodedIngredients = new String(Base64.getDecoder().decode(recipe[1]));
-            String decodedSteps = new String(Base64.getDecoder().decode(recipe[2]));
+            // recipe collection
+            if (info.length == 4) {
+                // System.out.println("postdata: " + postData);
+                String decodedTitle = new String(Base64.getDecoder().decode(info[0]));
+                String decodedIngredients = new String(Base64.getDecoder().decode(info[1]));
+                String decodedSteps = new String(Base64.getDecoder().decode(info[2]));
 
-            // System.out.println("Decoded Title: " + decodedTitle);
-            // System.out.println("Decoded Ingredients: " + decodedIngredients);
-            // System.out.println("Decoded Steps: " + decodedSteps);
+                // System.out.println("Decoded Title: " + decodedTitle);
+                // System.out.println("Decoded Ingredients: " + decodedIngredients);
+                // System.out.println("Decoded Steps: " + decodedSteps);
 
-            String[] result = RecipeManager.insertRecipe(decodedTitle, decodedIngredients, decodedSteps);
+                String[] result = RecipeManager.insertRecipe(decodedTitle, decodedIngredients, decodedSteps);
 
-            String response = "INSERTED THE RECIPE" + result;
-            // System.out.println(response);
+                response = "INSERTED THE RECIPE" + result;
+                // System.out.println(response);
+            }
+
+            else if (info.length == 2) {
+                String decodedUserName = new String(Base64.getDecoder().decode(info[0]));
+                String decodedPassword = new String(Base64.getDecoder().decode(info[1]));
+                String[] result = AccountManager.insertAccount(decodedUserName, decodedPassword);
+                response = "INSERTED THE ACCOUNT: " + result[0] + " " + result[1];
+            }
+            
             return response;
+
         }
         catch (Exception e) {
             e.printStackTrace(); // Log the exception
