@@ -3,7 +3,7 @@ package pantryPal.client;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
-public class ImageGenerator {
+public class ImageGenerator implements IImageGenerator{
     DallE img = new DallE();
 
     public String generateImage(String title, String ingredients) throws IOException, InterruptedException, URISyntaxException{
