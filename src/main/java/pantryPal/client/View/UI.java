@@ -31,7 +31,7 @@ public class UI  {
         
         root.setCenter(HomePage);
         root.setTop(HomePage.getHomePageHeader());
-        root.setBottom(null);
+        root.setBottom(HomePage.getHomePageFooter());
     }
 
     public InputAppFrame getInputPage(){

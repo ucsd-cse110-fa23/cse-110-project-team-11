@@ -28,6 +28,7 @@ public class Model {
                 String encodedIngredients = Base64.getEncoder().encodeToString(ingredients.getBytes());
                 String encodedSteps = Base64.getEncoder().encodeToString(steps.getBytes());
                 String encodedMealType = Base64.getEncoder().encodeToString(mealType.getBytes());
+                
 
                 
                 // Send data in the request body

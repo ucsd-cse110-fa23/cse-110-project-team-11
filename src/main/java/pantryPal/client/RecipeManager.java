@@ -54,7 +54,7 @@ public class RecipeManager {
                     String steps = document.get("steps").toString();
                     String mealType = document.getString("mealType"); // Retrieve mealType
                     String[] rec = {stringID, title, ingredients, steps, mealType}; // Include mealType in the array
-                    recipes.add(rec);
+                    recipes.add(0, rec);
                 }
                 mongoClient.close();
             }
@@ -212,4 +212,72 @@ public class RecipeManager {
         }
     }
 
+    public static ArrayList<String[]> filterRecipes(String selectedMealType){
+        ArrayList<String[]> recipes = new ArrayList<String[]>();
+
+        if (selectedMealType.equals("All Recipes")) {
+            recipes = loadRecipes();
+
+        }
+        else {
+        
+        try (MongoClient mongoClient = MongoClients.create(URI)) {
+            MongoDatabase recipeDB = mongoClient.getDatabase("recipes_db");
+            MongoCollection<Document> recipeCollections = recipeDB.getCollection("recipes");
+
+            try (MongoCursor<Document> cursor = recipeCollections.find().iterator()) {
+                while (cursor.hasNext()) {
+                    System.out.println("loading");
+                    Document document = cursor.next();
+                    String stringID = document.get("_id").toString();
+                    String title = document.get("title").toString();
+                    String ingredients = document.get("ingredients").toString();
+                    String steps = document.get("steps").toString();
+                    String mealType = document.getString("mealType"); // Retrieve mealType
+                    if (selectedMealType.equals(mealType)) {
+                        System.out.println("found a " + mealType);
+                        String[] rec = {stringID, title, ingredients, steps, mealType}; // Include mealType in the array
+                        recipes.add(0, rec);
+                    }
+                }
+                mongoClient.close();
+            }
+        }
+        }
+        return recipes;
+    }
+
+    public static ArrayList<String[]> sortRecipes(String sort){
+        ArrayList<String[]> recipes = new ArrayList<String[]>();
+        
+        try (MongoClient mongoClient = MongoClients.create(URI)) {
+            MongoDatabase recipeDB = mongoClient.getDatabase("recipes_db");
+            MongoCollection<Document> recipeCollections = recipeDB.getCollection("recipes");
+
+            try (MongoCursor<Document> cursor = recipeCollections.find().iterator()) {
+                while (cursor.hasNext()) {
+                    System.out.println("loading");
+                    Document document = cursor.next();
+                    String stringID = document.get("_id").toString();
+                    String title = document.get("title").toString();
+                    String ingredients = document.get("ingredients").toString();
+                    String steps = document.get("steps").toString();
+                    String mealType = document.getString("mealType"); // Retrieve mealType
+                    String[] rec = {stringID, title, ingredients, steps, mealType}; // Include mealType in the array
+                    recipes.add(0, rec);
+                }
+                mongoClient.close();
+            }
+        }
+        if (sort.equals("A-Z")) {
+            Collections.sort(recipes, new SortAlphabetically());
+        }
+        else if (sort.equals("Z-A")) {
+            Collections.sort(recipes, new SortReverseAlphabetically());
+        }
+        else if (sort.equals("Reverse")) {
+            Collections.reverse(recipes);
+        }
+        return recipes;
+    }
 }

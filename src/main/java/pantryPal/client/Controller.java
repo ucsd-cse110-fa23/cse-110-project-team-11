@@ -32,7 +32,7 @@ public class Controller {
     private UI ui;
     private HomePageAppFrame hp;
     private RecipeDisplayAppFrame rd;
-    private RecipeTitle rt = new RecipeTitle("");
+    private RecipeTitle rt = new RecipeTitle("", "");
     private Model model;
 
     public Controller(UI ui, Model model) {
@@ -56,6 +56,8 @@ public class Controller {
         this.rd.setBackButtonAction2(this::handleBackButton2);
         this.rd.setDeleteButtonAction(this::handleDeleteButton);
         this.hp.setCreateButtonAction(this::handleCreateButton);
+        this.hp.setFilterButtonAction(this::handleFilterButton);
+        this.hp.setSortButtonAction(this::handleSortButton);
         this.rd.setSaveButtonAction(this::handleSaveButton);
         this.rd.setEditButtonAction(this::handleEditButton);
         this.rt.setViewButtonAction(this::handleViewButton);
@@ -78,6 +80,75 @@ public class Controller {
     public void handleCreateButton(ActionEvent event) {
         ui.getRoot().setCenter(inputFrame);
         ui.getRoot().setTop(inputFrame.getReturnHeader());
+    }
+
+    public void handleSortButton(ActionEvent event) {
+        ArrayList<String[]> recipes = new ArrayList<String[]>();
+        for (int i = 0; i < hp.getRecipeList().getChildren().size(); i++) {
+            // recipes.add((String[]) hp.getRecipeList().getChildren().get(i));
+        }
+        
+        String sort = hp.getHomePageFooter().getSortButton().getValue();
+
+        /*
+        hp.getRecipeList().getChildren().removeIf(RecipeTitle -> RecipeTitle instanceof RecipeTitle && true); 
+        ArrayList<String[]> recipes = RecipeManager.sortRecipes(sort);
+        for(int i = 0; i < recipes.size(); i++){
+            String stringID = recipes.get(i)[0];
+            String title = recipes.get(i)[1];
+            String ingredients = recipes.get(i)[2];
+            String steps = recipes.get(i)[3];
+            RecipeDisplay recipeDisplay = new RecipeDisplay(stringID, title, ingredients, steps);
+            RecipeDisplayAppFrame rec = new RecipeDisplayAppFrame(recipeDisplay);
+            RecipeTitle recipeTitle = new RecipeTitle(stringID, title, rec);
+            rec.setID(recipeTitle.getID());
+            recipeTitle.getViewButton().setOnAction(e1->{
+                    ui.getRoot().setCenter(recipeTitle.getRecipeDetail()); 
+                    ui.getRoot().setTop(recipeTitle.getRecipeDetail().getRecipeDisplayHeader());
+                    this.rd = rec;
+                    rec.setEditButtonAction(this::handleEditButton);
+                    rec.setSaveButtonAction(this::handleSaveButton);
+                    rec.setDeleteButtonAction(this::handleDeleteButton);
+
+            });    
+            hp.getRecipeList().getChildren().add(recipeTitle);
+            recipeTitle.getRecipeDetail().setBackButtonAction2(this::handleBackButton2);
+            recipeTitle.getRecipeDetail().setLogoutButtonAction(this::handleLogoutButton);
+            */
+    }
+    
+    
+    public void handleFilterButton(ActionEvent event) {
+        hp.getRecipeList().getChildren().removeIf(RecipeTitle -> RecipeTitle instanceof RecipeTitle && true); 
+        String selectedMealType = hp.getHomePageFooter().getFilterButton().getValue();
+        // System.out.println("Looking for" + selectedMealType);
+        ArrayList<String[]> recipes = RecipeManager.filterRecipes(selectedMealType);
+        
+        for(int i = 0; i < recipes.size(); i++){
+            String stringID = recipes.get(i)[0];
+            String title = recipes.get(i)[1];
+            String ingredients = recipes.get(i)[2];
+            String steps = recipes.get(i)[3];
+            String mealType = recipes.get(i)[4];
+            RecipeDisplay recipeDisplay = new RecipeDisplay(stringID, title, ingredients, steps);
+            RecipeDisplayAppFrame rec = new RecipeDisplayAppFrame(recipeDisplay);
+            RecipeTitle recipeTitle = new RecipeTitle(stringID, title, rec, mealType);
+            rec.setID(recipeTitle.getID());
+            recipeTitle.getViewButton().setOnAction(e1->{
+                    ui.getRoot().setCenter(recipeTitle.getRecipeDetail()); 
+                    ui.getRoot().setTop(recipeTitle.getRecipeDetail().getRecipeDisplayHeader());
+                    this.rd = rec;
+
+                    rec.setEditButtonAction(this::handleEditButton);
+                    rec.setSaveButtonAction(this::handleSaveButton);
+                    rec.setDeleteButtonAction(this::handleDeleteButton);
+
+            });
+            
+            hp.getRecipeList().getChildren().add(recipeTitle);
+            recipeTitle.getRecipeDetail().setBackButtonAction2(this::handleBackButton2);
+            recipeTitle.getRecipeDetail().setLogoutButtonAction(this::handleLogoutButton);
+        }
     }
 
     public void handleStartButton(ActionEvent event) {
@@ -214,11 +285,11 @@ public class Controller {
             String ingredients = rd.getIngredients().getText();
             String steps = rd.getSteps().getText();
             String mealType = input.getMealType();
-            model.performRequest("PUT", stringID, title, ingredients, steps, mealType);
-            // TODO: Add mealType Tag to recipe display 
+            model.performRequest("PUT", mealType, stringID, title, ingredients, steps);
+            // TODO: Add mealType Tag to recipe display
             RecipeDisplay recipeDisplay = new RecipeDisplay(stringID, title, ingredients, steps);
             RecipeDisplayAppFrame rec = new RecipeDisplayAppFrame(recipeDisplay);
-            RecipeTitle recipeDis = new RecipeTitle(stringID, title, rec);
+            RecipeTitle recipeDis = new RecipeTitle(stringID, title, rec, mealType);
             rd.setID(RecipeManager.getStringID());
             recipeDis.setViewButtonAction(this::handleViewButton);
             recipeDis.getRecipeDetail().setBackButtonAction2(this::handleBackButton2);
@@ -253,7 +324,7 @@ public class Controller {
     private void handleDeleteButton(ActionEvent event) {
         //System.out.println("HELLOOO");
         String stringID = rd.getID();
-        model.performRequest("DELETE", stringID, null , null, null, null);
+        model.performRequest("DELETE", null, stringID, null , null, null);
         reload();
         ui.returnHomePage();
     }
@@ -351,9 +422,10 @@ public class Controller {
             String title = recipes.get(i)[1];
             String ingredients = recipes.get(i)[2];
             String steps = recipes.get(i)[3];
+            String mealType = recipes.get(i)[4];
             RecipeDisplay recipeDisplay = new RecipeDisplay(stringID, title, ingredients, steps);
             RecipeDisplayAppFrame rec = new RecipeDisplayAppFrame(recipeDisplay);
-            RecipeTitle recipeTitle = new RecipeTitle(stringID, title, rec);
+            RecipeTitle recipeTitle = new RecipeTitle(stringID, title, rec, mealType);
             rec.setID(recipeTitle.getID());
             recipeTitle.getViewButton().setOnAction(e1->{
                     ui.getRoot().setCenter(recipeTitle.getRecipeDetail()); 
