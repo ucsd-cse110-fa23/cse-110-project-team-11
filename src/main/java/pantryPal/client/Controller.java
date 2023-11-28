@@ -177,8 +177,10 @@ public class Controller {
     }
 
     private void handleBackButton(ActionEvent event){
+        
         ui.returnHomePage();   
         resetInput();
+
     }
 
     private void handleBackButton2(ActionEvent event){
