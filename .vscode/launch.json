@@ -34,6 +34,15 @@
             "mainClass": "pantryPal.client.App",
             "projectName": "cse-110-project-team-11",
             "vmArgs": "--module-path 'lib/win/lib' --add-modules javafx.controls,javafx.fxml"
+        },
+        {
+            "type": "java",
+            "name": "AppTest",
+            "request": "launch",
+            "mainClass": "AppTest",
+            "projectName": "cse-110-project-team-11",
+            "vmArgs": "--module-path 'lib' --add-modules javafx.controls,javafx.fxml,javafx.swing --add-exports javafx.graphics/com.sun.javafx.application=ALL-UNNAMED"
         }
+        //C:\\Users\\trank\\Downloads\\openjfx-21_windows-x64_bin-sdk\\javafx-sdk-21\\lib
     ]
 }
