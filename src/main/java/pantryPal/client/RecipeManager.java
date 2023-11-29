@@ -19,6 +19,7 @@ import java.io.*;
 import static com.mongodb.client.model.Filters.eq;
 import static com.mongodb.client.model.Updates.*;
 
+
 /**
  * Class that handles the MongoDB. essentially creates functionality to buttons
  * in terms of backend.
@@ -52,9 +53,10 @@ public class RecipeManager {
                     String title = document.get("title").toString();
                     String ingredients = document.get("ingredients").toString();
                     String steps = document.get("steps").toString();
-                    String[] rec = {stringID, title, ingredients, steps};
-                    
-                    recipes.add(rec);
+                    String mealType = document.getString("mealType"); // Retrieve mealType
+                    String imgURL = document.get("imageURL").toString();
+                    String[] rec = {stringID, title, ingredients, steps, mealType, imgURL}; // Include mealType in the array
+                    recipes.add(0, rec);
                 }
                 mongoClient.close();
             }
@@ -70,7 +72,7 @@ public class RecipeManager {
      * @return recipe to be inserted
      * @throws IOException
      */
-    public static String[] insertRecipe(String title, String ingredients, String steps) throws IOException{
+    public static String[] insertRecipe(String mealType, String title, String ingredients, String steps, String imgURL) throws IOException{
         try (MongoClient mongoClient = MongoClients.create(URI)) {
             MongoDatabase recipeDB = mongoClient.getDatabase("recipes_db");
             MongoCollection<Document> recipeCollections = recipeDB.getCollection("recipes");
@@ -82,7 +84,9 @@ public class RecipeManager {
             Document recipe = new Document("_id", objectID);
             recipe.append("title", title)
             .append("ingredients", ingredients)
-            .append("steps", steps);
+            .append("steps", steps)
+            .append("mealType", mealType)
+            .append("imageURL", imgURL);
             
             recipeCollections.insertOne(recipe); // inserts into MongoDB
             String[] rec = {stringID, title, ingredients, steps};
@@ -115,18 +119,19 @@ public class RecipeManager {
         try (MongoClient mongoClient = MongoClients.create(URI)) {
             MongoDatabase recipeDB = mongoClient.getDatabase("recipes_db");
             MongoCollection<Document> recipeCollections = recipeDB.getCollection("recipes");
-            System.out.println("opened mongoDB? (update recipe)");
-            // back up; does not correct the indices
-
-            // update ingredients
+            System.out.println("Opened mongoDB? (update recipe)");
+    
             Bson filter = eq("_id", objID);
-            Bson update = set("ingredients", ingredients);
-            UpdateResult result = recipeCollections.updateOne(filter, update);
             
-            // update steps
-            update = set("steps", steps);
-            result = recipeCollections.updateOne(filter, update);
-
+            // Combine all updates into one operation
+            Bson updates = combine(
+                set("title", title), // Assuming you also want to update the title
+                set("ingredients", ingredients),
+                set("steps", steps)
+            );
+    
+            UpdateResult result = recipeCollections.updateOne(filter, updates);
+    
             mongoClient.close();
             return result;
         }
@@ -210,4 +215,75 @@ public class RecipeManager {
         }
     }
 
+    public static ArrayList<String[]> filterRecipes(String selectedMealType){
+        ArrayList<String[]> recipes = new ArrayList<String[]>();
+
+        if (selectedMealType.equals("All Recipes")) {
+            recipes = loadRecipes();
+
+        }
+        else {
+        try (MongoClient mongoClient = MongoClients.create(URI)) {
+            MongoDatabase recipeDB = mongoClient.getDatabase("recipes_db");
+            MongoCollection<Document> recipeCollections = recipeDB.getCollection("recipes");
+
+            try (MongoCursor<Document> cursor = recipeCollections.find().iterator()) {
+                while (cursor.hasNext()) {
+                    System.out.println("loading");
+                    Document document = cursor.next();
+                    String stringID = document.get("_id").toString();
+                    String title = document.get("title").toString();
+                    String ingredients = document.get("ingredients").toString();
+                    String steps = document.get("steps").toString();
+                    String mealType = document.getString("mealType"); // Retrieve mealType
+                    String imageURL = document.getString("imageURL");
+                    if (selectedMealType.equals(mealType)) {
+                        System.out.println("found a " + mealType);
+                        String[] rec = {stringID, title, ingredients, steps, mealType, imageURL}; // Include mealType in the array
+                        recipes.add(0, rec);
+                    }
+                }
+                mongoClient.close();
+            }
+        }
+        }
+        return recipes;
+    }
+
+    public static ArrayList<String[]> sortRecipes(String sort){
+        ArrayList<String[]> recipes = new ArrayList<String[]>();
+        
+        try (MongoClient mongoClient = MongoClients.create(URI)) {
+            MongoDatabase recipeDB = mongoClient.getDatabase("recipes_db");
+            MongoCollection<Document> recipeCollections = recipeDB.getCollection("recipes");
+
+            try (MongoCursor<Document> cursor = recipeCollections.find().iterator()) {
+                while (cursor.hasNext()) {
+                    System.out.println("loading");
+                    Document document = cursor.next();
+                    String stringID = document.get("_id").toString();
+                    String title = document.get("title").toString();
+                    String ingredients = document.get("ingredients").toString();
+                    String steps = document.get("steps").toString();
+                    String mealType = document.getString("mealType"); // Retrieve mealType
+                    String imageURL = document.getString("imageURL");
+
+                    String[] rec = {stringID, title, ingredients, steps, mealType, imageURL}; // Include mealType in the array
+
+                    recipes.add(0, rec);
+                }
+                mongoClient.close();
+            }
+        }
+        if (sort.equals("A-Z")) {
+            Collections.sort(recipes, new SortAlphabetically());
+        }
+        else if (sort.equals("Z-A")) {
+            Collections.sort(recipes, new SortReverseAlphabetically());
+        }
+        else if (sort.equals("Reverse")) {
+            Collections.reverse(recipes);
+        }
+        return recipes;
+    }
 }

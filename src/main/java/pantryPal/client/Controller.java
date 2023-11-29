@@ -7,7 +7,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
 
-import java.io.IOException;
 import java.util.*;
 
 import pantryPal.client.UserAccount.AccountManager;
@@ -35,7 +34,7 @@ public class Controller {
     private UI ui;
     private HomePageAppFrame hp;
     private RecipeDisplayAppFrame rd;
-    private RecipeTitle rt = new RecipeTitle("");
+    private RecipeTitle rt = new RecipeTitle("", "");
     private Model model;
     //private User user;
 
@@ -60,13 +59,15 @@ public class Controller {
         this.rd.setBackButtonAction2(this::handleBackButton2);
         this.rd.setDeleteButtonAction(this::handleDeleteButton);
         this.hp.setCreateButtonAction(this::handleCreateButton);
+        this.hp.setFilterButtonAction(this::handleFilterButton);
+        this.hp.setSortButtonAction(this::handleSortButton);
         this.rd.setSaveButtonAction(this::handleSaveButton);
         this.rd.setEditButtonAction(this::handleEditButton);
         this.rt.setViewButtonAction(this::handleViewButton);
         this.rd.setRegenerateButtonAction(event -> {
             try {
                 handleRegenerateButton(event);
-            } catch (InterruptedException | IOException  e) {
+            } catch (InterruptedException | IOException | URISyntaxException  e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
@@ -84,17 +85,91 @@ public class Controller {
         ui.getRoot().setTop(inputFrame.getReturnHeader());
     }
 
+    public void handleSortButton(ActionEvent event) {
+        // for (int i = 0; i < hp.getRecipeList().getChildren().size(); i++) {
+        //     // recipes.add((String[]) hp.getRecipeList().getChildren().get(i));
+        // }
+        
+        // String sort = hp.getHomePageFooter().getSortButton().getValue();
+
+        
+        hp.getRecipeList().getChildren().removeIf(RecipeTitle -> RecipeTitle instanceof RecipeTitle && true); 
+        String selectedMealType = hp.getHomePageFooter().getSortButton().getValue();
+        // System.out.println("Looking for" + selectedMealType);
+        ArrayList<String[]> recipes = RecipeManager.sortRecipes(selectedMealType);
+        for(int i = 0; i < recipes.size(); i++){
+            String stringID = recipes.get(i)[0];
+            String title = recipes.get(i)[1];
+            String ingredients = recipes.get(i)[2];
+            String steps = recipes.get(i)[3];
+            String mealType = recipes.get(i)[4];
+            String imageURL = recipes.get(i)[5];
+            RecipeDisplay recipeDisplay = new RecipeDisplay(stringID, title, ingredients, steps, imageURL);
+            RecipeDisplayAppFrame rec = new RecipeDisplayAppFrame(recipeDisplay);
+            RecipeTitle recipeTitle = new RecipeTitle(stringID, title, rec, mealType);
+            rec.setID(recipeTitle.getID());
+            recipeTitle.getViewButton().setOnAction(e1->{
+                    ui.getRoot().setCenter(recipeTitle.getRecipeDetail()); 
+                    ui.getRoot().setTop(recipeTitle.getRecipeDetail().getRecipeDisplayHeader());
+                    this.rd = rec;
+                    rec.setEditButtonAction(this::handleEditButton);
+                    rec.setSaveButtonAction(this::handleSaveButton);
+                    rec.setDeleteButtonAction(this::handleDeleteButton);
+            });
+            hp.getRecipeList().getChildren().add(recipeTitle);
+            recipeTitle.getRecipeDetail().setBackButtonAction2(this::handleBackButton2);
+            recipeTitle.getRecipeDetail().setLogoutButtonAction(this::handleLogoutButton);
+        }
+    }
+    
+    
+    public void handleFilterButton(ActionEvent event) {
+        hp.getRecipeList().getChildren().removeIf(RecipeTitle -> RecipeTitle instanceof RecipeTitle && true); 
+        String selectedMealType = hp.getHomePageFooter().getFilterButton().getValue();
+        // System.out.println("Looking for" + selectedMealType);
+        ArrayList<String[]> recipes = RecipeManager.filterRecipes(selectedMealType);
+        
+        for(int i = 0; i < recipes.size(); i++){
+            String stringID = recipes.get(i)[0];
+            String title = recipes.get(i)[1];
+            String ingredients = recipes.get(i)[2];
+            String steps = recipes.get(i)[3];
+            String mealType = recipes.get(i)[4];
+            String imageURL = recipes.get(i)[5];
+            RecipeDisplay recipeDisplay = new RecipeDisplay(stringID, title, ingredients, steps, imageURL);
+            RecipeDisplayAppFrame rec = new RecipeDisplayAppFrame(recipeDisplay);
+            RecipeTitle recipeTitle = new RecipeTitle(stringID, title, rec, mealType);
+            rec.setID(recipeTitle.getID());
+            recipeTitle.getViewButton().setOnAction(e1->{
+                    ui.getRoot().setCenter(recipeTitle.getRecipeDetail()); 
+                    ui.getRoot().setTop(recipeTitle.getRecipeDetail().getRecipeDisplayHeader());
+                    this.rd = rec;
+
+                    rec.setEditButtonAction(this::handleEditButton);
+                    rec.setSaveButtonAction(this::handleSaveButton);
+                    rec.setDeleteButtonAction(this::handleDeleteButton);
+
+            });
+            
+            hp.getRecipeList().getChildren().add(recipeTitle);
+            recipeTitle.getRecipeDetail().setBackButtonAction2(this::handleBackButton2);
+            recipeTitle.getRecipeDetail().setLogoutButtonAction(this::handleLogoutButton);
+        }
+    }
+
     public void handleStartButton(ActionEvent event) {
         RecButtons rb = inputFrame.getRecButtons();
         rb.setRecipeText("Recording");
-        input.captureAudio();
+        // perform request 
+        model.performRequest("start", "Whisper");
+        //input.captureAudio();
         inputFrame.getRecButtons().getButtonBox().getChildren().remove(inputFrame.getRecButtons().getStartButton());
         inputFrame.getRecButtons().getButtonBox().getChildren().add(inputFrame.getRecButtons().getStopButton());
     }
     // TODO auto stop when press back
 
     public void handleStopButton(ActionEvent event) throws InterruptedException, IOException {
-        // Stop Button
+                // Stop Button
 
         String promptType = input.getPromptType();
         inputFrame.getRecButtons().getButtonBox().getChildren().remove(inputFrame.getRecButtons().getStopButton());
@@ -102,21 +177,32 @@ public class Controller {
         if(input.stopCapture(promptType)){
             
             if(promptType.equals("MealType")){
-                inputFrame.getRecButtons().setRecipeText("Please input Ingredients.\n\nMeal Type: " + input.getType());
+                inputFrame.getRecButtons().setRecipeText("Please input Ingredients.\n\nMeal Type: " + input.getMealType());
                 input.setPromptType("Ingredients");
             }
             else{
                 
                 inputFrame.getRecButtons().setRecipeText("Recipe Displayed");
-                RecipeDisplay rec = new RecipeDisplay();
                 input.setPromptType("MealType");
-                rc.generateRecipe();
+                String prompt = generateRecipe();
+                model.performRequest(prompt, "ChatGPT");
+                RecipeDisplay rec = new RecipeDisplay();
+
                 try {
                     rp.parse(); 
                     rec.setID(null);
                     rec.setTitle(rp.getTitle());
                     rec.setIngreds(rp.getStringIngredients());
                     rec.setSteps(rp.getStringSteps());
+
+                    // File oldFile = new File("generated_img/temp.jpg");
+                    // oldFile.delete();
+                    String imagePrompt = "Display the dish: " + rp.getTitle() + ", a dish with the ingredients: " + rp.getStringIngredients() + ", like it is a dish in a Recipe Book";
+
+                    String imgURL = model.performRequest(imagePrompt, "DallE");
+
+                    rec.setImage(imgURL);
+
                     System.out.println(rec.getIngredients().getText());
                     System.out.println(rec.getSteps().getText());
                     System.out.println("SDUHFIOSDHFIOSHDOFHSDIOFHSDIOFSIDHFOSDIFHSODi");
@@ -129,7 +215,7 @@ public class Controller {
                     displayRec.setRegenerateButtonAction(ev -> {
                         try {
                             handleRegenerateButton(ev);
-                        } catch (InterruptedException | IOException  e) {
+                        } catch (InterruptedException | IOException | URISyntaxException e) {
                             // TODO Auto-generated catch block
                             e.printStackTrace();
                         }
@@ -155,8 +241,10 @@ public class Controller {
     }
 
     private void handleBackButton(ActionEvent event){
+        
         ui.returnHomePage();   
         resetInput();
+
     }
 
     private void handleBackButton2(ActionEvent event){
@@ -208,7 +296,7 @@ public class Controller {
         }
     }
 
-    public void handleSaveButton(ActionEvent event) {
+    public void handleSaveButton(ActionEvent event)  {
         rd.getIngredients().setEditable(false);
         rd.getSteps();
         if (rd.getID() == null) { // if does not exist in MongoDB 
@@ -217,18 +305,26 @@ public class Controller {
             String title = rd.getTitle().getText();
             String ingredients = rd.getIngredients().getText();
             String steps = rd.getSteps().getText();
-            model.performRequest("PUT", stringID, title, ingredients, steps);
-            
-            RecipeDisplay recipeDisplay = new RecipeDisplay(stringID, title, ingredients, steps);
+            String imgURL = rd.getImage();
+            String mealType = input.getMealType();
+            model.performRequest("PUT", mealType, stringID, title, ingredients, steps, imgURL);
+            // TODO: Add mealType Tag to recipe display
+            RecipeDisplay recipeDisplay = new RecipeDisplay(stringID, title, ingredients, steps, imgURL);
             RecipeDisplayAppFrame rec = new RecipeDisplayAppFrame(recipeDisplay);
-            RecipeTitle recipeDis = new RecipeTitle(stringID, title, rec);
+            RecipeTitle recipeDis = new RecipeTitle(stringID, title, rec, mealType);
             rd.setID(RecipeManager.getStringID());
+
+            // File oldFile = new File("generated_img/temp.jpg");
+            // File newFile = new File("generated_img/" + title.replace(" ","") + ".jpg");
+            // boolean success = oldFile.renameTo(newFile);
+
             recipeDis.setViewButtonAction(this::handleViewButton);
             recipeDis.getRecipeDetail().setBackButtonAction2(this::handleBackButton2);
             recipeDis.getRecipeDetail().setLogoutButtonAction(this::handleLogoutButton);
             this.rt = recipeDis;
             hp.getRecipeList().getChildren().add(recipeDis);
             reload();
+
         }
         else {
             try {
@@ -256,22 +352,31 @@ public class Controller {
     private void handleDeleteButton(ActionEvent event) {
         //System.out.println("HELLOOO");
         String stringID = rd.getID();
-        model.performRequest("DELETE", stringID, null, null, null);
+        model.performRequest("DELETE", null, stringID, null , null, null, null);
         reload();
         ui.returnHomePage();
     }
 
-    private void handleRegenerateButton(ActionEvent event) throws IOException, InterruptedException { 
+    private void handleRegenerateButton(ActionEvent event) throws IOException, InterruptedException, URISyntaxException { 
 
-        RecipeDisplay rec = new RecipeDisplay();
         input.setPromptType("MealType");
-        rc.generateRecipe();
+        RecipeDisplay rec = new RecipeDisplay();
+        String prompt = generateRecipe();
+        model.performRequest(prompt, "ChatGPT");
         try {
             rp.parse(); 
             rec.setID(null);
             rec.setTitle(rp.getTitle());
             rec.setIngreds(rp.getStringIngredients());
             rec.setSteps(rp.getStringSteps());
+
+            // File oldFile = new File("generated_img/temp.jpg");
+            // oldFile.delete();
+            String imagePrompt = "Display the dish: " + rp.getTitle() + ", a dish with the ingredients: " + rp.getStringIngredients() + ", like it is a dish in a Recipe Book";
+
+            String imgURL = model.performRequest(imagePrompt, "DallE");
+
+            rec.setImage(imgURL);
             System.out.println(rec.getIngredients().getText());
             System.out.println(rec.getSteps().getText());
             System.out.println("SDUHFIOSDHFIOSHDOFHSDIOFHSDIOFSIDHFOSDIFHSODi");
@@ -280,11 +385,14 @@ public class Controller {
             displayRec.setLogoutButtonAction(this::handleLogoutButton);
             displayRec.setDeleteButtonAction(this::handleDeleteButton);
             displayRec.setSaveButtonAction(this::handleSaveButton);
+            
+
+            
             displayRec.setEditButtonAction(this::handleEditButton);
             displayRec.setRegenerateButtonAction(ev -> {
                 try {
                     handleRegenerateButton(ev);
-                } catch (InterruptedException | IOException e) {
+                } catch (InterruptedException | IOException | URISyntaxException e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
@@ -294,9 +402,17 @@ public class Controller {
             ui.setDisplayPage(displayRec);
             ui.getRoot().setCenter(displayRec);
             ui.getRoot().setTop(displayRec.getRecipeDisplayHeader());
-        } catch(Exception err){
+        } catch(IOException err){
             err.printStackTrace();
         }
+        this.rd.getRecipe().getRegenerateButton().setStyle("-fx-background-color: #5DBB63; -fx-border-width: 0;");
+        PauseTransition pause = new PauseTransition(
+            Duration.seconds(1)
+        );
+        pause.setOnFinished(e2 -> {
+            this.rd.getRecipe().getRegenerateButton().setStyle("-fx-background-color: #DAE5EA; -fx-border-width: 0;");
+        });
+        pause.play();
     }
 
     private void handleLoginButton(ActionEvent event){
@@ -326,6 +442,11 @@ public class Controller {
         resetInput();
     }
 
+    // filtering
+    // private void handleFilterByMealyButton(String mealType) {
+    //     String response = model.performRequest("GET", mealType, null, null, null, null);
+    // }
+
     public void reload(){
         hp.getRecipeList().getChildren().removeIf(RecipeTitle -> RecipeTitle instanceof RecipeTitle && true);  
         loadRecipes(); // loads recipef
@@ -354,9 +475,11 @@ public class Controller {
             String title = recipes.get(i)[1];
             String ingredients = recipes.get(i)[2];
             String steps = recipes.get(i)[3];
-            RecipeDisplay recipeDisplay = new RecipeDisplay(stringID, title, ingredients, steps);
+            String mealType = recipes.get(i)[4];
+            String imgURL = recipes.get(i)[5];
+            RecipeDisplay recipeDisplay = new RecipeDisplay(stringID, title, ingredients, steps, imgURL);
             RecipeDisplayAppFrame rec = new RecipeDisplayAppFrame(recipeDisplay);
-            RecipeTitle recipeTitle = new RecipeTitle(stringID, title, rec);
+            RecipeTitle recipeTitle = new RecipeTitle(stringID, title, rec, mealType);
             rec.setID(recipeTitle.getID());
             recipeTitle.getViewButton().setOnAction(e1->{
                     ui.getRoot().setCenter(recipeTitle.getRecipeDetail()); 
@@ -374,4 +497,26 @@ public class Controller {
             recipeTitle.getRecipeDetail().setLogoutButtonAction(this::handleLogoutButton);
         }
     }
+
+    public String[] readPrompt() throws IOException {
+        FileReader fr
+        = new FileReader("prompt.txt"); // PLACEHOLDER NAME
+        BufferedReader br = new BufferedReader(fr);
+        String mealType = br.readLine();
+        String prompt = br.readLine();
+        String [] info = {prompt,mealType};
+        br.close();
+        return info;
+    }
+
+    public String generateRecipe() throws IOException, InterruptedException {
+        String[] info = readPrompt();
+        String rawPrompt = info[0];
+        String mealType = info[1];
+        String formattedPrompt = IRecipeCreator.formatPrompt(mealType, rawPrompt);
+        // System.out.println(formattedPrompt);
+
+        return formattedPrompt;
+    }
+
 }

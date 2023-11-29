@@ -5,6 +5,8 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 public class RecipeDisplayAppFrame extends BorderPane {
 
@@ -14,6 +16,7 @@ public class RecipeDisplayAppFrame extends BorderPane {
     private String id;
     private Boolean editable = false;
     private RecipeDisplay recipe;
+    private String img;
 
     public RecipeDisplayAppFrame(RecipeDisplay r) {
 
@@ -33,6 +36,7 @@ public class RecipeDisplayAppFrame extends BorderPane {
         System.out.println(ingredients.getText());
         steps = recipe.getSteps();
         System.out.println(steps.getText());
+        img = recipe.getImage();
         ScrollPane scrollPane = new ScrollPane(recipe);
         scrollPane.setFitToWidth(true);
         scrollPane.setFitToHeight(true);
@@ -63,6 +67,10 @@ public class RecipeDisplayAppFrame extends BorderPane {
 
     public TextArea getSteps() {
         return steps;
+    }
+
+    public String getImage(){
+        return img;
     }
 
     public Button getEditButton() {

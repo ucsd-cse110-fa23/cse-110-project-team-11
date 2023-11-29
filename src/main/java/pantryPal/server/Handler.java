@@ -2,8 +2,13 @@ package pantryPal.server;
 
 import com.sun.net.httpserver.*;
 
+import pantryPal.client.DallE;
+import pantryPal.client.ChatGPT;
+import pantryPal.client.Whisper;
 import pantryPal.client.RecipeManager;
 import pantryPal.client.UserAccount.AccountManager;
+import pantryPal.client.Input;
+
 
 import com.sun.net.httpserver.*;
 import java.io.*;
@@ -11,6 +16,7 @@ import java.net.*;
 import java.util.*;
 
 public class Handler implements HttpHandler {
+    Input input = new Input();
     /**
      * Methods to handle:
      * GET recipes to search for a recipe
@@ -54,17 +60,49 @@ public class Handler implements HttpHandler {
      * @throws IOException
      */
     private String handleGet(HttpExchange httpExchange) throws IOException {
-        String response = "Invalid GET request";
+        String response = "Invalid GET Request";
+        
+        try {
+            // Should read the stuff from the httpRequest from Model
+            InputStream inStream = httpExchange.getRequestBody();
+            BufferedReader br = new BufferedReader(new InputStreamReader(inStream));
+            StringBuilder postData = new StringBuilder();
 
-        URI uri = httpExchange.getRequestURI();
-        String query = uri.getRawQuery();
-        if (query != null) {
-            String id = query.substring(query.indexOf("=") + 1);    // id of recipe?
+            // adds all the data into one line
+            String line;
+            while ((line = br.readLine()) != null) {
+                postData.append(line);
+            }
 
-            // TODO: search for the recipe, stuff like that
-            response = "found";
+            // System.out.println("postdata: " + postData);
+            String[] data = postData.toString().split(";");
+
+            String decodedInput = new String(Base64.getDecoder().decode(data[0]));
+            String decodedAPI = new String(Base64.getDecoder().decode(data[1]));
+            
+            if (decodedAPI.equals("DallE")) {
+                response = DallE.callAPI(decodedInput);
+            }
+
+            else if (decodedAPI.equals("ChatGPT")) {
+                response = ChatGPT.callAPI(decodedInput);
+            }
+
+            else if (decodedAPI.equals("Whisper")) {
+                input.captureAudio();
+                response = "captured audio";
+            }
+
+            else {
+                response = "Invalid API";
+            }
+            // System.out.println(response);
+            return response;
         }
-        return response;
+        catch (Exception e) {
+            e.printStackTrace(); // Log the exception
+            return "Error handling GET request";
+        }
     }
 
     /**
@@ -89,17 +127,21 @@ public class Handler implements HttpHandler {
             String [] info = postData.toString().split(";");
 
             // recipe collection
-            if (info.length == 4) {
+            if (info.length == 5) {
                 // System.out.println("postdata: " + postData);
-                String decodedTitle = new String(Base64.getDecoder().decode(info[0]));
-                String decodedIngredients = new String(Base64.getDecoder().decode(info[1]));
-                String decodedSteps = new String(Base64.getDecoder().decode(info[2]));
+                String decodedMealType = new String(Base64.getDecoder().decode(info[0]));
+                String decodedTitle = new String(Base64.getDecoder().decode(info[1]));
+                String decodedIngredients = new String(Base64.getDecoder().decode(info[2]));
+                String decodedSteps = new String(Base64.getDecoder().decode(info[3]));
+                String decodedImage = new String(Base64.getDecoder().decode(info[4]));
 
                 // System.out.println("Decoded Title: " + decodedTitle);
                 // System.out.println("Decoded Ingredients: " + decodedIngredients);
                 // System.out.println("Decoded Steps: " + decodedSteps);
+                // System.out.println("Decoded Steps: " + decodedMealType);
 
-                String[] result = RecipeManager.insertRecipe(decodedTitle, decodedIngredients, decodedSteps);
+
+                String[] result = RecipeManager.insertRecipe(decodedMealType, decodedTitle, decodedIngredients, decodedSteps, decodedImage);
 
                 response = "INSERTED THE RECIPE" + result;
                 // System.out.println(response);
