@@ -20,7 +20,7 @@ class RecipeRegenerateTest {
      * BDD Scenario 1 
      */
     @Test
-    void testRecipeRegeneration() {
+    void testRecipeRegenerationAndSave() {
         // Regenerated the recipe
         String input = "chicken banana carrots";
         List<String> ingredients = Arrays.asList(input.split(" "));
