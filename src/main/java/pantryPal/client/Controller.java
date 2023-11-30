@@ -1,6 +1,7 @@
 package pantryPal.client;
 import javafx.animation.PauseTransition;
 import javafx.event.ActionEvent;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
@@ -37,6 +38,7 @@ public class Controller {
     private RecipeDisplayAppFrame rd;
     private RecipeTitle rt = new RecipeTitle("", "");
     private Model model;
+    private String filterState = "";
     ImageGenerator img = new ImageGenerator();
 
     public Controller(UI ui, Model model) {
@@ -87,6 +89,62 @@ public class Controller {
     }
 
     public void handleSortButton(ActionEvent event) {
+        String selectedMealType = hp.getHomePageFooter().getSortButton().getValue();
+        if (selectedMealType.equals("A-Z")) {
+            // Create a copy of the children list
+            List<Node> sortedList = new ArrayList<>(hp.getRecipeList().getChildren());
+    
+            // Sort the copy
+            Collections.sort(sortedList, new SortAlphabetically());
+    
+            // Clear the original list and add the sorted elements
+            hp.getRecipeList().getChildren().clear();
+            hp.getRecipeList().getChildren().addAll(sortedList);
+        }
+        else if (selectedMealType.equals("Z-A")) {
+            // Create a copy of the children list
+            List<Node> sortedList = new ArrayList<>(hp.getRecipeList().getChildren());
+    
+            // Sort the copy
+            Collections.sort(sortedList, new SortReverseAlphabetically());
+    
+            // Clear the original list and add the sorted elements
+            hp.getRecipeList().getChildren().clear();
+            hp.getRecipeList().getChildren().addAll(sortedList);
+        }
+        else {
+            hp.getRecipeList().getChildren().removeIf(RecipeTitle -> RecipeTitle instanceof RecipeTitle && true);
+            ArrayList<String[]> recipes = RecipeManager.sortRecipes(selectedMealType, filterState);
+            for(int i = 0; i < recipes.size(); i++){
+                String stringID = recipes.get(i)[0];
+                String title = recipes.get(i)[1];
+                String ingredients = recipes.get(i)[2];
+                String steps = recipes.get(i)[3];
+                String mealType = recipes.get(i)[4];
+                String imageURL = recipes.get(i)[5];
+                RecipeDisplay recipeDisplay = new RecipeDisplay(stringID, title, ingredients, steps, imageURL);
+                RecipeDisplayAppFrame rec = new RecipeDisplayAppFrame(recipeDisplay);
+                RecipeTitle recipeTitle = new RecipeTitle(stringID, title, rec, mealType);
+                rec.setID(recipeTitle.getID());
+                recipeTitle.getViewButton().setOnAction(e1->{
+                        ui.getRoot().setCenter(recipeTitle.getRecipeDetail()); 
+                        ui.getRoot().setTop(recipeTitle.getRecipeDetail().getRecipeDisplayHeader());
+                        this.rd = rec;
+                        rec.setEditButtonAction(this::handleEditButton);
+                        rec.setSaveButtonAction(this::handleSaveButton);
+                        rec.setDeleteButtonAction(this::handleDeleteButton);
+                });
+                hp.getRecipeList().getChildren().add(recipeTitle);
+                recipeTitle.getRecipeDetail().setBackButtonAction2(this::handleBackButton2);
+                recipeTitle.getRecipeDetail().setLogoutButtonAction(this::handleLogoutButton);
+            }
+        }
+        System.out.println("done sorting");
+    }
+    
+
+    
+     /*
         // for (int i = 0; i < hp.getRecipeList().getChildren().size(); i++) {
         //     // recipes.add((String[]) hp.getRecipeList().getChildren().get(i));
         // }
@@ -94,9 +152,9 @@ public class Controller {
         // String sort = hp.getHomePageFooter().getSortButton().getValue();
 
         
-        hp.getRecipeList().getChildren().removeIf(RecipeTitle -> RecipeTitle instanceof RecipeTitle && true); 
-        String selectedMealType = hp.getHomePageFooter().getSortButton().getValue();
+        // hp.getRecipeList().getChildren().removeIf(RecipeTitle -> RecipeTitle instanceof RecipeTitle && true); 
         // System.out.println("Looking for" + selectedMealType);
+       
         ArrayList<String[]> recipes = RecipeManager.sortRecipes(selectedMealType);
         for(int i = 0; i < recipes.size(); i++){
             String stringID = recipes.get(i)[0];
@@ -121,12 +179,16 @@ public class Controller {
             recipeTitle.getRecipeDetail().setBackButtonAction2(this::handleBackButton2);
             recipeTitle.getRecipeDetail().setLogoutButtonAction(this::handleLogoutButton);
         }
-    }
+        */
+      
+    
+
     
     
     public void handleFilterButton(ActionEvent event) {
         hp.getRecipeList().getChildren().removeIf(RecipeTitle -> RecipeTitle instanceof RecipeTitle && true); 
         String selectedMealType = hp.getHomePageFooter().getFilterButton().getValue();
+        filterState = selectedMealType;
         // System.out.println("Looking for" + selectedMealType);
         ArrayList<String[]> recipes = RecipeManager.filterRecipes(selectedMealType);
         

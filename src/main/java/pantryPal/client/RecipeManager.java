@@ -274,6 +274,7 @@ public class RecipeManager {
                 mongoClient.close();
             }
         }
+        /*
         if (sort.equals("A-Z")) {
             Collections.sort(recipes, new SortAlphabetically());
         }
@@ -281,6 +282,23 @@ public class RecipeManager {
             Collections.sort(recipes, new SortReverseAlphabetically());
         }
         else if (sort.equals("Reverse")) {
+            Collections.reverse(recipes);
+        }
+        */
+        return recipes;
+    }
+
+    public static ArrayList<String[]> sortRecipes(String sort, String filterState){
+        ArrayList<String[]> recipes = filterRecipes(filterState);
+        /*
+        if (sort.equals("A-Z")) {
+            Collections.sort(recipes, new SortAlphabetically());
+        }
+        else if (sort.equals("Z-A")) {
+            Collections.sort(recipes, new SortReverseAlphabetically());
+        }
+        */ 
+       if (sort.equals("Reverse")) {
             Collections.reverse(recipes);
         }
         return recipes;
