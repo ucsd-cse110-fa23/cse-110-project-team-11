@@ -3,13 +3,14 @@ package pantryPal.client;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.net.ConnectException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URI;
 import java.util.Base64;
 
 public class Model {
-    public String performRequest(String method, String username, String password) {
+    public String performRequest(String method, String username, String password) throws ConnectException {
         try {
             String urlString = "http://localhost:8100/";
             // if (id != null) {
@@ -30,6 +31,7 @@ public class Model {
                     out.write(encodedUsername + ";" + encodedPassword);
                     out.flush();
                 }
+                
             }
             
 
@@ -39,13 +41,17 @@ public class Model {
                 System.out.println("RESPONSE: "+ response);
                 return response;
             }
+        }   
+        catch (ConnectException err) {
+            throw new ConnectException("Server Error");
+        
 
         } catch (Exception ex) {
             ex.printStackTrace();
-            return null;
+            return "Error handling PUT request";
         }
     }
-    public String performRequest (String method, String mealType, String id, String title, String ingredients, String steps, String imgURL) {
+    public String performRequest (String method, String mealType, String id, String title, String ingredients, String steps, String imgURL) throws ConnectException{
         try {
             String urlString = "http://localhost:8100/";
             if (id != null) {
@@ -82,6 +88,11 @@ public class Model {
                 return response;
             }
 
+        } 
+        catch (ConnectException err) {
+            throw new ConnectException("Server Error");
+        
+
         } catch (Exception ex) {
             ex.printStackTrace();
             return null;
@@ -89,7 +100,7 @@ public class Model {
     }
 
     // GET for API
-    public String performRequest(String input, String API){
+    public String performRequest(String input, String API) throws ConnectException {
         try {
             String urlString = "http://localhost:8100/";
             
@@ -118,7 +129,13 @@ public class Model {
                 return response;
             }
 
-        } catch (Exception ex) {
+        } 
+        catch (ConnectException err) {
+            throw new ConnectException("Server Error");
+        
+
+        }
+        catch (Exception ex) {
             ex.printStackTrace();
             return null;
         }

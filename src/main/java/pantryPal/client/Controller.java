@@ -6,6 +6,9 @@ import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
 
 import java.util.*;
 
@@ -158,13 +161,19 @@ public class Controller {
     }
 
     public void handleStartButton(ActionEvent event) {
-        RecButtons rb = inputFrame.getRecButtons();
-        rb.setRecipeText("Recording");
-        // perform request 
-        model.performRequest("start", "Whisper");
-        //input.captureAudio();
-        inputFrame.getRecButtons().getButtonBox().getChildren().remove(inputFrame.getRecButtons().getStartButton());
-        inputFrame.getRecButtons().getButtonBox().getChildren().add(inputFrame.getRecButtons().getStopButton());
+        try {
+            RecButtons rb = inputFrame.getRecButtons();
+            rb.setRecipeText("Recording");
+            // perform request 
+            model.performRequest("start", "Whisper");
+            //input.captureAudio();
+            inputFrame.getRecButtons().getButtonBox().getChildren().remove(inputFrame.getRecButtons().getStartButton());
+            inputFrame.getRecButtons().getButtonBox().getChildren().add(inputFrame.getRecButtons().getStopButton());
+        }
+        catch (ConnectException err) {
+            Alert a = new Alert(AlertType.ERROR, "Server is Offline", ButtonType.OK);
+            a.showAndWait();
+        }
     }
     // TODO auto stop when press back
 
@@ -297,51 +306,57 @@ public class Controller {
     }
 
     public void handleSaveButton(ActionEvent event)  {
-        rd.getIngredients().setEditable(false);
-        rd.getSteps();
-        if (rd.getID() == null) { // if does not exist in MongoDB 
-            // System.out.println("HANDLE SAVE BUTTON (CONTROLLER)");
-            String stringID = rd.getID();
-            String title = rd.getTitle().getText();
-            String ingredients = rd.getIngredients().getText();
-            String steps = rd.getSteps().getText();
-            String imgURL = rd.getImage();
-            String mealType = input.getMealType();
-            model.performRequest("PUT", mealType, stringID, title, ingredients, steps, imgURL);
-            // TODO: Add mealType Tag to recipe display
-            RecipeDisplay recipeDisplay = new RecipeDisplay(stringID, title, ingredients, steps, imgURL);
-            RecipeDisplayAppFrame rec = new RecipeDisplayAppFrame(recipeDisplay);
-            RecipeTitle recipeDis = new RecipeTitle(stringID, title, rec, mealType);
-            rd.setID(RecipeManager.getStringID());
+        try {
+            rd.getIngredients().setEditable(false);
+            rd.getSteps();
+            if (rd.getID() == null) { // if does not exist in MongoDB 
+                // System.out.println("HANDLE SAVE BUTTON (CONTROLLER)");
+                String stringID = rd.getID();
+                String title = rd.getTitle().getText();
+                String ingredients = rd.getIngredients().getText();
+                String steps = rd.getSteps().getText();
+                String imgURL = rd.getImage();
+                String mealType = input.getMealType();
+                model.performRequest("PUT", mealType, stringID, title, ingredients, steps, imgURL);
+                // TODO: Add mealType Tag to recipe display
+                RecipeDisplay recipeDisplay = new RecipeDisplay(stringID, title, ingredients, steps, imgURL);
+                RecipeDisplayAppFrame rec = new RecipeDisplayAppFrame(recipeDisplay);
+                RecipeTitle recipeDis = new RecipeTitle(stringID, title, rec, mealType);
+                rd.setID(RecipeManager.getStringID());
 
-            // File oldFile = new File("generated_img/temp.jpg");
-            // File newFile = new File("generated_img/" + title.replace(" ","") + ".jpg");
-            // boolean success = oldFile.renameTo(newFile);
+                // File oldFile = new File("generated_img/temp.jpg");
+                // File newFile = new File("generated_img/" + title.replace(" ","") + ".jpg");
+                // boolean success = oldFile.renameTo(newFile);
 
-            recipeDis.setViewButtonAction(this::handleViewButton);
-            recipeDis.getRecipeDetail().setBackButtonAction2(this::handleBackButton2);
-            recipeDis.getRecipeDetail().setLogoutButtonAction(this::handleLogoutButton);
-            this.rt = recipeDis;
-            hp.getRecipeList().getChildren().add(recipeDis);
-            reload();
+                recipeDis.setViewButtonAction(this::handleViewButton);
+                recipeDis.getRecipeDetail().setBackButtonAction2(this::handleBackButton2);
+                recipeDis.getRecipeDetail().setLogoutButtonAction(this::handleLogoutButton);
+                this.rt = recipeDis;
+                hp.getRecipeList().getChildren().add(recipeDis);
+                reload();
 
-        }
-        else {
-            try {
-                RecipeManager.updateRecipe(rd.getTitle().getText(), rd.getIngredients().getText(), rd.getSteps().getText(), rd.getID());
-            } catch (IOException e1) {
-                
-                e1.printStackTrace();
             }
+            else {
+                try {
+                    RecipeManager.updateRecipe(rd.getTitle().getText(), rd.getIngredients().getText(), rd.getSteps().getText(), rd.getID());
+                } catch (IOException e1) {
+                    
+                    e1.printStackTrace();
+                }
+            }
+            this.rd.getRecipe().getSaveButton().setStyle("-fx-background-color: #5DBB63; -fx-border-width: 0;");
+            PauseTransition pause = new PauseTransition(
+                Duration.seconds(1)
+            );
+            pause.setOnFinished(e2 -> {
+                this.rd.getRecipe().getSaveButton().setStyle("-fx-background-color: #DAE5EA; -fx-border-width: 0;");
+            });
+            pause.play();
         }
-        this.rd.getRecipe().getSaveButton().setStyle("-fx-background-color: #5DBB63; -fx-border-width: 0;");
-        PauseTransition pause = new PauseTransition(
-            Duration.seconds(1)
-        );
-        pause.setOnFinished(e2 -> {
-            this.rd.getRecipe().getSaveButton().setStyle("-fx-background-color: #DAE5EA; -fx-border-width: 0;");
-        });
-        pause.play();
+        catch (ConnectException err) {
+            Alert a = new Alert(AlertType.ERROR, "Server is Offline", ButtonType.OK);
+            a.showAndWait();
+        }
     }
 
     private void handleViewButton(ActionEvent event){
@@ -350,11 +365,17 @@ public class Controller {
     }
 
     private void handleDeleteButton(ActionEvent event) {
-        //System.out.println("HELLOOO");
-        String stringID = rd.getID();
-        model.performRequest("DELETE", null, stringID, null , null, null, null);
-        reload();
-        ui.returnHomePage();
+        
+        try {
+            String stringID = rd.getID();
+            model.performRequest("DELETE", null, stringID, null , null, null, null);
+            reload();
+            ui.returnHomePage();
+        }
+        catch (ConnectException err) {
+            Alert a = new Alert(AlertType.ERROR, "Server is Offline", ButtonType.OK);
+            a.showAndWait();
+        } 
     }
 
     private void handleRegenerateButton(ActionEvent event) throws IOException, InterruptedException, URISyntaxException { 
@@ -416,18 +437,34 @@ public class Controller {
     }
 
     private void handleLoginButton(ActionEvent event){
-        model.performRequest("GET", lp.getUsername(), lp.getPassword());
-        
-        ui.returnHomePage(); 
+        try {
+            model.performRequest("GET", lp.getUsername(), lp.getPassword());
+            
+            ui.returnHomePage(); 
+        }
+
+        catch (ConnectException err) {
+            Alert a = new Alert(AlertType.ERROR, "Server Error", ButtonType.OK);
+            a.showAndWait();
+        }
     }
 
     private void handleCreateAccButton(ActionEvent event){
-        String response = model.performRequest("PUT", lp.getUsername(), lp.getPassword());
-        if(!response.equals("Error handling PUT request")) {
-            ui.returnHomePage(); 
-        } else {
-            // TODO: display account creation error
+
+        try {
+            String response = model.performRequest("PUT", lp.getUsername(), lp.getPassword());
+            
+            if(!response.equals("Error handling PUT request")) { //TODO: throws error because response can be Null
+                ui.returnHomePage(); 
+            } else {
+                // TODO: display account creation error
+            }
+
+        } catch (ConnectException err) {
+            Alert a = new Alert(AlertType.ERROR, "Server is Offline", ButtonType.OK);
+            a.showAndWait();
         }
+
     }
 
     private void handleLogoutButton(ActionEvent event){
