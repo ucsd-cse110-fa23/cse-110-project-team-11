@@ -184,7 +184,7 @@ public class Controller {
         inputFrame.getRecButtons().getButtonBox().getChildren().remove(inputFrame.getRecButtons().getStopButton());
         inputFrame.getRecButtons().getButtonBox().getChildren().add(inputFrame.getRecButtons().getStartButton());
         if(input.stopCapture(promptType)){
-            
+        //TODO STOP BUTTON should prob not work without server
             if(promptType.equals("MealType")){
                 inputFrame.getRecButtons().setRecipeText("Please input Ingredients.\n\nMeal Type: " + input.getMealType());
                 input.setPromptType("Ingredients");
@@ -307,6 +307,7 @@ public class Controller {
 
     public void handleSaveButton(ActionEvent event)  {
         try {
+            //TODO Save still works without server
             rd.getIngredients().setEditable(false);
             rd.getSteps();
             if (rd.getID() == null) { // if does not exist in MongoDB 
