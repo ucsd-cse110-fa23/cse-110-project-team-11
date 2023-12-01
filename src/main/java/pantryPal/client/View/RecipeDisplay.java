@@ -17,6 +17,7 @@ public class RecipeDisplay extends BorderPane {
     private Button editButton, saveButton, deleteButton, regenerateButton, shareButton;
     private String imgURL = "https://hips.hearstapps.com/hmg-prod/images/dog-puppy-on-garden-royalty-free-image-1586966191.jpg?crop=0.752xw:1.00xh;0.175xw,0&resize=1200:*";
     private ImageView mealImage;
+    private String mealType;
     
     public RecipeDisplay() {
         this.setPrefSize(500, 20); // sets size of task
@@ -131,8 +132,10 @@ public class RecipeDisplay extends BorderPane {
         this.setCenter(center);
     }
 
-    public RecipeDisplay(String idString, String titleString, String ingredientString, String stepsString, String imageURL) {
+    public RecipeDisplay(String idString, String titleString, String ingredientString, String stepsString, String imageURL, String mType) {
         this.id = idString;
+
+        this.mealType = mType;
 
         this.setPrefSize(500, 20); // sets size of task
         this.setStyle("-fx-background-color: #FFFFFF; -fx-border-width: 0; -fx-font-weight: bold;"); // sets background color of task
@@ -277,6 +280,14 @@ public class RecipeDisplay extends BorderPane {
 
     public TextArea getSteps() {
         return this.steps;
+    }
+
+    public String getMealType(){
+        return this.mealType;
+    }
+
+    public void setMealType(String type){
+        this.mealType = type;
     }
 
     // Getters for recipe metadata

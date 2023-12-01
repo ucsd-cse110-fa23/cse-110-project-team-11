@@ -66,7 +66,7 @@ public class RecipeManagerTest {
                         String steps = recipes.get(i)[4];
                         String imgURL = recipes.get(i)[5];
                         
-                        RecipeDisplay recipeDisplay = new RecipeDisplay(stringID, title, ingredients, steps, imgURL);
+                        RecipeDisplay recipeDisplay = new RecipeDisplay(stringID, title, ingredients, steps, imgURL, mealType);
                         RecipeDisplayAppFrame rec = new RecipeDisplayAppFrame(recipeDisplay);
                         RecipeTitle recipeTitle = new RecipeTitle(stringID, title, rec, mealType);
                         // recipes.get(i).setViewButtonAction(this::handleViewButton);
