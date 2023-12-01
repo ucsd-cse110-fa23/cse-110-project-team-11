@@ -3,6 +3,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.layout.*;
 import javafx.scene.control.TextField;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.Label;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -12,16 +13,16 @@ import javax.swing.GroupLayout.Alignment;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.text.*;
+import pantryPal.client.UserAccount.Password;
 
 public class LoginPageAppFrame extends BorderPane {
 
     private Button loginButton, createAccButton;
 
-    private Label introText;
-    private Text titleText;
+    private VBox titleBox;
     private VBox loginBox;
     private TextField username;
-    private TextField password;
+    private PasswordField password;
     private Label message;
 
     String defaultButtonStyle = "-fx-border-color: #000000; -fx-font: 18 arial; -fx-pref-width: 165; -fx-pref-height: 30;";
@@ -34,20 +35,20 @@ public class LoginPageAppFrame extends BorderPane {
 
     public LoginPageAppFrame(){
 
-        introText = new Label("Welcome to ");
+        Label introText = new Label("Welcome to ");
         introText.setStyle(defaultHeaderStyle);
-        introText.setAlignment(Pos.BOTTOM_CENTER);
 
         VBox top = new VBox(introText);
-        top.setAlignment(Pos.BASELINE_CENTER);
+        top.setAlignment(Pos.TOP_CENTER);
 
-        titleText = new Text("PantryPal"); // Text of the Header
+        Text titleText = new Text("PantryPal"); // Text of the Header
         titleText.setStyle(defaultTitleStyle);
         VBox center = new VBox(titleText);
         center.setAlignment(Pos.BOTTOM_CENTER);
 
-        VBox titleBox = new VBox(top, center);
+        titleBox = new VBox(top, center);
         titleBox.setSpacing(10);
+        //titleBox.setAlignment(Pos.CENTER)
 
         Text usernameText = new Text("Username: ");
         usernameText.setStyle(defaultTextStyle);
@@ -57,7 +58,7 @@ public class LoginPageAppFrame extends BorderPane {
         username = new TextField();
         username.setEditable(true);
         username.setPrefSize(175, 30);
-        password = new TextField();
+        password = new PasswordField();
         password.setEditable(true);
         password.setPrefSize(175, 30);
 
@@ -77,12 +78,13 @@ public class LoginPageAppFrame extends BorderPane {
 
         message = new Label("");
         message.setStyle("-fx-text-alignment: center; -fx-font: 16 arial; -fx-pref-width: 175px; -fx-pref-height: 100px; -fx-text-fill: red;");
+        message.setWrapText(true);
         
         HBox buttonBox = new HBox(loginButton, createAccButton);
         buttonBox.setAlignment(Pos.CENTER);
 
         CheckBox auto = new CheckBox("Auto Log-In?");
-        auto.setPrefSize(100, 50);
+        auto.setAlignment(Pos.CENTER);
         
 
         loginBox = new VBox(usernameBox, passwordBox, message, buttonBox, auto);
@@ -113,12 +115,9 @@ public class LoginPageAppFrame extends BorderPane {
         createAccButton.setOnAction(eventHandler);
     }
 
-    public Label getIntro(){
-        return introText;
-    }
-
-    public Text getTitle(){
-        return titleText;
+    
+    public VBox getTitleBox(){
+        return titleBox;
     }
 
     public VBox getLogin(){

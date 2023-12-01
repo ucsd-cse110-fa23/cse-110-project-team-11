@@ -46,6 +46,7 @@ public class Handler implements HttpHandler {
                 throw new Exception("Not Valid Request Method");
             }
         } catch (Exception e) {
+            
             System.out.println("An erroneous request");
             response = e.toString();
             e.printStackTrace();
@@ -64,7 +65,9 @@ public class Handler implements HttpHandler {
      * @return
      * @throws IOException
      */
-    private String handleGet(HttpExchange httpExchange) throws IOException {
+    private String handleGet(HttpExchange httpExchange) throws IOException, URISyntaxException, InterruptedException  {
+        
+        System.out.println("jeremy");
         URI uri = httpExchange.getRequestURI();
         String query = uri.getRawQuery();
         String response = "";
@@ -81,7 +84,60 @@ public class Handler implements HttpHandler {
                     response = "Account not found";
             }
             else if (tag.equals("api")) {
-                String apiCall = query.substring(query.indexOf("=") + 1);
+                
+                String apiCall = query.substring(query.indexOf("=")+1, query.indexOf("&"));
+                String temp = query.substring(query.indexOf("&")+1);
+                String encodedInput = temp.substring(temp.indexOf("=")+1);
+                String decodedInput = new String(Base64.getDecoder().decode(encodedInput));
+
+                if (apiCall.equals("DallE")) {
+                    response = DallE.callAPI(decodedInput);
+                }
+
+                else if (apiCall.equals("ChatGPT")) {
+                    response = ChatGPT.callAPI(decodedInput);
+                }
+
+                else if (apiCall.equals("Whisper")) {
+                    
+                    if(decodedInput.equals("start")){
+                        input.captureAudio();
+                        response = "captured audio";
+                    }
+                    else if (decodedInput.equals("Reset")){
+                        input.setPromptType("MealType"); 
+                        if(input.getMic() != null){
+                            input.getMic().stop();
+                            input.getMic().close();
+                            return "Input reset";
+                        }  
+                    }
+                    else {
+                        
+                        boolean res = input.stopCapture();
+                        if(res){
+                            if(input.getPromptType().equals("MealType")){
+                                input.setPromptType("Ingredients");
+                                return input.getMealType();
+                            }
+                            else {
+                                input.setPromptType("MealType");
+                                return "valid";
+                            }
+                        }
+                        else {
+                            return input.getTranscription();
+                        }
+                    }
+                    
+                }
+
+                else {
+                    response = "Invalid API";
+                }
+                System.out.println("adskhjfhioausdhioadsijodfsijo " + response);
+                return response;
+                
             }
         }
         else 

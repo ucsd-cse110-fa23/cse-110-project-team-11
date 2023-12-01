@@ -36,7 +36,7 @@ public class App extends Application {
         RecipeDisplayAppFrame dp = new RecipeDisplayAppFrame(new RecipeDisplay());
         LoginPageAppFrame lp = new LoginPageAppFrame();
         UI ui = new UI(root, hp, ip, dp, lp);
-        root.setCenter(lp);
+        ui.setLoginPage();
         // root.setTop(hp.getHomePageHeader());
         
         Model model = new Model();

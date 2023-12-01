@@ -133,7 +133,7 @@ public class RecipeTitle extends BorderPane {
     }  
 
     public String getRecipeTitle() {
-        return title.toString();
+        return title.getText();
     }
 
     public String getID() {

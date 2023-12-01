@@ -104,16 +104,25 @@ public class Model {
 
     // GET for API
     public String performRequest(String input, String API) throws ConnectException {
+        
         try {
+            
             String urlString = "http://localhost:8100/";
+            String encodedInput = Base64.getEncoder().encodeToString(input.getBytes());
             if (API != null) {
-                urlString += "?api=" + API;
+                urlString += "?api=" + API + "&input=" + encodedInput;
             }    
             URL url = new URI(urlString).toURL();
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
             conn.setDoOutput(true);
-            return API;
+            try (BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()))) {
+
+                String response = in.readLine(); // reading response from the server
+                System.out.println("RESPONSE: "+ response);
+                return response;
+            }
+            
         } 
         catch (ConnectException err) {
             throw new ConnectException("Server Error");

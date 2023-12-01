@@ -12,6 +12,7 @@ public class InputAppFrame extends BorderPane {
     private ReturnHeader header;
     private Button startButton,stopButton,backButton, logoutButton;
     private RecButtons recButton;
+    private String mealType;
 
     public InputAppFrame() {
         // header = new Header();
@@ -60,5 +61,11 @@ public class InputAppFrame extends BorderPane {
     public RecButtons getRecButtons(){
         return recButton;
     }     
-    
+    public String getMealType() {
+        return this.mealType;
+    }
+
+    public void setMealType(String s){
+        this.mealType = s;
+    }
 }

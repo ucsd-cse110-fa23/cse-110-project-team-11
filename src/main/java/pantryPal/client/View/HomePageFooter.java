@@ -19,6 +19,7 @@ public class HomePageFooter extends BorderPane {
         filterButton.getItems().add("Lunch");
         filterButton.getItems().add("Dinner");
         filterButton.setPrefSize(100,50);
+        filterButton.getSelectionModel().selectFirst();
 
         sortButton = new ComboBox<>();
         sortButton.getItems().add("Default");
@@ -26,6 +27,7 @@ public class HomePageFooter extends BorderPane {
         sortButton.getItems().add("A-Z");
         sortButton.getItems().add("Z-A");
         sortButton.setPrefSize(100,50);
+        sortButton.getSelectionModel().selectFirst();
 
         VBox buttonBox = new VBox(filterButton);
         buttonBox.setAlignment(Pos.TOP_RIGHT);

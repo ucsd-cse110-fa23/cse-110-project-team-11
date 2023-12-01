@@ -63,17 +63,18 @@ public class Input {
         
     }
 
-    public boolean stopCapture(String inputType){
+    public boolean stopCapture(){
         if (mic != null){
             mic.stop();
             mic.close();
 
-            if(inputType.equals("MealType")){
+            if(promptType.equals("MealType")){
                 try {
 
                     thread.join();
                     transcription = Whisper.callAPI();
-                    type = typeParser(transcription);
+                    this.type = typeParser(transcription);
+                    System.out.println(this.type);
                     if(type.equals("Invalid")){
                         return false;
                     }
@@ -98,7 +99,7 @@ public class Input {
                 }
 
             }
-            else if (inputType.equals("Ingredients")){
+            else if (promptType.equals("Ingredients")){
                 try {
                     thread.join();
                     transcription = Whisper.callAPI();
@@ -167,24 +168,5 @@ public class Input {
         }
     }
 
-    public void main(String[] args) throws InterruptedException {
-        System.out.println("Recording");
-        captureAudio();
-
-        Thread.sleep(5000);
-
-        System.out.println("Stopped");
-        boolean t = stopCapture("MealType");
-
-        if(t){
-            System.out.println("Recording");
-            captureAudio();
-            Thread.sleep(10000);
-            System.out.println("Stopped");
-            stopCapture("Ingredients");
-        }
-        else{
-            System.out.println("Failed");
-        }
-    }
+ 
 }
