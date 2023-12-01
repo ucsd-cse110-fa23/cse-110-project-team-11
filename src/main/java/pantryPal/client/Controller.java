@@ -308,8 +308,9 @@ public class Controller {
     public void handleSaveButton(ActionEvent event)  {
         try {
             //TODO Save still works without server
+            //TODO make sure all windows library added to main
+
             rd.getIngredients().setEditable(false);
-            rd.getSteps();
             if (rd.getID() == null) { // if does not exist in MongoDB 
                 // System.out.println("HANDLE SAVE BUTTON (CONTROLLER)");
                 String stringID = rd.getID();
@@ -323,7 +324,7 @@ public class Controller {
                 RecipeDisplay recipeDisplay = new RecipeDisplay(stringID, title, ingredients, steps, imgURL);
                 RecipeDisplayAppFrame rec = new RecipeDisplayAppFrame(recipeDisplay);
                 RecipeTitle recipeDis = new RecipeTitle(stringID, title, rec, mealType);
-                rd.setID(RecipeManager.getStringID());
+                rd.setID(RecipeManager.getStringID()); // TODO CHANGE?? 
 
                 // File oldFile = new File("generated_img/temp.jpg");
                 // File newFile = new File("generated_img/" + title.replace(" ","") + ".jpg");
@@ -339,7 +340,8 @@ public class Controller {
             }
             else {
                 try {
-                    RecipeManager.updateRecipe(rd.getTitle().getText(), rd.getIngredients().getText(), rd.getSteps().getText(), rd.getID());
+                    model.performRequest("PUT", rd.getMealType(), rd.getID(), rd.getTitle().getText(), rd.getIngredients().getText(), rd.getSteps().getText(), rd.getImage());
+                    // RecipeManager.updateRecipe(rd.getTitle().getText(), rd.getIngredients().getText(), rd.getSteps().getText(), rd.getID());
                 } catch (IOException e1) {
                     
                     e1.printStackTrace();
@@ -438,13 +440,27 @@ public class Controller {
     }
 
     private void handleLoginButton(ActionEvent event){
-        try {
-            model.performRequest("GET", lp.getUsername(), lp.getPassword());
-            
-            ui.returnHomePage(); 
+        if(lp.getUsername().length() == 0 || lp.getPassword().length() == 0) {
+                lp.setMessage("Username and/or password is empty");
+                return;
         }
 
-        catch (ConnectException err) {
+
+        try {
+            String response = model.performRequest("GET", lp.getUsername(), lp.getPassword());
+            
+            if (response.equals("Account not found")) {
+                lp.setMessage(response);
+            }
+            else if (response.equals(lp.getPassword())) {
+                ui.returnHomePage(); 
+            }
+
+            else {
+                System.out.println(response);
+                lp.setMessage("Incorrect password");
+            }
+        }catch (ConnectException err) {
             Alert a = new Alert(AlertType.ERROR, "Server Error", ButtonType.OK);
             a.showAndWait();
         }
@@ -453,9 +469,15 @@ public class Controller {
     private void handleCreateAccButton(ActionEvent event){
 
         try {
-            String response = model.performRequest("PUT", lp.getUsername(), lp.getPassword());
-            
-            if(!response.equals("Error handling PUT request")) { //TODO: throws error because response can be Null
+            if(lp.getUsername().length() == 0 || lp.getPassword().length() == 0) {
+                lp.setMessage("Username and/or password is empty");
+                return;
+            }
+            String response = model.performRequest("PUT", lp.getUsername(), lp.getPassword()); 
+            if(response == null) {
+                lp.setMessage("Invalid account details");
+            }
+            else if(!response.equals("Error handling PUT request")) { //TODO: throws error because response can be Null
                 ui.returnHomePage(); 
             } else {
                 // TODO: display account creation error

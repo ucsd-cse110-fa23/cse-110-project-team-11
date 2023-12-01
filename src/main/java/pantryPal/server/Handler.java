@@ -15,6 +15,8 @@ import java.io.*;
 import java.net.*;
 import java.util.*;
 
+import org.bson.Document;
+
 public class Handler implements HttpHandler {
     Input input = new Input();
     /**
@@ -24,9 +26,11 @@ public class Handler implements HttpHandler {
      * DELETE a recipe (from MongoDB)
      */
     public void handle(HttpExchange httpExchange) throws IOException {
+        System.out.println(httpExchange.getRequestMethod());
         String method = httpExchange.getRequestMethod(); // gets method from Model.java
         String response = "Request Received";
         System.out.println(response);
+        System.out.println(method);
         try {
             if (method.equals("GET")) {
                 response = handleGet(httpExchange);
@@ -38,6 +42,7 @@ public class Handler implements HttpHandler {
                 response = handleDelete(httpExchange);
             }
             else {
+
                 throw new Exception("Not Valid Request Method");
             }
         } catch (Exception e) {
@@ -60,49 +65,87 @@ public class Handler implements HttpHandler {
      * @throws IOException
      */
     private String handleGet(HttpExchange httpExchange) throws IOException {
-        String response = "Invalid GET Request";
-        
-        try {
-            // Should read the stuff from the httpRequest from Model
-            InputStream inStream = httpExchange.getRequestBody();
-            BufferedReader br = new BufferedReader(new InputStreamReader(inStream));
-            StringBuilder postData = new StringBuilder();
-
-            // adds all the data into one line
-            String line;
-            while ((line = br.readLine()) != null) {
-                postData.append(line);
+        URI uri = httpExchange.getRequestURI();
+        String query = uri.getRawQuery();
+        String response = "";
+        if (query != null) {
+            String tag = query.substring((query.indexOf("?")+1), query.indexOf("="));
+            if(tag.equals("user")) {
+                String account = query.substring(query.indexOf("=") + 1);
+                Document result = AccountManager.searchAccount(account);
+                if(result != null) {
+                    response= result.getString("password");
+                    //response = "Found " + account;
+                }
+                else
+                    response = "Account not found";
             }
+            else if (tag.equals("api")) {
+                String apiCall = query.substring(query.indexOf("=") + 1);
+            }
+        }
+        else 
+            response = "invalid GET request";
+        System.out.println(response);
+        return response;
 
-            // System.out.println("postdata: " + postData);
-            String[] data = postData.toString().split(";");
+        //     if(gettype.equals("API")) {
+                
+                
+        //         String decodedInput = new String(Base64.getDecoder().decode(data[1]));
+        //         String decodedAPI = new String(Base64.getDecoder().decode(data[2]));
 
-            String decodedInput = new String(Base64.getDecoder().decode(data[0]));
-            String decodedAPI = new String(Base64.getDecoder().decode(data[1]));
+        //         if (decodedAPI.equals("DallE")) {
+        //             response = DallE.callAPI(decodedInput);
+        //         }
+
+        //         else if (decodedAPI.equals("ChatGPT")) {
+        //             response = ChatGPT.callAPI(decodedInput);
+        //         }
+
+        //         else if (decodedAPI.equals("Whisper")) {
+        //             input.captureAudio();
+        //             response = "captured audio";
+        //         }
+
+        //         else {
+        //             response = "Invalid API";
+        //         }
+        //         System.out.println("adskhjfhioausdhioadsijodfsijo " + response);
+        //         return response;
+        //     }
+        //     else if (gettype.equals("Account")){
+
+        //         String username = new String(Base64.getDecoder().decode(data[1]));
+        //         String password = new String(Base64.getDecoder().decode(data[2]));
+
+        //         Document user = AccountManager.searchAccount(username);
+                
+        //         if (user == null) {
+
+        //             response = "User not found";
+        //         }
+
+        //         else {
+        //             if (password.equals(user.getString("password"))){
+
+        //                 response = "Logged in";
+        //             }
+        //             else{
+        //                 response = "Incorrect Password";
+        //             }
+
+        //         }
+        //         return response;
+
+        //     }
+        // }
+        // catch (Exception e) {
             
-            if (decodedAPI.equals("DallE")) {
-                response = DallE.callAPI(decodedInput);
-            }
-
-            else if (decodedAPI.equals("ChatGPT")) {
-                response = ChatGPT.callAPI(decodedInput);
-            }
-
-            else if (decodedAPI.equals("Whisper")) {
-                input.captureAudio();
-                response = "captured audio";
-            }
-
-            else {
-                response = "Invalid API";
-            }
-            // System.out.println(response);
-            return response;
-        }
-        catch (Exception e) {
-            e.printStackTrace(); // Log the exception
-            return "Error handling GET request";
-        }
+        //     e.printStackTrace(); // Log the exception
+        //     return "Error handling GET request";
+        // }
+        // return null;
     }
 
     /**

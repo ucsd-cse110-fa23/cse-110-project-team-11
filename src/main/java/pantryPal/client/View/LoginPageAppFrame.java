@@ -20,8 +20,9 @@ public class LoginPageAppFrame extends BorderPane {
     private Label introText;
     private Text titleText;
     private VBox loginBox;
-    TextField username;
-    TextField password;
+    private TextField username;
+    private TextField password;
+    private Label message;
 
     String defaultButtonStyle = "-fx-border-color: #000000; -fx-font: 18 arial; -fx-pref-width: 165; -fx-pref-height: 30;";
     String defaultTitleStyle = "-fx-font: 100px Tahoma; -fx-font-weight: bold; \r\n" + //
@@ -74,6 +75,9 @@ public class LoginPageAppFrame extends BorderPane {
         createAccButton = new Button("Create Account");
         createAccButton.setStyle(defaultButtonStyle);
 
+        message = new Label("");
+        message.setStyle("-fx-text-alignment: center; -fx-font: 16 arial; -fx-pref-width: 175px; -fx-pref-height: 100px; -fx-text-fill: red;");
+        
         HBox buttonBox = new HBox(loginButton, createAccButton);
         buttonBox.setAlignment(Pos.CENTER);
 
@@ -81,7 +85,7 @@ public class LoginPageAppFrame extends BorderPane {
         auto.setPrefSize(100, 50);
         
 
-        loginBox = new VBox(usernameBox, passwordBox, buttonBox, auto);
+        loginBox = new VBox(usernameBox, passwordBox, message, buttonBox, auto);
         loginBox.setSpacing(10);
         loginBox.setAlignment(Pos.CENTER);
         loginBox.setPadding(new Insets(10));
@@ -119,6 +123,14 @@ public class LoginPageAppFrame extends BorderPane {
 
     public VBox getLogin(){
         return loginBox;
+    }
+
+    public void setMessage(String s){
+        message.setText(s);
+    }
+
+    public Label getMessage() {
+        return message;
     }
 
 
