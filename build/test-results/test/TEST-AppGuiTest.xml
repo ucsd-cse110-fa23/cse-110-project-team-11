@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="AppGuiTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2023-12-01T04:12:00" hostname="MacBook-Pro-12.local" time="6.283">
+  <properties/>
+  <testcase name="testMessage()" classname="AppGuiTest" time="5.961"/>
+  <testcase name="testChangeMessage(FxRobot)" classname="AppGuiTest" time="0.322"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[Nov 30, 2023 8:12:00 PM com.sun.javafx.application.PlatformImpl startup
+WARNING: Unsupported JavaFX configuration: classes were loaded from 'unnamed module @6025e1b6'
+Nov 30, 2023 8:12:05 PM com.sun.glass.ui.mac.MacApplication lambda$waitForReactivation$6
+WARNING: Timeout while waiting for app reactivation
+]]></system-err>
+</testsuite>

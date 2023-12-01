@@ -1,6 +1,6 @@
 #ignore compiled files
 *.class
-*.jar
+#*.jar
 
 # ignore log files
 *.log
@@ -18,3 +18,4 @@ generated_img/*
 .DS_Store
 Input.wav
 prompt.txt
+/.gradle/

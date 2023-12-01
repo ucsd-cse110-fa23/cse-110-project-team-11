@@ -25,9 +25,16 @@ import java.io.File;
 
 
 public class App extends Application {
+
+    private static UI ui;
     public static void main(String[] args) {
         launch(args);
     }
+
+    public static UI getUI() {
+        return ui;
+    }
+
     public void start(Stage stage) throws Exception {
 
         BorderPane root = new BorderPane();
@@ -35,9 +42,11 @@ public class App extends Application {
         HomePageAppFrame hp = new HomePageAppFrame(ip);
         RecipeDisplayAppFrame dp = new RecipeDisplayAppFrame(new RecipeDisplay());
         LoginPageAppFrame lp = new LoginPageAppFrame();
-        UI ui = new UI(root, hp, ip, dp, lp);
-        ui.setLoginPage();
+        ui = new UI(root, hp, ip, dp, lp);
+        
+        //root.setCenter(lp);
         // root.setTop(hp.getHomePageHeader());
+        ui.setLoginPage();
         
         Model model = new Model();
         Controller controller = new Controller(ui, model);
@@ -48,17 +57,6 @@ public class App extends Application {
         stage.setResizable(true);
         // Create scene of mentioned size with the border pane
         stage.setScene(new Scene(root, 500, 600));
-        stage.setOnCloseRequest(event -> {
-            AppImageManager.cleanImageFolder();
-        });
         stage.show(); // Show the app
-    }
-}
-
-class AppImageManager {
-    public static void cleanImageFolder() {
-        for(File file: new File("generated_img").listFiles()) 
-        if (!file.isDirectory()) 
-            file.delete();
     }
 }
