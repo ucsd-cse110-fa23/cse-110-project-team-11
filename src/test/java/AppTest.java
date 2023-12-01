@@ -51,7 +51,6 @@ public class AppTest extends App {
 
     @Test
     public void testEditButton() throws InterruptedException {
-
         RecipeDisplay rd = new RecipeDisplay();
         assertNotNull(rd.getEditButton(), "Should not be null");
         //assertNull(rd.getEditButton(), "Should not be null");
@@ -82,7 +81,7 @@ public class AppTest extends App {
     
     @Test
     public void testViewButton() throws InterruptedException {
-        RecipeTitle rt = new RecipeTitle("id","title1, title2", new RecipeDisplayAppFrame(new RecipeDisplay())); 
+        RecipeTitle rt = new RecipeTitle("id","title1, title2", new RecipeDisplayAppFrame(new RecipeDisplay()), "breakfast"); 
         assertNotNull(rt.getViewButton(), "Should not be null");
     }
 
