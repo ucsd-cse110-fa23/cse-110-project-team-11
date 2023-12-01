@@ -59,21 +59,22 @@ public class RecipeManagerTest {
 
                     ArrayList<String[]> recipes = RecipeManager.loadRecipes();
                     for(int i = 0; i < recipes.size(); i++){
-
-                        String stringID = recipes.get(i)[0];
-                        String title = recipes.get(i)[1];
-                        String ingredients = recipes.get(i)[2];
-                        String steps = recipes.get(i)[3];
-                        String imgURL = recipes.get(i)[4];
-                        RecipeDisplay recipeDisplay = new RecipeDisplay(stringID, title, ingredients, steps, imgURL);
+                        String mealType = recipes.get(i)[0];
+                        String stringID = recipes.get(i)[1];
+                        String title = recipes.get(i)[2];
+                        String ingredients = recipes.get(i)[3];
+                        String steps = recipes.get(i)[4];
+                        String imgURL = recipes.get(i)[5];
+                        
+                        RecipeDisplay recipeDisplay = new RecipeDisplay(stringID, title, ingredients, steps, imgURL, mealType);
                         RecipeDisplayAppFrame rec = new RecipeDisplayAppFrame(recipeDisplay);
-                        RecipeTitle recipeTitle = new RecipeTitle(stringID, title, rec);
-                        //recipes.get(i).setViewButtonAction(this::handleViewButton);
+                        RecipeTitle recipeTitle = new RecipeTitle(stringID, title, rec, mealType);
+                        // recipes.get(i).setViewButtonAction(this::handleViewButton);
                         // RecipeTitle title = recipes.get(i);
-                        //System.out.println(title.getID());
+                        // System.out.println(title.getID());
                         // RecipeDisplayAppFrame recDisp = title.getRecipeDetail();
                         rec.setID(recipeTitle.getID());
-                        // System.out.println(rec.getID());
+                        System.out.println(rec.getID());
                         home.getRecipeList().getChildren().add(recipeTitle);
                     }
                     assertEquals(home.getRecipeList().getChildren().size(), RecipeManager.loadRecipes().size());
@@ -89,7 +90,7 @@ public class RecipeManagerTest {
      @Test
 
     void testInsert() throws IOException {
-        RecipeManager.insertRecipe("test test test test test", "Test Ingredients", "Test Steps", "TESTURL");
+        RecipeManager.insertRecipe("breakfast","test test test test test", "Test Ingredients", "Test Steps", "TESTURL");
         //Document doc = RecipeManager.searchRecipe("Apple Pie");
         long deletedCount = RecipeManager.deleteRecipe("test test test test test").getDeletedCount();
         assertEquals(deletedCount, 1);
@@ -97,7 +98,7 @@ public class RecipeManagerTest {
 
     //@Test
     void testUpdate() throws IOException {
-        RecipeManager.insertRecipe("please do not insert me", "no", "no", "TESTURL");
+        RecipeManager.insertRecipe("breakfast","please do not insert me", "no", "no", "TESTURL");
         UpdateResult res = RecipeManager.updateRecipe("please do not insert me", "updated", "updated", "0");
         RecipeManager.deleteRecipe("please do not insert me");
         assertEquals(res.getModifiedCount(),1);

@@ -9,7 +9,7 @@ import java.net.URI;
 import java.util.Base64;
 
 public class Model {
-    public String performRequest (String method, String id, String title, String ingredients, String steps, String imgURL) {
+    public String performRequest (String method, String mealType, String id, String title, String ingredients, String steps, String imgURL) {
         try {
             String urlString = "http://localhost:8100/";
             if (id != null) {
@@ -27,11 +27,14 @@ public class Model {
                 String encodedTitle = Base64.getEncoder().encodeToString(title.getBytes());
                 String encodedIngredients = Base64.getEncoder().encodeToString(ingredients.getBytes());
                 String encodedSteps = Base64.getEncoder().encodeToString(steps.getBytes());
+                String encodedMealType = Base64.getEncoder().encodeToString(mealType.getBytes());
                 String encodedUrl = Base64.getEncoder().encodeToString(imgURL.getBytes());
+                
+
                 
                 // Send data in the request body
                 try (OutputStreamWriter out = new OutputStreamWriter(conn.getOutputStream())) {
-                    out.write(encodedTitle + ";" + encodedIngredients + ";" + encodedSteps + ";" + encodedUrl);
+                    out.write(encodedMealType + ";" + encodedTitle + ";" + encodedIngredients + ";" + encodedSteps + ";" + encodedUrl);
                     out.flush();
                 }
             }
