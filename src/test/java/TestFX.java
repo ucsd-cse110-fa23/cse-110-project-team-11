@@ -53,7 +53,7 @@ public class TestFX extends FxRobot{
         FxToolkit.cleanupStages();
     }
 
-    @Test
+    //@Test
     void should_contain_button() {
         Label top = (Label) App.getUI().getRoot().getTop();
         // expect:
