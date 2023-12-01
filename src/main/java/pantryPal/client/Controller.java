@@ -30,8 +30,8 @@ import java.net.*;
 
 public class Controller {
 
-    private Input input = new Input();
-    private RecipeCreator rc = new RecipeCreator();
+    // private Input input = new Input();
+    // private RecipeCreator rc = new RecipeCreator();
     private InputAppFrame inputFrame;
     private RecipeParser rp = new RecipeParser();
     private LoginPageAppFrame lp;
@@ -522,6 +522,7 @@ public class Controller {
                 lp.setMessage(response);
             }
             else if (response.equals(lp.getPassword())) {
+                
                 ui.returnHomePage(); 
             }
 

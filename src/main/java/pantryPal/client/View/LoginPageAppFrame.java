@@ -24,6 +24,7 @@ public class LoginPageAppFrame extends BorderPane {
     private TextField username;
     private PasswordField password;
     private Label message;
+    private CheckBox auto;  
 
     String defaultButtonStyle = "-fx-border-color: #000000; -fx-font: 18 arial; -fx-pref-width: 165; -fx-pref-height: 30;";
     String defaultTitleStyle = "-fx-font: 100px Tahoma; -fx-font-weight: bold; \r\n" + //
@@ -83,7 +84,7 @@ public class LoginPageAppFrame extends BorderPane {
         HBox buttonBox = new HBox(loginButton, createAccButton);
         buttonBox.setAlignment(Pos.CENTER);
 
-        CheckBox auto = new CheckBox("Auto Log-In?");
+        auto = new CheckBox("Auto Log-In?");
         auto.setAlignment(Pos.CENTER);
         
 
@@ -130,6 +131,10 @@ public class LoginPageAppFrame extends BorderPane {
 
     public Label getMessage() {
         return message;
+    }
+
+    public CheckBox getAuto(){
+        return auto;
     }
 
 
