@@ -74,7 +74,7 @@ public class Input {
                     thread.join();
                     transcription = Whisper.callAPI();
                     this.type = typeParser(transcription);
-                    System.out.println(this.type);
+                    
                     if(type.equals("Invalid")){
                         return false;
                     }

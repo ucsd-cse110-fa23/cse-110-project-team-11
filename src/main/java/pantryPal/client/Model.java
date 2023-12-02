@@ -43,7 +43,7 @@ public class Model {
             // Sending request to the server
             try (BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()))) {
                 String response = in.readLine(); // reading response from the server
-                System.out.println("RESPONSE: " + response);
+                
                 return response;
             }
             
@@ -71,7 +71,7 @@ public class Model {
 
             // insert/save
             if (method.equals("PUT")) {
-                // System.out.println("PUT REQUEST (MODEL)");
+                
                 // encode recipe details to allow to write \n characters
                 String encodedRequest = Base64.getEncoder().encodeToString("recipe".getBytes());
                 String encodedTitle = Base64.getEncoder().encodeToString(title.getBytes());
@@ -93,7 +93,7 @@ public class Model {
             // Sending request to the server
             try (BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()))) {
                 String response = in.readLine(); // reading response from the server
-                System.out.println(response);
+                
                 return response;
             }
 
@@ -155,7 +155,6 @@ public class Model {
             try (BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()))) {
                 String response = in.readLine(); // reading response from the server
                 String decodedResponse = new String(Base64.getDecoder().decode(response));
-                
                 return decodedResponse;
 
             }

@@ -63,9 +63,7 @@ public class DallE {
             
             JSONArray data = responseJson.getJSONArray("data");
             String generatedImageURL = data.getJSONObject(0).getString("url");
-            
-            System.out.println("DALL-E Response:");
-            System.out.println(generatedImageURL);
+
 
 
             // Download the Generated Image to Current Directory

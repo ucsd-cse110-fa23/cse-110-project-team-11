@@ -137,7 +137,6 @@ public class Whisper {
 
 
         // Print the transcription result
-        System.out.println("Transcription Result: " + generatedText);
 
         
         return generatedText;
@@ -156,6 +155,6 @@ public class Whisper {
         }
         errorReader.close();
         String errorResult = errorResponse.toString();
-        System.out.println("Error Result: " + errorResult);
+
     }
 }

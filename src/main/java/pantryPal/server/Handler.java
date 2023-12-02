@@ -28,11 +28,8 @@ public class Handler implements HttpHandler {
      * DELETE a recipe (from MongoDB)
      */
     public void handle(HttpExchange httpExchange) throws IOException {
-        System.out.println(httpExchange.getRequestMethod());
         String method = httpExchange.getRequestMethod(); // gets method from Model.java
         String response = "Request Received";
-        System.out.println(response);
-        System.out.println(method);
         try {
             if (method.equals("GET")) {
                 response = handleGet(httpExchange);
@@ -136,7 +133,6 @@ public class Handler implements HttpHandler {
                 else {
                     response = "Invalid API";
                 }
-                System.out.println("adskhjfhioausdhioadsijodfsijo " + response);
                 return response;  
             }
             else if(tag.equals("load")){
@@ -150,7 +146,6 @@ public class Handler implements HttpHandler {
         }
         else 
             response = "invalid GET request";
-        System.out.println(response);
         return response;
     }
 
@@ -230,7 +225,6 @@ public class Handler implements HttpHandler {
         } else {
             response = "Invalid DELETE request. No ID provided.";
         }
-        System.out.println(response);
         return response;
     }
 

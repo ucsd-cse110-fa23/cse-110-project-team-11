@@ -33,11 +33,8 @@ public class RecipeDisplayAppFrame extends BorderPane {
         regenerateButton = recipe.getRegenerateButton();
         title = recipe.getTitle();
         mealType = recipe.getMealType();
-        System.out.println(title.getText());
         ingredients = recipe.getIngredients();
-        System.out.println(ingredients.getText());
         steps = recipe.getSteps();
-        System.out.println(steps.getText());
         img = recipe.getImage();
         ScrollPane scrollPane = new ScrollPane(recipe);
         scrollPane.setFitToWidth(true);

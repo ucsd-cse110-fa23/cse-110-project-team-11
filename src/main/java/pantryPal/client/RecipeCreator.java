@@ -40,7 +40,7 @@ public class RecipeCreator implements IRecipeCreator {
         String rawPrompt = info[0];
         String mealType = info[1];
         String formattedPrompt = IRecipeCreator.formatPrompt(mealType, rawPrompt);
-        // System.out.println(formattedPrompt);
+        
 
         return api.callAPI(formattedPrompt);
     }

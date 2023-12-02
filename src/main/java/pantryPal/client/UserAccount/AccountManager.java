@@ -43,7 +43,6 @@ public class AccountManager {
             .append("password", password);
             
             userCollections.insertOne(user); // inserts into MongoDB
-            System.out.println("Inserted user account into MongoDB");
             mongoClient.close();
             return new String[] {username, password};
         }

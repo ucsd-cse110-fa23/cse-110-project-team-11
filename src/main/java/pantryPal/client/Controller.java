@@ -112,41 +112,7 @@ public class Controller {
         loadRecipes();
         filter();
 
-        
-        // else { // filter and reverse/date created?
-        //     hp.getRecipeList().getChildren().removeIf(RecipeTitle -> RecipeTitle instanceof RecipeTitle && true);
-        //     try {
-        //         ArrayList<String[]> recipes = RecipeManager.sortRecipes(selectedMealType, filterState);
-        //         for(int i = 0; i < recipes.size(); i++){
-        //             String stringID = recipes.get(i)[0];
-        //             String title = recipes.get(i)[1];
-        //             String ingredients = recipes.get(i)[2];
-        //             String steps = recipes.get(i)[3];
-        //             String mealType = recipes.get(i)[4];
-        //             String imageURL = recipes.get(i)[5];
-        //             RecipeDisplay recipeDisplay = new RecipeDisplay(stringID, title, ingredients, steps, imageURL, mealType);
-        //             RecipeDisplayAppFrame rec = new RecipeDisplayAppFrame(recipeDisplay);
-        //             RecipeTitle recipeTitle = new RecipeTitle(stringID, title, rec, mealType);
-        //             rec.setID(recipeTitle.getID());
-        //             recipeTitle.getViewButton().setOnAction(e1->{
-        //                     ui.getRoot().setCenter(recipeTitle.getRecipeDetail()); 
-        //                     ui.getRoot().setTop(recipeTitle.getRecipeDetail().getRecipeDisplayHeader());
-        //                     ui.getRoot().setBottom(null);
-        //                     //this.rd = rec;
-        //                     rec.setEditButtonAction(this::handleEditButton);
-        //                     rec.setSaveButtonAction(this::handleSaveButton);
-        //                     rec.setDeleteButtonAction(this::handleDeleteButton);
-        //             });
-        //             hp.getRecipeList().getChildren().add(recipeTitle);
-        //             recipeTitle.getRecipeDetail().setBackButtonAction2(this::handleBackButton2);
-        //             recipeTitle.getRecipeDetail().setLogoutButtonAction(this::handleLogoutButton);
-        //         }
-            // } catch (Exception e) {
-            //     // TODO: handle exception
-            //     System.out.println("SORTING ERROR");
-            // }
-        
-        System.out.println("done sorting");
+      
     }
 
     
@@ -216,9 +182,6 @@ public class Controller {
 
                 rec.setImage(imgURL);
 
-                // System.out.println(rec.getIngredients().getText());
-                // System.out.println(rec.getSteps().getText());
-                // System.out.println("SDUHFIOSDHFIOSHDOFHSDIOFHSDIOFSIDHFOSDIFHSODi");
                 RecipeDisplayAppFrame displayRec = new RecipeDisplayAppFrame(rec);
                 displayRec.setBackButtonAction2(this::handleBackButton2);
                 displayRec.setLogoutButtonAction(this::handleLogoutButton);
@@ -313,14 +276,13 @@ public class Controller {
             rd.getIngredients().setEditable(false);
             rd.getSteps();
             if (rd.getID() == null) { // if does not exist in MongoDB 
-                // System.out.println("HANDLE SAVE BUTTON (CONTROLLER)");
+                
                 String stringID = rd.getID();
                 String title = rd.getTitle().getText();
                 String ingredients = rd.getIngredients().getText();
                 String steps = rd.getSteps().getText();
                 String imgURL = rd.getImage();
                 String mealType = rd.getMealType(); 
-                System.out.println("kekekekekkekekekek" + mealType);
                 model.performRequest("PUT", mealType, stringID, title, ingredients, steps, imgURL, this.name);
                 // TODO: Add mealType Tag to recipe display
                 RecipeDisplay recipeDisplay = new RecipeDisplay(stringID, title, ingredients, steps, imgURL, mealType);
@@ -404,9 +366,6 @@ public class Controller {
             String imgURL = model.performRequest(imagePrompt, "DallE");
 
             rec.setImage(imgURL);
-            System.out.println(rec.getIngredients().getText());
-            System.out.println(rec.getSteps().getText());
-            System.out.println("SDUHFIOSDHFIOSHDOFHSDIOFHSDIOFSIDHFOSDIFHSODi");
             RecipeDisplayAppFrame displayRec = new RecipeDisplayAppFrame(rec);
             displayRec.setBackButtonAction2(this::handleBackButton2);
             displayRec.setLogoutButtonAction(this::handleLogoutButton);
@@ -521,7 +480,7 @@ public class Controller {
         } catch (ConnectException err) {
             Alert a = new Alert(AlertType.ERROR, "Server is Offline", ButtonType.OK);
             a.showAndWait();
-        }
+        }//catch com.mongodb.MongoConfigurationException
         catch(Exception e){
             e.printStackTrace();
         }
@@ -529,12 +488,12 @@ public class Controller {
     }
 
     private void handleLogoutButton(ActionEvent event){
-        System.out.println("TESTTESTSTESTSETSETSET");
+        
         ui.setLoginPage();
     }
 
     private void handleLogoutButton2(ActionEvent event){
-        System.out.println("from i");
+        
         ui.setLoginPage();
         resetInput();
     }
@@ -562,56 +521,51 @@ public class Controller {
     public void loadRecipes(){
         hp.getRecipeList().getChildren().removeIf(RecipeTitle -> RecipeTitle instanceof RecipeTitle && true); 
         // ArrayList<String[]> recipes = RecipeManager.loadRecipes(this.name);
-        // try {
-        LoadTask load = new LoadTask(this.name, this.model);
+        try {
 
-        Thread th = new Thread(load);
-        th.setDaemon(true);
-        th.start();
-        th.run();
-
-        String response = (String) load.getValue();
-
-        // String response = model.performRequest(this.name);
-        JSONArray recipes = new JSONArray(response);
-        
-        for(int i = 0; i < recipes.length(); i++){
-            String recipeString = recipes.getString(i);
-            JSONObject recipe = new JSONObject(recipeString);
+            String response = model.performRequest(this.name);
+            System.out.println("loaded code");
+            JSONArray recipes = new JSONArray(response);
             
-            String stringID = recipe.getJSONObject("_id").getString("$oid");
-            String title = recipe.getString("title");
-            String ingredients = recipe.getString("ingredients");
-            String steps = recipe.getString("steps");
-            String mealType = recipe.getString("mealType");
-            String imgURL = recipe.getString("imageURL");
-            
-            RecipeDisplay recipeDisplay = new RecipeDisplay(stringID, title, ingredients, steps, imgURL, mealType);
-            RecipeDisplayAppFrame rec = new RecipeDisplayAppFrame(recipeDisplay);
-            RecipeTitle recipeTitle = new RecipeTitle(stringID, title, rec, mealType);
-            rec.setID(recipeTitle.getID());
-            recipeTitle.getViewButton().setOnAction(e1->{
-                    ui.getRoot().setCenter(recipeTitle.getRecipeDetail()); 
-                    ui.getRoot().setTop(recipeTitle.getRecipeDetail().getRecipeDisplayHeader());
-                    ui.getRoot().setBottom(null);
+            for(int i = 0; i < recipes.length(); i++){
+                String recipeString = recipes.getString(i);
+                JSONObject recipe = new JSONObject(recipeString);
+                
+                String stringID = recipe.getJSONObject("_id").getString("$oid");
+                String title = recipe.getString("title");
+                String ingredients = recipe.getString("ingredients");
+                String steps = recipe.getString("steps");
+                String mealType = recipe.getString("mealType");
+                String imgURL = recipe.getString("imageURL");
+                
+                RecipeDisplay recipeDisplay = new RecipeDisplay(stringID, title, ingredients, steps, imgURL, mealType);
+                RecipeDisplayAppFrame rec = new RecipeDisplayAppFrame(recipeDisplay);
+                RecipeTitle recipeTitle = new RecipeTitle(stringID, title, rec, mealType);
+                rec.setID(recipeTitle.getID());
+                recipeTitle.getViewButton().setOnAction(e1->{
+                        ui.getRoot().setCenter(recipeTitle.getRecipeDetail()); 
+                        ui.getRoot().setTop(recipeTitle.getRecipeDetail().getRecipeDisplayHeader());
+                        ui.getRoot().setBottom(null);
 
-                    this.rd = rec;
+                        this.rd = rec;
 
-                    rec.setEditButtonAction(this::handleEditButton);
-                    rec.setSaveButtonAction(this::handleSaveButton);
-                    rec.setDeleteButtonAction(this::handleDeleteButton);
-            });
-            
-            hp.getRecipeList().getChildren().add(recipeTitle);
-            recipeTitle.getRecipeDetail().setBackButtonAction2(this::handleBackButton2);
-            recipeTitle.getRecipeDetail().setLogoutButtonAction(this::handleLogoutButton);
+                        rec.setEditButtonAction(this::handleEditButton);
+                        rec.setSaveButtonAction(this::handleSaveButton);
+                        rec.setDeleteButtonAction(this::handleDeleteButton);
+                });
+                
+                hp.getRecipeList().getChildren().add(recipeTitle);
+                recipeTitle.getRecipeDetail().setBackButtonAction2(this::handleBackButton2);
+                recipeTitle.getRecipeDetail().setLogoutButtonAction(this::handleLogoutButton);
+            }
         }
-        // }
-        // catch(ConnectException err) {
-        //     Alert a = new Alert(AlertType.ERROR, "Server is Offline", ButtonType.OK);
-        //     a.showAndWait();
-        // }
+        catch(ConnectException err) {
+            Alert a = new Alert(AlertType.ERROR, "Server is Offline", ButtonType.OK);
+            a.showAndWait();
+        }
+        System.out.println("Loaded to UI");
         sort();
+        System.out.println("sorted");
     }
 
     public String[] readPrompt() throws IOException {

@@ -54,7 +54,7 @@ public class RecipeManager {
             JSONArray recipes = new JSONArray();
             try (MongoCursor<Document> cursor = recipeCollections.find().iterator()) {
                 while (cursor.hasNext()) {
-                    System.out.println("loading");
+                    
                     Document document = cursor.next();
                     recipes.put(document.toJson());
                 }
@@ -92,7 +92,6 @@ public class RecipeManager {
             recipeCollections.insertOne(recipe); // inserts into MongoDB
             String[] rec = {stringID, title, ingredients, steps};
             
-            System.out.println("Insert successful");
             mongoClient.close();
             return rec;
         }
