@@ -155,8 +155,9 @@ public class Model {
             try (BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()))) {
                 String response = in.readLine(); // reading response from the server
                 String decodedResponse = new String(Base64.getDecoder().decode(response));
-                // System.out.println("LOAD RESPONSE: " + decodedResponse);
+                
                 return decodedResponse;
+
             }
             
         } 
@@ -169,49 +170,5 @@ public class Model {
         }
     }
 
-    // public String performRequest(String method, boolean auto, String username) throws ConnectException{
-    //     try {
-    //         String urlString = "http://localhost:8100/";
-    //         // if (id != null) {
-    //         //     urlString += "?id=" + id;
-    //         // }
-    //         // URL url = new URI(urlString).toURL();
-    //         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-    //         conn.setRequestMethod(method);
-    //         conn.setDoOutput(true);
-
-    //         // insert/save
-    //         if (method.equals("PUT")) {
-    //             // System.out.println("PUT REQUEST (MODEL)");
-    //             // encode recipe details to allow to write \n characters
-    //             String encodedRequest = Base64.getEncoder().encodeToString("auto".getBytes());
-    //             String encodedUsername = Base64.getEncoder().encodeToString(username.getBytes());
-    //             String encodedAuto = Base64.getEncoder().encodeToString(auto.toString().getBytes());
-
-                
-    //             // Send data in the request body
-    //             try (OutputStreamWriter out = new OutputStreamWriter(conn.getOutputStream())) {
-    //                 out.write(encodedRequest + ";" +encodedUsername + ";" + encodedAuto);
-    //                 out.flush();
-    //             }
-    //         }
-
-    //         // Sending request to the server
-    //         try (BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()))) {
-    //             String response = in.readLine(); // reading response from the server
-    //             System.out.println(response);
-    //             return response;
-    //         }
-
-    //     } 
-    //     catch (ConnectException err) {
-    //         throw new ConnectException("Server Error");
-        
-
-    //     } catch (Exception ex) {
-    //         ex.printStackTrace();
-    //         return null;
-    //     }
-    // }
-    
+      
 }
