@@ -28,9 +28,16 @@ import java.io.FileReader;
 
 
 public class App extends Application {
+
+    private static UI ui;
     public static void main(String[] args) {
         launch(args);
     }
+
+    public static UI getUI() {
+        return ui;
+    }
+
     public void start(Stage stage) throws Exception {
 
         BorderPane root = new BorderPane();
@@ -38,7 +45,7 @@ public class App extends Application {
         HomePageAppFrame hp = new HomePageAppFrame(ip);
         RecipeDisplayAppFrame dp = new RecipeDisplayAppFrame(new RecipeDisplay());
         LoginPageAppFrame lp = new LoginPageAppFrame();
-        UI ui = new UI(root, hp, ip, dp, lp);
+        ui = new UI(root, hp, ip, dp, lp);
         
         File f = new File("src/main/resources/autologin.txt");
         String username = "";
@@ -69,4 +76,3 @@ public class App extends Application {
         stage.show(); // Show the app
     }
 }
-
