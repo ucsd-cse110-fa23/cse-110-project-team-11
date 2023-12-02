@@ -34,8 +34,8 @@ public class AccountManager {
             MongoCollection<Document> userCollections = recipeDB.getCollection("users");
 
             // find account
-            if (searchAccount(username) != null) {// if account exists {
-                return new String [] {"account already exists"};
+            if (searchAccount(username) != null) { // if account exists {
+                return null;
                 // TODO: display account already exists
             }
             Document user = new Document();
@@ -66,9 +66,8 @@ public class AccountManager {
             if (doc != null) {
                 System.out.println("found");
             }
-            else {
+            else
                 System.out.println("not found");
-            }
             mongoClient.close();
             return doc;
         }

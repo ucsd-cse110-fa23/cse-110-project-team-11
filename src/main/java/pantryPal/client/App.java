@@ -21,7 +21,10 @@ import pantryPal.client.View.RecipeDisplay;
 import pantryPal.client.View.HomePageAppFrame;
 import pantryPal.client.View.UI;
 import javafx.scene.layout.*;
+
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 
 
 public class App extends Application {
@@ -38,7 +41,10 @@ public class App extends Application {
         UI ui = new UI(root, hp, ip, dp, lp);
         
         File f = new File("src/main/resources/autologin.txt");
+        String username = "";
         if(f.exists()){
+            BufferedReader bufferedReader = new BufferedReader(new FileReader(f));
+            username = bufferedReader.readLine();
             ui.returnHomePage();
         } 
         else{
@@ -47,8 +53,8 @@ public class App extends Application {
         // root.setTop(hp.getHomePageHeader());
         
         Model model = new Model();
-        Controller controller = new Controller(ui, model);
-        controller.loadRecipes();
+        Controller controller = new Controller(username, ui, model);
+        // controller.loadRecipes();
         // controller.loadImagesAtStartup();
 
         stage.setTitle("PantryPal");

@@ -19,6 +19,9 @@ import java.io.*;
 import static com.mongodb.client.model.Filters.eq;
 import static com.mongodb.client.model.Updates.*;
 
+import org.json.JSONArray;  
+import org.json.JSONObject;
+
 
 /**
  * Class that handles the MongoDB. essentially creates functionality to buttons
@@ -29,52 +32,52 @@ public class RecipeManager {
     public static final String URI = "mongodb+srv://hek007:7GVnvvaUfbPZsgnq@recipemanager.ksn9u3g.mongodb.net/?retryWrites=true&w=majority";
     public static ObjectId id = new ObjectId();
     public static String stringID;
-    String username;
 
     MongoClient mongoClient = MongoClients.create(URI);
     MongoDatabase recipeDB;
     MongoCollection<Document> recipeCollections;
 
-    RecipeManager(String username) {
-        this.username = username;
-        recipeDB = mongoClient.getDatabase("recipes_db");
-        recipeCollections = recipeDB.getCollection(username);
-    }
 
     public static String getStringID() {
         return stringID;
-    }
-
-    public MongoCollection<Document> getCollection() {
-        return recipeCollections;
-    }
-
-    public String getUsername(){
-        return username;
     }
 
     /**
      * Retrieves data from MongoDB and returns it into the HomePage to display.
      * @return recipe list
      */
-    public static ArrayList<String[]> loadRecipes(){
-        RecipeManager rm = new RecipeManager("recipes_db");
-        ArrayList<String[]> recipes = new ArrayList<String[]>();
-            try (MongoCursor<Document> cursor = rm.getCollection().find().iterator()) {
+    public static JSONArray loadRecipes(String username){
+        try (MongoClient mongoClient = MongoClients.create(URI)) {
+            MongoDatabase recipeDB = mongoClient.getDatabase("recipes_db");
+            MongoCollection<Document> recipeCollections = recipeDB.getCollection(username);
+
+            JSONArray recipes = new JSONArray();
+            try (MongoCursor<Document> cursor = recipeCollections.find().iterator()) {
                 while (cursor.hasNext()) {
                     System.out.println("loading");
                     Document document = cursor.next();
-                    String stringID = document.get("_id").toString();
-                    String title = document.get("title").toString();
-                    String ingredients = document.get("ingredients").toString();
-                    String steps = document.get("steps").toString();
-                    String mealType = document.getString("mealType"); // Retrieve mealType
-                    String imgURL = document.get("imageURL").toString();
-                    String[] rec = {stringID, title, ingredients, steps, mealType, imgURL}; // Include mealType in the array
-                    recipes.add(0, rec);
+                    recipes.put(document.toJson());
                 }
             }
-        return recipes;
+            return recipes;
+        }
+        
+        // ArrayList<String[]> recipes = new ArrayList<String[]>();
+        //     try (MongoCursor<Document> cursor = rm.getCollection().find().iterator()) {
+        //         while (cursor.hasNext()) {
+        //             System.out.println("loading");
+        //             Document document = cursor.next();
+        //             String stringID = document.get("_id").toString();
+        //             String title = document.get("title").toString();
+        //             String ingredients = document.get("ingredients").toString();
+        //             String steps = document.get("steps").toString();
+        //             String mealType = document.getString("mealType"); // Retrieve mealType
+        //             String imgURL = document.get("imageURL").toString();
+        //             String[] rec = {stringID, title, ingredients, steps, mealType, imgURL}; // Include mealType in the array
+        //             recipes.add(0, rec);
+        //         }
+        //     }
+        // return recipes;
     }
     
     /**
@@ -85,10 +88,10 @@ public class RecipeManager {
      * @return recipe to be inserted
      * @throws IOException
      */
-    public static String[] insertRecipe(String mealType, String title, String ingredients, String steps, String imgURL) throws IOException{
+    public static String[] insertRecipe(String username, String mealType, String title, String ingredients, String steps, String imgURL) throws IOException{
         try (MongoClient mongoClient = MongoClients.create(URI)) {
             MongoDatabase recipeDB = mongoClient.getDatabase("recipes_db");
-            MongoCollection<Document> recipeCollections = recipeDB.getCollection("recipes");
+            MongoCollection<Document> recipeCollections = recipeDB.getCollection(username);
 
             // recipe details: id, title, ingredients, steps
             ObjectId objectID = new ObjectId();
@@ -127,11 +130,11 @@ public class RecipeManager {
      * 
      * TODO: update adds an entry if it doesnt exist? might need to remove the insert recipe
      */
-    public static UpdateResult updateRecipe(String title, String ingredients, String steps, String id) throws IOException {
+    public static UpdateResult updateRecipe(String username, String title, String ingredients, String steps, String id) throws IOException {
         ObjectId objID = new ObjectId(id);
         try (MongoClient mongoClient = MongoClients.create(URI)) {
             MongoDatabase recipeDB = mongoClient.getDatabase("recipes_db");
-            MongoCollection<Document> recipeCollections = recipeDB.getCollection("recipes");
+            MongoCollection<Document> recipeCollections = recipeDB.getCollection(username);
             System.out.println("Opened mongoDB? (update recipe)");
     
             Bson filter = eq("_id", objID);
@@ -154,11 +157,11 @@ public class RecipeManager {
      * Deletes one recipe, given id
      * @param id recipe to delete
      */
-    public static DeleteResult deleteRecipeByID(String id) throws IOException {
+    public static DeleteResult deleteRecipeByID(String username, String id) throws IOException {
         ObjectId objID = new ObjectId(id);
         try (MongoClient mongoClient = MongoClients.create(URI)) {
             MongoDatabase recipeDB = mongoClient.getDatabase("recipes_db");
-            MongoCollection<Document> recipeCollections = recipeDB.getCollection("recipes");
+            MongoCollection<Document> recipeCollections = recipeDB.getCollection(username);
             System.out.println("opened mongoDB?");
             Bson filter = eq("_id", objID);
             DeleteResult result = recipeCollections.deleteOne(filter);
@@ -178,10 +181,10 @@ public class RecipeManager {
      * @param title recipe to delete
      * TODO: try to remove this and just delete by ID from now on? idk
      */
-    public static DeleteResult deleteRecipe(String title) throws IOException {
+    public static DeleteResult deleteRecipe(String username, String title) throws IOException {
         try (MongoClient mongoClient = MongoClients.create(URI)) {
             MongoDatabase recipeDB = mongoClient.getDatabase("recipes_db");
-            MongoCollection<Document> recipeCollections = recipeDB.getCollection("recipes");
+            MongoCollection<Document> recipeCollections = recipeDB.getCollection(username);
             System.out.println("opened mongoDB (delete recipe)");
             Bson filter = eq("title", title);
             DeleteResult result = recipeCollections.deleteOne(filter);
@@ -196,10 +199,10 @@ public class RecipeManager {
      * @param title
      * @return document of id 
      */
-    public static Document searchRecipe(String title) {
+    public static Document searchRecipe(String username, String title) {
         try (MongoClient mongoClient = MongoClients.create(URI)) {
             MongoDatabase recipeDB = mongoClient.getDatabase("recipes_db");
-            MongoCollection<Document> recipeCollections = recipeDB.getCollection("recipes");
+            MongoCollection<Document> recipeCollections = recipeDB.getCollection(username);
             
             // filter based on id
             Bson filter = eq("title", title);
@@ -228,92 +231,48 @@ public class RecipeManager {
         }
     }
 
-    public static ArrayList<String[]> filterRecipes(String selectedMealType){
-        ArrayList<String[]> recipes = new ArrayList<String[]>();
+    // public static ArrayList<String[]> filterRecipes (String selectedMealType){
+    //     ArrayList<String[]> recipes = new ArrayList<String[]>();
 
-        if (selectedMealType.equals("All Recipes")) {
-            // recipes = loadRecipes();
-        }
-        else {
-        try (MongoClient mongoClient = MongoClients.create(URI)) {
-            MongoDatabase recipeDB = mongoClient.getDatabase("recipes_db");
-            MongoCollection<Document> recipeCollections = recipeDB.getCollection("recipes");
+    //     try (MongoClient mongoClient = MongoClients.create(URI)) {
+    //         MongoDatabase recipeDB = mongoClient.getDatabase("recipes_db");
+    //         MongoCollection<Document> recipeCollections = recipeDB.getCollection("recipes");
 
-            try (MongoCursor<Document> cursor = recipeCollections.find().iterator()) {
-                while (cursor.hasNext()) {
-                    System.out.println("loading");
-                    Document document = cursor.next();
-                    String stringID = document.get("_id").toString();
-                    String title = document.get("title").toString();
-                    String ingredients = document.get("ingredients").toString();
-                    String steps = document.get("steps").toString();
-                    String mealType = document.getString("mealType"); // Retrieve mealType
-                    String imageURL = document.getString("imageURL");
-                    if (selectedMealType.equals(mealType)) {
-                        System.out.println("found a " + mealType);
-                        String[] rec = {stringID, title, ingredients, steps, mealType, imageURL}; // Include mealType in the array
-                        recipes.add(0, rec);
-                    }
-                }
-                mongoClient.close();
-            }
-        }
-        }
-        return recipes;
-    }
+    //         try (MongoCursor<Document> cursor = recipeCollections.find().iterator()) {
+    //             while (cursor.hasNext()) {
+    //                 System.out.println("loading");
+    //                 Document document = cursor.next();
+    //                 String stringID = document.get("_id").toString();
+    //                 String title = document.get("title").toString();
+    //                 String ingredients = document.get("ingredients").toString();
+    //                 String steps = document.get("steps").toString();
+    //                 String mealType = document.getString("mealType"); // Retrieve mealType
+    //                 String imageURL = document.getString("imageURL");
+    //                 if (selectedMealType.equals(mealType)) {
+    //                     System.out.println("found a " + mealType);
+    //                     String[] rec = {stringID, title, ingredients, steps, mealType, imageURL}; // Include mealType in the array
+    //                     recipes.add(0, rec);
+    //                 }
+    //             }
+    //             mongoClient.close();
+    //         }
+    //     }
+    //     return recipes;
+    // }
 
-    public static ArrayList<String[]> sortRecipes(String sort){
-        ArrayList<String[]> recipes = new ArrayList<String[]>();
-        
-        try (MongoClient mongoClient = MongoClients.create(URI)) {
-            MongoDatabase recipeDB = mongoClient.getDatabase("recipes_db");
-            MongoCollection<Document> recipeCollections = recipeDB.getCollection("recipes");
-
-            try (MongoCursor<Document> cursor = recipeCollections.find().iterator()) {
-                while (cursor.hasNext()) {
-                    System.out.println("loading");
-                    Document document = cursor.next();
-                    String stringID = document.get("_id").toString();
-                    String title = document.get("title").toString();
-                    String ingredients = document.get("ingredients").toString();
-                    String steps = document.get("steps").toString();
-                    String mealType = document.getString("mealType"); // Retrieve mealType
-                    String imageURL = document.getString("imageURL");
-
-                    String[] rec = {stringID, title, ingredients, steps, mealType, imageURL}; // Include mealType in the array
-
-                    recipes.add(0, rec);
-                }
-                mongoClient.close();
-            }
-        }
-        /*
-        if (sort.equals("A-Z")) {
-            Collections.sort(recipes, new SortAlphabetically());
-        }
-        else if (sort.equals("Z-A")) {
-            Collections.sort(recipes, new SortReverseAlphabetically());
-        }
-        else if (sort.equals("Reverse")) {
-            Collections.reverse(recipes);
-        }
-        */
-        return recipes;
-    }
-
-    public static ArrayList<String[]> sortRecipes(String sort, String filterState){
-        ArrayList<String[]> recipes = filterRecipes(filterState);
-        /*
-        if (sort.equals("A-Z")) {
-            Collections.sort(recipes, new SortAlphabetically());
-        }
-        else if (sort.equals("Z-A")) {
-            Collections.sort(recipes, new SortReverseAlphabetically());
-        }
-        */ 
-       if (sort.equals("Reverse")) {
-            Collections.reverse(recipes);
-        }
-        return recipes;
-    }
+    // public static ArrayList<String[]> sortRecipes(String sort, String filterState){
+    //     ArrayList<String[]> recipes = filterRecipes(filterState);
+    //     /*
+    //     if (sort.equals("A-Z")) {
+    //         Collections.sort(recipes, new SortAlphabetically());
+    //     }
+    //     else if (sort.equals("Z-A")) {
+    //         Collections.sort(recipes, new SortReverseAlphabetically());
+    //     }
+    //     */ 
+    //     if (sort.equals("Reverse")) {
+    //         Collections.reverse(recipes);
+    //     }
+    //     return recipes;
+    // }
 }

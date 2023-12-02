@@ -16,6 +16,7 @@ import java.net.*;
 import java.util.*;
 
 import org.bson.Document;
+import org.json.JSONArray;
 
 public class Handler implements HttpHandler {
     // String userID = "";
@@ -67,18 +68,17 @@ public class Handler implements HttpHandler {
      * @throws IOException
      */
     private String handleGet(HttpExchange httpExchange) throws IOException, URISyntaxException, InterruptedException  {
-        
-        System.out.println("jeremy");
         URI uri = httpExchange.getRequestURI();
         String query = uri.getRawQuery();
         String response = "";
         if (query != null) {
             String tag = query.substring((query.indexOf("?")+1), query.indexOf("="));
+            // login button
             if(tag.equals("user")) {
                 String account = query.substring(query.indexOf("=") + 1);
                 Document result = AccountManager.searchAccount(account);
                 if(result != null) {
-                    response= result.getString("password");
+                    response = result.getString("password");
                     //response = "Found " + account;
                 }
                 else
@@ -132,12 +132,26 @@ public class Handler implements HttpHandler {
                     }
                     
                 }
-
+            
                 else {
                     response = "Invalid API";
                 }
                 System.out.println("adskhjfhioausdhioadsijodfsijo " + response);
-                return response;
+                return response;  
+            }
+            else if(tag.equals("load")){
+                String username = query.substring(query.indexOf("=") + 1);
+                JSONArray recipes = RecipeManager.loadRecipes(username);
+                return recipes.toString();
+            }
+            else if(tag.equals("type")){
+                String temp = query.substring(query.indexOf("&")+1);
+                String username = temp.substring(temp.indexOf("=")+1, temp.indexOf("&"));
+                String temp1 = temp.substring(temp.indexOf("&")+1);
+                String mealType = temp1.substring(temp1.indexOf("=")+1, temp1.indexOf("&"));
+                String temp2 = temp1.substring(temp1.indexOf("&")+1);
+                String filter = temp2.substring(temp.indexOf("=")+1);
+
                 
             }
         }
@@ -145,64 +159,6 @@ public class Handler implements HttpHandler {
             response = "invalid GET request";
         System.out.println(response);
         return response;
-
-        //     if(gettype.equals("API")) {
-                
-                
-        //         String decodedInput = new String(Base64.getDecoder().decode(data[1]));
-        //         String decodedAPI = new String(Base64.getDecoder().decode(data[2]));
-
-        //         if (decodedAPI.equals("DallE")) {
-        //             response = DallE.callAPI(decodedInput);
-        //         }
-
-        //         else if (decodedAPI.equals("ChatGPT")) {
-        //             response = ChatGPT.callAPI(decodedInput);
-        //         }
-
-        //         else if (decodedAPI.equals("Whisper")) {
-        //             input.captureAudio();
-        //             response = "captured audio";
-        //         }
-
-        //         else {
-        //             response = "Invalid API";
-        //         }
-        //         System.out.println("adskhjfhioausdhioadsijodfsijo " + response);
-        //         return response;
-        //     }
-        //     else if (gettype.equals("Account")){
-
-        //         String username = new String(Base64.getDecoder().decode(data[1]));
-        //         String password = new String(Base64.getDecoder().decode(data[2]));
-
-        //         Document user = AccountManager.searchAccount(username);
-                
-        //         if (user == null) {
-
-        //             response = "User not found";
-        //         }
-
-        //         else {
-        //             if (password.equals(user.getString("password"))){
-
-        //                 response = "Logged in";
-        //             }
-        //             else{
-        //                 response = "Incorrect Password";
-        //             }
-
-        //         }
-        //         return response;
-
-        //     }
-        // }
-        // catch (Exception e) {
-            
-        //     e.printStackTrace(); // Log the exception
-        //     return "Error handling GET request";
-        // }
-        // return null;
     }
 
     /**
@@ -234,6 +190,7 @@ public class Handler implements HttpHandler {
                 String decodedIngredients = new String(Base64.getDecoder().decode(info[3]));
                 String decodedSteps = new String(Base64.getDecoder().decode(info[4]));
                 String decodedImage = new String(Base64.getDecoder().decode(info[5]));
+                String decodedUsername = new String(Base64.getDecoder().decode(info[6]));
 
                 // System.out.println("Decoded Title: " + decodedTitle);
                 // System.out.println("Decoded Ingredients: " + decodedIngredients);
@@ -241,16 +198,19 @@ public class Handler implements HttpHandler {
                 // System.out.println("Decoded Steps: " + decodedMealType);
 
 
-                String[] result = RecipeManager.insertRecipe(decodedMealType, decodedTitle, decodedIngredients, decodedSteps, decodedImage);
+                String[] result = RecipeManager.insertRecipe(decodedUsername, decodedMealType, decodedTitle, decodedIngredients, decodedSteps, decodedImage);
 
                 response = "INSERTED THE RECIPE" + result;
                 // System.out.println(response);
             }
 
             else if (decodedRequest.equals("createAcc")) {
-                String decodedUserName = new String(Base64.getDecoder().decode(info[0]));
-                String decodedPassword = new String(Base64.getDecoder().decode(info[1]));
+                String decodedUserName = new String(Base64.getDecoder().decode(info[1]));
+                String decodedPassword = new String(Base64.getDecoder().decode(info[2]));
                 String[] result = AccountManager.insertAccount(decodedUserName, decodedPassword);
+                if (result == null) {
+                    return "NULL/INVALID ACCOUNT CREATION";
+                }
                 response = "INSERTED THE ACCOUNT: " + result[0] + " " + result[1];
             }
 
@@ -288,13 +248,14 @@ public class Handler implements HttpHandler {
         String query = uri.getRawQuery();
         String response;
         if (query != null) {
-            String id = query.substring(query.indexOf("=") + 1);
+            String username = query.substring(query.indexOf("=") + 1, query.indexOf("&"));
+            String temp = query.substring(query.indexOf("&")+1);
+            String id = temp.substring(temp.indexOf('=')+1);
 
-            RecipeManager.deleteRecipeByID(id);
+            RecipeManager.deleteRecipeByID(username, id);
             response = "Deleted " + id;
         } else {
             response = "Invalid DELETE request. No ID provided.";
-            
         }
         System.out.println(response);
         return response;
