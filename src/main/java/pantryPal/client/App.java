@@ -61,9 +61,9 @@ public class App extends Application {
         stage.setResizable(true);
         // Create scene of mentioned size with the border pane
         stage.setScene(new Scene(root, 500, 600));
-        stage.setOnCloseRequest(event -> {
-            AppImageManager.cleanImageFolder();
-        });
+        // stage.setOnCloseRequest(event -> {
+        //     AppImageManager.cleanImageFolder();
+        // });
         stage.show(); // Show the app
     }
 }
