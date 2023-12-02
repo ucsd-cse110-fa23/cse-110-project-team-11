@@ -23,6 +23,7 @@ import pantryPal.client.View.UI;
 import javafx.scene.layout.*;
 import java.io.File;
 
+//for the adding new branch 
 
 public class App extends Application {
 
