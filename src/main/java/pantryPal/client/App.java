@@ -21,7 +21,10 @@ import pantryPal.client.View.RecipeDisplay;
 import pantryPal.client.View.HomePageAppFrame;
 import pantryPal.client.View.UI;
 import javafx.scene.layout.*;
+
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 
 //for the adding new branch 
 
@@ -45,14 +48,27 @@ public class App extends Application {
         LoginPageAppFrame lp = new LoginPageAppFrame();
         ui = new UI(root, hp, ip, dp, lp);
         
-        //root.setCenter(lp);
-        // root.setTop(hp.getHomePageHeader());
-        ui.setLoginPage();
+        File f = new File("src/main/resources/autologin.txt");
+        String username = "";
         
         Model model = new Model();
-        Controller controller = new Controller(ui, model);
-        controller.loadRecipes();
-        // controller.loadImagesAtStartup();
+
+        Controller controller;
+        if(f.exists()){
+            BufferedReader bufferedReader = new BufferedReader(new FileReader(f));
+            username = bufferedReader.readLine();
+            
+            controller = new Controller(username, ui, model);
+            ui.returnHomePage();
+            controller.loadRecipes();
+        } 
+        else{
+            
+            controller = new Controller(username, ui, model);
+            ui.setLoginPage();
+        }
+        
+        
 
         stage.setTitle("PantryPal");
         stage.setResizable(true);

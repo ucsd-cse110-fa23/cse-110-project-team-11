@@ -14,19 +14,14 @@ package pantryPal.client.UserAccount;
 import org.bson.types.ObjectId;
 
 public class User {
-    private ObjectId userID;
     private String username;
     private String password;
 
-    User(String username, String password) {
-        this.userID = new ObjectId();
+    public User(String username, String password) {
         this.username = username;
         this.password = Password.encryptPassword(password);
     }
 
-    public ObjectId getUserID() {
-        return userID;
-    }
     public String getUsername() {
         return username;
     }

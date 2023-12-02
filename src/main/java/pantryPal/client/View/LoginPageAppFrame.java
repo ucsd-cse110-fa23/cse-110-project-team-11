@@ -3,6 +3,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.layout.*;
 import javafx.scene.control.TextField;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.Label;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -12,6 +13,7 @@ import javax.swing.GroupLayout.Alignment;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.text.*;
+import pantryPal.client.UserAccount.Password;
 
 public class LoginPageAppFrame extends BorderPane {
 
@@ -19,6 +21,10 @@ public class LoginPageAppFrame extends BorderPane {
 
     private VBox titleBox;
     private VBox loginBox;
+    private TextField username;
+    private PasswordField password;
+    private Label message;
+    private CheckBox auto;  
 
     String defaultButtonStyle = "-fx-border-color: #000000; -fx-font: 18 arial; -fx-pref-width: 165; -fx-pref-height: 30;";
     String defaultTitleStyle = "-fx-font: 100px Tahoma; -fx-font-weight: bold; \r\n" + //
@@ -50,10 +56,10 @@ public class LoginPageAppFrame extends BorderPane {
         Text passwordText = new Text("Password: ");
         passwordText.setStyle(defaultTextStyle);
 
-        TextField username = new TextField();
+        username = new TextField();
         username.setEditable(true);
         username.setPrefSize(175, 30);
-        TextField password = new TextField();
+        password = new PasswordField();
         password.setEditable(true);
         password.setPrefSize(175, 30);
 
@@ -71,14 +77,18 @@ public class LoginPageAppFrame extends BorderPane {
         createAccButton = new Button("Create Account");
         createAccButton.setStyle(defaultButtonStyle);
 
+        message = new Label("");
+        message.setStyle("-fx-text-alignment: center; -fx-font: 16 arial; -fx-pref-width: 175px; -fx-pref-height: 100px; -fx-text-fill: red;");
+        message.setWrapText(true);
+        
         HBox buttonBox = new HBox(loginButton, createAccButton);
         buttonBox.setAlignment(Pos.CENTER);
 
-        CheckBox auto = new CheckBox("Auto Log-In?");
-        auto.setPrefSize(100, 50);
+        auto = new CheckBox("Auto Log-In?");
+        auto.setAlignment(Pos.CENTER);
         
 
-        loginBox = new VBox(usernameBox, passwordBox, buttonBox, auto);
+        loginBox = new VBox(usernameBox, passwordBox, message, buttonBox, auto);
         loginBox.setSpacing(10);
         loginBox.setAlignment(Pos.CENTER);
         loginBox.setPadding(new Insets(10));
@@ -88,8 +98,22 @@ public class LoginPageAppFrame extends BorderPane {
         this.setCenter(loginBox);
 
     }
-    
 
+    public String getUsername() {
+        return username.getText();
+    }
+
+    public String getPassword() {
+        return password.getText();
+    }
+    
+    public Button getLoginButton() {
+        return loginButton;
+    }
+
+    public Button getCreateButton() {
+        return createAccButton;
+    }
     public void setLoginButtonAction(EventHandler<ActionEvent> eventHandler) {
         loginButton.setOnAction(eventHandler);
     }
@@ -106,6 +130,21 @@ public class LoginPageAppFrame extends BorderPane {
     public VBox getLogin(){
         return loginBox;
     }
+
+    public void setMessage(String s){
+        message.setText(s);
+    }
+
+    public Label getMessage() {
+        return message;
+    }
+
+    public CheckBox getAuto(){
+        return auto;
+    }
+
+
+
 
 }
 

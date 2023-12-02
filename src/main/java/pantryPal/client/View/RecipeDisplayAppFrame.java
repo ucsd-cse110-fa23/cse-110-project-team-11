@@ -17,6 +17,7 @@ public class RecipeDisplayAppFrame extends BorderPane {
     private Boolean editable = false;
     private RecipeDisplay recipe;
     private String img;
+    private String mealType;
 
     public RecipeDisplayAppFrame(RecipeDisplay r) {
 
@@ -31,6 +32,7 @@ public class RecipeDisplayAppFrame extends BorderPane {
         saveButton = recipe.getSaveButton();
         regenerateButton = recipe.getRegenerateButton();
         title = recipe.getTitle();
+        mealType = recipe.getMealType();
         System.out.println(title.getText());
         ingredients = recipe.getIngredients();
         System.out.println(ingredients.getText());
@@ -67,6 +69,10 @@ public class RecipeDisplayAppFrame extends BorderPane {
 
     public TextArea getSteps() {
         return steps;
+    }
+
+    public String getMealType(){
+        return mealType;
     }
 
     public String getImage(){
@@ -110,4 +116,6 @@ public class RecipeDisplayAppFrame extends BorderPane {
     public void setLogoutButtonAction(EventHandler<ActionEvent> eventHandler) {
         logoutButton.setOnAction(eventHandler);
     }
+
+    
 }
