@@ -216,6 +216,26 @@ public class RecipeManager {
         }
     }
 
+    public static Document searchRecipeByID(String username, String id) {
+        ObjectId objID = new ObjectId(id);
+        try (MongoClient mongoClient = MongoClients.create(URI)) {
+            MongoDatabase recipeDB = mongoClient.getDatabase("recipes_db");
+            MongoCollection<Document> recipeCollections = recipeDB.getCollection(username);
+            
+            // filter based on id
+            Bson filter = eq("_id", objID);
+            Document doc = recipeCollections.find(filter).first();
+            if(doc != null) {
+                System.out.println("found: " + doc.toJson());
+                return doc;
+
+            }
+            else {
+                System.out.println("doc not found");
+                return null;
+            }
+        }
+    }
     // public static ArrayList<String[]> filterRecipes (String selectedMealType){
     //     ArrayList<String[]> recipes = new ArrayList<String[]>();
 
