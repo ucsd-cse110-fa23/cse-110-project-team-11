@@ -25,12 +25,14 @@ public class Model {
             if (method.equals("PUT")) {
                 conn.setDoOutput(true);
                 conn.setRequestMethod("PUT");
+
+                String encodedRequest = Base64.getEncoder().encodeToString("createAcc".getBytes());
                 String encodedUsername = Base64.getEncoder().encodeToString(username.getBytes());
                 String encodedPassword = Base64.getEncoder().encodeToString(password.getBytes());
                 
                 // Send data in the request body
                 try (OutputStreamWriter out = new OutputStreamWriter(conn.getOutputStream())) {
-                    out.write(encodedUsername + ";" + encodedPassword);
+                    out.write(encodedRequest + ";" + encodedUsername + ";" + encodedPassword);
                     out.flush();
                 }
                 
@@ -69,6 +71,7 @@ public class Model {
             if (method.equals("PUT")) {
                 // System.out.println("PUT REQUEST (MODEL)");
                 // encode recipe details to allow to write \n characters
+                String encodedRequest = Base64.getEncoder().encodeToString("recipe".getBytes());
                 String encodedTitle = Base64.getEncoder().encodeToString(title.getBytes());
                 String encodedIngredients = Base64.getEncoder().encodeToString(ingredients.getBytes());
                 String encodedSteps = Base64.getEncoder().encodeToString(steps.getBytes());
@@ -79,7 +82,7 @@ public class Model {
                 
                 // Send data in the request body
                 try (OutputStreamWriter out = new OutputStreamWriter(conn.getOutputStream())) {
-                    out.write(encodedMealType + ";" + encodedTitle + ";" + encodedIngredients + ";" + encodedSteps + ";" + encodedUrl);
+                    out.write(encodedRequest + ";" + encodedMealType + ";" + encodedTitle + ";" + encodedIngredients + ";" + encodedSteps + ";" + encodedUrl);
                     out.flush();
                 }
             }
@@ -132,4 +135,49 @@ public class Model {
             return null;
         }
     }
+    // public String performRequest(String method, boolean auto, String username) throws ConnectException{
+    //     try {
+    //         String urlString = "http://localhost:8100/";
+    //         // if (id != null) {
+    //         //     urlString += "?id=" + id;
+    //         // }
+    //         // URL url = new URI(urlString).toURL();
+    //         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+    //         conn.setRequestMethod(method);
+    //         conn.setDoOutput(true);
+
+    //         // insert/save
+    //         if (method.equals("PUT")) {
+    //             // System.out.println("PUT REQUEST (MODEL)");
+    //             // encode recipe details to allow to write \n characters
+    //             String encodedRequest = Base64.getEncoder().encodeToString("auto".getBytes());
+    //             String encodedUsername = Base64.getEncoder().encodeToString(username.getBytes());
+    //             String encodedAuto = Base64.getEncoder().encodeToString(auto.toString().getBytes());
+
+                
+    //             // Send data in the request body
+    //             try (OutputStreamWriter out = new OutputStreamWriter(conn.getOutputStream())) {
+    //                 out.write(encodedRequest + ";" +encodedUsername + ";" + encodedAuto);
+    //                 out.flush();
+    //             }
+    //         }
+
+    //         // Sending request to the server
+    //         try (BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()))) {
+    //             String response = in.readLine(); // reading response from the server
+    //             System.out.println(response);
+    //             return response;
+    //         }
+
+    //     } 
+    //     catch (ConnectException err) {
+    //         throw new ConnectException("Server Error");
+        
+
+    //     } catch (Exception ex) {
+    //         ex.printStackTrace();
+    //         return null;
+    //     }
+    // }
+    
 }

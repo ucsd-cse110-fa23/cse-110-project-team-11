@@ -36,7 +36,14 @@ public class App extends Application {
         RecipeDisplayAppFrame dp = new RecipeDisplayAppFrame(new RecipeDisplay());
         LoginPageAppFrame lp = new LoginPageAppFrame();
         UI ui = new UI(root, hp, ip, dp, lp);
-        ui.setLoginPage();
+        
+        File f = new File("src/main/resources/autologin.txt");
+        if(f.exists()){
+            ui.returnHomePage();
+        } 
+        else{
+            ui.setLoginPage();
+        }
         // root.setTop(hp.getHomePageHeader());
         
         Model model = new Model();

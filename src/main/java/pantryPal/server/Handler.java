@@ -18,6 +18,7 @@ import java.util.*;
 import org.bson.Document;
 
 public class Handler implements HttpHandler {
+    // String userID = "";
     Input input = new Input();
     /**
      * Methods to handle:
@@ -224,15 +225,15 @@ public class Handler implements HttpHandler {
                 postData.append(line);
             }
             String [] info = postData.toString().split(";");
-
+            String decodedRequest = new String(Base64.getDecoder().decode(info[0]));
             // recipe collection
-            if (info.length == 5) {
+            if (decodedRequest.equals("recipe")) {
                 // System.out.println("postdata: " + postData);
-                String decodedMealType = new String(Base64.getDecoder().decode(info[0]));
-                String decodedTitle = new String(Base64.getDecoder().decode(info[1]));
-                String decodedIngredients = new String(Base64.getDecoder().decode(info[2]));
-                String decodedSteps = new String(Base64.getDecoder().decode(info[3]));
-                String decodedImage = new String(Base64.getDecoder().decode(info[4]));
+                String decodedMealType = new String(Base64.getDecoder().decode(info[1]));
+                String decodedTitle = new String(Base64.getDecoder().decode(info[2]));
+                String decodedIngredients = new String(Base64.getDecoder().decode(info[3]));
+                String decodedSteps = new String(Base64.getDecoder().decode(info[4]));
+                String decodedImage = new String(Base64.getDecoder().decode(info[5]));
 
                 // System.out.println("Decoded Title: " + decodedTitle);
                 // System.out.println("Decoded Ingredients: " + decodedIngredients);
@@ -246,12 +247,26 @@ public class Handler implements HttpHandler {
                 // System.out.println(response);
             }
 
-            else if (info.length == 2) {
+            else if (decodedRequest.equals("createAcc")) {
                 String decodedUserName = new String(Base64.getDecoder().decode(info[0]));
                 String decodedPassword = new String(Base64.getDecoder().decode(info[1]));
                 String[] result = AccountManager.insertAccount(decodedUserName, decodedPassword);
                 response = "INSERTED THE ACCOUNT: " + result[0] + " " + result[1];
             }
+
+            // else if (decodedRequest.equals("auto")){
+
+            //     String decodedUsername = new String(Base64.getDecoder().decode(info[1]));
+            //     String decodedAuto = new String(Base64.getDecoder().decode(info[2]));
+
+            //     if (boolean(decodedAuto)){
+            //         setUserID(username);
+            //     }
+            //     else{
+            //         setUserID("");
+            //     }
+
+            // }
             
             return response;
 
@@ -284,4 +299,12 @@ public class Handler implements HttpHandler {
         System.out.println(response);
         return response;
     }
+
+    // pubic void setUserID(String username)[
+    //     this.user = username;
+    // ]
+
+    // public String getUserID(){
+    //     return this.user;
+    // }
 }

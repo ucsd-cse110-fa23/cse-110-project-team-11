@@ -10,6 +10,7 @@
 src/main/resources/Input.wav
 src/main/resources/prompt.txt
 src/main/resources/recipe.txt
+src/main/resources/autologin.txt
 src/test/resources/promptTest.txt
 src/main/.DS_Store
 bin/main/java

@@ -29,9 +29,28 @@ public class RecipeManager {
     public static final String URI = "mongodb+srv://hek007:7GVnvvaUfbPZsgnq@recipemanager.ksn9u3g.mongodb.net/?retryWrites=true&w=majority";
     public static ObjectId id = new ObjectId();
     public static String stringID;
+    String username;
+
+    MongoClient mongoClient = MongoClients.create(URI);
+    MongoDatabase recipeDB;
+    MongoCollection<Document> recipeCollections;
+
+    RecipeManager(String username) {
+        this.username = username;
+        recipeDB = mongoClient.getDatabase("recipes_db");
+        recipeCollections = recipeDB.getCollection(username);
+    }
 
     public static String getStringID() {
         return stringID;
+    }
+
+    public MongoCollection<Document> getCollection() {
+        return recipeCollections;
+    }
+
+    public String getUsername(){
+        return username;
     }
 
     /**
@@ -39,13 +58,9 @@ public class RecipeManager {
      * @return recipe list
      */
     public static ArrayList<String[]> loadRecipes(){
+        RecipeManager rm = new RecipeManager("recipes_db");
         ArrayList<String[]> recipes = new ArrayList<String[]>();
-        
-        try (MongoClient mongoClient = MongoClients.create(URI)) {
-            MongoDatabase recipeDB = mongoClient.getDatabase("recipes_db");
-            MongoCollection<Document> recipeCollections = recipeDB.getCollection("recipes");
-
-            try (MongoCursor<Document> cursor = recipeCollections.find().iterator()) {
+            try (MongoCursor<Document> cursor = rm.getCollection().find().iterator()) {
                 while (cursor.hasNext()) {
                     System.out.println("loading");
                     Document document = cursor.next();
@@ -58,9 +73,7 @@ public class RecipeManager {
                     String[] rec = {stringID, title, ingredients, steps, mealType, imgURL}; // Include mealType in the array
                     recipes.add(0, rec);
                 }
-                mongoClient.close();
             }
-        }
         return recipes;
     }
     
@@ -219,8 +232,7 @@ public class RecipeManager {
         ArrayList<String[]> recipes = new ArrayList<String[]>();
 
         if (selectedMealType.equals("All Recipes")) {
-            recipes = loadRecipes();
-
+            // recipes = loadRecipes();
         }
         else {
         try (MongoClient mongoClient = MongoClients.create(URI)) {

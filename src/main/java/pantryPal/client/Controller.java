@@ -25,6 +25,10 @@ import pantryPal.client.View.RecipeDisplay;
 import pantryPal.client.View.RecipeTitle;
 import pantryPal.client.View.UI;
 import com.sun.net.httpserver.*;
+
+import static com.mongodb.client.model.Filters.exists;
+import static com.mongodb.client.model.Filters.type;
+
 import java.io.*;
 import java.net.*;
 
@@ -522,7 +526,17 @@ public class Controller {
                 lp.setMessage(response);
             }
             else if (response.equals(lp.getPassword())) {
-                
+                if(lp.getAuto().isSelected()){
+                    File file = new File("src/main/resources/autologin.txt");
+                    file.createNewFile();
+                    BufferedWriter br = new BufferedWriter(new FileWriter(file));
+                    br.write(lp.getUsername());
+                    br.write("\n");
+                    br.close();
+                }
+                else{
+                    boolean success = new File("src/main/resources/autologin.txt").delete();
+                }
                 ui.returnHomePage(); 
             }
 
@@ -534,9 +548,12 @@ public class Controller {
             Alert a = new Alert(AlertType.ERROR, "Server Error", ButtonType.OK);
             a.showAndWait();
         }
+        catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
-    private void handleCreateAccButton(ActionEvent event){
+    private void handleCreateAccButton(ActionEvent event) {
 
         try {
             if(lp.getUsername().length() == 0 || lp.getPassword().length() == 0) {
@@ -548,6 +565,17 @@ public class Controller {
                 lp.setMessage("Invalid account details");
             }
             else if(!response.equals("Error handling PUT request")) { //TODO: throws error because response can be Null
+                if(lp.getAuto().isSelected()){
+                    File file = new File("src/main/resources/autologin.txt");
+                    file.createNewFile();
+                    BufferedWriter br = new BufferedWriter(new FileWriter(file));
+                    br.write(lp.getUsername());
+                    br.write("\n");
+                    br.close();
+                }
+                else{
+                    boolean success = (new File("src/main/resources/autologin.txt")).delete();
+                }
                 ui.returnHomePage(); 
             } else {
                 // TODO: display account creation error
@@ -556,6 +584,9 @@ public class Controller {
         } catch (ConnectException err) {
             Alert a = new Alert(AlertType.ERROR, "Server is Offline", ButtonType.OK);
             a.showAndWait();
+        }
+        catch(Exception e){
+            e.printStackTrace();
         }
 
     }
