@@ -68,10 +68,10 @@ public class App extends Application {
     }
 }
 
-class AppImageManager {
-    public static void cleanImageFolder() {
-        for(File file: new File("generated_img").listFiles()) 
-        if (!file.isDirectory()) 
-            file.delete();
-    }
-}
+// class AppImageManager {
+//     public static void cleanImageFolder() {
+//         for(File file: new File("generated_img").listFiles()) 
+//         if (!file.isDirectory()) 
+//             file.delete();
+//     }
+// }
