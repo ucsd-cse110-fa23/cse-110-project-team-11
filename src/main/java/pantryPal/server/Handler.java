@@ -142,7 +142,9 @@ public class Handler implements HttpHandler {
             else if(tag.equals("load")){
                 String username = query.substring(query.indexOf("=") + 1);
                 JSONArray recipes = RecipeManager.loadRecipes(username);
-                return recipes.toString();
+                response = recipes.toString();
+                String encodedResponse = Base64.getEncoder().encodeToString(response.getBytes());
+                return encodedResponse;
             }
             
         }

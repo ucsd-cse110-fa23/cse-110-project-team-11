@@ -1,5 +1,7 @@
 package pantryPal.client;
 
+import static com.mongodb.client.model.Filters.in;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
@@ -151,10 +153,10 @@ public class Model {
             conn.setRequestMethod("GET");
             conn.setDoOutput(true);
             try (BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()))) {
-
                 String response = in.readLine(); // reading response from the server
-                System.out.println("RESPONSE: "+ response);
-                return response;
+                String decodedResponse = new String(Base64.getDecoder().decode(response));
+                // System.out.println("LOAD RESPONSE: " + decodedResponse);
+                return decodedResponse;
             }
             
         } 
