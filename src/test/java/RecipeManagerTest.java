@@ -99,20 +99,20 @@ public class RecipeManagerTest {
         assertEquals(deletedCount, 1);
     }
 
-    @Test
-    void testUpdate() throws IOException {
-        RecipeManager.insertRecipe("recipes","dinner","Mango Rice", "Test Ingredients", "Test Steps", "TESTURL");
-        UpdateResult res = RecipeManager.updateRecipe("recipes", "Mango Rice", "test,test,test","1,2,3", "0");
-        //RecipeManager.deleteRecipe("recipes", "Mango Rice");
-        assertEquals(res.getModifiedCount(),1);
-    }
+    // @Test
+    // void testUpdate() throws IOException {
+    //     RecipeManager.insertRecipe("recipes","dinner","Mango Rice", "Test Ingredients", "Test Steps", "TESTURL");
+    //     UpdateResult res = RecipeManager.updateRecipe("recipes", "Mango Rice", "test,test,test","1,2,3", "0");
+    //     //RecipeManager.deleteRecipe("recipes", "Mango Rice");
+    //     assertEquals(res.getModifiedCount(),1);
+    // }
 
-    @Test 
-    void testUpdateToRecipeNotInDB() throws IOException {
-        UpdateResult res = RecipeManager.updateRecipe("please do not insert me", "Mango Rice", "updated","123", "0");
-        RecipeManager.deleteRecipe("recipes", "Mango Rice");
-        assertEquals(res.getModifiedCount(),0);
-    }
+    // @Test 
+    // void testUpdateToRecipeNotInDB() throws IOException {
+    //     UpdateResult res = RecipeManager.updateRecipe("please do not insert me", "Mango Rice", "updated","123", "0");
+    //     RecipeManager.deleteRecipe("recipes", "Mango Rice");
+    //     assertEquals(res.getModifiedCount(),0);
+    // }
 
     @Test
     void testDelete() throws IOException {

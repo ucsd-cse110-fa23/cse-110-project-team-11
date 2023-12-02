@@ -17,7 +17,7 @@ class RecipeRegenerateTest {
     }
 
     /*
-     * BDD Scenario 1 
+     * US12 User
      */
     @Test
     void testRecipeRegenerationAndSave() {
