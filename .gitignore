@@ -19,3 +19,4 @@ generated_img/*
 .DS_Store
 Input.wav
 prompt.txt
+lib/win
