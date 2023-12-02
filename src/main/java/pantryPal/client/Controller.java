@@ -2,6 +2,7 @@ package pantryPal.client;
 import javafx.animation.PauseTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -561,46 +562,55 @@ public class Controller {
     public void loadRecipes(){
         hp.getRecipeList().getChildren().removeIf(RecipeTitle -> RecipeTitle instanceof RecipeTitle && true); 
         // ArrayList<String[]> recipes = RecipeManager.loadRecipes(this.name);
-        try {
-            String response = model.performRequest(this.name);
-            JSONArray recipes = new JSONArray(response);
+        // try {
+        LoadTask load = new LoadTask(this.name, this.model);
+
+        Thread th = new Thread(load);
+        th.setDaemon(true);
+        th.start();
+        th.run();
+
+        String response = (String) load.getValue();
+
+        // String response = model.performRequest(this.name);
+        JSONArray recipes = new JSONArray(response);
+        
+        for(int i = 0; i < recipes.length(); i++){
+            String recipeString = recipes.getString(i);
+            JSONObject recipe = new JSONObject(recipeString);
             
-            for(int i = 0; i < recipes.length(); i++){
-                String recipeString = recipes.getString(i);
-                JSONObject recipe = new JSONObject(recipeString);
-                
-                String stringID = recipe.getJSONObject("_id").getString("$oid");
-                String title = recipe.getString("title");
-                String ingredients = recipe.getString("ingredients");
-                String steps = recipe.getString("steps");
-                String mealType = recipe.getString("mealType");
-                String imgURL = recipe.getString("imageURL");
-                
-                RecipeDisplay recipeDisplay = new RecipeDisplay(stringID, title, ingredients, steps, imgURL, mealType);
-                RecipeDisplayAppFrame rec = new RecipeDisplayAppFrame(recipeDisplay);
-                RecipeTitle recipeTitle = new RecipeTitle(stringID, title, rec, mealType);
-                rec.setID(recipeTitle.getID());
-                recipeTitle.getViewButton().setOnAction(e1->{
-                        ui.getRoot().setCenter(recipeTitle.getRecipeDetail()); 
-                        ui.getRoot().setTop(recipeTitle.getRecipeDetail().getRecipeDisplayHeader());
-                        ui.getRoot().setBottom(null);
+            String stringID = recipe.getJSONObject("_id").getString("$oid");
+            String title = recipe.getString("title");
+            String ingredients = recipe.getString("ingredients");
+            String steps = recipe.getString("steps");
+            String mealType = recipe.getString("mealType");
+            String imgURL = recipe.getString("imageURL");
+            
+            RecipeDisplay recipeDisplay = new RecipeDisplay(stringID, title, ingredients, steps, imgURL, mealType);
+            RecipeDisplayAppFrame rec = new RecipeDisplayAppFrame(recipeDisplay);
+            RecipeTitle recipeTitle = new RecipeTitle(stringID, title, rec, mealType);
+            rec.setID(recipeTitle.getID());
+            recipeTitle.getViewButton().setOnAction(e1->{
+                    ui.getRoot().setCenter(recipeTitle.getRecipeDetail()); 
+                    ui.getRoot().setTop(recipeTitle.getRecipeDetail().getRecipeDisplayHeader());
+                    ui.getRoot().setBottom(null);
 
-                        this.rd = rec;
+                    this.rd = rec;
 
-                        rec.setEditButtonAction(this::handleEditButton);
-                        rec.setSaveButtonAction(this::handleSaveButton);
-                        rec.setDeleteButtonAction(this::handleDeleteButton);
-                });
-                
-                hp.getRecipeList().getChildren().add(recipeTitle);
-                recipeTitle.getRecipeDetail().setBackButtonAction2(this::handleBackButton2);
-                recipeTitle.getRecipeDetail().setLogoutButtonAction(this::handleLogoutButton);
-            }
+                    rec.setEditButtonAction(this::handleEditButton);
+                    rec.setSaveButtonAction(this::handleSaveButton);
+                    rec.setDeleteButtonAction(this::handleDeleteButton);
+            });
+            
+            hp.getRecipeList().getChildren().add(recipeTitle);
+            recipeTitle.getRecipeDetail().setBackButtonAction2(this::handleBackButton2);
+            recipeTitle.getRecipeDetail().setLogoutButtonAction(this::handleLogoutButton);
         }
-        catch(ConnectException err) {
-            Alert a = new Alert(AlertType.ERROR, "Server is Offline", ButtonType.OK);
-            a.showAndWait();
-        }
+        // }
+        // catch(ConnectException err) {
+        //     Alert a = new Alert(AlertType.ERROR, "Server is Offline", ButtonType.OK);
+        //     a.showAndWait();
+        // }
         sort();
     }
 
