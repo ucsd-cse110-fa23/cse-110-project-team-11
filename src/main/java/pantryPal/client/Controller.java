@@ -106,9 +106,9 @@ public class Controller {
 
     // TODO: sort shouldnt be called serverside
     public void handleSortButton(ActionEvent event) {
-        loadRecipes();
+        
         sortState = hp.getHomePageFooter().getSortButton().getValue();
-        sort();
+        loadRecipes();
         filter();
 
         
@@ -152,9 +152,9 @@ public class Controller {
     
     
     public void handleFilterButton(ActionEvent event) {
-        loadRecipes();
+        
         filterState = hp.getHomePageFooter().getFilterButton().getValue();
-        sort();
+        loadRecipes();
         filter();
         
     }
@@ -469,7 +469,7 @@ public class Controller {
                     boolean success = new File("src/main/resources/autologin.txt").delete();
                 }
                 loadRecipes();
-
+                
                 ui.returnHomePage(); 
             }
 
@@ -601,6 +601,7 @@ public class Controller {
             Alert a = new Alert(AlertType.ERROR, "Server is Offline", ButtonType.OK);
             a.showAndWait();
         }
+        sort();
     }
 
     public String[] readPrompt() throws IOException {
@@ -666,7 +667,7 @@ public class Controller {
             hp.getRecipeList().getChildren().clear();
             hp.getRecipeList().getChildren().addAll(sortedList);
         }
-        else if (sortState.equals("Reverse")){
+        else if (sortState.equals("Default")){
             FXCollections.reverse(hp.getRecipeList().getChildren());
         }
     }

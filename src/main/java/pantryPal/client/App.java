@@ -45,17 +45,18 @@ public class App extends Application {
         
         Model model = new Model();
 
+        Controller controller;
         if(f.exists()){
             BufferedReader bufferedReader = new BufferedReader(new FileReader(f));
             username = bufferedReader.readLine();
             
-            Controller controller = new Controller(username, ui, model);
+            controller = new Controller(username, ui, model);
             ui.returnHomePage();
             controller.loadRecipes();
         } 
         else{
             
-            Controller controller = new Controller(username, ui, model);
+            controller = new Controller(username, ui, model);
             ui.setLoginPage();
         }
         
