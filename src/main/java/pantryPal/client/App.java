@@ -42,36 +42,30 @@ public class App extends Application {
         
         File f = new File("src/main/resources/autologin.txt");
         String username = "";
+        
+        Model model = new Model();
+
         if(f.exists()){
             BufferedReader bufferedReader = new BufferedReader(new FileReader(f));
             username = bufferedReader.readLine();
+            
+            Controller controller = new Controller(username, ui, model);
             ui.returnHomePage();
+            controller.loadRecipes();
         } 
         else{
+            
+            Controller controller = new Controller(username, ui, model);
             ui.setLoginPage();
         }
-        // root.setTop(hp.getHomePageHeader());
         
-        Model model = new Model();
-        Controller controller = new Controller(username, ui, model);
-        // controller.loadRecipes();
-        // controller.loadImagesAtStartup();
+        
 
         stage.setTitle("PantryPal");
         stage.setResizable(true);
         // Create scene of mentioned size with the border pane
         stage.setScene(new Scene(root, 500, 600));
-        // stage.setOnCloseRequest(event -> {
-        //     AppImageManager.cleanImageFolder();
-        // });
         stage.show(); // Show the app
     }
 }
 
-// class AppImageManager {
-//     public static void cleanImageFolder() {
-//         for(File file: new File("generated_img").listFiles()) 
-//         if (!file.isDirectory()) 
-//             file.delete();
-//     }
-// }

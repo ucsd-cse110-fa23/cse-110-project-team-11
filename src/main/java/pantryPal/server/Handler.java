@@ -144,16 +144,7 @@ public class Handler implements HttpHandler {
                 JSONArray recipes = RecipeManager.loadRecipes(username);
                 return recipes.toString();
             }
-            else if(tag.equals("type")){
-                String temp = query.substring(query.indexOf("&")+1);
-                String username = temp.substring(temp.indexOf("=")+1, temp.indexOf("&"));
-                String temp1 = temp.substring(temp.indexOf("&")+1);
-                String mealType = temp1.substring(temp1.indexOf("=")+1, temp1.indexOf("&"));
-                String temp2 = temp1.substring(temp1.indexOf("&")+1);
-                String filter = temp2.substring(temp.indexOf("=")+1);
-
-                
-            }
+            
         }
         else 
             response = "invalid GET request";
@@ -184,7 +175,6 @@ public class Handler implements HttpHandler {
             String decodedRequest = new String(Base64.getDecoder().decode(info[0]));
             // recipe collection
             if (decodedRequest.equals("recipe")) {
-                // System.out.println("postdata: " + postData);
                 String decodedMealType = new String(Base64.getDecoder().decode(info[1]));
                 String decodedTitle = new String(Base64.getDecoder().decode(info[2]));
                 String decodedIngredients = new String(Base64.getDecoder().decode(info[3]));
@@ -192,16 +182,11 @@ public class Handler implements HttpHandler {
                 String decodedImage = new String(Base64.getDecoder().decode(info[5]));
                 String decodedUsername = new String(Base64.getDecoder().decode(info[6]));
 
-                // System.out.println("Decoded Title: " + decodedTitle);
-                // System.out.println("Decoded Ingredients: " + decodedIngredients);
-                // System.out.println("Decoded Steps: " + decodedSteps);
-                // System.out.println("Decoded Steps: " + decodedMealType);
-
+         
 
                 String[] result = RecipeManager.insertRecipe(decodedUsername, decodedMealType, decodedTitle, decodedIngredients, decodedSteps, decodedImage);
 
                 response = "INSERTED THE RECIPE" + result;
-                // System.out.println(response);
             }
 
             else if (decodedRequest.equals("createAcc")) {
@@ -213,20 +198,6 @@ public class Handler implements HttpHandler {
                 }
                 response = "INSERTED THE ACCOUNT: " + result[0] + " " + result[1];
             }
-
-            // else if (decodedRequest.equals("auto")){
-
-            //     String decodedUsername = new String(Base64.getDecoder().decode(info[1]));
-            //     String decodedAuto = new String(Base64.getDecoder().decode(info[2]));
-
-            //     if (boolean(decodedAuto)){
-            //         setUserID(username);
-            //     }
-            //     else{
-            //         setUserID("");
-            //     }
-
-            // }
             
             return response;
 
@@ -261,11 +232,5 @@ public class Handler implements HttpHandler {
         return response;
     }
 
-    // pubic void setUserID(String username)[
-    //     this.user = username;
-    // ]
-
-    // public String getUserID(){
-    //     return this.user;
-    // }
+ 
 }

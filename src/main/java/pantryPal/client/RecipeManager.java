@@ -62,22 +62,7 @@ public class RecipeManager {
             return recipes;
         }
         
-        // ArrayList<String[]> recipes = new ArrayList<String[]>();
-        //     try (MongoCursor<Document> cursor = rm.getCollection().find().iterator()) {
-        //         while (cursor.hasNext()) {
-        //             System.out.println("loading");
-        //             Document document = cursor.next();
-        //             String stringID = document.get("_id").toString();
-        //             String title = document.get("title").toString();
-        //             String ingredients = document.get("ingredients").toString();
-        //             String steps = document.get("steps").toString();
-        //             String mealType = document.getString("mealType"); // Retrieve mealType
-        //             String imgURL = document.get("imageURL").toString();
-        //             String[] rec = {stringID, title, ingredients, steps, mealType, imgURL}; // Include mealType in the array
-        //             recipes.add(0, rec);
-        //         }
-        //     }
-        // return recipes;
+        
     }
     
     /**

@@ -52,7 +52,7 @@ public class Controller {
     private String filterState = "All Recipes";
     private String sortState = "Default";
 
-    private String name;
+    private String name = "";
 
     public Controller(String name, UI ui, Model model) {
         this.name = name;
