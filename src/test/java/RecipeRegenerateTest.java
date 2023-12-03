@@ -14,6 +14,12 @@ class RecipeRegenerateTest {
         public String saveRecipeDisplay(String recipe) {
             return recipe;
         }
+        public String cancelRecipeDisplay(String recipe) {
+            return recipe;
+        }
+        public String homePageRecipes() {
+            return "true";
+        }
     }
 
     /*
@@ -34,5 +40,22 @@ class RecipeRegenerateTest {
         RecipeService recipeService = new RecipeService();
         String savedRecipe = recipeService.saveRecipeDisplay(recipe2);
         assertEquals(recipe2, savedRecipe);
+    }
+
+    @Test
+    void testRecipeRegenerationAndCancel() {
+        String input = "chicken banana carrots";
+        List<String> ingredients = Arrays.asList(input.split(" "));
+
+        String recipe1 = MockChatGPT.generateResponse(ingredients);
+        String recipe2 = MockChatGPT.regenerateResponse(recipe1);
+
+        // Check if the recipe is regenerated 
+        assertEquals(recipe2, MockChatGPT.regenerateResponse(recipe1));
+
+        RecipeService rs = new RecipeService();
+        String cancelRecipe = rs.cancelRecipeDisplay(recipe1);
+        assertNotEquals(rs.homePageRecipes(), cancelRecipe, "Generated recipes does not exist.");
+        
     }
 }
