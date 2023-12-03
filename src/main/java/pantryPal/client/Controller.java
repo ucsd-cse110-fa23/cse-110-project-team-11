@@ -1,5 +1,6 @@
 package pantryPal.client;
 import javafx.animation.PauseTransition;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
@@ -52,6 +53,7 @@ public class Controller {
     private Model model;
     private String filterState = "All Recipes";
     private String sortState = "Default";
+    private boolean first = true;
 
     private String name = "";
 
@@ -176,8 +178,10 @@ public class Controller {
 
                 // File oldFile = new File("generated_img/temp.jpg");
                 // oldFile.delete();
-                String imagePrompt = "Display the dish: " + rp.getTitle() + ", a dish with the ingredients: " + rp.getStringIngredients() + ", like it is a dish in a Recipe Book";
-
+                String imagePrompt = "Display the dish: " + rp.getTitle() +
+                                                        " like you are displaying it in a recipe book. Ingredients: " +
+                                                        rp.getStringIngredients() + ". Don't put too much emphasis on the ingredients and base it off the title mostly";
+                            
                 String imgURL = model.performRequest(imagePrompt, "DallE");
 
                 rec.setImage(imgURL);
@@ -361,8 +365,11 @@ public class Controller {
 
             // File oldFile = new File("generated_img/temp.jpg");
             // oldFile.delete();
-            String imagePrompt = "Display the dish: " + rp.getTitle() + ", a dish with the ingredients: " + rp.getStringIngredients() + ", like it is a dish in a Recipe Book";
 
+            String imagePrompt = "Display the dish: " + rp.getTitle() +
+                                        " like you are displaying it in a recipe book. Ingredients: " +
+                                        rp.getStringIngredients() + ". Don't put too much emphasis on the ingredients and base it off the title mostly";
+            
             String imgURL = model.performRequest(imagePrompt, "DallE");
 
             rec.setImage(imgURL);
@@ -490,12 +497,14 @@ public class Controller {
     private void handleLogoutButton(ActionEvent event){
         
         ui.setLoginPage();
+        first = true;
     }
 
     private void handleLogoutButton2(ActionEvent event){
         
         ui.setLoginPage();
         resetInput();
+        first = true;
     }
 
     public void reload(){
@@ -557,7 +566,42 @@ public class Controller {
                 hp.getRecipeList().getChildren().add(recipeTitle);
                 recipeTitle.getRecipeDetail().setBackButtonAction2(this::handleBackButton2);
                 recipeTitle.getRecipeDetail().setLogoutButtonAction(this::handleLogoutButton);
+                if (first) {
+                    // Load image in the background
+                    Task<String> loadImageTask = new Task<String>() {
+                        @Override
+                        protected String call() {
+                            try {
+                                String imagePrompt = "Display the dish: " + title +
+                                        " like you are displaying it in a recipe book. Ingredients: " +
+                                        ingredients + ". Don't put too much emphasis on the ingredients and base it off the title mostly";
+    
+                                return model.performRequest(imagePrompt, "DallE");
+                            } catch (ConnectException err) {
+                                return null;
+                            }
+                        }
+                    };
+    
+                    loadImageTask.setOnSucceeded(event -> {
+                        String img = loadImageTask.getValue();
+                        if (img != null) {
+                            rec.getRecipe().setImage(img);
+                        }
+                    });
+    
+                    loadImageTask.setOnFailed(event -> {
+                        Alert a = new Alert(AlertType.ERROR, "Error loading image", ButtonType.OK);
+                        a.showAndWait();
+                    });
+    
+                    new Thread(loadImageTask).start();
+                }
             }
+            if (first){
+                first = false;
+            }
+            
         }
         catch(ConnectException err) {
             Alert a = new Alert(AlertType.ERROR, "Server is Offline", ButtonType.OK);
