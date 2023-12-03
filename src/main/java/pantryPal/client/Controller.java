@@ -98,14 +98,14 @@ public class Controller {
                 e.printStackTrace();
             }
         });
-        this.rd.setShareButtonAction(event -> {
-            try {
-                handleShareButton(event);
-            } catch (IOException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-        });
+        // this.rd.setShareButtonAction(event -> {
+        //     try {
+        //         handleShareButton(event);
+        //     } catch (IOException e) {
+        //         // TODO Auto-generated catch block
+        //         e.printStackTrace();
+        //     }
+        // });
         this.lp.setLoginButtonAction(this::handleLoginButton);
         this.lp.setCreateAccButtonAction(this::handleCreateAccButton);
         this.inputFrame.setLogoutButtonAction(this::handleLogoutButton2);
@@ -357,19 +357,11 @@ public class Controller {
                 String steps = rd.getSteps().getText();
                 String imgURL = rd.getImage();
                 String mealType = rd.getMealType(); 
-                System.out.println("kekekekekkekekekek" + mealType);
                 model.performRequest("PUT", mealType, stringID, title, ingredients, steps, imgURL, this.name);
-                // TODO: Add mealType Tag to recipe display
                 RecipeDisplay recipeDisplay = new RecipeDisplay(stringID, title, ingredients, steps, imgURL, mealType);
                 RecipeDisplayAppFrame rec = new RecipeDisplayAppFrame(recipeDisplay);
                 RecipeTitle recipeDis = new RecipeTitle(stringID, title, rec, mealType);
                 rd.setID(RecipeManager.getStringID()); // TODO CHANGE?? 
-
-            
-
-                // File oldFile = new File("generated_img/temp.jpg");
-                // File newFile = new File("generated_img/" + title.replace(" ","") + ".jpg");
-                // boolean success = oldFile.renameTo(newFile);
 
                 recipeDis.setViewButtonAction(this::handleViewButton);
                 recipeDis.getRecipeDetail().setBackButtonAction2(this::handleBackButton2);
@@ -397,11 +389,22 @@ public class Controller {
         }
     }
 
-    private void handleViewButton(ActionEvent event){
-        ui.getRoot().setCenter(this.rt.getRecipeDetail()); 
-        ui.getRoot().setTop(this.rt.getRecipeDetail().getRecipeDisplayHeader());
-        ui.getRoot().setBottom(null);
-
+    private void handleViewButton(ActionEvent event) {
+        try {
+            String stringID = rd.getID();
+            String title = rd.getTitle().getText();
+            String ingredients = rd.getIngredients().getText();
+            String steps = rd.getSteps().getText();
+            String imgURL = rd.getImage();
+            String mealType = rd.getMealType(); 
+            model.performRequest("PUT", mealType, stringID, title, ingredients, steps, imgURL, this.name);
+            ui.getRoot().setCenter(this.rt.getRecipeDetail()); 
+            ui.getRoot().setTop(this.rt.getRecipeDetail().getRecipeDisplayHeader());
+            ui.getRoot().setBottom(null);
+        } catch (ConnectException err) {
+            Alert a = new Alert(AlertType.ERROR, "Server is Offline", ButtonType.OK);
+            a.showAndWait();
+        }
     }
 
     private void handleDeleteButton(ActionEvent event) {
