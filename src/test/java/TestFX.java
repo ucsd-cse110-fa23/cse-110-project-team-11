@@ -48,6 +48,7 @@ public class TestFX extends FxRobot{
         ApplicationTest.launch(App.class);
     }
 
+
     @AfterEach
     void cleanup() throws Exception {
         FxToolkit.cleanupStages();

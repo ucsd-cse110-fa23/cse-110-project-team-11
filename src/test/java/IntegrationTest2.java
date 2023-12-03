@@ -58,11 +58,7 @@ public class IntegrationTest2 {
 
     @Test
     public void integrationTest2() {
-        IServer ms = new MockServer();
-        // click something??????
-        // Controller.handleStartButton(null);
-        // assertNotNull()
-        LoginPageAppFrame loginPage = new LoginPageAppFrame();
+        MockServer.turnOff();
         
     }
 

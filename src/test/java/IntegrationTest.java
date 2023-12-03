@@ -28,7 +28,7 @@ import pantryPal.client.View.RecipeList;
 import pantryPal.client.View.RecipeTitle;
 import pantryPal.client.View.ReturnHeader;
 import pantryPal.client.View.UI;
-
+import pantryPal.server.MockServer;
 
 import org.testfx.api.FxRobot;
 import org.testfx.api.FxToolkit;
@@ -49,7 +49,8 @@ public class IntegrationTest extends FxRobot {
    
     @BeforeEach
     void setup() throws Exception {
-        App.setTest(false);
+        App.setTest(true);
+       // MockServer.turnOn();
         ApplicationTest.launch(App.class);
     }
 
@@ -63,16 +64,39 @@ public class IntegrationTest extends FxRobot {
     */
     @Test
     public void integrationTest1() {
-    // app launch check "Welcome"
+    // app launch check "Loging button and Create button"
+    MockServer.turnOn();
     LoginPageAppFrame loginPage = App.getUI().getLoginPage();
     assertNotNull(loginPage.getLoginButton(), "Should not be null");
     assertNotNull(loginPage.getCreateButton(), "Should not be null");
+    
+    // check if account is created and enter homepage after pw and id created
+    loginPage.setUsername("test");
+    loginPage.setPassword("test");
+    clickOn((Button) loginPage.getCreateButton());
+    
+    HomePageAppFrame hpaf =  (HomePageAppFrame) App.getUI().getRoot().getCenter();
+    HomePageHeader hph = (HomePageHeader) App.getUI().getRoot().getTop();
+    assertTrue(hpaf instanceof HomePageAppFrame);
+    assertTrue(hph instanceof HomePageHeader);
+    assertNotNull(hph.getCreateButton(), "Should not be null");
+
+    clickOn((Button) hph.getCreateButton());
+    InputAppFrame iaf = (InputAppFrame) App.getUI().getRoot().getCenter();
+    assertTrue(iaf instanceof InputAppFrame);
+    assertNotNull(iaf.getStartButton(), "Should not be null");
+
+    clickOn((Button) iaf.getStartButton());
+    clickOn((Button) iaf.getStopButton());
+    clickOn((Button) iaf.getStartButton());
+    clickOn((Button) iaf.getStopButton());
 
 
 
 
-        
-        
+
+   
+    
     }
 
 
