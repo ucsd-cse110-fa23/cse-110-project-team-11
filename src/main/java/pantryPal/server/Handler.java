@@ -18,6 +18,7 @@ import java.util.*;
 
 import org.bson.Document;
 import org.json.JSONArray;
+import org.json.JSONObject;
 
 public class Handler implements HttpHandler {
     // String userID = "";
@@ -74,9 +75,10 @@ public class Handler implements HttpHandler {
         String response = "";
         if (query != null) {
             String tag = query.substring((query.indexOf("?")+1), query.indexOf("="));
-            // login button
+            // login button/ loading recipes upon login
             if(tag.equals("user")) {
                 String account = query.substring(query.indexOf("=") + 1);
+
                 Document result = AccountManager.searchAccount(account);
                 if(result != null) {
                     response = result.getString("password");
@@ -191,6 +193,34 @@ public class Handler implements HttpHandler {
                 String encodedResponse = Base64.getEncoder().encodeToString(response.getBytes());
                 return encodedResponse;
             }
+            else if(tag.equals("share")){
+                System.out.println("hello");
+                String username = query.substring(query.indexOf("=") + 1, query.indexOf("&"));
+                String id = query.substring(query.indexOf("&") + 4);
+                Document recipe = RecipeManager.searchRecipeByID(username, id);
+
+                // get info from document
+                StringBuilder htmlBuilder = new StringBuilder();
+                htmlBuilder
+                    .append("<html>")
+                    .append("<body>")
+                    .append("<h1>")
+                    .append(recipe.get("title"))
+                    .append("</h1>")
+                    .append("<img src=" + recipe.get("imageURL") + ">")
+                    .append("<h3>Ingredients</h3>")
+                    .append(recipe.get("ingredients"))
+                    .append("<h3>Steps</h3>")
+                    .append(recipe.get("steps"))
+                    .append("</body>")
+                    .append("</html>");
+
+                // encode HTML content
+                response = htmlBuilder.toString();
+                System.out.println("response" + response);
+                // String encodedHTML = Base64.getEncoder().encodeToString(response.getBytes());
+                return response;
+            }
             else {
                 response = "invalid GET request";
             }
@@ -231,11 +261,9 @@ public class Handler implements HttpHandler {
                 String decodedImage = new String(Base64.getDecoder().decode(info[5]));
                 String decodedUsername = new String(Base64.getDecoder().decode(info[6]));
 
-         
+                RecipeManager.updateRecipe(decodedUsername, decodedMealType, decodedTitle, decodedIngredients, decodedSteps, decodedImage);
 
-                String[] result = RecipeManager.insertRecipe(decodedUsername, decodedMealType, decodedTitle, decodedIngredients, decodedSteps, decodedImage);
-
-                response = "INSERTED THE RECIPE" + result;
+                response = "INSERTED/UPDATED THE RECIPE";
             }
 
             else if (decodedRequest.equals("createAcc")) {

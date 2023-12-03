@@ -18,10 +18,9 @@ import java.util.*;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import pantryPal.client.UserAccount.AccountManager;
-import pantryPal.client.UserAccount.User;
+// import pantryPal.client.UserAccount.User;
 import pantryPal.client.View.HomePageAppFrame;
-import pantryPal.client.View.HomePageHeader;
+// import pantryPal.client.View.HomePageHeader;
 import pantryPal.client.View.InputAppFrame;
 import pantryPal.client.View.LoginPageAppFrame;
 import pantryPal.client.View.RecipeDisplayAppFrame;
@@ -29,10 +28,8 @@ import pantryPal.client.View.RecButtons;
 import pantryPal.client.View.RecipeDisplay;
 import pantryPal.client.View.RecipeTitle;
 import pantryPal.client.View.UI;
-import com.sun.net.httpserver.*;
-
-import static com.mongodb.client.model.Filters.exists;
-import static com.mongodb.client.model.Filters.type;
+// import static com.mongodb.client.model.Filters.exists;
+// import static com.mongodb.client.model.Filters.type;
 
 import java.io.*;
 import java.net.*;
@@ -68,7 +65,6 @@ public class Controller {
             try {
                 handleStartButton(event);
             } catch (URISyntaxException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
         });
@@ -76,7 +72,6 @@ public class Controller {
             try {
                 handleStopButton(event);
             } catch (InterruptedException | IOException | URISyntaxException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
         });
@@ -85,7 +80,6 @@ public class Controller {
             try {
                 handleBackButton2(event);
             } catch (URISyntaxException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
         });
@@ -93,7 +87,6 @@ public class Controller {
             try {
                 handleDeleteButton(event);
             } catch (URISyntaxException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
         });
@@ -102,7 +95,6 @@ public class Controller {
             try {
                 handleFilterButton(event);
             } catch (URISyntaxException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
         });
@@ -110,21 +102,27 @@ public class Controller {
             try {
                 handleSortButton(event);
             } catch (URISyntaxException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
         });
         this.rd.setSaveButtonAction(this::handleSaveButton);
         this.rd.setEditButtonAction(this::handleEditButton);
         this.rt.setViewButtonAction(this::handleViewButton);
+        this.rd.setShareButtonAction(event -> {
+            try {
+                handleShareButton(event);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
         this.rd.setRegenerateButtonAction(event -> {
             try {
                 handleRegenerateButton(event);
             } catch (InterruptedException | IOException | URISyntaxException  e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
         });
+
         this.lp.setLoginButtonAction(this::handleLoginButton);
         this.lp.setCreateAccButtonAction(this::handleCreateAccButton);
         this.inputFrame.setLogoutButtonAction(this::handleLogoutButton2);
@@ -177,14 +175,34 @@ public class Controller {
         //             recipeTitle.getRecipeDetail().setLogoutButtonAction(this::handleLogoutButton);
         //         }
             // } catch (Exception e) {
-            //     // TODO: handle exception
+            //     // handle exception
             //     System.out.println("SORTING ERROR");
             // }
         
         System.out.println("done sorting");
     }
 
-    
+    public void handleShareButton(ActionEvent event) throws IOException {
+        this.rd.getRecipe().getShareButton().setStyle("-fx-background-color: #5DBB63; -fx-border-width: 0;");
+        PauseTransition pause = new PauseTransition(
+            Duration.seconds(1)
+        );
+        pause.setOnFinished(e2 -> {
+            this.rd.getRecipe().getShareButton().setStyle("-fx-background-color: #DAE5EA; -fx-border-width: 0;");
+        });
+        pause.play();
+        System.out.println("sharing recipe");
+        try {
+            model.performRequest("GET", rd.getMealType(), rd.getID(), rd.getStringTitle(), rd.getStringIngredients(), rd.getStringSteps(), rd.getImage(), this.name);
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }                 
+        /* String response = model.performRequest("GET", rd.getMealType(), rd.getID(), rd.getStringTitle(), rd.getStringIngredients(), rd.getStringSteps(), rd.getImage(), this.name);                 
+        if (response.equals("Account not found")) {
+            System.out.println("Recipe not found");
+        }
+        System.out.println(response);*/
+    }
     
     
     public void handleFilterButton(ActionEvent event) throws URISyntaxException {
@@ -271,7 +289,6 @@ public class Controller {
                     try {
                         handleBackButton2(event1);
                     } catch (URISyntaxException e) {
-                        // TODO Auto-generated catch block
                         e.printStackTrace();
                     }
                 });
@@ -280,7 +297,6 @@ public class Controller {
                     try {
                         handleDeleteButton(event1);
                     } catch (URISyntaxException e) {
-                        // TODO Auto-generated catch block
                         e.printStackTrace();
                     }
                 });
@@ -290,7 +306,13 @@ public class Controller {
                     try {
                         handleRegenerateButton(ev);
                     } catch (InterruptedException | IOException | URISyntaxException e) {
-                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+                });
+                displayRec.setShareButtonAction(ev -> {
+                    try {
+                        handleShareButton(ev);
+                    } catch (IOException e) {
                         e.printStackTrace();
                     }
                 });
@@ -311,7 +333,6 @@ public class Controller {
     }
 
     private void handleBackButton(ActionEvent event){
-        
         ui.returnHomePage();   
         resetInput();
 
@@ -365,6 +386,7 @@ public class Controller {
         }
     }
 
+    // TODO: should ideally remove the if statements lol
     public void handleSaveButton(ActionEvent event) {
         try {
             //TODO make sure all windows library added to main
@@ -378,7 +400,6 @@ public class Controller {
                 String steps = rd.getSteps().getText();
                 String imgURL = rd.getImage();
                 String mealType = rd.getMealType(); 
-                System.out.println("kekekekekkekekekek" + mealType);
                 model.performRequest("PUT", mealType, stringID, title, ingredients, steps, imgURL, this.name);
                 RecipeDisplay recipeDisplay = new RecipeDisplay(stringID, title, ingredients, steps, imgURL, mealType);
                 RecipeDisplayAppFrame rec = new RecipeDisplayAppFrame(recipeDisplay);
@@ -394,7 +415,6 @@ public class Controller {
                     try {
                         handleBackButton2(event1);
                     } catch (URISyntaxException e) {
-                        // TODO Auto-generated catch block
                         e.printStackTrace();
                     }
                 });
@@ -403,9 +423,10 @@ public class Controller {
                 hp.getRecipeList().getChildren().add(recipeDis);
                 reload();
 
+
             }
             else {
-                model.performRequest("PUT", rd.getMealType(), rd.getID(), rd.getTitle().getText(), rd.getIngredients().getText(), rd.getSteps().getText(), rd.getImage(), this.name);                
+                model.performRequest("PUT", rd.getMealType(), rd.getID(), rd.getTitle().getText(), rd.getIngredients().getText(), rd.getSteps().getText(), rd.getRecipe().getImage(), this.name);                
             }
             this.rd.getRecipe().getSaveButton().setStyle("-fx-background-color: #5DBB63; -fx-border-width: 0;");
             PauseTransition pause = new PauseTransition(
@@ -469,7 +490,6 @@ public class Controller {
                 try {
                     handleBackButton2(event1);
                 } catch (URISyntaxException e) {
-                    // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
             });
@@ -478,14 +498,19 @@ public class Controller {
                 try {
                     handleDeleteButton(event1);
                 } catch (URISyntaxException e) {
-                    // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
             });
             displayRec.setSaveButtonAction(event1 -> {
                 handleSaveButton(event1);
             });
-            
+            displayRec.setShareButtonAction(event1 -> {
+                try {
+                    handleShareButton(event1);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            });
 
             
             displayRec.setEditButtonAction(this::handleEditButton);
@@ -493,7 +518,6 @@ public class Controller {
                 try {
                     handleRegenerateButton(ev);
                 } catch (InterruptedException | IOException | URISyntaxException e) {
-                    // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
             });
@@ -507,7 +531,6 @@ public class Controller {
         } catch(URISyntaxException | IOException err){
             err.printStackTrace();
         } 
-        
         this.rd.getRecipe().getRegenerateButton().setStyle("-fx-background-color: #5DBB63; -fx-border-width: 0;");
         PauseTransition pause = new PauseTransition(
             Duration.seconds(1)
@@ -615,7 +638,7 @@ public class Controller {
 
     public void reload() throws URISyntaxException{
         hp.getRecipeList().getChildren().removeIf(RecipeTitle -> RecipeTitle instanceof RecipeTitle && true);  
-        loadRecipes(); // loads recipef
+        loadRecipes();
     }
 
     private void resetInput(){
@@ -671,10 +694,21 @@ public class Controller {
                             try {
                                 handleDeleteButton(event);
                             } catch (URISyntaxException e) {
-                                // TODO Auto-generated catch block
                                 e.printStackTrace();
                             }
                         });
+                        rec.setShareButtonAction(event -> {
+                            try {
+                                handleShareButton(event);
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        });
+                    // }
+                    // catch (ConnectException err){
+                    //     Alert a = new Alert(AlertType.ERROR, "Server is Offline", ButtonType.OK);
+                    //     a.showAndWait();
+                    // }
                 });
                 
                 hp.getRecipeList().getChildren().add(recipeTitle);
@@ -682,7 +716,6 @@ public class Controller {
                     try {
                         handleBackButton2(event);
                     } catch (URISyntaxException e) {
-                        // TODO Auto-generated catch block
                         e.printStackTrace();
                     }
                 });
