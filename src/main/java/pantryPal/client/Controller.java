@@ -82,6 +82,14 @@ public class Controller {
         this.rd.setSaveButtonAction(this::handleSaveButton);
         this.rd.setEditButtonAction(this::handleEditButton);
         this.rt.setViewButtonAction(this::handleViewButton);
+        this.rd.setShareButtonAction(event -> {
+            try {
+                handleShareButton(event);
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        });
         this.rd.setRegenerateButtonAction(event -> {
             try {
                 handleRegenerateButton(event);
@@ -90,6 +98,14 @@ public class Controller {
                 e.printStackTrace();
             }
         });
+        // this.rd.setShareButtonAction(event -> {
+        //     try {
+        //         handleShareButton(event);
+        //     } catch (IOException e) {
+        //         // TODO Auto-generated catch block
+        //         e.printStackTrace();
+        //     }
+        // });
         this.lp.setLoginButtonAction(this::handleLoginButton);
         this.lp.setCreateAccButtonAction(this::handleCreateAccButton);
         this.inputFrame.setLogoutButtonAction(this::handleLogoutButton2);
@@ -148,7 +164,23 @@ public class Controller {
         System.out.println("done sorting");
     }
 
-    
+    public void handleShareButton(ActionEvent event) throws IOException {
+        this.rd.getRecipe().getShareButton().setStyle("-fx-background-color: #5DBB63; -fx-border-width: 0;");
+        PauseTransition pause = new PauseTransition(
+            Duration.seconds(1)
+        );
+        pause.setOnFinished(e2 -> {
+            this.rd.getRecipe().getShareButton().setStyle("-fx-background-color: #DAE5EA; -fx-border-width: 0;");
+        });
+        pause.play();
+        System.out.println("sharing recipe");
+        model.performRequest("GET", rd.getMealType(), rd.getID(), rd.getStringTitle(), rd.getStringIngredients(), rd.getStringSteps(), rd.getImage(), this.name);                 
+        /* String response = model.performRequest("GET", rd.getMealType(), rd.getID(), rd.getStringTitle(), rd.getStringIngredients(), rd.getStringSteps(), rd.getImage(), this.name);                 
+        if (response.equals("Account not found")) {
+            System.out.println("Recipe not found");
+        }
+        System.out.println(response);*/
+    }
     
     
     public void handleFilterButton(ActionEvent event) {
@@ -191,8 +223,6 @@ public class Controller {
             inputFrame.setMealType(response);
         }
         else if (response.equals("valid")){    
-            
-                
             inputFrame.getRecButtons().setRecipeText("Recipe Displayed");
             // input.setPromptType("MealType");
             String prompt = generateRecipe();
@@ -228,6 +258,14 @@ public class Controller {
                     try {
                         handleRegenerateButton(ev);
                     } catch (InterruptedException | IOException | URISyntaxException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+                });
+                displayRec.setShareButtonAction(ev -> {
+                    try {
+                        handleShareButton(ev);
+                    } catch (IOException e) {
                         // TODO Auto-generated catch block
                         e.printStackTrace();
                     }
@@ -319,19 +357,11 @@ public class Controller {
                 String steps = rd.getSteps().getText();
                 String imgURL = rd.getImage();
                 String mealType = rd.getMealType(); 
-                System.out.println("kekekekekkekekekek" + mealType);
                 model.performRequest("PUT", mealType, stringID, title, ingredients, steps, imgURL, this.name);
-                // TODO: Add mealType Tag to recipe display
                 RecipeDisplay recipeDisplay = new RecipeDisplay(stringID, title, ingredients, steps, imgURL, mealType);
                 RecipeDisplayAppFrame rec = new RecipeDisplayAppFrame(recipeDisplay);
                 RecipeTitle recipeDis = new RecipeTitle(stringID, title, rec, mealType);
                 rd.setID(RecipeManager.getStringID()); // TODO CHANGE?? 
-
-            
-
-                // File oldFile = new File("generated_img/temp.jpg");
-                // File newFile = new File("generated_img/" + title.replace(" ","") + ".jpg");
-                // boolean success = oldFile.renameTo(newFile);
 
                 recipeDis.setViewButtonAction(this::handleViewButton);
                 recipeDis.getRecipeDetail().setBackButtonAction2(this::handleBackButton2);
@@ -340,12 +370,10 @@ public class Controller {
                 hp.getRecipeList().getChildren().add(recipeDis);
                 reload();
 
+
             }
             else {
-                
-                model.performRequest("PUT", rd.getMealType(), rd.getID(), rd.getTitle().getText(), rd.getIngredients().getText(), rd.getSteps().getText(), rd.getImage(), this.name);
-                    // RecipeManager.updateRecipe(rd.getTitle().getText(), rd.getIngredients().getText(), rd.getSteps().getText(), rd.getID());
-                
+                model.performRequest("PUT", rd.getMealType(), rd.getID(), rd.getTitle().getText(), rd.getIngredients().getText(), rd.getSteps().getText(), rd.getRecipe().getImage(), this.name);                
             }
             this.rd.getRecipe().getSaveButton().setStyle("-fx-background-color: #5DBB63; -fx-border-width: 0;");
             PauseTransition pause = new PauseTransition(
@@ -362,11 +390,26 @@ public class Controller {
         }
     }
 
-    private void handleViewButton(ActionEvent event){
-        ui.getRoot().setCenter(this.rt.getRecipeDetail()); 
-        ui.getRoot().setTop(this.rt.getRecipeDetail().getRecipeDisplayHeader());
-        ui.getRoot().setBottom(null);
+    private void handleViewButton(ActionEvent event) {
+        // try {
+            // String imagePrompt = "Display the dish: " + rt.getTitle() + ", a dish with the ingredients: " + rt.getRecipeDetail().getIngredients() + ", like it is a dish in a Recipe Book";
+            // String stringID = rd.getID();
+            // String title = rd.getTitle().getText();
+            // String ingredients = rd.getIngredients().getText();
+            // String steps = rd.getSteps().getText();
+            // String mealType = rd.getMealType(); 
+            // String imgURL = model.performRequest(imagePrompt, "DallE");
 
+            // model.performRequest("PUT", mealType, stringID, title, ingredients, steps, imgURL, this.name);
+            // System.out.println(imgURL);
+            // this.rt.getRecipeDetail().getRecipe().setImage(imgURL);
+            ui.getRoot().setCenter(this.rt.getRecipeDetail()); 
+            ui.getRoot().setTop(this.rt.getRecipeDetail().getRecipeDisplayHeader());
+            ui.getRoot().setBottom(null);
+        // } catch (ConnectException err){
+        //     Alert a = new Alert(AlertType.ERROR, "Server is Offline", ButtonType.OK);
+        //     a.showAndWait();
+        // }
     }
 
     private void handleDeleteButton(ActionEvent event) {
@@ -411,7 +454,14 @@ public class Controller {
             displayRec.setLogoutButtonAction(this::handleLogoutButton);
             displayRec.setDeleteButtonAction(this::handleDeleteButton);
             displayRec.setSaveButtonAction(this::handleSaveButton);
-            
+            displayRec.setShareButtonAction(event1 -> {
+                try {
+                    handleShareButton(event1);
+                } catch (IOException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+            });
 
             
             displayRec.setEditButtonAction(this::handleEditButton);
@@ -432,7 +482,7 @@ public class Controller {
 
         } catch(IOException err){
             err.printStackTrace();
-        }
+        } 
         this.rd.getRecipe().getRegenerateButton().setStyle("-fx-background-color: #5DBB63; -fx-border-width: 0;");
         PauseTransition pause = new PauseTransition(
             Duration.seconds(1)
@@ -540,7 +590,7 @@ public class Controller {
 
     public void reload(){
         hp.getRecipeList().getChildren().removeIf(RecipeTitle -> RecipeTitle instanceof RecipeTitle && true);  
-        loadRecipes(); // loads recipef
+        loadRecipes();
     }
 
     private void resetInput(){
@@ -581,6 +631,14 @@ public class Controller {
                 RecipeTitle recipeTitle = new RecipeTitle(stringID, title, rec, mealType);
                 rec.setID(recipeTitle.getID());
                 recipeTitle.getViewButton().setOnAction(e1->{
+                    
+                    // try {
+
+                        // String imagePrompt = "Display the dish: " + recipeTitle.getTitle() + ", a dish with the ingredients: " + recipeTitle.getRecipeDetail().getIngredients() + ", like it is a dish in a Recipe Book";
+
+                        // String img = model.performRequest(imagePrompt, "DallE");
+
+                        // recipeTitle.getRecipeDetail().getRecipe().setImage(img);
                         ui.getRoot().setCenter(recipeTitle.getRecipeDetail()); 
                         ui.getRoot().setTop(recipeTitle.getRecipeDetail().getRecipeDisplayHeader());
                         ui.getRoot().setBottom(null);
@@ -590,6 +648,19 @@ public class Controller {
                         rec.setEditButtonAction(this::handleEditButton);
                         rec.setSaveButtonAction(this::handleSaveButton);
                         rec.setDeleteButtonAction(this::handleDeleteButton);
+                        rec.setShareButtonAction(event -> {
+                            try {
+                                handleShareButton(event);
+                            } catch (IOException e) {
+                                // TODO Auto-generated catch block
+                                e.printStackTrace();
+                            }
+                        });
+                    // }
+                    // catch (ConnectException err){
+                    //     Alert a = new Alert(AlertType.ERROR, "Server is Offline", ButtonType.OK);
+                    //     a.showAndWait();
+                    // }
                 });
                 
                 hp.getRecipeList().getChildren().add(recipeTitle);
