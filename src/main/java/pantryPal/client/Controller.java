@@ -39,7 +39,7 @@ import java.net.*;
 
 public class Controller {
 
-    // private Input input = new Input();
+    private Input input = new Input();
     // private RecipeCreator rc = new RecipeCreator();
     private InputAppFrame inputFrame;
     private RecipeParser rp = new RecipeParser();
@@ -62,7 +62,7 @@ public class Controller {
         this.hp = ui.getHomePage();
         this.rd = ui.getDisplayPage(); 
         this.lp = ui.getLoginPage();     
-        
+        input.setPromptType("MealType");
         
         this.inputFrame.setStartButtonAction(event -> {
             try {
@@ -200,13 +200,13 @@ public class Controller {
             rb.setRecipeText("Recording");
             // perform request 
             
-            model.performRequest("start", "Whisper");
+            //model.performRequest("start", "Whisper");
             
-            // input.captureAudio();
+            input.captureAudio();
             inputFrame.getRecButtons().getButtonBox().getChildren().remove(inputFrame.getRecButtons().getStartButton());
             inputFrame.getRecButtons().getButtonBox().getChildren().add(inputFrame.getRecButtons().getStopButton());
         }
-        catch (ConnectException err) {
+        catch (Exception err) {
             Alert a = new Alert(AlertType.ERROR, "Server is Offline", ButtonType.OK);
             a.showAndWait();
         }
@@ -218,8 +218,21 @@ public class Controller {
         inputFrame.getRecButtons().getButtonBox().getChildren().remove(inputFrame.getRecButtons().getStopButton());
         inputFrame.getRecButtons().getButtonBox().getChildren().add(inputFrame.getRecButtons().getStartButton());
 
+        input.stopCapture();
         String response = model.performRequest("stop", "Whisper");
-
+                        //     if(decodedInput.equals("start")){
+                //         input.captureAudio();
+                //         response = "captured audio";
+                //     }
+                //     else if (decodedInput.equals("Reset")){
+                //         input.setPromptType("MealType"); 
+                //         if(input.getMic() != null){
+                //             input.getMic().stop();
+                //             input.getMic().close();
+                //             return "Input reset";
+                //         }  
+                //     }
+        input.parseInput(response);
         if(response.equals("Breakfast") || response.equals("Lunch") || response.equals("Dinner")){
             
             inputFrame.getRecButtons().setRecipeText("Please input Ingredients.\n\nMeal Type: " + response);

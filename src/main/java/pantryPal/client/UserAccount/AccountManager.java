@@ -73,6 +73,27 @@ public class AccountManager {
         }
     }
 
+    public static int deleteAccount (String username, String password) {
+        try (MongoClient mongoClient = MongoClients.create(URI)) {
+            MongoDatabase recipeDB = mongoClient.getDatabase("recipes_db");
+            MongoCollection<Document> userCollections = recipeDB.getCollection("users");
+
+            // find account
+            if (searchAccount(username) != null) { // if account exists {
+                Document user = new Document();
+                user.append("username", username)
+                    .append("password", password);
+                userCollections.deleteOne(user);
+                recipeDB.getCollection("xd").drop();
+                System.out.println("Deleted user account from MongoDB");
+                mongoClient.close();
+                return 1;
+            }
+            System.out.println("Account not found");
+            return 0;
+        }
+    }
+
     public static void main(String[] args) {
         //AccountManager.insertAccount("PENIS", "PENIS");
         AccountManager.searchAccount("PENIS1");
