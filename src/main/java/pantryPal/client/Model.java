@@ -98,8 +98,6 @@ public class Model {
                 String encodedUrl = Base64.getEncoder().encodeToString(imgURL.getBytes());
                 String encodedName = Base64.getEncoder().encodeToString(username.getBytes());
                 
-
-                
                 // Send data in the request body
                 try (OutputStreamWriter out = new OutputStreamWriter(conn.getOutputStream())) {
                     out.write(encodedRequest + ";" + encodedMealType + ";" + encodedTitle + ";" + encodedIngredients + ";" + encodedSteps + ";" + encodedUrl + ";" + encodedName);
