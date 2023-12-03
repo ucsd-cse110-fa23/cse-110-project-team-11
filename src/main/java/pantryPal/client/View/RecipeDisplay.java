@@ -15,9 +15,11 @@ public class RecipeDisplay extends BorderPane {
     private String id = null;
     private TextArea title, ingredients, steps;
     private Button editButton, saveButton, deleteButton, regenerateButton, shareButton;
-    private String imgURL = "https://hips.hearstapps.com/hmg-prod/images/dog-puppy-on-garden-royalty-free-image-1586966191.jpg?crop=0.752xw:1.00xh;0.175xw,0&resize=1200:*";
+    private String imgURL = "https://blog.teamtreehouse.com/wp-content/uploads/2015/05/InternetSlowdown_Day.gif";
     private ImageView mealImage;
     private String mealType;
+
+    private boolean imageLoaded = false;
     
     public RecipeDisplay() {
         this.setPrefSize(500, 20); // sets size of task
@@ -312,4 +314,13 @@ public class RecipeDisplay extends BorderPane {
         this.imgURL = imgURL;
         this.mealImage.setImage(new Image(imgURL));
     }
+
+    public void setImageLoaded(boolean t){
+        imageLoaded = t;
+    }
+
+    public boolean getImageLoaded(){
+        return imageLoaded;
+    }
 }
+

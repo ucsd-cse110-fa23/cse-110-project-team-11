@@ -53,7 +53,6 @@ public class Controller {
     private Model model;
     private String filterState = "All Recipes";
     private String sortState = "Default";
-    private boolean first = true;
 
     private String name = "";
 
@@ -141,8 +140,7 @@ public class Controller {
             inputFrame.getRecButtons().getButtonBox().getChildren().add(inputFrame.getRecButtons().getStopButton());
         }
         catch (ConnectException err) {
-            Alert a = new Alert(AlertType.ERROR, "Server is Offline", ButtonType.OK);
-            a.showAndWait();
+            
         }
     }
 
@@ -178,15 +176,11 @@ public class Controller {
 
                 // File oldFile = new File("generated_img/temp.jpg");
                 // oldFile.delete();
-                String imagePrompt = "Display the dish: " + rp.getTitle() +
-                                                        " like you are displaying it in a recipe book. Ingredients: " +
-                                                        rp.getStringIngredients() + ". Don't put too much emphasis on the ingredients and base it off the title mostly";
-                            
-                String imgURL = model.performRequest(imagePrompt, "DallE");
-
-                rec.setImage(imgURL);
 
                 RecipeDisplayAppFrame displayRec = new RecipeDisplayAppFrame(rec);
+
+                imageTask(displayRec);
+
                 displayRec.setBackButtonAction2(this::handleBackButton2);
                 displayRec.setLogoutButtonAction(this::handleLogoutButton);
                 displayRec.setDeleteButtonAction(this::handleDeleteButton);
@@ -324,8 +318,7 @@ public class Controller {
             pause.play();
         }
         catch (ConnectException err) {
-            Alert a = new Alert(AlertType.ERROR, "Server is Offline", ButtonType.OK);
-            a.showAndWait();
+            ConnectionAlert();
         }
     }
 
@@ -345,8 +338,7 @@ public class Controller {
             ui.returnHomePage();
         }
         catch (ConnectException err) {
-            Alert a = new Alert(AlertType.ERROR, "Server is Offline", ButtonType.OK);
-            a.showAndWait();
+            ConnectionAlert();
         } 
     }
 
@@ -366,14 +358,11 @@ public class Controller {
             // File oldFile = new File("generated_img/temp.jpg");
             // oldFile.delete();
 
-            String imagePrompt = "Display the dish: " + rp.getTitle() +
-                                        " like you are displaying it in a recipe book. Ingredients: " +
-                                        rp.getStringIngredients() + ". Don't put too much emphasis on the ingredients and base it off the title mostly";
-            
-            String imgURL = model.performRequest(imagePrompt, "DallE");
 
-            rec.setImage(imgURL);
             RecipeDisplayAppFrame displayRec = new RecipeDisplayAppFrame(rec);
+            
+            imageTask(displayRec);
+
             displayRec.setBackButtonAction2(this::handleBackButton2);
             displayRec.setLogoutButtonAction(this::handleLogoutButton);
             displayRec.setDeleteButtonAction(this::handleDeleteButton);
@@ -424,17 +413,7 @@ public class Controller {
             }
             else if (response.equals(lp.getPassword())) {
                 this.name = lp.getUsername();
-                if(lp.getAuto().isSelected()){
-                    File file = new File("src/main/resources/autologin.txt");
-                    file.createNewFile();
-                    BufferedWriter br = new BufferedWriter(new FileWriter(file));
-                    br.write(lp.getUsername());
-                    br.write("\n");
-                    br.close();
-                }
-                else{
-                    boolean success = new File("src/main/resources/autologin.txt").delete();
-                }
+                checkAutoLogin();
                 loadRecipes();
                 
                 ui.returnHomePage(); 
@@ -445,8 +424,7 @@ public class Controller {
                 lp.setMessage("Incorrect password");
             }
         }catch (ConnectException err) {
-            Alert a = new Alert(AlertType.ERROR, "Server Error", ButtonType.OK);
-            a.showAndWait();
+            ConnectionAlert();
         }
         catch (Exception e){
             e.printStackTrace();
@@ -466,17 +444,7 @@ public class Controller {
             }
             else if(!response.equals("Error handling PUT request")) { //TODO: throws error because response can be Null
                 this.name = lp.getUsername();
-                if(lp.getAuto().isSelected()){
-                    File file = new File("src/main/resources/autologin.txt");
-                    file.createNewFile();
-                    BufferedWriter br = new BufferedWriter(new FileWriter(file));
-                    br.write(lp.getUsername());
-                    br.write("\n");
-                    br.close();
-                }
-                else{
-                    boolean success = (new File("src/main/resources/autologin.txt")).delete();
-                }
+                checkAutoLogin();
                 loadRecipes();
                 ui.returnHomePage(); 
             } else {
@@ -485,8 +453,8 @@ public class Controller {
             }
 
         } catch (ConnectException err) {
-            Alert a = new Alert(AlertType.ERROR, "Server is Offline", ButtonType.OK);
-            a.showAndWait();
+            ConnectionAlert();
+            
         }//catch com.mongodb.MongoConfigurationException
         catch(Exception e){
             e.printStackTrace();
@@ -566,46 +534,17 @@ public class Controller {
                 hp.getRecipeList().getChildren().add(recipeTitle);
                 recipeTitle.getRecipeDetail().setBackButtonAction2(this::handleBackButton2);
                 recipeTitle.getRecipeDetail().setLogoutButtonAction(this::handleLogoutButton);
-                if (first) {
-                    // Load image in the background
-                    Task<String> loadImageTask = new Task<String>() {
-                        @Override
-                        protected String call() {
-                            try {
-                                String imagePrompt = "Display the dish: " + title +
-                                        " like you are displaying it in a recipe book. Ingredients: " +
-                                        ingredients + ". Don't put too much emphasis on the ingredients and base it off the title mostly";
-    
-                                return model.performRequest(imagePrompt, "DallE");
-                            } catch (ConnectException err) {
-                                return null;
-                            }
-                        }
-                    };
-    
-                    loadImageTask.setOnSucceeded(event -> {
-                        String img = loadImageTask.getValue();
-                        if (img != null) {
-                            rec.getRecipe().setImage(img);
-                        }
-                    });
-    
-                    loadImageTask.setOnFailed(event -> {
-                        Alert a = new Alert(AlertType.ERROR, "Error loading image", ButtonType.OK);
-                        a.showAndWait();
-                    });
-    
-                    new Thread(loadImageTask).start();
+                if (!rec.getRecipe().getImageLoaded()) {
+
+                    imageTask(rec);
+        
                 }
             }
-            if (first){
-                first = false;
-            }
+            
             
         }
         catch(ConnectException err) {
-            Alert a = new Alert(AlertType.ERROR, "Server is Offline", ButtonType.OK);
-            a.showAndWait();
+            ConnectionAlert();
         }
         System.out.println("Loaded to UI");
         sort();
@@ -678,6 +617,64 @@ public class Controller {
         else if (sortState.equals("Default")){
             FXCollections.reverse(hp.getRecipeList().getChildren());
         }
+    }
+
+    public void ConnectionAlert(){
+        Alert a = new Alert(AlertType.ERROR, "Server is Offline", ButtonType.OK);
+        a.showAndWait();
+    }
+    private void checkAutoLogin(){
+        try {
+            if(lp.getAuto().isSelected()){
+                File file = new File("src/main/resources/autologin.txt");
+                file.createNewFile();
+                BufferedWriter br = new BufferedWriter(new FileWriter(file));
+                br.write(lp.getUsername());
+                br.write("\n");
+                br.close();
+            }
+            else{
+                boolean success = (new File("src/main/resources/autologin.txt")).delete();
+            }
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    private void imageTask(RecipeDisplayAppFrame rec){
+
+        String ingredients = rec.getRecipe().getIngredients().getText();
+        String title = rec.getRecipe().getTitle().getText();
+        Task<String> loadImageTask = new Task<String>() {
+                    @Override
+                    protected String call() {
+                        try {
+                            String imagePrompt = "Display the dish: " + title +
+                                    " like you are displaying it in a recipe book. Ingredients: " +
+                                    ingredients + ". Don't put too much emphasis on the ingredients and base it off the title mostly";
+
+                            return model.performRequest(imagePrompt, "DallE");
+                        } catch (ConnectException err) {
+                            return null;
+                        }
+                    }
+                };
+
+                loadImageTask.setOnSucceeded(event -> {
+                    String img = loadImageTask.getValue();
+                    if (img != null) {
+                        rec.getRecipe().setImage(img);
+                    }
+                });
+
+                loadImageTask.setOnFailed(event -> {
+                    ConnectionAlert();
+                });
+
+                new Thread(loadImageTask).start();
+
+                rec.getRecipe().setImageLoaded(true);
     }
 
 }
