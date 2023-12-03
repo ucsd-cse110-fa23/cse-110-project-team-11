@@ -28,9 +28,8 @@ public class UI  {
     }
     
     public void returnHomePage() {
-        
-        root.setCenter(HomePage);
         root.setTop(HomePage.getHomePageHeader());
+        root.setCenter(HomePage);
         root.setBottom(HomePage.getHomePageFooter());
     }
 
