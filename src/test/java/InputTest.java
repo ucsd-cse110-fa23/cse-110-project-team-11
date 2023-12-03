@@ -1,28 +1,23 @@
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import pantryPal.client.TranscriptionService;
 
-import java.io.File;
+import java.io.IOException;
+import java.net.URISyntaxException;
 
-public class InputTest {
+import pantryPal.client.APIFactory;
+import pantryPal.client.IAPI;
+import pantryPal.client.MockWhisper;
 
-    // Mock implementation of TranscriptionService
-    private static class MockTranscriptionService implements TranscriptionService {
-        @Override
-        public String transcribe(File audioFile) {
-            return "Dinner";
-        }
-    }
-
+public class InputTest extends APIFactory {
     /**
      * Basic idea of "hard coding the response"
+     * @throws URISyntaxException
+     * @throws InterruptedException
+     * @throws IOException
      */
     @Test 
-    public void FakeResponse() {
-        MockTranscriptionService mockService = new MockTranscriptionService();
-        
-        File audioFile = new File("input.wav");
-        String output = mockService.transcribe(audioFile);
-        assertEquals("Dinner", output, "The transcribe method should return 'Dinner'");
+    public void FakeResponse() throws IOException, InterruptedException, URISyntaxException {        
+        IAPI output = createAPI("Whisper");
+        assertEquals("Dinner", output.callAPI("input.wav"), "The transcribe method should return 'Dinner'");
     }
 }

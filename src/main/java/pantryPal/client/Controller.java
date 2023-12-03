@@ -48,13 +48,13 @@ public class Controller {
     private HomePageAppFrame hp;
     private RecipeDisplayAppFrame rd;
     private RecipeTitle rt = new RecipeTitle("", "");
-    private Model model;
+    private IModel model;
     private String filterState = "All Recipes";
     private String sortState = "Default";
 
     private String name = "";
 
-    public Controller(String name, UI ui, Model model) {
+    public Controller(String name, UI ui, IModel model) {
         this.name = name;
         this.model = model;
         this.ui = ui;
@@ -64,21 +64,56 @@ public class Controller {
         this.lp = ui.getLoginPage();     
         
         
-        this.inputFrame.setStartButtonAction(this::handleStartButton);
+        this.inputFrame.setStartButtonAction(event -> {
+            try {
+                handleStartButton(event);
+            } catch (URISyntaxException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        });
         this.inputFrame.setStopButtonAction(event -> {
             try {
                 handleStopButton(event);
-            } catch (InterruptedException | IOException e) {
+            } catch (InterruptedException | IOException | URISyntaxException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
         });
         this.inputFrame.setBackButtonAction(this::handleBackButton);
-        this.rd.setBackButtonAction2(this::handleBackButton2);
-        this.rd.setDeleteButtonAction(this::handleDeleteButton);
+        this.rd.setBackButtonAction2(event -> {
+            try {
+                handleBackButton2(event);
+            } catch (URISyntaxException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        });
+        this.rd.setDeleteButtonAction(event -> {
+            try {
+                handleDeleteButton(event);
+            } catch (URISyntaxException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        });
         this.hp.setCreateButtonAction(this::handleCreateButton);
-        this.hp.setFilterButtonAction(this::handleFilterButton);
-        this.hp.setSortButtonAction(this::handleSortButton);
+        this.hp.setFilterButtonAction(event -> {
+            try {
+                handleFilterButton(event);
+            } catch (URISyntaxException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        });
+        this.hp.setSortButtonAction(event -> {
+            try {
+                handleSortButton(event);
+            } catch (URISyntaxException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        });
         this.rd.setSaveButtonAction(this::handleSaveButton);
         this.rd.setEditButtonAction(this::handleEditButton);
         this.rt.setViewButtonAction(this::handleViewButton);
@@ -105,7 +140,7 @@ public class Controller {
     }
 
     // TODO: sort shouldnt be called serverside
-    public void handleSortButton(ActionEvent event) {
+    public void handleSortButton(ActionEvent event) throws URISyntaxException {
         
         sortState = hp.getHomePageFooter().getSortButton().getValue();
         loadRecipes();
@@ -151,7 +186,7 @@ public class Controller {
     
     
     
-    public void handleFilterButton(ActionEvent event) {
+    public void handleFilterButton(ActionEvent event) throws URISyntaxException {
         
         filterState = hp.getHomePageFooter().getFilterButton().getValue();
         loadRecipes();
@@ -159,7 +194,7 @@ public class Controller {
         
     }
 
-    public void handleStartButton(ActionEvent event) {
+    public void handleStartButton(ActionEvent event) throws URISyntaxException {
         try {
             RecButtons rb = inputFrame.getRecButtons();
             rb.setRecipeText("Recording");
@@ -177,7 +212,7 @@ public class Controller {
         }
     }
 
-    public void handleStopButton(ActionEvent event) throws InterruptedException, IOException {
+    public void handleStopButton(ActionEvent event) throws InterruptedException, IOException, URISyntaxException {
 
         // String promptType = input.getPromptType();
         inputFrame.getRecButtons().getButtonBox().getChildren().remove(inputFrame.getRecButtons().getStopButton());
@@ -219,9 +254,23 @@ public class Controller {
                 // System.out.println(rec.getSteps().getText());
                 // System.out.println("SDUHFIOSDHFIOSHDOFHSDIOFHSDIOFSIDHFOSDIFHSODi");
                 RecipeDisplayAppFrame displayRec = new RecipeDisplayAppFrame(rec);
-                displayRec.setBackButtonAction2(this::handleBackButton2);
+                displayRec.setBackButtonAction2(event1 -> {
+                    try {
+                        handleBackButton2(event1);
+                    } catch (URISyntaxException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+                });
                 displayRec.setLogoutButtonAction(this::handleLogoutButton);
-                displayRec.setDeleteButtonAction(this::handleDeleteButton);
+                displayRec.setDeleteButtonAction(event1 -> {
+                    try {
+                        handleDeleteButton(event1);
+                    } catch (URISyntaxException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+                });
                 displayRec.setSaveButtonAction(this::handleSaveButton);
                 displayRec.setEditButtonAction(this::handleEditButton);
                 displayRec.setRegenerateButtonAction(ev -> {
@@ -244,7 +293,6 @@ public class Controller {
             }
         }
         else{
-            
             inputFrame.getRecButtons().setRecipeText("Invalid Input. Please say a proper meal type.\n\nTranscription: " + response);
         }
         
@@ -258,7 +306,7 @@ public class Controller {
 
     }
 
-    private void handleBackButton2(ActionEvent event){
+    private void handleBackButton2(ActionEvent event) throws URISyntaxException{
         ui.returnHomePage();   
         inputFrame.getRecButtons().setRecipeText("Select Meal Type: Breakfast, Lunch, or Dinner");    
         if(this.rd.getEditable()){
@@ -306,7 +354,7 @@ public class Controller {
         }
     }
 
-    public void handleSaveButton(ActionEvent event)  {
+    public void handleSaveButton(ActionEvent event) {
         try {
             //TODO make sure all windows library added to main
             rd.getIngredients().setEditable(false);
@@ -321,20 +369,24 @@ public class Controller {
                 String mealType = rd.getMealType(); 
                 System.out.println("kekekekekkekekekek" + mealType);
                 model.performRequest("PUT", mealType, stringID, title, ingredients, steps, imgURL, this.name);
-                // TODO: Add mealType Tag to recipe display
                 RecipeDisplay recipeDisplay = new RecipeDisplay(stringID, title, ingredients, steps, imgURL, mealType);
                 RecipeDisplayAppFrame rec = new RecipeDisplayAppFrame(recipeDisplay);
                 RecipeTitle recipeDis = new RecipeTitle(stringID, title, rec, mealType);
                 rd.setID(RecipeManager.getStringID()); // TODO CHANGE?? 
-
-            
 
                 // File oldFile = new File("generated_img/temp.jpg");
                 // File newFile = new File("generated_img/" + title.replace(" ","") + ".jpg");
                 // boolean success = oldFile.renameTo(newFile);
 
                 recipeDis.setViewButtonAction(this::handleViewButton);
-                recipeDis.getRecipeDetail().setBackButtonAction2(this::handleBackButton2);
+                recipeDis.getRecipeDetail().setBackButtonAction2(event1 -> {
+                    try {
+                        handleBackButton2(event1);
+                    } catch (URISyntaxException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+                });
                 recipeDis.getRecipeDetail().setLogoutButtonAction(this::handleLogoutButton);
                 this.rt = recipeDis;
                 hp.getRecipeList().getChildren().add(recipeDis);
@@ -342,10 +394,7 @@ public class Controller {
 
             }
             else {
-                
-                model.performRequest("PUT", rd.getMealType(), rd.getID(), rd.getTitle().getText(), rd.getIngredients().getText(), rd.getSteps().getText(), rd.getImage(), this.name);
-                    // RecipeManager.updateRecipe(rd.getTitle().getText(), rd.getIngredients().getText(), rd.getSteps().getText(), rd.getID());
-                
+                model.performRequest("PUT", rd.getMealType(), rd.getID(), rd.getTitle().getText(), rd.getIngredients().getText(), rd.getSteps().getText(), rd.getImage(), this.name);                
             }
             this.rd.getRecipe().getSaveButton().setStyle("-fx-background-color: #5DBB63; -fx-border-width: 0;");
             PauseTransition pause = new PauseTransition(
@@ -356,7 +405,7 @@ public class Controller {
             });
             pause.play();
         }
-        catch (ConnectException err) {
+        catch (URISyntaxException | ConnectException err) {
             Alert a = new Alert(AlertType.ERROR, "Server is Offline", ButtonType.OK);
             a.showAndWait();
         }
@@ -366,10 +415,9 @@ public class Controller {
         ui.getRoot().setCenter(this.rt.getRecipeDetail()); 
         ui.getRoot().setTop(this.rt.getRecipeDetail().getRecipeDisplayHeader());
         ui.getRoot().setBottom(null);
-
     }
 
-    private void handleDeleteButton(ActionEvent event) {
+    private void handleDeleteButton(ActionEvent event) throws URISyntaxException{
         
         try {
             String stringID = rd.getID();
@@ -405,12 +453,27 @@ public class Controller {
             rec.setImage(imgURL);
             System.out.println(rec.getIngredients().getText());
             System.out.println(rec.getSteps().getText());
-            System.out.println("SDUHFIOSDHFIOSHDOFHSDIOFHSDIOFSIDHFOSDIFHSODi");
             RecipeDisplayAppFrame displayRec = new RecipeDisplayAppFrame(rec);
-            displayRec.setBackButtonAction2(this::handleBackButton2);
+            displayRec.setBackButtonAction2(event1 -> {
+                try {
+                    handleBackButton2(event1);
+                } catch (URISyntaxException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+            });
             displayRec.setLogoutButtonAction(this::handleLogoutButton);
-            displayRec.setDeleteButtonAction(this::handleDeleteButton);
-            displayRec.setSaveButtonAction(this::handleSaveButton);
+            displayRec.setDeleteButtonAction(event1 -> {
+                try {
+                    handleDeleteButton(event1);
+                } catch (URISyntaxException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+            });
+            displayRec.setSaveButtonAction(event1 -> {
+                handleSaveButton(event1);
+            });
             
 
             
@@ -430,9 +493,10 @@ public class Controller {
             ui.getRoot().setTop(displayRec.getRecipeDisplayHeader());
             ui.getRoot().setBottom(null);
 
-        } catch(IOException err){
+        } catch(URISyntaxException | IOException err){
             err.printStackTrace();
-        }
+        } 
+        
         this.rd.getRecipe().getRegenerateButton().setStyle("-fx-background-color: #5DBB63; -fx-border-width: 0;");
         PauseTransition pause = new PauseTransition(
             Duration.seconds(1)
@@ -538,7 +602,7 @@ public class Controller {
         resetInput();
     }
 
-    public void reload(){
+    public void reload() throws URISyntaxException{
         hp.getRecipeList().getChildren().removeIf(RecipeTitle -> RecipeTitle instanceof RecipeTitle && true);  
         loadRecipes(); // loads recipef
     }
@@ -558,11 +622,12 @@ public class Controller {
         }
     }
 
-    public void loadRecipes(){
+    public void loadRecipes() throws URISyntaxException{
         hp.getRecipeList().getChildren().removeIf(RecipeTitle -> RecipeTitle instanceof RecipeTitle && true); 
         // ArrayList<String[]> recipes = RecipeManager.loadRecipes(this.name);
         try {
             String response = model.performRequest(this.name);
+            System.out.println("RESPONSE: " + response);
             JSONArray recipes = new JSONArray(response);
             
             for(int i = 0; i < recipes.length(); i++){
@@ -589,11 +654,25 @@ public class Controller {
 
                         rec.setEditButtonAction(this::handleEditButton);
                         rec.setSaveButtonAction(this::handleSaveButton);
-                        rec.setDeleteButtonAction(this::handleDeleteButton);
+                        rec.setDeleteButtonAction(event -> {
+                            try {
+                                handleDeleteButton(event);
+                            } catch (URISyntaxException e) {
+                                // TODO Auto-generated catch block
+                                e.printStackTrace();
+                            }
+                        });
                 });
                 
                 hp.getRecipeList().getChildren().add(recipeTitle);
-                recipeTitle.getRecipeDetail().setBackButtonAction2(this::handleBackButton2);
+                recipeTitle.getRecipeDetail().setBackButtonAction2(event -> {
+                    try {
+                        handleBackButton2(event);
+                    } catch (URISyntaxException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+                });
                 recipeTitle.getRecipeDetail().setLogoutButtonAction(this::handleLogoutButton);
             }
         }

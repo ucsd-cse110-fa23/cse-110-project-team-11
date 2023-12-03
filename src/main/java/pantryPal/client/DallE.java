@@ -14,7 +14,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 
-public class DallE {
+public class DallE implements IAPI {
 
 
  // TODO: Set the URL of the API Endpoint
@@ -24,7 +24,7 @@ public class DallE {
  private static final String MODEL = "dall-e-2";
 
 
-  public static String callAPI(String prompt) throws IOException, InterruptedException, URISyntaxException {
+  public String callAPI(String prompt) throws IOException, InterruptedException, URISyntaxException {
                 // Set request parameters
             int n = 1;
 

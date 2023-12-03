@@ -20,6 +20,7 @@ import pantryPal.client.View.LoginPageAppFrame;
 import pantryPal.client.View.RecipeDisplay;
 import pantryPal.client.View.HomePageAppFrame;
 import pantryPal.client.View.UI;
+import pantryPal.server.MockServer;
 import javafx.scene.layout.*;
 
 import java.io.BufferedReader;
@@ -29,8 +30,12 @@ import java.io.FileReader;
 
 public class App extends Application {
 
+
+    private static boolean test = false;
     private static UI ui;
     public static void main(String[] args) {
+        setTest(true);
+        MockServer.turnOn();
         launch(args);
     }
 
@@ -50,7 +55,10 @@ public class App extends Application {
         File f = new File("src/main/resources/autologin.txt");
         String username = "";
         
-        Model model = new Model();
+        IModel model = new Model();
+        if (test) {
+            model = new MockModel();
+        }
 
         Controller controller;
         if(f.exists()){
@@ -74,5 +82,9 @@ public class App extends Application {
         // Create scene of mentioned size with the border pane
         stage.setScene(new Scene(root, 500, 600));
         stage.show(); // Show the app
+    }
+
+    public static void setTest(boolean b) {
+        test = b;
     }
 }

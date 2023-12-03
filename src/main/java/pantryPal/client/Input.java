@@ -1,4 +1,6 @@
 package pantryPal.client;
+import static com.mongodb.client.model.Filters.where;
+
 import java.io.*;
 import java.net.*;
 import org.json.*;
@@ -67,12 +69,12 @@ public class Input {
         if (mic != null){
             mic.stop();
             mic.close();
+            Whisper w = new Whisper();
 
             if(promptType.equals("MealType")){
                 try {
-
                     thread.join();
-                    transcription = Whisper.callAPI();
+                    transcription = w.callAPI("");
                     this.type = typeParser(transcription);
                     System.out.println(this.type);
                     if(type.equals("Invalid")){
@@ -102,7 +104,7 @@ public class Input {
             else if (promptType.equals("Ingredients")){
                 try {
                     thread.join();
-                    transcription = Whisper.callAPI();
+                    transcription = w.callAPI("");
                     try {
                         File file = new File("prompt.txt");
                         file.createNewFile();

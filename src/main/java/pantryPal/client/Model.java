@@ -11,7 +11,7 @@ import java.net.URL;
 import java.net.URI;
 import java.util.Base64;
 
-public class Model {
+public class Model implements IModel {
     public String performRequest(String method,String username, String password) throws ConnectException {
         try {
             String urlString = "http://localhost:8100/";
@@ -83,6 +83,8 @@ public class Model {
                 
 
                 
+
+
                 // Send data in the request body
                 try (OutputStreamWriter out = new OutputStreamWriter(conn.getOutputStream())) {
                     out.write(encodedRequest + ";" + encodedMealType + ";" + encodedTitle + ";" + encodedIngredients + ";" + encodedSteps + ";" + encodedUrl + ";" + encodedName);

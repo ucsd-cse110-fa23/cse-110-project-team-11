@@ -2,9 +2,11 @@ package pantryPal.client;
 
 import java.util.StringTokenizer;
 import java.util.List;
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 
-public class MockChatGPT {
+public class MockChatGPT implements IAPI {
     public static List<String> parseList(String prompt) {
         StringTokenizer st = new StringTokenizer(prompt, " ");
         List<String> ingredientList = new ArrayList<String>();
@@ -14,7 +16,7 @@ public class MockChatGPT {
         return ingredientList;
     }
     
-    public static String generateResponse(List<String> list) {
+    public String generateResponse(List<String> list) {
         if (list.isEmpty()) {
             return "No ingredients provided.";
         }
@@ -47,7 +49,7 @@ public class MockChatGPT {
         return response;
     }
     
-    public static String call(String prompt) {
+    public String callAPI(String prompt) {
         List<String> ingreds = parseList(prompt);
         String response = generateResponse(ingreds);
         System.out.println(response);
