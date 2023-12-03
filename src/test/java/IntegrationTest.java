@@ -1,22 +1,13 @@
-import org.junit.jupiter.api.BeforeEach;
-import org.bson.Document;
-import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
-
-import java.util.ArrayList;
+import java.io.FileWriter;   // Import the FileWriter class
+import java.io.IOException;  // Import the IOException class to handle errors
 
 import javafx.application.Application;
 import javafx.application.Platform;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
 import javafx.scene.layout.*;
-import pantryPal.client.RecipeManager;
-import pantryPal.client.UserAccount.AccountManager;
+import javafx.event.ActionEvent;
 import pantryPal.client.App;
 import pantryPal.client.View.HomePageAppFrame;
 import pantryPal.client.View.HomePageHeader;
@@ -24,9 +15,6 @@ import pantryPal.client.View.InputAppFrame;
 import pantryPal.client.View.LoginPageAppFrame;
 import pantryPal.client.View.RecipeDisplay;
 import pantryPal.client.View.RecipeDisplayAppFrame;
-import pantryPal.client.View.RecipeList;
-import pantryPal.client.View.RecipeTitle;
-import pantryPal.client.View.ReturnHeader;
 import pantryPal.client.View.UI;
 import pantryPal.server.MockServer;
 

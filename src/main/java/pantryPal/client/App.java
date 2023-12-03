@@ -34,8 +34,8 @@ public class App extends Application {
     private static boolean test = false;
     private static UI ui;
     public static void main(String[] args) {
-        setTest(true);
-        MockServer.turnOn();
+        // setTest(true);
+        // MockServer.turnOn();
         launch(args);
     }
 

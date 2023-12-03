@@ -144,6 +144,7 @@ public class LoginPageAppFrame extends BorderPane {
     public CheckBox getAuto(){
         return auto;
     }
+    
 
     public void setUsername(String name) {
         username.setText(name);

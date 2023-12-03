@@ -155,6 +155,93 @@ public class Input {
             } catch(Exception e) {
                 e.printStackTrace();
             }
+            return true;
+        }
+        return false;
+        //     Whisper w = new Whisper();
+
+        //     if(promptType.equals("MealType")){
+        //         try {
+        //             thread.join();
+        //             transcription = w.callAPI("");
+        //             this.type = typeParser(transcription);
+        //             System.out.println(this.type);
+        //             if(type.equals("Invalid")){
+        //                 return false;
+        //             }
+        //             else{
+        //                 try {
+        //                     File file = new File("prompt.txt");
+        //                     file.createNewFile();
+        //                     BufferedWriter br = new BufferedWriter(new FileWriter(file));
+        //                     br.write(type);
+        //                     br.write("\n");
+        //                     br.close();
+                            
+        //                 } catch(Exception e) {
+        //                     System.out.println("File not found");
+        //                 }
+        //                 return true;
+        //             }
+
+
+        //         } catch(Exception e) {
+        //             e.printStackTrace();
+        //         }
+
+        //     }
+        //     else if (promptType.equals("Ingredients")){
+        //         try {
+        //             thread.join();
+        //             transcription = w.callAPI("");
+        //             try {
+        //                 File file = new File("prompt.txt");
+        //                 file.createNewFile();
+        //                 BufferedWriter br = new BufferedWriter(new FileWriter(file, true));
+        //                 br.write(transcription);
+        //                 br.close();
+                        
+        //             } catch(Exception e) {
+        //                 System.out.println("File not found");
+        //             }
+        //             return true;
+        //         } catch(Exception e) {
+        //             e.printStackTrace();
+        //         }
+        //     } 
+        
+        // }
+        // return false;
+    }
+
+    public boolean parseInput(String transcription) {
+        this.transcription = transcription;
+        System.out.println("TRANSCRIPTION: "+this.transcription);
+        if(promptType.equals("MealType")){
+            try {
+                thread.join();
+                this.type = typeParser(transcription);
+                System.out.println(this.type);
+                if(type.equals("Invalid")){
+                    return false;
+                }
+                else{
+                    try {
+                        File file = new File("prompt.txt");
+                        file.createNewFile();
+                        BufferedWriter br = new BufferedWriter(new FileWriter(file));
+                        br.write(type);
+                        br.write("\n");
+                        br.close();
+                        
+                    } catch(Exception e) {
+                        System.out.println("File not found");
+                    }
+                    return true;
+                }
+            } catch(Exception e) {
+                e.printStackTrace();
+            }
 
         }
         else if (promptType.equals("Ingredients")){
@@ -199,7 +286,7 @@ public class Input {
         return this.promptType;
     }
 
-    private  String typeParser(String input) {
+    public String typeParser(String input) {
 
         input = input.toLowerCase();
 
