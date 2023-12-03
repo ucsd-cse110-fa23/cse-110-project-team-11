@@ -398,9 +398,19 @@ public class Controller {
     }
 
     private void handleViewButton(ActionEvent event){
-        ui.getRoot().setCenter(this.rt.getRecipeDetail()); 
-        ui.getRoot().setTop(this.rt.getRecipeDetail().getRecipeDisplayHeader());
-        ui.getRoot().setBottom(null);
+        try {
+            String imagePrompt = "Display the dish: " + rt.getTitle() + ", a dish with the ingredients: " + rt.getRecipeDetail().getIngredients() + ", like it is a dish in a Recipe Book";
+
+            String imgURL = model.performRequest(imagePrompt, "DallE");
+            System.out.println(imgURL);
+            this.rt.getRecipeDetail().getRecipe().setImage(imgURL);
+            ui.getRoot().setCenter(this.rt.getRecipeDetail()); 
+            ui.getRoot().setTop(this.rt.getRecipeDetail().getRecipeDisplayHeader());
+            ui.getRoot().setBottom(null);
+        } catch (ConnectException err){
+            Alert a = new Alert(AlertType.ERROR, "Server is Offline", ButtonType.OK);
+            a.showAndWait();
+        }
 
     }
 
@@ -623,6 +633,14 @@ public class Controller {
                 RecipeTitle recipeTitle = new RecipeTitle(stringID, title, rec, mealType);
                 rec.setID(recipeTitle.getID());
                 recipeTitle.getViewButton().setOnAction(e1->{
+                    
+                    try {
+
+                        String imagePrompt = "Display the dish: " + recipeTitle.getTitle() + ", a dish with the ingredients: " + recipeTitle.getRecipeDetail().getIngredients() + ", like it is a dish in a Recipe Book";
+
+                        String img = model.performRequest(imagePrompt, "DallE");
+
+                        recipeTitle.getRecipeDetail().getRecipe().setImage(img);
                         ui.getRoot().setCenter(recipeTitle.getRecipeDetail()); 
                         ui.getRoot().setTop(recipeTitle.getRecipeDetail().getRecipeDisplayHeader());
                         ui.getRoot().setBottom(null);
@@ -640,6 +658,11 @@ public class Controller {
                                 e.printStackTrace();
                             }
                         });
+                    }
+                    catch (ConnectException err){
+                        Alert a = new Alert(AlertType.ERROR, "Server is Offline", ButtonType.OK);
+                        a.showAndWait();
+                    }
                 });
                 
                 hp.getRecipeList().getChildren().add(recipeTitle);
