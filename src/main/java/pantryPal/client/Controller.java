@@ -582,7 +582,7 @@ public class Controller {
 
     public void reload(){
         hp.getRecipeList().getChildren().removeIf(RecipeTitle -> RecipeTitle instanceof RecipeTitle && true);  
-        loadRecipes(); // loads recipef
+        loadRecipes();
     }
 
     private void resetInput(){

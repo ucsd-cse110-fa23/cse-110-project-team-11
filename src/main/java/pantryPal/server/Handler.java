@@ -214,9 +214,9 @@ public class Handler implements HttpHandler {
                 String decodedImage = new String(Base64.getDecoder().decode(info[5]));
                 String decodedUsername = new String(Base64.getDecoder().decode(info[6]));
 
-                String[] result = RecipeManager.insertRecipe(decodedUsername, decodedMealType, decodedTitle, decodedIngredients, decodedSteps, decodedImage);
+                RecipeManager.updateRecipe(decodedUsername, decodedMealType, decodedTitle, decodedIngredients, decodedSteps, decodedImage);
 
-                response = "INSERTED THE RECIPE" + result;
+                response = "INSERTED/UPDATED THE RECIPE";
             }
 
             else if (decodedRequest.equals("createAcc")) {

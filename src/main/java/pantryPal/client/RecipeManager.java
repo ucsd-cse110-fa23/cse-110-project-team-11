@@ -9,6 +9,7 @@ import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.model.UpdateOptions;
 import com.mongodb.client.result.DeleteResult;
 import com.mongodb.client.result.UpdateResult;
 import org.bson.Document;
@@ -73,30 +74,30 @@ public class RecipeManager {
      * @return recipe to be inserted
      * @throws IOException
      */
-    public static String[] insertRecipe(String username, String mealType, String title, String ingredients, String steps, String imgURL) throws IOException{
-        try (MongoClient mongoClient = MongoClients.create(URI)) {
-            MongoDatabase recipeDB = mongoClient.getDatabase("recipes_db");
-            MongoCollection<Document> recipeCollections = recipeDB.getCollection(username);
+    // public static String[] insertRecipe(String username, String mealType, String title, String ingredients, String steps, String imgURL) throws IOException{
+    //     try (MongoClient mongoClient = MongoClients.create(URI)) {
+    //         MongoDatabase recipeDB = mongoClient.getDatabase("recipes_db");
+    //         MongoCollection<Document> recipeCollections = recipeDB.getCollection(username);
 
-            // recipe details: id, title, ingredients, steps
-            ObjectId objectID = new ObjectId();
-            stringID = objectID.toString();
+    //         // recipe details: id, title, ingredients, steps
+    //         ObjectId objectID = new ObjectId();
+    //         stringID = objectID.toString();
             
-            Document recipe = new Document("_id", objectID);
-            recipe.append("title", title)
-            .append("ingredients", ingredients)
-            .append("steps", steps)
-            .append("mealType", mealType)
-            .append("imageURL", imgURL);
+    //         Document recipe = new Document("_id", objectID);
+    //         recipe.append("title", title)
+    //         .append("ingredients", ingredients)
+    //         .append("steps", steps)
+    //         .append("mealType", mealType)
+    //         .append("imageURL", imgURL);
             
-            recipeCollections.insertOne(recipe); // inserts into MongoDB
-            String[] rec = {stringID, title, ingredients, steps};
+    //         recipeCollections.insertOne(recipe); // inserts into MongoDB
+    //         String[] rec = {stringID, title, ingredients, steps};
             
-            System.out.println("Insert successful");
-            mongoClient.close();
-            return rec;
-        }
-    }
+    //         System.out.println("Insert successful");
+    //         mongoClient.close();
+    //         return rec;
+    //     }
+    // }
     
     /**
      * Updates the entries, given the recipe name
@@ -115,23 +116,26 @@ public class RecipeManager {
      * 
      * TODO: update adds an entry if it doesnt exist? might need to remove the insert recipe
      */
-    public static UpdateResult updateRecipe(String username, String title, String ingredients, String steps, String id) throws IOException {
-        ObjectId objID = new ObjectId(id);
+    public static UpdateResult updateRecipe(String username, String mealType, String title, String ingredients, String steps, String imgURL) throws IOException {
         try (MongoClient mongoClient = MongoClients.create(URI)) {
             MongoDatabase recipeDB = mongoClient.getDatabase("recipes_db");
             MongoCollection<Document> recipeCollections = recipeDB.getCollection(username);
-            System.out.println("Opened mongoDB? (update recipe)");
     
-            Bson filter = eq("_id", objID);
-            
+            // Define the filter to find the document
+            Document filter = new Document("title", title);
+
             // Combine all updates into one operation
-            Bson updates = combine(
-                set("title", title), // Assuming you also want to update the title
-                set("ingredients", ingredients),
-                set("steps", steps)
+            Document updates = new Document("$set",
+                    new Document("ingredients", ingredients)
+                            .append("steps", steps)
+                            .append("imageURL", imgURL)
+                            .append("mealType", mealType)
             );
-    
-            UpdateResult result = recipeCollections.updateOne(filter, updates);
+
+            UpdateOptions options = new UpdateOptions().upsert(true);
+
+            // Perform the update
+            UpdateResult result = recipeCollections.updateOne(filter, updates, options);
     
             mongoClient.close();
             return result;
