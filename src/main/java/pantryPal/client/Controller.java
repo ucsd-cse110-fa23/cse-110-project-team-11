@@ -137,6 +137,7 @@ public class Controller {
         ui.getRoot().setCenter(inputFrame);
         ui.getRoot().setTop(inputFrame.getReturnHeader());
         ui.getRoot().setBottom(null);
+        input.setPromptType("MealType");
     }
 
     // TODO: sort shouldnt be called serverside
@@ -214,7 +215,7 @@ public class Controller {
 
     public void handleStopButton(ActionEvent event) throws InterruptedException, IOException, URISyntaxException {
 
-        // String promptType = input.getPromptType();
+        String promptType = input.getPromptType();
         inputFrame.getRecButtons().getButtonBox().getChildren().remove(inputFrame.getRecButtons().getStopButton());
         inputFrame.getRecButtons().getButtonBox().getChildren().add(inputFrame.getRecButtons().getStartButton());
 
@@ -238,9 +239,8 @@ public class Controller {
             inputFrame.getRecButtons().setRecipeText("Please input Ingredients.\n\nMeal Type: " + response);
             inputFrame.setMealType(response);
         }
-        else if (response.equals("valid")){    
-            
-                
+
+        else {    
             inputFrame.getRecButtons().setRecipeText("Recipe Displayed");
             // input.setPromptType("MealType");
             String prompt = generateRecipe();
@@ -305,9 +305,7 @@ public class Controller {
                 err.printStackTrace();
             }
         }
-        else{
-            inputFrame.getRecButtons().setRecipeText("Invalid Input. Please say a proper meal type.\n\nTranscription: " + response);
-        }
+        
         
         
     }
@@ -622,8 +620,10 @@ public class Controller {
 
     private void resetInput(){
         try {
-            String response = model.performRequest("Reset", "Whisper");
-            
+            //String response = model.performRequest("Reset", "Whisper");
+            input.setPromptType("MealType");
+            input.stopCapture();
+
             inputFrame.getRecButtons().setRecipeText("Select Meal Type: Breakfast, Lunch, or Dinner");  
             
             if (inputFrame.getRecButtons().getButtonBox().getChildren().contains(inputFrame.getRecButtons().getStopButton())){
