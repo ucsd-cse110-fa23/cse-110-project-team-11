@@ -130,6 +130,7 @@ public class Input {
 
     public boolean parseInput(String transcription) {
         this.transcription = transcription;
+        System.out.println("TRANSCRIPTION: "+this.transcription);
         if(promptType.equals("MealType")){
             try {
                 thread.join();
@@ -199,7 +200,7 @@ public class Input {
         return this.promptType;
     }
 
-    private  String typeParser(String input) {
+    public String typeParser(String input) {
 
         input = input.toLowerCase();
 
