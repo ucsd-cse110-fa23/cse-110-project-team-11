@@ -112,7 +112,6 @@ public class Model implements IModel {
 
     // GET for API
     public String performRequest(String input, String API) throws ConnectException {
-        
         try {
             
             String urlString = "http://localhost:8100/";
@@ -171,6 +170,5 @@ public class Model implements IModel {
             return null;
         }
     }
-
       
 }

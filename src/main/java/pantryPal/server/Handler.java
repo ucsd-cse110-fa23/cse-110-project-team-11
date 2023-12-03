@@ -93,41 +93,44 @@ public class Handler implements HttpHandler {
 
                 IAPI api = APIFactory.createAPI(apiCall);
 
-                if (!(api instanceof Whisper)) {
+                if (api !=null) {
                     response = api.callAPI(decodedInput);
                 }
-                else if (api instanceof Whisper){
-                    if(decodedInput.equals("start")){
-                        input.captureAudio();
-                        response = "captured audio";
-                    }
-                    else if (decodedInput.equals("Reset")){
-                        input.setPromptType("MealType"); 
-                        if(input.getMic() != null){
-                            input.getMic().stop();
-                            input.getMic().close();
-                            return "Input reset";
-                        }  
-                    }
-                    else {
-                        boolean res = input.stopCapture();
-                        if(res){
-                            if(input.getPromptType().equals("MealType")){
-                                input.setPromptType("Ingredients");
-                                return input.getMealType();
-                            }
-                            else {
-                                input.setPromptType("MealType");
-                                return "valid";
-                            }
-                        }
-                        else {
-                            return input.getTranscription();
-                            //return "ingredients processed";
-                        }
-                    }
+                // if (!(api instanceof Whisper)) {
+                //     response = api.callAPI(decodedInput);
+                // }
+                // else if (api instanceof Whisper){
+                //     if(decodedInput.equals("start")){
+                //         input.captureAudio();
+                //         response = "captured audio";
+                //     }
+                //     else if (decodedInput.equals("Reset")){
+                //         input.setPromptType("MealType"); 
+                //         if(input.getMic() != null){
+                //             input.getMic().stop();
+                //             input.getMic().close();
+                //             return "Input reset";
+                //         }  
+                //     }
+                //     else {
+                //         boolean res = input.stopCapture();
+                //         if(res){
+                //             if(input.getPromptType().equals("MealType")){
+                //                 input.setPromptType("Ingredients");
+                //                 return input.getMealType();
+                //             }
+                //             else {
+                //                 input.setPromptType("MealType");
+                //                 return "valid";
+                //             }
+                //         }
+                //         else {
+                //             return input.getTranscription();
+                //             //return "ingredients processed";
+                //         }
+                //     }
                     
-                }
+                // }
                 else {
                     response = "Invalid API";
                 }

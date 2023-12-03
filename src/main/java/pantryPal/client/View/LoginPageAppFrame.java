@@ -106,6 +106,14 @@ public class LoginPageAppFrame extends BorderPane {
     public String getPassword() {
         return password.getText();
     }
+
+    public Button getLoginButton() {
+        return loginButton;
+    }
+
+    public Button getCreateButton() {
+        return createAccButton;
+    }
     
 
     public void setLoginButtonAction(EventHandler<ActionEvent> eventHandler) {
@@ -136,6 +144,7 @@ public class LoginPageAppFrame extends BorderPane {
     public CheckBox getAuto(){
         return auto;
     }
+    
 
 
 
