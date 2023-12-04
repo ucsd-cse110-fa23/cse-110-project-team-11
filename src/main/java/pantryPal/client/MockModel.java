@@ -69,29 +69,19 @@ public class MockModel implements IModel{
         String info;
         
         String response = "";
-        
-        // if (id != null && method.equals("GET")) {
-        //         urlString += "?share=" + username + "&id=" + id;
-        //         Clipboard clipboard = Clipboard.getSystemClipboard();
-        //         ClipboardContent content = new ClipboardContent();
-        //         content.putString(urlString);
-        //         clipboard.setContent(content);
-        //         System.out.println(urlString);
-        //         Alert a = new Alert(AlertType.INFORMATION, "URL copied to clipboard!", ButtonType.FINISH);
-        //         a.showAndWait();
-        //     }
         try {
             if (method.equals("GET")) {
+                httpExchange = new MockHttpExchange("?share=" + username + "&id=" + id, method);
                 String urlString = "?share=" + username + "&id=" + id;
-                Clipboard clipboard = Clipboard.getSystemClipboard();
-                ClipboardContent content = new ClipboardContent();
-                content.putString(urlString);
-                clipboard.setContent(content);
-                System.out.println(urlString);
+                System.out.println("URLSTRING: " + urlString);
                 Alert a = new Alert(AlertType.INFORMATION, "URL copied to clipboard!", ButtonType.FINISH);
                 a.showAndWait();
                 httpExchange.setInfo(urlString);
                 response = h.handleGet(httpExchange);
+                Clipboard clipboard = Clipboard.getSystemClipboard();
+                ClipboardContent content = new ClipboardContent();
+                content.putString("http://localhost:8100/" + urlString);
+                clipboard.setContent(content);
 
             }
             else if (method.equals("PUT")) {

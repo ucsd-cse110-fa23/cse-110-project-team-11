@@ -34,8 +34,9 @@ public class App extends Application {
     private static boolean test = false;
     private static UI ui;
     public static void main(String[] args) {
-        // setTest(true);
-        // MockServer.turnOn();
+        setTest(true);
+        MockServer.turnOn();
+        System.out.println(MockServer.getStatus());
         launch(args);
     }
 
@@ -75,8 +76,6 @@ public class App extends Application {
             ui.setLoginPage();
         }
         
-        
-
         stage.setTitle("PantryPal");
         stage.setResizable(true);
         // Create scene of mentioned size with the border pane
