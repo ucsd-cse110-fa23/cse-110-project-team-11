@@ -1,4 +1,6 @@
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import java.io.FileWriter;   // Import the FileWriter class
@@ -29,6 +31,7 @@ import static org.testfx.util.DebugUtils.informedErrorMessage;
 
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.stage.Stage;
  
 

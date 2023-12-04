@@ -2,7 +2,7 @@ package pantryPal.client;
 
 public class MockWhisper implements IAPI {
     private String responses[] = {"Dinner", "valid"};
-    static int index = 0;
+    private int index = 0;
     public String callAPI(String prompt) {
 
         if (prompt.equals("stop")) {
