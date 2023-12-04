@@ -1,11 +1,8 @@
-package pantryPal.client;
-import java.io.BufferedReader;
+package pantryPal.client.API;
 import java.io.BufferedWriter;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
@@ -31,7 +28,6 @@ public class ChatGPT implements IAPI {
            
            // Create the HTTP Client
            HttpClient client = HttpClient.newHttpClient();
-   
    
            // Create the request object
            HttpRequest request = HttpRequest

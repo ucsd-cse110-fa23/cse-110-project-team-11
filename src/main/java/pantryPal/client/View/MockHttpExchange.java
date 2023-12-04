@@ -21,13 +21,11 @@ public class MockHttpExchange extends HttpExchange {
 
 	@Override
 	public Headers getRequestHeaders() {
-		// TODO Auto-generated method stub
 		throw new UnsupportedOperationException("Unimplemented method 'getRequestHeaders'");
 	}
 
 	@Override
 	public Headers getResponseHeaders() {
-		// TODO Auto-generated method stub
 		throw new UnsupportedOperationException("Unimplemented method 'getResponseHeaders'");
 	}
 
@@ -43,7 +41,6 @@ public class MockHttpExchange extends HttpExchange {
 
 	@Override
 	public HttpContext getHttpContext() {
-		// TODO Auto-generated method stub
 		throw new UnsupportedOperationException("Unimplemented method 'getHttpContext'");
 	}
 

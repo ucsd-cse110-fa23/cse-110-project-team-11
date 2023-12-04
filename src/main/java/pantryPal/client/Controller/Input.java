@@ -1,11 +1,8 @@
-package pantryPal.client;
-import static com.mongodb.client.model.Filters.where;
+package pantryPal.client.Controller;
 
 import java.io.*;
-import java.net.*;
-import org.json.*;
+
 import javax.sound.sampled.*;
-import pantryPal.client.Whisper;
 
 public class Input {
     private  AudioFormat format = new AudioFormat(8000.0F,
@@ -70,7 +67,6 @@ public class Input {
 
     public boolean parseInput(String transcription) {
         this.transcription = transcription;
-        System.out.println("TRANSCRIPTION: "+this.transcription);
         if(promptType.equals("MealType")){
             try {
                 thread.join();

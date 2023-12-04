@@ -1,7 +1,8 @@
-package pantryPal.client;
 /**
  * Interface for RecipeCreator objects
  */
+
+package pantryPal.client.Backend;
 
 public interface IRecipeCreator
 {
@@ -12,16 +13,9 @@ public interface IRecipeCreator
             "Format the title as 'Title: (name of dish)', and put a dash and a space in front of every ingredient."
                     + " Before printing steps, print a list of all ingredients used, including those that are not in the original ingredient list, "
                     + "without specifying quantities.";
-    
-    
-    /**
-     * Add formatting to the user's prompt
-     */
+
+    // Add formatting to the user's prompt
     public static String formatPrompt(String mealType, String rawPrompt) {
         return PROMPT_MEAL_SELECTION + mealType + PROMPT_FORMATTING+rawPrompt+RECIPE_HEADER;
     }
-    
-    // public abstract String generateRecipe() throws IOException, InterruptedException;
-    
-    // public abstract String callAPI(String prompt) throws IOException, InterruptedException;
 }

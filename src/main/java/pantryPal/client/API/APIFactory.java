@@ -1,4 +1,5 @@
-package pantryPal.client;
+package pantryPal.client.API;
+
 public class APIFactory {
     public static IAPI createAPI(String apiName) {
         switch (apiName) {

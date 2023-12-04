@@ -3,7 +3,7 @@
  * user account stuff around in the MongoDB.
  */
 
-package pantryPal.client.UserAccount;
+package pantryPal.client.Backend;
 
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
@@ -40,19 +40,13 @@ public class AccountManager {
         }
     }
 
-    /**
-     * called from login button
-     * if account does not exist
-     */
+    // called from login button if account does not exist
     public static Document searchAccount(String username) {
         try (MongoClient mongoClient = MongoClients.create(URI)) {
             MongoDatabase recipeDB = mongoClient.getDatabase("recipes_db");
             MongoCollection<Document> userCollections = recipeDB.getCollection("users");
 
-            // Bson filter = eq("username", username);
             Bson filter = eq("username", username);
-            //Bson filter = Filter.text();
-            // Bson update = set("username", username);
             Document doc = userCollections.find(filter).first();
             if (doc != null) {
                 System.out.println("found");
@@ -70,7 +64,7 @@ public class AccountManager {
             MongoCollection<Document> userCollections = recipeDB.getCollection("users");
 
             // find account
-            if (searchAccount(username) != null) { // if account exists {
+            if (searchAccount(username) != null) { // if account exists
                 Document user = new Document();
                 user.append("username", username)
                     .append("password", password);

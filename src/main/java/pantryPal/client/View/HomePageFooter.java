@@ -1,9 +1,7 @@
 package pantryPal.client.View;
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.layout.*;
-import javafx.scene.text.*;
 
 public class HomePageFooter extends BorderPane {
     private ComboBox<String> sortButton;
@@ -36,11 +34,6 @@ public class HomePageFooter extends BorderPane {
 
         this.setRight(filterButton);
         this.setLeft(sortButton);
-
-        // VBox placeholder = new VBox();
-        // placeholder.setSpacing(15);
-        // placeholder.setPrefWidth(100);
-        // this.setLeft(placeholder);
     }
 
     public ComboBox<String> getFilterButton() {

@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 
 import javafx.application.Application;
 import pantryPal.client.App;
-import pantryPal.client.UserAccount.AccountManager;
+import pantryPal.client.Backend.AccountManager;
 
 public class AccountManagerTest {
     @BeforeAll

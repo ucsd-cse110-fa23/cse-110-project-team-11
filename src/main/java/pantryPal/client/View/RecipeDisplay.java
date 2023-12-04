@@ -9,12 +9,13 @@ import javafx.scene.image.ImageView;
 import javafx.geometry.Insets;
 
 /** RecipeDisplay: window that shows the detailed recipe. 
- * SHOULD get the information from the CSV S
+ * SHOULD get the information from MongoDB
  */
 public class RecipeDisplay extends BorderPane {
     private String id = null;
     private TextArea title, ingredients, steps;
-    private Button editButton, saveButton, deleteButton, regenerateButton, shareButton;
+    private Button editButton, saveButton, deleteButton, regenerateButton, 
+    shareButton;
     private String imgURL = "https://hips.hearstapps.com/hmg-prod/images/dog-puppy-on-garden-royalty-free-image-1586966191.jpg?crop=0.752xw:1.00xh;0.175xw,0&resize=1200:*";
     private ImageView mealImage;
     private String mealType;
@@ -73,16 +74,15 @@ public class RecipeDisplay extends BorderPane {
         deleteButton.setGraphic(delImage);
 
         shareButton = new Button();
-                /*
-
-        shareButton.setPrefSize(50,30);
-        shareButton.setStyle("-fx-background-color: #DAE5EA; -fx-border-width: 0;");
-        shareButton.setAlignment(Pos.CENTER);
-        ImageView shareImage = new ImageView(new Image("file:graphics/share.png"));
-        shareImage.setPreserveRatio(true);
-        shareImage.setFitHeight(25);
-        shareImage.setFitWidth(45);
-        shareButton.setGraphic(shareImage);
+        /*
+            shareButton.setPrefSize(50,30);
+            shareButton.setStyle("-fx-background-color: #DAE5EA; -fx-border-width: 0;");
+            shareButton.setAlignment(Pos.CENTER);
+            ImageView shareImage = new ImageView(new Image("file:graphics/share.png"));
+            shareImage.setPreserveRatio(true);
+            shareImage.setFitHeight(25);
+            shareImage.setFitWidth(45);
+            shareButton.setGraphic(shareImage);
         */
 
         regenerateButton = new Button();
@@ -126,8 +126,8 @@ public class RecipeDisplay extends BorderPane {
         GridPane center = new GridPane();
         center.getColumnConstraints().addAll(col1,col2);
         center.addRow(0, leftBox, rightBox);
-        center.setVgrow(leftBox, Priority.ALWAYS);
-        center.setVgrow(rightBox, Priority.ALWAYS);
+        GridPane.setVgrow(leftBox, Priority.ALWAYS);
+        GridPane.setVgrow(rightBox, Priority.ALWAYS);
         ingredients.prefHeightProperty().bind(center.heightProperty());
         steps.prefHeightProperty().bind(center.heightProperty());
 
@@ -235,8 +235,8 @@ public class RecipeDisplay extends BorderPane {
         GridPane center = new GridPane();
         center.getColumnConstraints().addAll(col1,col2);
         center.addRow(0, leftBox, rightBox);
-        center.setVgrow(leftBox, Priority.ALWAYS);
-        center.setVgrow(rightBox, Priority.ALWAYS);
+        GridPane.setVgrow(leftBox, Priority.ALWAYS);
+        GridPane.setVgrow(rightBox, Priority.ALWAYS);
         ingredients.prefHeightProperty().bind(center.heightProperty());
         steps.prefHeightProperty().bind(center.heightProperty());
 

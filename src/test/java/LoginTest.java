@@ -6,11 +6,9 @@ import org.bson.Document;
 
 import javafx.application.Application;
 import pantryPal.client.App;
-import pantryPal.client.MockChatGPT;
-import pantryPal.client.TranscriptionService;
+import pantryPal.client.API.MockChatGPT;
+import pantryPal.client.Backend.AccountManager;
 import pantryPal.client.View.LoginPageAppFrame;
-import pantryPal.client.UserAccount.AccountManager;
-
 
 import java.io.File;
 import java.util.Arrays;

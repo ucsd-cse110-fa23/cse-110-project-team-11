@@ -143,5 +143,4 @@ public class RecipeTitle extends BorderPane {
     public void setID(String id) {
         this.id = id;
     }
-
 }

@@ -1,8 +1,8 @@
 
 import org.junit.jupiter.api.Test;
 
-import pantryPal.client.IRecipeCreator;
-import pantryPal.client.MockRecipeCreator;
+import pantryPal.client.Backend.IRecipeCreator;
+import pantryPal.client.Backend.MockRecipeCreator;
 
 import static org.junit.jupiter.api.Assertions.*;
 import java.io.FileWriter;   // Import the FileWriter class

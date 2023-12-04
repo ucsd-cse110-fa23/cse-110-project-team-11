@@ -1,4 +1,4 @@
-package pantryPal.client;
+package pantryPal.client.API;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -7,8 +7,6 @@ import java.net.URISyntaxException;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -64,16 +62,13 @@ public class DallE implements IAPI {
             JSONArray data = responseJson.getJSONArray("data");
             String generatedImageURL = data.getJSONObject(0).getString("url");
             
-            System.out.println("DALL-E Response:");
-            System.out.println(generatedImageURL);
-
+            System.out.println("DALL-E Response:" + generatedImageURL);
 
             // Download the Generated Image to Current Directory
             try(
                 InputStream in = new URI(generatedImageURL).toURL().openStream()
             )
             {
-              // Files.copy(in, Paths.get("generated_img/temp.jpg"));
               return generatedImageURL;
             }
           }

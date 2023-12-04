@@ -1,27 +1,19 @@
 package pantryPal.server;
 
 import com.sun.net.httpserver.*;
-
-import pantryPal.client.DallE;
-import pantryPal.client.IAPI;
-import pantryPal.client.APIFactory; 
-import pantryPal.client.ChatGPT;
-import pantryPal.client.Whisper;
-import pantryPal.client.RecipeManager;
-import pantryPal.client.UserAccount.AccountManager;
-import pantryPal.client.Input;
-import pantryPal.client.MockWhisper;
+import pantryPal.client.API.APIFactory;
+import pantryPal.client.API.IAPI;
+import pantryPal.client.Backend.AccountManager;
+import pantryPal.client.Backend.RecipeManager;
+import pantryPal.client.Controller.Input;
 
 import java.io.*;
 import java.net.*;
 import java.util.*;
-
 import org.bson.Document;
 import org.json.JSONArray;
-import org.json.JSONObject;
 
 public class Handler implements HttpHandler {
-    // String userID = "";
     Input input = new Input();
     /**
      * Methods to handle:
@@ -30,11 +22,8 @@ public class Handler implements HttpHandler {
      * DELETE a recipe (from MongoDB)
      */
     public void handle(HttpExchange httpExchange) throws IOException {
-        System.out.println(httpExchange.getRequestMethod());
         String method = httpExchange.getRequestMethod(); // gets method from Model.java
         String response = "Request Received";
-        System.out.println(response);
-        System.out.println(method);
         try {
             if (method.equals("GET")) {
                 response = handleGet(httpExchange);
@@ -48,8 +37,7 @@ public class Handler implements HttpHandler {
             else {
                 throw new Exception("Not Valid Request Method");
             }
-        } catch (Exception e) {
-            
+        } catch (Exception e) {   
             System.out.println("An erroneous request");
             response = e.toString();
             e.printStackTrace();
@@ -71,7 +59,6 @@ public class Handler implements HttpHandler {
     public String handleGet(HttpExchange httpExchange) throws IOException, URISyntaxException, InterruptedException  {
         URI uri = httpExchange.getRequestURI();
         String query = uri.getRawQuery();
-        System.out.println(query);
         String response = "";
         if (query != null) {
             String tag = query.substring((query.indexOf("?")+1), query.indexOf("="));
@@ -166,7 +153,6 @@ public class Handler implements HttpHandler {
             while ((line = br.readLine()) != null) {
                 postData.append(line);
             }
-            System.out.println("SIDUHGFIOSUDHFOISDHOFISDFH: "+postData.toString());
             String [] info = postData.toString().split(";");
             String decodedRequest = new String(Base64.getDecoder().decode(info[0]));
             // recipe collection
@@ -177,12 +163,12 @@ public class Handler implements HttpHandler {
                 String decodedSteps = new String(Base64.getDecoder().decode(info[4]));
                 String decodedImage = new String(Base64.getDecoder().decode(info[5]));
                 String decodedUsername = new String(Base64.getDecoder().decode(info[6]));
+                String decodedID = new String(Base64.getDecoder().decode(info[7]));
 
-                RecipeManager.updateRecipe(decodedUsername, decodedMealType, decodedTitle, decodedIngredients, decodedSteps, decodedImage);
+                RecipeManager.updateRecipe(decodedUsername, decodedMealType, decodedTitle, decodedIngredients, decodedSteps, decodedImage, decodedID);
 
                 response = "INSERTED/UPDATED THE RECIPE";
             }
-
             else if (decodedRequest.equals("createAcc")) {
                 String decodedUserName = new String(Base64.getDecoder().decode(info[1]));
                 String decodedPassword = new String(Base64.getDecoder().decode(info[2]));
@@ -192,9 +178,7 @@ public class Handler implements HttpHandler {
                 }
                 response = "INSERTED THE ACCOUNT: " + result[0] + " " + result[1];
             }
-            
             return response;
-
         }
         catch (Exception e) {
             e.printStackTrace(); // Log the exception

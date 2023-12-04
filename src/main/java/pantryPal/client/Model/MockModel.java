@@ -1,14 +1,7 @@
-package pantryPal.client;
+package pantryPal.client.Model;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
 import java.net.ConnectException;
-import java.net.HttpURLConnection;
-import java.net.URI;
 import java.net.URISyntaxException;
-import java.net.URL;
 import java.util.Base64;
 
 import com.sun.net.httpserver.*;
@@ -20,6 +13,8 @@ import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
 import pantryPal.server.Handler;
 import pantryPal.server.MockServer;
+
+import pantryPal.server.MockHttpExchange;
 
 public class MockModel implements IModel{
 
@@ -49,7 +44,6 @@ public class MockModel implements IModel{
                 response = h.handleDelete(httpExchange);
             }
         } catch (Exception e) {
-            
             System.out.println("An erroneous request");
             response = e.toString();
             e.printStackTrace();
@@ -71,9 +65,9 @@ public class MockModel implements IModel{
         String response = "";
         try {
             if (method.equals("GET")) {
+                httpExchange.close();
                 httpExchange = new MockHttpExchange("?share=" + username + "&id=" + id, method);
                 String urlString = "?share=" + username + "&id=" + id;
-                System.out.println("URLSTRING: " + urlString);
                 Alert a = new Alert(AlertType.INFORMATION, "URL copied to clipboard!", ButtonType.FINISH);
                 a.showAndWait();
                 httpExchange.setInfo(urlString);
@@ -101,7 +95,6 @@ public class MockModel implements IModel{
                 response = h.handleDelete(httpExchange);
             }
         } catch (Exception e) {
-            
             System.out.println("An erroneous request");
             response = e.toString();
             e.printStackTrace();

@@ -1,4 +1,4 @@
-package pantryPal.client;
+package pantryPal.client.Model;
 
 import java.net.ConnectException;
 import java.net.URISyntaxException;
@@ -13,6 +13,4 @@ public interface IModel {
     public String performRequest(String input, String API) throws ConnectException, URISyntaxException;
     // load recipes
     public String performRequest(String username) throws ConnectException, URISyntaxException;
-
-
 }
