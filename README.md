@@ -12,12 +12,12 @@ To get started with the project, follow these steps:
 1. Clone the repository:
 <img width="700" alt="Screenshot 2023-11-30 at 4 19 44 PM" src="https://github.com/ucsd-cse110-fa23/cse-110-project-team-11/assets/111910985/2a9c1507-1f2c-41ef-9fd4-e123843e412c">
 
-3. **Make the Repository Private:**
-- After importing, ensure to set the repository to **private**.
+<!-- 3. **Make the Repository Private:**
+- After importing, ensure to set the repository to **private**. -->
 
-3. **Navigate to the Java Folder:**
+2. **Navigate to the Java Folder:**
 - Go to `cse-110-project-team-11/src/main/java`.
-- Locate the `UI.java` file, which is the main file for the PantryPal app.
+- Locate the `App.java` file, which is the main file for the PantryPal app.
 
 ## Running the App
 

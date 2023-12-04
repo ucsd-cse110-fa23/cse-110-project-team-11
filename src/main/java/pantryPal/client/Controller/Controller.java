@@ -409,6 +409,7 @@ public class Controller {
             rec.setTitle(rp.getTitle());
             rec.setIngreds(rp.getStringIngredients());
             rec.setSteps(rp.getStringSteps());
+            rec.setMealType(inputFrame.getMealType());
 
             // File oldFile = new File("generated_img/temp.jpg");
             // oldFile.delete();

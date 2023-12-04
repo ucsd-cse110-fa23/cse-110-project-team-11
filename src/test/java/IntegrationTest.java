@@ -103,11 +103,11 @@ public class IntegrationTest extends FxRobot {
     assertNotNull(rdaf.getImage(), "Should not be null"); // checks that image is generated/image url shouldn't be null?
     clickOn((Button) rdaf.getRecipe().getRegenerateButton());
     RecipeDisplayAppFrame rdaf2 = (RecipeDisplayAppFrame) MockApp.getUI().getRoot().getCenter();
-    assertNotEquals(rdaf, rdaf2);
-    /* need to fix regenerate before this would work
-    assertNotEquals(rdaf.getStringTitle(), rdaf2.getStringTitle());
-    assertNotEquals(rdaf.getStringSteps(), rdaf2.getStringSteps());
-    assertNotEquals(rdaf.getStringIngredients(), rdaf2.getStringIngredients()); */
+    
+    boolean rdEquals = (rdaf.getStringTitle().equals(rdaf2.getStringTitle())) 
+                            && (rdaf.getStringSteps().equals(rdaf2.getStringSteps())) 
+                            && (rdaf.getStringIngredients().equals(rdaf2.getStringIngredients()));
+    assertFalse(rdEquals); 
 
     ReturnHeader rdh = rdaf2.getRecipeDisplayHeader();
     assertNotNull(rdh.getBackButton());
@@ -126,7 +126,7 @@ public class IntegrationTest extends FxRobot {
 
    // check save
     RecipeList rl = hpaf.getRecipeList();
-    assertEquals(((RecipeTitle) rl.getChildren().get(0)).getTitle(), rdaf2.getStringTitle()); // need to add set getter also
+    assertEquals(((RecipeTitle) rl.getChildren().get(0)).getTitle().getText(), rdaf2.getStringTitle()); // need to add set getter also
 
     // check alphabetical sort
     // check filter

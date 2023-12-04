@@ -2,6 +2,9 @@ package pantryPal.client.API;
 
 import java.util.StringTokenizer;
 import java.util.List;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class MockChatGPT implements IAPI {
@@ -51,6 +54,15 @@ public class MockChatGPT implements IAPI {
         List<String> ingreds = parseList(prompt);
         String response = generateResponse(ingreds);
         System.out.println(response);
+        // write recipe to "recipe.txt"
+           try (FileWriter writer = new FileWriter("src/main/resources/recipe.txt",true);
+                   BufferedWriter bw = new BufferedWriter(writer)) {
+   
+                  bw.append(".");
+   
+              } catch (IOException e) {
+                  System.err.format("IOException: %s%n", e);
+              }
         return response;
     }
 }
