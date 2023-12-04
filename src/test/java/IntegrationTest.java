@@ -11,12 +11,19 @@ import javafx.application.Platform;
 import javafx.scene.layout.*;
 import javafx.event.ActionEvent;
 import pantryPal.client.App;
+import pantryPal.client.Controller;
+import pantryPal.client.MockApp;
+import pantryPal.client.Model;
 import pantryPal.client.View.HomePageAppFrame;
+import pantryPal.client.View.HomePageFooter;
 import pantryPal.client.View.HomePageHeader;
 import pantryPal.client.View.InputAppFrame;
 import pantryPal.client.View.LoginPageAppFrame;
 import pantryPal.client.View.RecipeDisplay;
 import pantryPal.client.View.RecipeDisplayAppFrame;
+import pantryPal.client.View.RecipeList;
+import pantryPal.client.View.RecipeTitle;
+import pantryPal.client.View.ReturnHeader;
 import pantryPal.client.View.UI;
 import pantryPal.server.MockServer;
 
@@ -40,9 +47,8 @@ public class IntegrationTest extends FxRobot {
    
     @BeforeEach
     void setup() throws Exception {
-        App.setTest(true);
        // MockServer.turnOn();
-        ApplicationTest.launch(App.class);
+        ApplicationTest.launch(MockApp.class);
     }
 
     @AfterEach
@@ -57,7 +63,7 @@ public class IntegrationTest extends FxRobot {
     public void integrationTest1() {
     // app launch check "Loging button and Create button"
     MockServer.turnOn();
-    LoginPageAppFrame loginPage = App.getUI().getLoginPage();
+    LoginPageAppFrame loginPage = MockApp.getUI().getLoginPage();
     assertNotNull(loginPage.getLoginButton(), "Should not be null");
     assertNotNull(loginPage.getCreateButton(), "Should not be null");
     
@@ -66,23 +72,64 @@ public class IntegrationTest extends FxRobot {
     loginPage.setPassword("test");
     clickOn((Button) loginPage.getCreateButton());
     
-    HomePageAppFrame hpaf =  (HomePageAppFrame) App.getUI().getRoot().getCenter();
-    HomePageHeader hph = (HomePageHeader) App.getUI().getRoot().getTop();
+    // Homepage -> Create Button
+    HomePageAppFrame hpaf =  (HomePageAppFrame) MockApp.getUI().getRoot().getCenter();
+    HomePageHeader hph = (HomePageHeader) MockApp.getUI().getRoot().getTop();
     assertTrue(hpaf instanceof HomePageAppFrame);
     assertTrue(hph instanceof HomePageHeader);
     assertNotNull(hph.getCreateButton(), "Should not be null");
 
     clickOn((Button) hph.getCreateButton());
-    InputAppFrame iaf = (InputAppFrame) App.getUI().getRoot().getCenter();
-    assertTrue(iaf instanceof InputAppFrame);
+    InputAppFrame iaf = (InputAppFrame) MockApp.getUI().getRoot().getCenter();
     assertNotNull(iaf.getStartButton(), "Should not be null");
 
+    // Start Record -> input: Dinner -> created recipe page 
     clickOn((Button) iaf.getStartButton());
+    //assertEquals()
     clickOn((Button) iaf.getStopButton());
     clickOn((Button) iaf.getStartButton());
     clickOn((Button) iaf.getStopButton());
 
+    // expected: Regenerate -> Homepage 
+    RecipeDisplayAppFrame rdaf = (RecipeDisplayAppFrame) MockApp.getUI().getRoot().getCenter();
+    assertTrue(rdaf instanceof RecipeDisplayAppFrame);
+    assertNotNull(rdaf.getRecipe().getDeleteButton(),"Should not be null");
+    assertNotNull(rdaf.getRecipe().getSaveButton(),"Should not be null");
+    assertNotNull(rdaf.getRecipe().getEditButton(),"Should not be null");
+    assertNotNull(rdaf.getRecipe().getShareButton(),"Should not be null");
+    assertNotNull(rdaf.getRecipe().getRegenerateButton(),"Should not be null");
+    assertNotNull(rdaf.getImage(), "Should not be null"); // checks that image is generated/image url shouldn't be null?
+    clickOn((Button) rdaf.getRecipe().getRegenerateButton());
+    RecipeDisplayAppFrame rdaf2 = (RecipeDisplayAppFrame) MockApp.getUI().getRoot().getCenter();
+    assertNotEquals(rdaf, rdaf2);
+    /* need to fix regenerate before this would work
+    assertNotEquals(rdaf.getStringTitle(), rdaf2.getStringTitle());
+    assertNotEquals(rdaf.getStringSteps(), rdaf2.getStringSteps());
+    assertNotEquals(rdaf.getStringIngredients(), rdaf2.getStringIngredients()); */
 
+    ReturnHeader rdh = rdaf2.getRecipeDisplayHeader();
+    assertNotNull(rdh.getBackButton());
+    clickOn((Button) rdaf2.getRecipe().getSaveButton());
+
+   // return to home page
+    clickOn((Button) rdh.getBackButton());
+    hpaf =  (HomePageAppFrame) MockApp.getUI().getRoot().getCenter();
+    hph = (HomePageHeader) MockApp.getUI().getRoot().getTop();
+    HomePageFooter hpf = (HomePageFooter) MockApp.getUI().getRoot().getBottom();
+    assertTrue(hpaf instanceof HomePageAppFrame);
+    assertTrue(hph instanceof HomePageHeader);
+    assertTrue(hpf instanceof HomePageFooter);
+    assertNotNull(hpf.getFilterButton());
+    assertNotNull(hpf.getSortButton());
+
+   // check save
+    RecipeList rl = hpaf.getRecipeList();
+    assertEquals(((RecipeTitle) rl.getChildren().get(0)).getTitle(), rdaf2.getStringTitle()); // need to add set getter also
+
+    // check alphabetical sort
+    // check filter
+    // clickOn(“Breakfast”); //idk about this part
+    // RecipeList newRL =  (HomePageAppFrame) App.getUI().getRoot().getCenter();
 
 
 
@@ -90,111 +137,10 @@ public class IntegrationTest extends FxRobot {
     
     }
 
-
 }
-
-
-    // /**
-    //  * Scenario-based System #2
-    //  * Click the create button, 
-    //  * and you should see a screen 
-    //  * with a voice record button prompting you 
-    //  * for meal type.
-    //  */
-
-    // @BeforeAll
-    // public static void setUpClass() throws InterruptedException {
-    //     Thread thread = new Thread(new Runnable() {
-    //         @Override
-    //         public void run() {
-    //                 Application.launch(App.class,new String[0]); 
-    //             }
-    //         });
-    //         thread.setDaemon(true);
-    //         thread.start();// Initialize the thread
-    // }
 
    
     
-    // @Test 
-    // public void Integration1() throws InterruptedException, IOException {
-
-    //     Thread thread = new Thread(new Runnable() {
-
-    //         @Override
-    //         public void run() {
-    //             try {
-    //                 setUpClass();
-    //             } catch (InterruptedException e) {
-    //                 e.printStackTrace();
-    //             }
-    //             Platform.runLater(new Runnable() {
-
-    //                 @Override
-    //                 public void run() {
-    //                         // Check if the click button is created
-    //                 Model model = new Model();
-    //                 BorderPane root = new BorderPane();
-    //                 InputAppFrame ip = new InputAppFrame();
-    //                 HomePageAppFrame hp = new HomePageAppFrame(ip);
-    //                 RecipeDisplayAppFrame dp = new RecipeDisplayAppFrame(new RecipeDisplay());
-    //                 LoginPageAppFrame lp = new LoginPageAppFrame();
-    //                 HomePageHeader hph = new HomePageHeader();
-    //                 UI ui = new UI(root, hp, ip, dp, lp);
-    //                 Controller c = new Controller(ui, model);
-    //                 ActionEvent actionEvent = new ActionEvent();
-
-                    
-    //                 c.handleCreateButton(actionEvent);
-    //                 assertEquals(ui.getRoot().getCenter(), ip);
-
-    //                 c.handleStartButton(actionEvent);
-    //                 assertTrue(ip.getRecButtons().getButtonBox().getChildren().contains(ip.getRecButtons().getStopButton()));
-
-    //                 MockTranscriptionService mockService = new MockTranscriptionService();
-    //                 File audioFile = new File("input.wav");
-    //                 String output = mockService.transcribe(audioFile);
-    //                 assertEquals("lunch", output, "The transcribe method should return 'lunch'");
-
-    //                 try {
-    //                     c.handleStopButton(actionEvent);
-    //                 } catch (InterruptedException e) {
-    //                     // TODO Auto-generated catch block
-    //                     e.printStackTrace();
-    //                 } catch (IOException e) {
-    //                     // TODO Auto-generated catch block
-    //                     e.printStackTrace();
-    //                 }
-    //                 assertTrue(ip.getRecButtons().getButtonBox().getChildren().contains(ip.getRecButtons().getStartButton()));
-
-                    
-    //                 c.handleStartButton(actionEvent);
-    //                 assertTrue(ip.getRecButtons().getButtonBox().getChildren().contains(ip.getRecButtons().getStopButton()));
-                    
-    //                 try {
-    //                     c.handleStopButton(actionEvent);
-    //                 } catch (InterruptedException e) {
-    //                     // TODO Auto-generated catch block
-    //                     e.printStackTrace();
-    //                 } catch (IOException e) {
-    //                     // TODO Auto-generated catch block
-    //                     e.printStackTrace();
-    //                 }
-    //                 assertTrue(ip.getRecButtons().getButtonBox().getChildren().contains(ip.getRecButtons().getStartButton()));
-
-                    
-    //                 assertTrue(ui.getRoot().getCenter() instanceof RecipeDisplayAppFrame);
-
-    //                 c.handleSaveButton(actionEvent);
-
-    //                 assertEquals(ui.getRoot().getCenter(), hp);
-
-    //                 }
-    //             });
-    //         }
-    //     });
-    //     thread.start();// Initialize the thread
-    //     Thread.sleep(2000); // Time to use the app, with out this, the thread
-    // }
+ 
     
     

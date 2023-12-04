@@ -6,21 +6,20 @@
     "configurations": [
         {
             "type": "java",
-            "name": "App_mock_win",
-            "request": "launch",
-            "mainClass": "pantryPal.client.MockApp",
-            "projectName": "cse-110-project-team-11",
-            "vmArgs": "--module-path 'lib/win/lib' --add-modules javafx.controls,javafx.fxml"
-        },
-        {
-            "type": "java",
             "name": "App_mock_mac",
             "request": "launch",
             "mainClass": "pantryPal.client.MockApp",
             "projectName": "cse-110-project-team-11",
             "vmArgs": "--module-path 'lib' --add-modules javafx.controls,javafx.fxml"
         },
-        
+        {
+            "type": "java",
+            "name": "App_mock_win",
+            "request": "launch",
+            "mainClass": "pantryPal.client.MockApp",
+            "projectName": "cse-110-project-team-11",
+            "vmArgs": "--module-path 'lib/win/lib' --add-modules javafx.controls,javafx.fxml"
+        },
         {
             "type": "java",
             "name": "AccountManager",
