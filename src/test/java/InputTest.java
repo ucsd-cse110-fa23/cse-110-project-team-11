@@ -17,7 +17,7 @@ public class InputTest extends APIFactory {
      */
     @Test 
     public void FakeResponse() throws IOException, InterruptedException, URISyntaxException {        
-        IAPI output = createAPI("Whisper");
-        assertEquals("Dinner", output.callAPI("input.wav"), "The transcribe method should return 'Dinner'");
+        IAPI output = APIFactory.createAPI("MockWhisper");
+        assertEquals("Dinner", output.callAPI("stop"), "The transcribe method should return 'Dinner'");
     }
 }
