@@ -18,8 +18,6 @@ public class RecipeDisplay extends BorderPane {
     private String imgURL = "https://blog.teamtreehouse.com/wp-content/uploads/2015/05/InternetSlowdown_Day.gif";
     private ImageView mealImage;
     private String mealType;
-
-    private boolean imageLoaded = false;
     
     public RecipeDisplay() {
         this.setPrefSize(500, 20); // sets size of task
@@ -75,6 +73,8 @@ public class RecipeDisplay extends BorderPane {
         deleteButton.setGraphic(delImage);
 
         shareButton = new Button();
+                /*
+
         shareButton.setPrefSize(50,30);
         shareButton.setStyle("-fx-background-color: #DAE5EA; -fx-border-width: 0;");
         shareButton.setAlignment(Pos.CENTER);
@@ -83,6 +83,7 @@ public class RecipeDisplay extends BorderPane {
         shareImage.setFitHeight(25);
         shareImage.setFitWidth(45);
         shareButton.setGraphic(shareImage);
+        */
 
         regenerateButton = new Button();
         regenerateButton.setPrefSize(50,30);
@@ -94,7 +95,7 @@ public class RecipeDisplay extends BorderPane {
         reloadImage.setFitWidth(45);
         regenerateButton.setGraphic(reloadImage);
 
-        HBox headerBox = new HBox(title, editButton, saveButton, deleteButton, regenerateButton, shareButton); // orange
+        HBox headerBox = new HBox(title, editButton, saveButton, deleteButton, regenerateButton); // orange
         headerBox.setSpacing(30);
         headerBox.setStyle("-fx-background-color: #008080; -fx-border-width: 0;"); // teal
         headerBox.setAlignment(Pos.TOP_CENTER);
@@ -288,6 +289,14 @@ public class RecipeDisplay extends BorderPane {
         return this.mealType;
     }
 
+    public String getStringTitle() {
+        return this.title.getText();
+    }
+
+    public String getStringIngredients() {
+        return this.ingredients.getText();
+    }
+
     public void setMealType(String type){
         this.mealType = type;
     }
@@ -315,12 +324,6 @@ public class RecipeDisplay extends BorderPane {
         this.mealImage.setImage(new Image(imgURL));
     }
 
-    public void setImageLoaded(boolean t){
-        imageLoaded = t;
-    }
-
-    public boolean getImageLoaded(){
-        return imageLoaded;
-    }
+   
 }
 

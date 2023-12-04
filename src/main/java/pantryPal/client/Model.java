@@ -11,6 +11,12 @@ import java.net.URL;
 import java.net.URI;
 import java.util.Base64;
 
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
+import javafx.scene.input.Clipboard;
+import javafx.scene.input.ClipboardContent;
+
 public class Model {
     public String performRequest(String method,String username, String password) throws ConnectException {
         try {
@@ -61,8 +67,19 @@ public class Model {
     public String performRequest (String method, String mealType, String id, String title, String ingredients, String steps, String imgURL, String username) throws ConnectException{
         try {
             String urlString = "http://localhost:8100/";
-            if (id != null) {
+            if (id != null && method.equals("GET")) {
+                urlString += "?share=" + username + "&id=" + id;
+                Clipboard clipboard = Clipboard.getSystemClipboard();
+                ClipboardContent content = new ClipboardContent();
+                content.putString(urlString);
+                clipboard.setContent(content);
+                System.out.println(urlString);
+                Alert a = new Alert(AlertType.INFORMATION, "URL copied to clipboard!", ButtonType.FINISH);
+                a.showAndWait();
+            }
+            else {
                 urlString += "?user=" + username + "&id=" + id;
+                // System.out.println(urlString);
             }
             URL url = new URI(urlString).toURL();
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -81,8 +98,6 @@ public class Model {
                 String encodedUrl = Base64.getEncoder().encodeToString(imgURL.getBytes());
                 String encodedName = Base64.getEncoder().encodeToString(username.getBytes());
                 
-
-                
                 // Send data in the request body
                 try (OutputStreamWriter out = new OutputStreamWriter(conn.getOutputStream())) {
                     out.write(encodedRequest + ";" + encodedMealType + ";" + encodedTitle + ";" + encodedIngredients + ";" + encodedSteps + ";" + encodedUrl + ";" + encodedName);
@@ -92,8 +107,9 @@ public class Model {
 
             // Sending request to the server
             try (BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()))) {
+                // change method of reading string
                 String response = in.readLine(); // reading response from the server
-                
+                System.out.println("MODEL RESPONSE" + response);
                 return response;
             }
 

@@ -53,6 +53,7 @@ public class Controller {
     private Model model;
     private String filterState = "All Recipes";
     private String sortState = "Default";
+    private ArrayList<String> imgLoaded;
 
     private String name = "";
 
@@ -84,6 +85,14 @@ public class Controller {
         this.rd.setSaveButtonAction(this::handleSaveButton);
         this.rd.setEditButtonAction(this::handleEditButton);
         this.rt.setViewButtonAction(this::handleViewButton);
+        this.rd.setShareButtonAction(event -> {
+            try {
+                handleShareButton(event);
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        });
         this.rd.setRegenerateButtonAction(event -> {
             try {
                 handleRegenerateButton(event);
@@ -116,7 +125,23 @@ public class Controller {
       
     }
 
-    
+    public void handleShareButton(ActionEvent event) throws IOException {
+        this.rd.getRecipe().getShareButton().setStyle("-fx-background-color: #5DBB63; -fx-border-width: 0;");
+        PauseTransition pause = new PauseTransition(
+            Duration.seconds(1)
+        );
+        pause.setOnFinished(e2 -> {
+            this.rd.getRecipe().getShareButton().setStyle("-fx-background-color: #DAE5EA; -fx-border-width: 0;");
+        });
+        pause.play();
+        System.out.println("sharing recipe");
+        model.performRequest("GET", rd.getMealType(), rd.getID(), rd.getStringTitle(), rd.getStringIngredients(), rd.getStringSteps(), rd.getImage(), this.name);                 
+        /* String response = model.performRequest("GET", rd.getMealType(), rd.getID(), rd.getStringTitle(), rd.getStringIngredients(), rd.getStringSteps(), rd.getImage(), this.name);                 
+        if (response.equals("Account not found")) {
+            System.out.println("Recipe not found");
+        }
+        System.out.println(response);*/
+    }
     
     
     public void handleFilterButton(ActionEvent event) {
@@ -190,6 +215,14 @@ public class Controller {
                     try {
                         handleRegenerateButton(ev);
                     } catch (InterruptedException | IOException | URISyntaxException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+                });
+                displayRec.setShareButtonAction(ev -> {
+                    try {
+                        handleShareButton(ev);
+                    } catch (IOException e) {
                         // TODO Auto-generated catch block
                         e.printStackTrace();
                     }
@@ -281,12 +314,14 @@ public class Controller {
                 String steps = rd.getSteps().getText();
                 String imgURL = rd.getImage();
                 String mealType = rd.getMealType(); 
-                model.performRequest("PUT", mealType, stringID, title, ingredients, steps, imgURL, this.name);
-                // TODO: Add mealType Tag to recipe display
+
+                String response = model.performRequest("PUT", mealType, stringID, title, ingredients, steps, imgURL, this.name);
+
                 RecipeDisplay recipeDisplay = new RecipeDisplay(stringID, title, ingredients, steps, imgURL, mealType);
                 RecipeDisplayAppFrame rec = new RecipeDisplayAppFrame(recipeDisplay);
                 RecipeTitle recipeDis = new RecipeTitle(stringID, title, rec, mealType);
-                rd.setID(RecipeManager.getStringID()); // TODO CHANGE?? 
+                // rd.setID(RecipeManager.getStringID()); // TODO CHANGE?? 
+                // System.out.println("TEST" + RecipeManager.getStringID());
 
             
 
@@ -303,10 +338,7 @@ public class Controller {
 
             }
             else {
-                
-                model.performRequest("PUT", rd.getMealType(), rd.getID(), rd.getTitle().getText(), rd.getIngredients().getText(), rd.getSteps().getText(), rd.getImage(), this.name);
-                    // RecipeManager.updateRecipe(rd.getTitle().getText(), rd.getIngredients().getText(), rd.getSteps().getText(), rd.getID());
-                
+                model.performRequest("PUT", rd.getMealType(), rd.getID(), rd.getTitle().getText(), rd.getIngredients().getText(), rd.getSteps().getText(), rd.getRecipe().getImage(), this.name);                
             }
             this.rd.getRecipe().getSaveButton().setStyle("-fx-background-color: #5DBB63; -fx-border-width: 0;");
             PauseTransition pause = new PauseTransition(
@@ -367,7 +399,14 @@ public class Controller {
             displayRec.setLogoutButtonAction(this::handleLogoutButton);
             displayRec.setDeleteButtonAction(this::handleDeleteButton);
             displayRec.setSaveButtonAction(this::handleSaveButton);
-            
+            displayRec.setShareButtonAction(event1 -> {
+                try {
+                    handleShareButton(event1);
+                } catch (IOException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+            });
 
             
             displayRec.setEditButtonAction(this::handleEditButton);
@@ -388,7 +427,7 @@ public class Controller {
 
         } catch(IOException err){
             err.printStackTrace();
-        }
+        } 
         this.rd.getRecipe().getRegenerateButton().setStyle("-fx-background-color: #5DBB63; -fx-border-width: 0;");
         PauseTransition pause = new PauseTransition(
             Duration.seconds(1)
@@ -412,11 +451,7 @@ public class Controller {
                 lp.setMessage(response);
             }
             else if (response.equals(lp.getPassword())) {
-                this.name = lp.getUsername();
-                checkAutoLogin();
-                loadRecipes();
-                
-                ui.returnHomePage(); 
+                openApp();
             }
 
             else {
@@ -429,6 +464,9 @@ public class Controller {
         catch (Exception e){
             e.printStackTrace();
         }
+
+    
+                
     }
 
     private void handleCreateAccButton(ActionEvent event) {
@@ -443,13 +481,9 @@ public class Controller {
                 lp.setMessage("Invalid account details");
             }
             else if(!response.equals("Error handling PUT request")) { //TODO: throws error because response can be Null
-                this.name = lp.getUsername();
-                checkAutoLogin();
-                loadRecipes();
-                ui.returnHomePage(); 
+                openApp();
             } else {
-                // TODO: display account creation error
-                System.out.println("ACCOUNT CREATION FAILED");
+                lp.setMessage("Account Creation Failed");
             }
 
         } catch (ConnectException err) {
@@ -463,21 +497,19 @@ public class Controller {
     }
 
     private void handleLogoutButton(ActionEvent event){
-        
+        boolean success = (new File("src/main/resources/imgLoaded.txt")).delete();
         ui.setLoginPage();
-        first = true;
     }
 
     private void handleLogoutButton2(ActionEvent event){
-        
+        boolean success = (new File("src/main/resources/imgLoaded.txt")).delete();
         ui.setLoginPage();
         resetInput();
-        first = true;
     }
 
     public void reload(){
         hp.getRecipeList().getChildren().removeIf(RecipeTitle -> RecipeTitle instanceof RecipeTitle && true);  
-        loadRecipes(); // loads recipef
+        loadRecipes();
     }
 
     private void resetInput(){
@@ -494,7 +526,7 @@ public class Controller {
             e.printStackTrace();
         }
     }
-
+    // TODO: loadRecipe properly and check compatibility wiht shareURL (auto save when regen image?)
     public void loadRecipes(){
         hp.getRecipeList().getChildren().removeIf(RecipeTitle -> RecipeTitle instanceof RecipeTitle && true); 
         // ArrayList<String[]> recipes = RecipeManager.loadRecipes(this.name);
@@ -534,7 +566,7 @@ public class Controller {
                 hp.getRecipeList().getChildren().add(recipeTitle);
                 recipeTitle.getRecipeDetail().setBackButtonAction2(this::handleBackButton2);
                 recipeTitle.getRecipeDetail().setLogoutButtonAction(this::handleLogoutButton);
-                if (!rec.getRecipe().getImageLoaded()) {
+                if (!imgLoaded.contains(rec.getRecipe().getID())) {
 
                     imageTask(rec);
         
@@ -567,7 +599,7 @@ public class Controller {
         String rawPrompt = info[0];
         String mealType = info[1];
         String formattedPrompt = IRecipeCreator.formatPrompt(mealType, rawPrompt);
-        // System.out.println(formattedPrompt);
+        
 
         return formattedPrompt;
     }
@@ -647,34 +679,48 @@ public class Controller {
         String ingredients = rec.getRecipe().getIngredients().getText();
         String title = rec.getRecipe().getTitle().getText();
         Task<String> loadImageTask = new Task<String>() {
-                    @Override
-                    protected String call() {
-                        try {
-                            String imagePrompt = "Display the dish: " + title +
-                                    " like you are displaying it in a recipe book. Ingredients: " +
-                                    ingredients + ". Don't put too much emphasis on the ingredients and base it off the title mostly";
+            @Override
+            protected String call() {
+                try {
+                    String imagePrompt = "Display the dish: " + title +
+                            " like you are displaying it in a recipe book. Ingredients: " +
+                            ingredients + ". Don't put too much emphasis on the ingredients and base it off the title mostly";
 
-                            return model.performRequest(imagePrompt, "DallE");
-                        } catch (ConnectException err) {
-                            return null;
-                        }
-                    }
-                };
+                    return model.performRequest(imagePrompt, "DallE");
+                } catch (ConnectException err) {
+                    return null;
+                }
+            }
+        };
 
-                loadImageTask.setOnSucceeded(event -> {
-                    String img = loadImageTask.getValue();
-                    if (img != null) {
-                        rec.getRecipe().setImage(img);
-                    }
-                });
+        loadImageTask.setOnSucceeded(event -> {
+            String img = loadImageTask.getValue();
+            if (img != null) {
+                System.out.println("IMG " + img);
+                rec.getRecipe().setImage(img);
+            }
+        });
 
-                loadImageTask.setOnFailed(event -> {
-                    ConnectionAlert();
-                });
+        loadImageTask.setOnFailed(event -> {
+            ConnectionAlert();
+        });
 
-                new Thread(loadImageTask).start();
+        new Thread(loadImageTask).start();
 
-                rec.getRecipe().setImageLoaded(true);
+        imgLoaded.add(rec.getRecipe().getID());
+
+        
+    }
+
+    public void openApp() {
+        
+        this.name = lp.getUsername();
+        imgLoaded = new ArrayList<String>();
+        checkAutoLogin();
+        loadRecipes();
+        ui.returnHomePage(); 
+        
+        
     }
 
 }

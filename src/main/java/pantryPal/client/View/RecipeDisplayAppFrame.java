@@ -11,7 +11,7 @@ import javafx.scene.image.ImageView;
 public class RecipeDisplayAppFrame extends BorderPane {
 
     private ReturnHeader header;
-    private Button backButton,editButton,deleteButton, saveButton, regenerateButton, logoutButton;
+    private Button backButton,editButton,deleteButton, saveButton, regenerateButton, logoutButton, shareButton;
     private TextArea title, ingredients, steps;
     private String id;
     private Boolean editable = false;
@@ -31,6 +31,7 @@ public class RecipeDisplayAppFrame extends BorderPane {
         deleteButton = recipe.getDeleteButton();
         saveButton = recipe.getSaveButton();
         regenerateButton = recipe.getRegenerateButton();
+        shareButton = recipe.getShareButton();
         title = recipe.getTitle();
         mealType = recipe.getMealType();
         ingredients = recipe.getIngredients();
@@ -66,6 +67,18 @@ public class RecipeDisplayAppFrame extends BorderPane {
 
     public TextArea getSteps() {
         return steps;
+    }
+
+    public String getStringSteps() {
+        return this.steps.getText();
+    }
+
+    public String getStringTitle() {
+        return this.title.getText();
+    }
+
+    public String getStringIngredients() {
+        return this.ingredients.getText();
     }
 
     public String getMealType(){
@@ -112,6 +125,10 @@ public class RecipeDisplayAppFrame extends BorderPane {
 
     public void setLogoutButtonAction(EventHandler<ActionEvent> eventHandler) {
         logoutButton.setOnAction(eventHandler);
+    }
+
+    public void setShareButtonAction(EventHandler<ActionEvent> eventHandler) {
+        shareButton.setOnAction(eventHandler);
     }
 
     
