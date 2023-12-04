@@ -334,7 +334,6 @@ public class Controller {
                 ObjectId objID = new ObjectId();
                 String stringID = objID.toString();
                 rd.setID(stringID);
-                System.out.println("handleSaveButton StringID: " + rd.getID());
                 String title = rd.getTitle().getText();
                 String ingredients = rd.getIngredients().getText();
                 String steps = rd.getSteps().getText();
@@ -601,7 +600,7 @@ public class Controller {
             for(int i = 0; i < recipes.length(); i++){
                 String recipeString = recipes.getString(i);
                 JSONObject recipe = new JSONObject(recipeString);
-                System.out.println(recipe);
+                // System.out.println(recipe);
                 String stringID = recipe.getJSONObject("_id").getString("$oid");
                 String title = recipe.getString("title");
                 String ingredients = recipe.getString("ingredients");
