@@ -10,6 +10,7 @@ import javafx.application.Application;
 import pantryPal.client.App;
 import pantryPal.client.Backend.AccountManager;
 
+
 public class AccountManagerTest {
     @BeforeAll
     public static void setUpClass() throws InterruptedException {

@@ -21,3 +21,4 @@ generated_img/*
 Input.wav
 prompt.txt
 /.gradle/
+/bin/
