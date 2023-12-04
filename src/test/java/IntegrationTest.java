@@ -24,6 +24,7 @@ import pantryPal.client.View.RecipeTitle;
 import pantryPal.client.View.ReturnHeader;
 import pantryPal.client.View.UI;
 import pantryPal.server.MockServer;
+import pantryPal.client.Backend.AccountManager;
 
 import org.testfx.api.FxRobot;
 import org.testfx.api.FxToolkit;
@@ -51,6 +52,7 @@ public class IntegrationTest extends FxRobot {
 
     @AfterEach
     void cleanup() throws Exception {
+        AccountManager.deleteAccount("test","test");
         FxToolkit.cleanupStages();
     }
    
@@ -64,13 +66,15 @@ public class IntegrationTest extends FxRobot {
     LoginPageAppFrame loginPage = MockApp.getUI().getLoginPage();
     assertNotNull(loginPage.getLoginButton(), "Should not be null");
     assertNotNull(loginPage.getCreateButton(), "Should not be null");
+    assertNotNull(loginPage.getAuto(), "Should not be null");
+
+    // loginPage.getAuto().setSelected(true);
     
     // check if account is created and enter homepage after pw and id created
     loginPage.setUsername("test");
     loginPage.setPassword("test");
     clickOn((Button) loginPage.getCreateButton());
-    
-    // Homepage -> Create Button
+        // Homepage -> Create Button
     HomePageAppFrame hpaf =  (HomePageAppFrame) MockApp.getUI().getRoot().getCenter();
     HomePageHeader hph = (HomePageHeader) MockApp.getUI().getRoot().getTop();
     assertTrue(hpaf instanceof HomePageAppFrame);

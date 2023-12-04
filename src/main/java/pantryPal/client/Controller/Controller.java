@@ -24,6 +24,7 @@ import pantryPal.client.Backend.RecipeParser;
 import pantryPal.client.Backend.SortAlphabetically;
 import pantryPal.client.Backend.SortReverseAlphabetically;
 import pantryPal.client.Model.IModel;
+import pantryPal.client.Backend.AccountManager;
 // import pantryPal.client.UserAccount.User;
 import pantryPal.client.View.HomePageAppFrame;
 // import pantryPal.client.View.HomePageHeader;
@@ -523,6 +524,10 @@ public class Controller {
         try {
             if(lp.getUsername().length() == 0 || lp.getPassword().length() == 0) {
                 lp.setMessage("Username and/or password is empty");
+                return;
+            }
+            if (AccountManager.searchAccount(lp.getUsername()) != null) {
+                lp.setMessage("This username already exists. Please log in or use a new one!");
                 return;
             }
             String response = model.performRequest("PUT", lp.getUsername(), lp.getPassword()); 
