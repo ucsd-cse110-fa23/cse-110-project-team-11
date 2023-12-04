@@ -12,7 +12,7 @@ import java.net.http.HttpResponse;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-public class ChatGPT {
+public class ChatGPT implements IAPI {
     private static final String API_ENDPOINT = "https://api.openai.com/v1/completions";
     private static final String API_KEY = "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";
     private static final String MODEL = "text-davinci-003";
@@ -21,7 +21,7 @@ public class ChatGPT {
     /**
      * Sends prompt to ChatGPT and returns the response
      */
-    public static String callAPI(String prompt) throws IOException, InterruptedException {
+    public String callAPI(String prompt) throws IOException, InterruptedException {
         // Create a request body which you will pass into request object
            JSONObject requestBody = new JSONObject();
            requestBody.put("model", MODEL);

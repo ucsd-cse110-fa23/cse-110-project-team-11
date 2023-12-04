@@ -3,14 +3,15 @@ package pantryPal.server;
 import com.sun.net.httpserver.*;
 
 import pantryPal.client.DallE;
+import pantryPal.client.IAPI;
+import pantryPal.client.APIFactory; 
 import pantryPal.client.ChatGPT;
 import pantryPal.client.Whisper;
 import pantryPal.client.RecipeManager;
 import pantryPal.client.UserAccount.AccountManager;
 import pantryPal.client.Input;
+import pantryPal.client.MockWhisper;
 
-
-import com.sun.net.httpserver.*;
 import java.io.*;
 import java.net.*;
 import java.util.*;
@@ -45,7 +46,6 @@ public class Handler implements HttpHandler {
                 response = handleDelete(httpExchange);
             }
             else {
-
                 throw new Exception("Not Valid Request Method");
             }
         } catch (Exception e) {
@@ -68,9 +68,10 @@ public class Handler implements HttpHandler {
      * @return
      * @throws IOException
      */
-    private String handleGet(HttpExchange httpExchange) throws IOException, URISyntaxException, InterruptedException  {
+    public String handleGet(HttpExchange httpExchange) throws IOException, URISyntaxException, InterruptedException  {
         URI uri = httpExchange.getRequestURI();
         String query = uri.getRawQuery();
+        System.out.println(query);
         String response = "";
         if (query != null) {
             String tag = query.substring((query.indexOf("?")+1), query.indexOf("="));
@@ -86,61 +87,23 @@ public class Handler implements HttpHandler {
                 else
                     response = "Account not found";
             }
-            else if (tag.equals("api")) {
-                
+            else if (tag.equals("api")) {                
                 String apiCall = query.substring(query.indexOf("=")+1, query.indexOf("&"));
                 String temp = query.substring(query.indexOf("&")+1);
                 String encodedInput = temp.substring(temp.indexOf("=")+1);
                 String decodedInput = new String(Base64.getDecoder().decode(encodedInput));
 
-                if (apiCall.equals("DallE")) {
-                    response = DallE.callAPI(decodedInput);
-                }
+                IAPI api = APIFactory.createAPI(apiCall);
 
-                else if (apiCall.equals("ChatGPT")) {
-                    response = ChatGPT.callAPI(decodedInput);
+                if (api !=null) {
+                    response = api.callAPI(decodedInput);
                 }
-
-                else if (apiCall.equals("Whisper")) {
-                    
-                    if(decodedInput.equals("start")){
-                        input.captureAudio();
-                        response = "captured audio";
-                    }
-                    else if (decodedInput.equals("Reset")){
-                        input.setPromptType("MealType"); 
-                        if(input.getMic() != null){
-                            input.getMic().stop();
-                            input.getMic().close();
-                            return "Input reset";
-                        }  
-                    }
-                    else {
-                        
-                        boolean res = input.stopCapture();
-                        if(res){
-                            if(input.getPromptType().equals("MealType")){
-                                input.setPromptType("Ingredients");
-                                return input.getMealType();
-                            }
-                            else {
-                                input.setPromptType("MealType");
-                                return "valid";
-                            }
-                        }
-                        else {
-                            return input.getTranscription();
-                        }
-                    }
-                    
-                }
-            
                 else {
                     response = "Invalid API";
                 }
-                System.out.println("adskhjfhioausdhioadsijodfsijo " + response);
-                return response;  
+                return response;
             }
+                
             else if(tag.equals("load")){
                 String username = query.substring(query.indexOf("=") + 1);
                 JSONArray recipes = RecipeManager.loadRecipes(username);
@@ -149,7 +112,6 @@ public class Handler implements HttpHandler {
                 return encodedResponse;
             }
             else if(tag.equals("share")){
-                System.out.println("hello");
                 String username = query.substring(query.indexOf("=") + 1, query.indexOf("&"));
                 String id = query.substring(query.indexOf("&") + 4);
                 Document recipe = RecipeManager.searchRecipeByID(username, id);
@@ -176,12 +138,13 @@ public class Handler implements HttpHandler {
                 // String encodedHTML = Base64.getEncoder().encodeToString(response.getBytes());
                 return response;
             }
-            
+            else {
+                response = "invalid GET request";
+            }
+            System.out.println(response);
+            return response;
         }
-        else 
-            response = "invalid GET request";
-        System.out.println(response);
-        return response;
+        return null;
     }
 
     /**
@@ -190,7 +153,7 @@ public class Handler implements HttpHandler {
      * @return response to write back to th emodel
      * @throws IOException
      */
-    private String handlePut (HttpExchange httpExchange) throws IOException {
+    public String handlePut (HttpExchange httpExchange) throws IOException {
         try {
             String response = "";
             // Should read the stuff from the httpRequest from Model
@@ -203,6 +166,7 @@ public class Handler implements HttpHandler {
             while ((line = br.readLine()) != null) {
                 postData.append(line);
             }
+            System.out.println("SIDUHGFIOSUDHFOISDHOFISDFH: "+postData.toString());
             String [] info = postData.toString().split(";");
             String decodedRequest = new String(Base64.getDecoder().decode(info[0]));
             // recipe collection
@@ -244,7 +208,7 @@ public class Handler implements HttpHandler {
      * @return
      * @throws IOException
      */
-    private String handleDelete (HttpExchange httpExchange) throws IOException {
+    public String handleDelete (HttpExchange httpExchange) throws IOException {
         URI uri = httpExchange.getRequestURI();
         String query = uri.getRawQuery();
         String response;

@@ -1,4 +1,6 @@
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import java.io.FileWriter;   // Import the FileWriter class
@@ -9,9 +11,6 @@ import javafx.application.Platform;
 import javafx.scene.layout.*;
 import javafx.event.ActionEvent;
 import pantryPal.client.App;
-import pantryPal.client.Controller;
-import pantryPal.client.Model;
-import pantryPal.client.TranscriptionService;
 import pantryPal.client.View.HomePageAppFrame;
 import pantryPal.client.View.HomePageHeader;
 import pantryPal.client.View.InputAppFrame;
@@ -19,39 +18,103 @@ import pantryPal.client.View.LoginPageAppFrame;
 import pantryPal.client.View.RecipeDisplay;
 import pantryPal.client.View.RecipeDisplayAppFrame;
 import pantryPal.client.View.UI;
-import java.io.File;
+import pantryPal.server.MockServer;
+
+import org.testfx.api.FxRobot;
+import org.testfx.api.FxToolkit;
+import org.testfx.framework.junit5.ApplicationTest;
+
+import static org.testfx.api.FxAssert.verifyThat;
+import static org.testfx.assertions.api.Assertions.assertThat;
+import static org.testfx.matcher.control.LabeledMatchers.hasText;
+import static org.testfx.util.DebugUtils.informedErrorMessage;
+
+import javafx.scene.Node;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.stage.Stage;
  
 
-public class IntegrationTest {
+public class IntegrationTest extends FxRobot {
 
    
-
-    /**
-     * Scenario-based System #2
-     * Click the create button, 
-     * and you should see a screen 
-     * with a voice record button prompting you 
-     * for meal type.
-     */
-
-    @BeforeAll
-    public static void setUpClass() throws InterruptedException {
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                    Application.launch(App.class,new String[0]); 
-                }
-            });
-            thread.setDaemon(true);
-            thread.start();// Initialize the thread
+    @BeforeEach
+    void setup() throws Exception {
+        App.setTest(true);
+       // MockServer.turnOn();
+        ApplicationTest.launch(App.class);
     }
 
-    private static class MockTranscriptionService implements TranscriptionService {
-        @Override
-        public String transcribe(File audioFile) {
-            return "lunch";
-        }
+    @AfterEach
+    void cleanup() throws Exception {
+        FxToolkit.cleanupStages();
     }
+   
+    /*
+    US: 10,11,12,15,16 
+    */
+    @Test
+    public void integrationTest1() {
+    // app launch check "Loging button and Create button"
+    MockServer.turnOn();
+    LoginPageAppFrame loginPage = App.getUI().getLoginPage();
+    assertNotNull(loginPage.getLoginButton(), "Should not be null");
+    assertNotNull(loginPage.getCreateButton(), "Should not be null");
+    
+    // check if account is created and enter homepage after pw and id created
+    loginPage.setUsername("test");
+    loginPage.setPassword("test");
+    clickOn((Button) loginPage.getCreateButton());
+    
+    HomePageAppFrame hpaf =  (HomePageAppFrame) App.getUI().getRoot().getCenter();
+    HomePageHeader hph = (HomePageHeader) App.getUI().getRoot().getTop();
+    assertTrue(hpaf instanceof HomePageAppFrame);
+    assertTrue(hph instanceof HomePageHeader);
+    assertNotNull(hph.getCreateButton(), "Should not be null");
+
+    clickOn((Button) hph.getCreateButton());
+    InputAppFrame iaf = (InputAppFrame) App.getUI().getRoot().getCenter();
+    assertTrue(iaf instanceof InputAppFrame);
+    assertNotNull(iaf.getStartButton(), "Should not be null");
+
+    clickOn((Button) iaf.getStartButton());
+    clickOn((Button) iaf.getStopButton());
+    clickOn((Button) iaf.getStartButton());
+    clickOn((Button) iaf.getStopButton());
+
+
+
+
+
+   
+    
+    }
+
+
+}
+
+
+    // /**
+    //  * Scenario-based System #2
+    //  * Click the create button, 
+    //  * and you should see a screen 
+    //  * with a voice record button prompting you 
+    //  * for meal type.
+    //  */
+
+    // @BeforeAll
+    // public static void setUpClass() throws InterruptedException {
+    //     Thread thread = new Thread(new Runnable() {
+    //         @Override
+    //         public void run() {
+    //                 Application.launch(App.class,new String[0]); 
+    //             }
+    //         });
+    //         thread.setDaemon(true);
+    //         thread.start();// Initialize the thread
+    // }
+
+   
     
     // @Test 
     // public void Integration1() throws InterruptedException, IOException {
@@ -135,4 +198,3 @@ public class IntegrationTest {
     // }
     
     
-}

@@ -1,4 +1,6 @@
 package pantryPal.client;
+import static com.mongodb.client.model.Filters.where;
+
 import java.io.*;
 import java.net.*;
 import org.json.*;
@@ -44,8 +46,6 @@ public class Input {
             thread = new Thread (() -> {
                 try (AudioInputStream a = new AudioInputStream(mic)){
                     AudioSystem.write(a, AudioFileFormat.Type.WAVE, audioFile);
-
-
                 }
                 catch (Exception e){
                     e.printStackTrace();
@@ -53,73 +53,68 @@ public class Input {
             });
             thread.start();
 
-            
-    
-            
         } catch(Exception e){
             e.printStackTrace();
             System.exit(0);
         }
-        
     }
 
     public boolean stopCapture(){
         if (mic != null){
             mic.stop();
             mic.close();
+            return true;
+        }
+        return false;
+    }
 
-            if(promptType.equals("MealType")){
-                try {
-
-                    thread.join();
-                    transcription = Whisper.callAPI();
-                    this.type = typeParser(transcription);
-                    System.out.println(this.type);
-                    if(type.equals("Invalid")){
-                        return false;
-                    }
-                    else{
-                        try {
-                            File file = new File("prompt.txt");
-                            file.createNewFile();
-                            BufferedWriter br = new BufferedWriter(new FileWriter(file));
-                            br.write(type);
-                            br.write("\n");
-                            br.close();
-                            
-                        } catch(Exception e) {
-                            System.out.println("File not found");
-                        }
-                        return true;
-                    }
-
-
-                } catch(Exception e) {
-                    e.printStackTrace();
+    public boolean parseInput(String transcription) {
+        this.transcription = transcription;
+        System.out.println("TRANSCRIPTION: "+this.transcription);
+        if(promptType.equals("MealType")){
+            try {
+                thread.join();
+                this.type = typeParser(transcription);
+                System.out.println(this.type);
+                if(type.equals("Invalid")){
+                    return false;
                 }
-
-            }
-            else if (promptType.equals("Ingredients")){
-                try {
-                    thread.join();
-                    transcription = Whisper.callAPI();
+                else{
                     try {
                         File file = new File("prompt.txt");
                         file.createNewFile();
-                        BufferedWriter br = new BufferedWriter(new FileWriter(file, true));
-                        br.write(transcription);
+                        BufferedWriter br = new BufferedWriter(new FileWriter(file));
+                        br.write(type);
+                        br.write("\n");
                         br.close();
                         
                     } catch(Exception e) {
                         System.out.println("File not found");
                     }
                     return true;
-                } catch(Exception e) {
-                    e.printStackTrace();
                 }
-            } 
-        
+            } catch(Exception e) {
+                e.printStackTrace();
+            }
         }
+        else if (promptType.equals("Ingredients")){
+            try {
+                thread.join();
+                try {
+                    File file = new File("prompt.txt");
+                    file.createNewFile();
+                    BufferedWriter br = new BufferedWriter(new FileWriter(file, true));
+                    br.write(transcription);
+                    br.close();
+                    
+                } catch(Exception e) {
+                    System.out.println("File not found");
+                }
+                return true;
+            } catch(Exception e) {
+                e.printStackTrace();
+            }
+        } 
         return false;
     }
 
@@ -142,8 +137,7 @@ public class Input {
         return this.promptType;
     }
 
-    private  String typeParser(String input) {
-
+    public String typeParser(String input) {
         input = input.toLowerCase();
 
         int count = 0;
@@ -153,7 +147,6 @@ public class Input {
         String meal = "";
 
         for(int i = 0; i  < meals.length; i++){
-
             if(input.contains(meals[i])){
                 count++;
                 meal = meals[i];
@@ -163,10 +156,8 @@ public class Input {
         if(count != 1){
             return "Invalid";
         }
-        else{
+        else {
             return meal.substring(0, 1).toUpperCase() + meal.substring(1);
         }
-    }
-
- 
+    } 
 }

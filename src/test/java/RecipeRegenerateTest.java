@@ -24,8 +24,8 @@ class RecipeRegenerateTest {
         // Regenerated the recipe
         String input = "chicken banana carrots";
         List<String> ingredients = Arrays.asList(input.split(" "));
-
-        String recipe1 = MockChatGPT.generateResponse(ingredients);
+        MockChatGPT mock = new MockChatGPT();
+        String recipe1 = mock.generateResponse(ingredients);
         String recipe2 = MockChatGPT.regenerateResponse(recipe1);
 
         assertNotEquals(recipe1, recipe2, "Generated recipes should be different.");

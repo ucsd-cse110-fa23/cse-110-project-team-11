@@ -7,12 +7,12 @@ import javax.sound.sampled.*;
 /**
  * Whisper
  */
-public class Whisper {
+public class Whisper implements IAPI{
     private static final String API_ENDPOINT = "https://api.openai.com/v1/audio/transcriptions";
     private static final String TOKEN = "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";
     private static final String MODEL = "whisper-1";
 
-    public static String callAPI() throws IOException, URISyntaxException {
+    public String callAPI(String prompt) throws IOException, InterruptedException, URISyntaxException {
         // Create file object from file path
         File file = new File("input.wav");
 

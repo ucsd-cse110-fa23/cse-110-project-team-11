@@ -44,6 +44,7 @@ public class TestFX extends FxRobot{
 
     @BeforeEach
     void setup() throws Exception {
+        App.setTest(false);
         ApplicationTest.launch(App.class);
     }
 
@@ -69,9 +70,7 @@ public class TestFX extends FxRobot{
         HomePageAppFrame hp = (HomePageAppFrame) App.getUI().getRoot().getCenter();
         RecipeList rl = hp.getRecipeList();
         RecipeTitle first = (RecipeTitle)rl.getChildren().get(0);
-        assertEquals(first.getTitle().getText(), "Fried Rice");
-
-        
+        assertEquals(first.getTitle().getText(), "Fried Rice");   
 
     }
     // static Button button;

@@ -36,7 +36,8 @@ public class MockRecipeCreator implements IRecipeCreator {
      * Sends prompt to MockChatGPT and returns the response
      */
     public String callAPI(String prompt) throws IOException, InterruptedException {
-        return MockChatGPT.call(prompt);
+        MockChatGPT mc = new MockChatGPT();
+        return mc.callAPI(prompt);
     }
 
     /**

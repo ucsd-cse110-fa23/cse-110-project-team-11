@@ -10,14 +10,13 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URI;
 import java.util.Base64;
-
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
 
-public class Model {
+public class Model implements IModel {
     public String performRequest(String method,String username, String password) throws ConnectException {
         try {
             String urlString = "http://localhost:8100/";
@@ -126,7 +125,6 @@ public class Model {
 
     // GET for API
     public String performRequest(String input, String API) throws ConnectException {
-        
         try {
             
             String urlString = "http://localhost:8100/";
@@ -185,6 +183,5 @@ public class Model {
             return null;
         }
     }
-
       
 }
