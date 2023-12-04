@@ -2,7 +2,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import pantryPal.client.App;
-import pantryPal.client.MockImageGenerator;
+import pantryPal.client.API.MockImageGenerator;
 import pantryPal.client.View.RecipeDisplay;
 import static org.junit.jupiter.api.Assertions.*;
 

@@ -4,7 +4,6 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.layout.*;
 import javafx.scene.control.TextArea;
-import javafx.scene.control.Label;
 
 public class RecButtons extends GridPane {
     private Button startButton, stopButton;
@@ -49,7 +48,7 @@ public class RecButtons extends GridPane {
         col2.setPercentWidth(50);
         this.getColumnConstraints().addAll(col1,col2);
         this.addRow(0, header, recipeText);
-        this.setVgrow(recipeText, Priority.ALWAYS);
+        setVgrow(recipeText, Priority.ALWAYS);
     }
     
     public Button getStartButton() {
@@ -63,19 +62,11 @@ public class RecButtons extends GridPane {
     public HBox getButtonBox(){
         return buttonBox;
     }
-    
-    // public Label getRecordingLabel() {
-    //     return recordingLabel;
-    // }
 
     public TextArea getRecipeText(){
         return recipeText;
     
     }
-
-    // public void setRecordingLabel(String label){
-    //     this.recordingLabel.setText(label);
-    // }
 
     public void setRecipeText(String label){
         this.recipeText.setText(label);

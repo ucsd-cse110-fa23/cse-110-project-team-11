@@ -4,9 +4,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
-import pantryPal.client.APIFactory;
-import pantryPal.client.IAPI;
-import pantryPal.client.MockWhisper;
+import pantryPal.client.API.APIFactory;
+import pantryPal.client.API.IAPI;
+import pantryPal.client.API.MockWhisper;
 
 public class InputTest extends APIFactory {
     /**

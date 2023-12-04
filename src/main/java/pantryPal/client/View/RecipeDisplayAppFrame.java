@@ -5,8 +5,6 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 
 public class RecipeDisplayAppFrame extends BorderPane {
 
@@ -26,7 +24,7 @@ public class RecipeDisplayAppFrame extends BorderPane {
         logoutButton = header.getLogoutButton();
         recipe = r;
 
-        this.id = r.getId();
+        this.id = r.getID();
         editButton = recipe.getEditButton();
         deleteButton = recipe.getDeleteButton();
         saveButton = recipe.getSaveButton();
@@ -34,11 +32,8 @@ public class RecipeDisplayAppFrame extends BorderPane {
         shareButton = recipe.getShareButton();
         title = recipe.getTitle();
         mealType = recipe.getMealType();
-        System.out.println(title.getText());
         ingredients = recipe.getIngredients();
-        System.out.println(ingredients.getText());
         steps = recipe.getSteps();
-        System.out.println(steps.getText());
         img = recipe.getImage();
         ScrollPane scrollPane = new ScrollPane(recipe);
         scrollPane.setFitToWidth(true);
@@ -133,6 +128,4 @@ public class RecipeDisplayAppFrame extends BorderPane {
     public void setShareButtonAction(EventHandler<ActionEvent> eventHandler) {
         shareButton.setOnAction(eventHandler);
     }
-
-    
 }

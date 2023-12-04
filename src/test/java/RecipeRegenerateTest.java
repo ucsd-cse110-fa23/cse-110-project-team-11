@@ -1,6 +1,6 @@
 import org.junit.jupiter.api.Test;
-import pantryPal.client.MockChatGPT;
-import pantryPal.client.TranscriptionService;
+
+import pantryPal.client.API.MockChatGPT;
 
 import java.io.File;
 import java.util.Arrays;

@@ -15,7 +15,6 @@ public class HomePageAppFrame extends BorderPane{
     private ComboBox<String> sortButton;
     private ComboBox<String> filterButton;
 
-
     public HomePageAppFrame(InputAppFrame InputPage) {
         homePageHeader = new HomePageHeader();
         homePageFooter = new HomePageFooter();

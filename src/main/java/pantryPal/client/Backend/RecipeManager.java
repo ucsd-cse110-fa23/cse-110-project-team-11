@@ -1,4 +1,4 @@
-package pantryPal.client;
+package pantryPal.client.Backend;
 /**
  * RecipeManager.java should handle the functions that change our database in MongoDB.
  * Should handle delete recipe, insert recipe, save recipe (after editing).
@@ -15,14 +15,10 @@ import com.mongodb.client.result.UpdateResult;
 import org.bson.Document;
 import org.bson.conversions.Bson;
 import org.bson.types.ObjectId;
-import java.util.*;
 import java.io.*;
 import static com.mongodb.client.model.Filters.eq;
-import static com.mongodb.client.model.Updates.*;
 
 import org.json.JSONArray;  
-import org.json.JSONObject;
-
 
 /**
  * Class that handles the MongoDB. essentially creates functionality to buttons
@@ -67,39 +63,6 @@ public class RecipeManager {
     }
     
     /**
-     * Inserts recipe into MongoDB. WE are assuming that recipe is does not exist.
-     * @param title
-     * @param ingredients
-     * @param steps
-     * @return recipe to be inserted
-     * @throws IOException
-     */
-    // public static String[] insertRecipe(String username, String mealType, String title, String ingredients, String steps, String imgURL) throws IOException{
-    //     try (MongoClient mongoClient = MongoClients.create(URI)) {
-    //         MongoDatabase recipeDB = mongoClient.getDatabase("recipes_db");
-    //         MongoCollection<Document> recipeCollections = recipeDB.getCollection(username);
-
-    //         // recipe details: id, title, ingredients, steps
-    //         ObjectId objectID = new ObjectId();
-    //         stringID = objectID.toString();
-            
-    //         Document recipe = new Document("_id", objectID);
-    //         recipe.append("title", title)
-    //         .append("ingredients", ingredients)
-    //         .append("steps", steps)
-    //         .append("mealType", mealType)
-    //         .append("imageURL", imgURL);
-            
-    //         recipeCollections.insertOne(recipe); // inserts into MongoDB
-    //         String[] rec = {stringID, title, ingredients, steps};
-            
-    //         System.out.println("Insert successful");
-    //         mongoClient.close();
-    //         return rec;
-    //     }
-    // }
-    
-    /**
      * Updates the entries, given the recipe name
      * -> Get id for the recipe being edited, 
      * -> edit (title, ingredient, steps) 3 entries.
@@ -114,19 +77,22 @@ public class RecipeManager {
      * @param recipe
      * @throws IOException
      * 
-     * TODO: update adds an entry if it doesnt exist? might need to remove the insert recipe
      */
-    public static UpdateResult updateRecipe(String username, String mealType, String title, String ingredients, String steps, String imgURL) throws IOException {
+    public static UpdateResult updateRecipe(String username, String mealType, 
+    String title, String ingredients, String steps, String imgURL, String id) throws IOException {
         try (MongoClient mongoClient = MongoClients.create(URI)) {
             MongoDatabase recipeDB = mongoClient.getDatabase("recipes_db");
             MongoCollection<Document> recipeCollections = recipeDB.getCollection(username);
     
+            ObjectId objId = new ObjectId(id);
+
             // Define the filter to find the document
-            Document filter = new Document("title", title);
+            Document filter = new Document("_id", objId);
 
             // Combine all updates into one operation
             Document updates = new Document("$set",
-                    new Document("ingredients", ingredients)
+                    new Document("title", title)
+                            .append("ingredients", ingredients)
                             .append("steps", steps)
                             .append("imageURL", imgURL)
                             .append("mealType", mealType)
@@ -146,12 +112,13 @@ public class RecipeManager {
      * Deletes one recipe, given id
      * @param id recipe to delete
      */
-    public static DeleteResult deleteRecipeByID(String username, String id) throws IOException {
+    public static DeleteResult deleteRecipeByID(String username, String id) 
+    throws IOException {
         ObjectId objID = new ObjectId(id);
         try (MongoClient mongoClient = MongoClients.create(URI)) {
             MongoDatabase recipeDB = mongoClient.getDatabase("recipes_db");
             MongoCollection<Document> recipeCollections = recipeDB.getCollection(username);
-            System.out.println("opened mongoDB?");
+            System.out.println("opened mongoDB (delete recipe)");
             Bson filter = eq("_id", objID);
             DeleteResult result = recipeCollections.deleteOne(filter);
 
@@ -168,7 +135,6 @@ public class RecipeManager {
     /**
      * Deletes one recipe, given a name
      * @param title recipe to delete
-     * TODO: try to remove this and just delete by ID from now on? idk
      */
     public static DeleteResult deleteRecipe(String username, String title) throws IOException {
         try (MongoClient mongoClient = MongoClients.create(URI)) {
@@ -179,6 +145,26 @@ public class RecipeManager {
             DeleteResult result = recipeCollections.deleteOne(filter);
             System.out.println("delete: " + result);
             return result;
+        }
+    }
+    public static Document searchRecipeByID(String username, String id) {
+        ObjectId objID = new ObjectId(id);
+        try (MongoClient mongoClient = MongoClients.create(URI)) {
+            MongoDatabase recipeDB = mongoClient.getDatabase("recipes_db");
+            MongoCollection<Document> recipeCollections = recipeDB.getCollection(username);
+            
+            // filter based on id
+            Bson filter = eq("_id", objID);
+            Document doc = recipeCollections.find(filter).first();
+            if(doc != null) {
+                System.out.println("found: " + doc.toJson());
+                return doc;
+
+            }
+            else {
+                System.out.println("doc not found");
+                return null;
+            }
         }
     }
 
@@ -218,70 +204,5 @@ public class RecipeManager {
 
             recipeCollections.deleteMany(new Document());
         }
-    }
-
-    public static Document searchRecipeByID(String username, String id) {
-        ObjectId objID = new ObjectId(id);
-        try (MongoClient mongoClient = MongoClients.create(URI)) {
-            MongoDatabase recipeDB = mongoClient.getDatabase("recipes_db");
-            MongoCollection<Document> recipeCollections = recipeDB.getCollection(username);
-            
-            // filter based on id
-            Bson filter = eq("_id", objID);
-            Document doc = recipeCollections.find(filter).first();
-            if(doc != null) {
-                System.out.println("found: " + doc.toJson());
-                return doc;
-
-            }
-            else {
-                System.out.println("doc not found");
-                return null;
-            }
-        }
-    }
-    // public static ArrayList<String[]> filterRecipes (String selectedMealType){
-    //     ArrayList<String[]> recipes = new ArrayList<String[]>();
-
-    //     try (MongoClient mongoClient = MongoClients.create(URI)) {
-    //         MongoDatabase recipeDB = mongoClient.getDatabase("recipes_db");
-    //         MongoCollection<Document> recipeCollections = recipeDB.getCollection("recipes");
-
-    //         try (MongoCursor<Document> cursor = recipeCollections.find().iterator()) {
-    //             while (cursor.hasNext()) {
-    //                 System.out.println("loading");
-    //                 Document document = cursor.next();
-    //                 String stringID = document.get("_id").toString();
-    //                 String title = document.get("title").toString();
-    //                 String ingredients = document.get("ingredients").toString();
-    //                 String steps = document.get("steps").toString();
-    //                 String mealType = document.getString("mealType"); // Retrieve mealType
-    //                 String imageURL = document.getString("imageURL");
-    //                 if (selectedMealType.equals(mealType)) {
-    //                     System.out.println("found a " + mealType);
-    //                     String[] rec = {stringID, title, ingredients, steps, mealType, imageURL}; // Include mealType in the array
-    //                     recipes.add(0, rec);
-    //                 }
-    //             }
-    //             mongoClient.close();
-    //         }
-    //     }
-    //     return recipes;
-    // }
-
-    // public static ArrayList<String[]> sortRecipes(String sort, String filterState){
-    //     ArrayList<String[]> recipes = filterRecipes(filterState);
-    //     /*
-    //     if (sort.equals("A-Z")) {
-    //         Collections.sort(recipes, new SortAlphabetically());
-    //     }
-    //     else if (sort.equals("Z-A")) {
-    //         Collections.sort(recipes, new SortReverseAlphabetically());
-    //     }
-    //     */ 
-    //     if (sort.equals("Reverse")) {
-    //         Collections.reverse(recipes);
-    //     }
-    //     return recipes;
-    // }
+    }   
 }

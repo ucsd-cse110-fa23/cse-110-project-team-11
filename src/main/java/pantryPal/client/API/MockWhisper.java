@@ -1,4 +1,4 @@
-package pantryPal.client;
+package pantryPal.client.API;
 
 public class MockWhisper implements IAPI {
     private String responses[] = {"Dinner", "valid"};
@@ -9,6 +9,5 @@ public class MockWhisper implements IAPI {
             return responses[(index++)%2];
         }
         return null;
-
     }
 }

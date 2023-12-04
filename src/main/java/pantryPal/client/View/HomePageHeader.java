@@ -39,11 +39,6 @@ public class HomePageHeader extends BorderPane {
 
         this.setRight(createButton);
         this.setLeft(logoutButton);
-
-        // VBox placeholder = new VBox();
-        // placeholder.setSpacing(15);
-        // placeholder.setPrefWidth(100);
-        // this.setLeft(placeholder);
     }
 
     public Button getCreateButton() {

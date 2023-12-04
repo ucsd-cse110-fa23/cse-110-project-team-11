@@ -8,12 +8,9 @@ import javafx.scene.control.Label;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 
-import javax.swing.GroupLayout.Alignment;
-
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.text.*;
-import pantryPal.client.UserAccount.Password;
 
 public class LoginPageAppFrame extends BorderPane {
 
@@ -49,7 +46,6 @@ public class LoginPageAppFrame extends BorderPane {
 
         titleBox = new VBox(top, center);
         titleBox.setSpacing(10);
-        //titleBox.setAlignment(Pos.CENTER)
 
         Text usernameText = new Text("Username: ");
         usernameText.setStyle(defaultTextStyle);
@@ -87,7 +83,6 @@ public class LoginPageAppFrame extends BorderPane {
         auto = new CheckBox("Auto Log-In?");
         auto.setAlignment(Pos.CENTER);
         
-
         loginBox = new VBox(usernameBox, passwordBox, message, buttonBox, auto);
         loginBox.setSpacing(10);
         loginBox.setAlignment(Pos.CENTER);
@@ -153,9 +148,4 @@ public class LoginPageAppFrame extends BorderPane {
     public void setPassword(String pw) {
         password.setText(pw);
     }
-
-
-
-
 }
-

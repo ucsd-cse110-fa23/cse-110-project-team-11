@@ -1,8 +1,7 @@
-package pantryPal.client;
+package pantryPal.client.API;
 import java.io.*;
 import java.net.*;
 import org.json.*;
-import javax.sound.sampled.*;
 
 /**
  * Whisper
@@ -15,7 +14,6 @@ public class Whisper implements IAPI{
     public String callAPI(String prompt) throws IOException, InterruptedException, URISyntaxException {
         // Create file object from file path
         File file = new File("input.wav");
-
 
         // Set up HTTP connection
         URL url = new URI(API_ENDPOINT).toURL();
@@ -32,18 +30,14 @@ public class Whisper implements IAPI{
         );
         connection.setRequestProperty("Authorization", "Bearer " + TOKEN);
 
-
         // Set up output stream to write request body
         OutputStream outputStream = connection.getOutputStream();
-
 
         // Write model parameter to request body
         writeParameterToOutputStream(outputStream, "model", MODEL, boundary);
 
-
         // Write file parameter to request body
         writeFileToOutputStream(outputStream, file, boundary);
-
 
         // Write closing boundary to request body
         outputStream.write(("\r\n--" + boundary + "--\r\n").getBytes());
@@ -68,7 +62,6 @@ public class Whisper implements IAPI{
 
         // Disconnect connection
         connection.disconnect();
-
         return generatedText;
     }
 
@@ -106,7 +99,6 @@ public class Whisper implements IAPI{
             );
         outputStream.write(("Content-Type: audio/mpeg\r\n\r\n").getBytes());
         
-        
         FileInputStream fileInputStream = new FileInputStream(file);
         byte[] buffer = new byte[1024];
         int bytesRead;
@@ -131,15 +123,10 @@ public class Whisper implements IAPI{
 
 
         JSONObject responseJson = new JSONObject(response.toString());
-
-
         String generatedText = responseJson.getString("text");
-
 
         // Print the transcription result
         System.out.println("Transcription Result: " + generatedText);
-
-        
         return generatedText;
     }
 

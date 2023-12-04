@@ -1,6 +1,6 @@
 import org.junit.jupiter.api.Test;
 
-import pantryPal.client.RecipeParser;
+import pantryPal.client.Backend.RecipeParser;
 
 import static org.junit.jupiter.api.Assertions.*;
 import java.io.*;
@@ -14,11 +14,9 @@ public class RecipeParserTest {
     void testParseSpecificInputWithDashSpace() throws IOException, InterruptedException {
         String generatedText = "Title: Chipotle \n - rice \n #1 cook beans";
         try (FileWriter writer = new FileWriter("/src/main/resources/recipe.txt")) {
-            System.out.println("HELLO");
             BufferedWriter bw = new BufferedWriter(writer);
             bw.write(generatedText);
             bw.close();
-
         } catch (FileNotFoundException e) {
             System.out.println("file not found :/");
             System.err.format("IOException: %s%n", e);
@@ -35,7 +33,6 @@ public class RecipeParserTest {
     void testParseSpecificInputWithoutDashSpace() throws IOException, InterruptedException {
         String generatedText = "Title: Chipotle \n -rice \n #1 cook beans";
         try (FileWriter writer = new FileWriter("/src/main/resources/recipe.txt")) {
-            System.out.println("HELLO");
             BufferedWriter bw = new BufferedWriter(writer);
             bw.write(generatedText);
             bw.close();

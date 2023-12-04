@@ -1,4 +1,4 @@
-package pantryPal.client;
+package pantryPal.client.API;
 
 public class MockDallE implements IAPI {
     public String callAPI(String prompt) {

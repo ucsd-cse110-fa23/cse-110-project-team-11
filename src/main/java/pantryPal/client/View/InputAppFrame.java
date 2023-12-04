@@ -1,21 +1,17 @@
 package pantryPal.client.View;
 import javafx.scene.control.Button;
 import javafx.scene.layout.*;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.Label;
 import javafx.geometry.Insets;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 
 public class InputAppFrame extends BorderPane {
-    // Input in = new Input();
     private ReturnHeader header;
     private Button startButton,stopButton,backButton, logoutButton;
     private RecButtons recButton;
     private String mealType;
 
     public InputAppFrame() {
-        // header = new Header();
         recButton = new RecButtons();
         header = new ReturnHeader();
         backButton = header.getBackButton();
@@ -32,7 +28,7 @@ public class InputAppFrame extends BorderPane {
 
     }
     
-   public ReturnHeader getReturnHeader() {
+    public ReturnHeader getReturnHeader() {
         return header;
     }
     public void setStopButtonAction(EventHandler<ActionEvent> eventHandler) {

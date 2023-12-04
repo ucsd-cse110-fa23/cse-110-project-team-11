@@ -1,9 +1,7 @@
-package pantryPal.client;
+package pantryPal.client.API;
 
 import java.util.StringTokenizer;
 import java.util.List;
-import java.io.IOException;
-import java.net.URISyntaxException;
 import java.util.ArrayList;
 
 public class MockChatGPT implements IAPI {

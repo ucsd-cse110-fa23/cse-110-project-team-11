@@ -1,16 +1,9 @@
-package pantryPal.client;
+package pantryPal.client.Backend;
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
-import org.json.JSONArray;
-import org.json.JSONObject;
+
+import pantryPal.client.API.ChatGPT;
 
 /**
  * This file sends a request to ChatGPT and asks it to generate a recipe given a certain meal type and list of ingredients,
@@ -23,7 +16,7 @@ public class RecipeCreator implements IRecipeCreator {
      */
     public String[] readPrompt() throws IOException {
         FileReader fr
-        = new FileReader("prompt.txt"); // PLACEHOLDER NAME
+        = new FileReader("prompt.txt");
         BufferedReader br = new BufferedReader(fr);
         String mealType = br.readLine();
         String prompt = br.readLine();
@@ -32,20 +25,13 @@ public class RecipeCreator implements IRecipeCreator {
         return info;
     }
     
-    /**
-     * Generate recipe given info from "prompt.txt"
-     */
+    // Generate recipe given info from "prompt.txt"
     public String generateRecipe() throws IOException, InterruptedException {
         String[] info = readPrompt();
         String rawPrompt = info[0];
         String mealType = info[1];
         String formattedPrompt = IRecipeCreator.formatPrompt(mealType, rawPrompt);
-        // System.out.println(formattedPrompt);
-
+        
         return api.callAPI(formattedPrompt);
-    }
-    
-    public void main(String[] args) throws IOException, InterruptedException, URISyntaxException {
-        System.out.println(IRecipeCreator.formatPrompt("breakfast", "I have chicken, balut, and carrots."));
     }
 }
