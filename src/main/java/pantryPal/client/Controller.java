@@ -196,12 +196,7 @@ public class Controller {
             model.performRequest("GET", rd.getMealType(), rd.getID(), rd.getStringTitle(), rd.getStringIngredients(), rd.getStringSteps(), rd.getImage(), this.name);
         } catch (URISyntaxException e) {
             e.printStackTrace();
-        }                 
-        /* String response = model.performRequest("GET", rd.getMealType(), rd.getID(), rd.getStringTitle(), rd.getStringIngredients(), rd.getStringSteps(), rd.getImage(), this.name);                 
-        if (response.equals("Account not found")) {
-            System.out.println("Recipe not found");
         }
-        System.out.println(response);*/
     }
     
     
@@ -233,29 +228,24 @@ public class Controller {
 
     public void handleStopButton(ActionEvent event) throws InterruptedException, IOException, URISyntaxException {
 
-        String promptType = input.getPromptType();
         inputFrame.getRecButtons().getButtonBox().getChildren().remove(inputFrame.getRecButtons().getStopButton());
         inputFrame.getRecButtons().getButtonBox().getChildren().add(inputFrame.getRecButtons().getStartButton());
 
         input.stopCapture();
         String response = model.performRequest("stop", "Whisper");
-                        //     if(decodedInput.equals("start")){
-                //         input.captureAudio();
-                //         response = "captured audio";
-                //     }
-                //     else if (decodedInput.equals("Reset")){
-                //         input.setPromptType("MealType"); 
-                //         if(input.getMic() != null){
-                //             input.getMic().stop();
-                //             input.getMic().close();
-                //             return "Input reset";
-                //         }  
-                //     }
         input.parseInput(response);
-        if(response.equals("Breakfast") || response.equals("Lunch") || response.equals("Dinner")){
-            
-            inputFrame.getRecButtons().setRecipeText("Please input Ingredients.\n\nMeal Type: " + response);
-            inputFrame.setMealType(response);
+        if(input.getPromptType().equals("MealType")) {
+            response = input.getMealType();
+            //System.out.println("MEALTYPE:" + response);
+            if(response.equals("Breakfast") || response.equals("Lunch") || response.equals("Dinner")){
+                inputFrame.getRecButtons().setRecipeText("Please input Ingredients.\n\nMeal Type: " + response);
+                inputFrame.setMealType(response);
+                input.setPromptType("Ingredients");
+            }
+            else{
+                response = input.getTranscription();
+                inputFrame.getRecButtons().setRecipeText("Invalid Input. Please say a proper meal type.\n\nTranscription: " + response);
+            } 
         }
 
         else {    
@@ -280,15 +270,12 @@ public class Controller {
                 String imgURL = model.performRequest(imagePrompt, "DallE");
 
                 rec.setImage(imgURL);
-
-                // System.out.println(rec.getIngredients().getText());
-                // System.out.println(rec.getSteps().getText());
-                // System.out.println("SDUHFIOSDHFIOSHDOFHSDIOFHSDIOFSIDHFOSDIFHSODi");
                 RecipeDisplayAppFrame displayRec = new RecipeDisplayAppFrame(rec);
                 displayRec.setBackButtonAction2(event1 -> {
                     try {
                         handleBackButton2(event1);
                     } catch (URISyntaxException e) {
+                        // TODO Auto-generated catch block
                         e.printStackTrace();
                     }
                 });
@@ -297,6 +284,7 @@ public class Controller {
                     try {
                         handleDeleteButton(event1);
                     } catch (URISyntaxException e) {
+                        // TODO Auto-generated catch block
                         e.printStackTrace();
                     }
                 });
@@ -306,13 +294,7 @@ public class Controller {
                     try {
                         handleRegenerateButton(ev);
                     } catch (InterruptedException | IOException | URISyntaxException e) {
-                        e.printStackTrace();
-                    }
-                });
-                displayRec.setShareButtonAction(ev -> {
-                    try {
-                        handleShareButton(ev);
-                    } catch (IOException e) {
+                        // TODO Auto-generated catch block
                         e.printStackTrace();
                     }
                 });
@@ -327,15 +309,11 @@ public class Controller {
                 err.printStackTrace();
             }
         }
-        
-        
-        
     }
 
     private void handleBackButton(ActionEvent event){
         ui.returnHomePage();   
         resetInput();
-
     }
 
     private void handleBackButton2(ActionEvent event) throws URISyntaxException{

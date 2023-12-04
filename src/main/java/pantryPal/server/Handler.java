@@ -98,94 +98,12 @@ public class Handler implements HttpHandler {
                 if (api !=null) {
                     response = api.callAPI(decodedInput);
                 }
-                // if (!(api instanceof Whisper)) {
-                //     response = api.callAPI(decodedInput);
-                // }
-                // else if (api instanceof Whisper){
-                //     if(decodedInput.equals("start")){
-                //         input.captureAudio();
-                //         response = "captured audio";
-                //     }
-                //     else if (decodedInput.equals("Reset")){
-                //         input.setPromptType("MealType"); 
-                //         if(input.getMic() != null){
-                //             input.getMic().stop();
-                //             input.getMic().close();
-                //             return "Input reset";
-                //         }  
-                //     }
-                //     else {
-                //         boolean res = input.stopCapture();
-                //         if(res){
-                //             if(input.getPromptType().equals("MealType")){
-                //                 input.setPromptType("Ingredients");
-                //                 return input.getMealType();
-                //             }
-                //             else {
-                //                 input.setPromptType("MealType");
-                //                 return "valid";
-                //             }
-                //         }
-                //         else {
-                //             return input.getTranscription();
-                //             //return "ingredients processed";
-                //         }
-                //     }
-                    
-                // }
                 else {
                     response = "Invalid API";
                 }
                 return response;
             }
                 
-
-                // if (apiCall.equals("DallE")) {
-                //     response = DallE.callAPI(decodedInput);
-                // }
-
-                // else if (apiCall.equals("ChatGPT")) {
-                //     response = ChatGPT.callAPI(decodedInput);
-                // }
-
-                // else if (apiCall.equals("Whisper")) {
-                    
-                //     if(decodedInput.equals("start")){
-                //         input.captureAudio();
-                //         response = "captured audio";
-                //     }
-                //     else if (decodedInput.equals("Reset")){
-                //         input.setPromptType("MealType"); 
-                //         if(input.getMic() != null){
-                //             input.getMic().stop();
-                //             input.getMic().close();
-                //             return "Input reset";
-                //         }  
-                //     }
-                //     else {
-                        
-                //         boolean res = input.stopCapture();
-                //         if(res){
-                //             if(input.getPromptType().equals("MealType")){
-                //                 input.setPromptType("Ingredients");
-                //                 return input.getMealType();
-                //             }
-                //             else {
-                //                 input.setPromptType("MealType");
-                //                 return "valid";
-                //             }
-                //         }
-                //         else {
-                //             return input.getTranscription();
-                //         }
-                //     }
-                    
-                // }
-            
-                // else {
-                //     response = "Invalid API";
-                // }
-                // return response;  
             else if(tag.equals("load")){
                 String username = query.substring(query.indexOf("=") + 1);
                 JSONArray recipes = RecipeManager.loadRecipes(username);
@@ -194,7 +112,6 @@ public class Handler implements HttpHandler {
                 return encodedResponse;
             }
             else if(tag.equals("share")){
-                System.out.println("hello");
                 String username = query.substring(query.indexOf("=") + 1, query.indexOf("&"));
                 String id = query.substring(query.indexOf("&") + 4);
                 Document recipe = RecipeManager.searchRecipeByID(username, id);

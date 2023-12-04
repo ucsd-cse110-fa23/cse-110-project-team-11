@@ -13,6 +13,11 @@ import java.util.Base64;
 
 import com.sun.net.httpserver.*;
 
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
+import javafx.scene.input.Clipboard;
+import javafx.scene.input.ClipboardContent;
 import pantryPal.server.Handler;
 import pantryPal.server.MockServer;
 
@@ -65,10 +70,29 @@ public class MockModel implements IModel{
         
         String response = "";
         
-
+        // if (id != null && method.equals("GET")) {
+        //         urlString += "?share=" + username + "&id=" + id;
+        //         Clipboard clipboard = Clipboard.getSystemClipboard();
+        //         ClipboardContent content = new ClipboardContent();
+        //         content.putString(urlString);
+        //         clipboard.setContent(content);
+        //         System.out.println(urlString);
+        //         Alert a = new Alert(AlertType.INFORMATION, "URL copied to clipboard!", ButtonType.FINISH);
+        //         a.showAndWait();
+        //     }
         try {
             if (method.equals("GET")) {
+                String urlString = "?share=" + username + "&id=" + id;
+                Clipboard clipboard = Clipboard.getSystemClipboard();
+                ClipboardContent content = new ClipboardContent();
+                content.putString(urlString);
+                clipboard.setContent(content);
+                System.out.println(urlString);
+                Alert a = new Alert(AlertType.INFORMATION, "URL copied to clipboard!", ButtonType.FINISH);
+                a.showAndWait();
+                httpExchange.setInfo(urlString);
                 response = h.handleGet(httpExchange);
+
             }
             else if (method.equals("PUT")) {
                 String encodedRequest = Base64.getEncoder().encodeToString("recipe".getBytes());
