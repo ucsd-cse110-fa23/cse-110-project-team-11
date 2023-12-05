@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="IntegrationTest2" tests="1" skipped="0" failures="0" errors="0" timestamp="2023-12-05T09:27:40" hostname="Heesoons-MacBook-Pro.local" time="18.112">
+  <properties/>
+  <testcase name="integrationTest2()" classname="IntegrationTest2" time="18.112"/>
+  <system-out><![CDATA[not found
+Account not found
+not found
+Inserted user account into MongoDB
+found
+test
+loading
+loading
+found
+test
+loading
+loading
+found: {"_id": {"$oid": "656eed0ede8d5a3ddfeb6bb7"}, "title": "B", "ingredients": "", "steps": "", "imageURL": "https://demo.sirv.com/looks.jpg?h=150&w=150", "mealType": "Breakfast"}
+found: {"_id": {"$oid": "656eed0ede8d5a3ddfeb6bb6"}, "title": "A", "ingredients": "", "steps": "", "imageURL": "https://demo.sirv.com/looks.jpg?h=150&w=150", "mealType": "Dinner"}
+B, A is 1
+A, B is -1
+Null title found
+found
+Deleted user account from MongoDB
+]]></system-out>
+  <system-err><![CDATA[Dec 05, 2023 1:27:40 AM com.mongodb.internal.diagnostics.logging.Loggers shouldUseSLF4J
+WARNING: SLF4J not found on the classpath.  Logging is disabled for the 'org.mongodb.driver' component
+Dec 05, 2023 1:27:43 AM com.sun.javafx.application.PlatformImpl startup
+WARNING: Unsupported JavaFX configuration: classes were loaded from 'unnamed module @700fb871'
+Dec 05, 2023 1:27:48 AM com.sun.glass.ui.mac.MacApplication lambda$waitForReactivation$6
+WARNING: Timeout while waiting for app reactivation
+]]></system-err>
+</testsuite>

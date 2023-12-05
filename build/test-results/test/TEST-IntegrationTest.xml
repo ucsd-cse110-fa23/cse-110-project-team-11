@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="IntegrationTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2023-12-05T09:27:17" hostname="Heesoons-MacBook-Pro.local" time="21.863">
+  <properties/>
+  <testcase name="integrationTest1()" classname="IntegrationTest" time="21.863"/>
+  <system-out><![CDATA[found
+Deleted user account from MongoDB
+not found
+not found
+Inserted user account into MongoDB
+loading
+loading
+Dinner
+Title: Give and quantities. dish
+
+Ingredients: Give, me, a, step-by-step, recipe, for, Dinner,using, '#', to, label, each, step,, using, the, following, ingredients,, with, a, newline, between, step., Dinner, Before, printing, the, recipe,, generate, a, title, for, the, recipe.Format, the, title, as, 'Title:, (name, of, dish)',, and, put, a, dash, and, a, space, in, front, of, every, ingredient., Before, printing, steps,, print, a, list, of, all, ingredients, used,, including, those, that, are, not, in, the, original, ingredient, list,, without, specifying, quantities.
+
+Steps: [steps]
+Parsing recipe...
+Title: Give and quantities. dish
+
+Ingredients: Give, me, a, step-by-step, recipe, for, Dinner,using, '#', to, label, each, step,, using, the, following, ingredients,, with, a, newline, between, step., Dinner, Before, printing, the, recipe,, generate, a, title, for, the, recipe.Format, the, title, as, 'Title:, (name, of, dish)',, and, put, a, dash, and, a, space, in, front, of, every, ingredient., Before, printing, steps,, print, a, list, of, all, ingredients, used,, including, those, that, are, not, in, the, original, ingredient, list,, without, specifying, quantities.
+
+Steps: [steps]
+Parsing recipe...
+found
+Deleted user account from MongoDB
+]]></system-out>
+  <system-err><![CDATA[Dec 05, 2023 1:27:17 AM com.mongodb.internal.diagnostics.logging.Loggers shouldUseSLF4J
+WARNING: SLF4J not found on the classpath.  Logging is disabled for the 'org.mongodb.driver' component
+Dec 05, 2023 1:27:19 AM com.sun.javafx.application.PlatformImpl startup
+WARNING: Unsupported JavaFX configuration: classes were loaded from 'unnamed module @700fb871'
+Dec 05, 2023 1:27:24 AM com.sun.glass.ui.mac.MacApplication lambda$waitForReactivation$6
+WARNING: Timeout while waiting for app reactivation
+]]></system-err>
+</testsuite>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="AccountManagerTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2023-12-05T09:27:05" hostname="Heesoons-MacBook-Pro.local" time="5.427">
+  <properties/>
+  <testcase name="testInsertAccount()" classname="AccountManagerTest" time="2.569"/>
+  <testcase name="testSearchAccount()" classname="AccountManagerTest" time="2.857"/>
+  <system-out><![CDATA[not found
+Inserted user account into MongoDB
+found
+Deleted user account from MongoDB
+not found
+Inserted user account into MongoDB
+found
+found
+Deleted user account from MongoDB
+]]></system-out>
+  <system-err><![CDATA[Dec 05, 2023 1:27:05 AM com.mongodb.internal.diagnostics.logging.Loggers shouldUseSLF4J
+WARNING: SLF4J not found on the classpath.  Logging is disabled for the 'org.mongodb.driver' component
+]]></system-err>
+</testsuite>

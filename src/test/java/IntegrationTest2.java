@@ -110,7 +110,7 @@ public class IntegrationTest2 extends FxRobot {
         // verifyThat("OK", NodeMatchers.isVisible());
         MockServer.turnOn();
         LoginPageAppFrame loginPage = MockApp.getUI().getLoginPage();
-        loginPage.getAuto().setSelected(true);
+        // loginPage.getAuto().setSelected(true);
         loginPage.setUsername("test");
         loginPage.setPassword("test");
         clickOn((Button) loginPage.getLoginButton());    
@@ -127,7 +127,7 @@ public class IntegrationTest2 extends FxRobot {
         
 
         loginPage = MockApp.getUI().getLoginPage();
-        loginPage.getAuto().setSelected(false);
+        // loginPage.getAuto().setSelected(false);
         loginPage.setUsername("test");
         loginPage.setPassword("test");
         clickOn((Button) loginPage.getLoginButton());   

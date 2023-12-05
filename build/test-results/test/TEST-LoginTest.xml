@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="LoginTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2023-12-05T09:27:59" hostname="Heesoons-MacBook-Pro.local" time="5.476">
+  <properties/>
+  <testcase name="testCreateUnusedUsername()" classname="LoginTest" time="5.474"/>
+  <testcase name="testLoginButton()" classname="LoginTest" time="0.001"/>
+  <testcase name="testCreateButton()" classname="LoginTest" time="0.001"/>
+  <system-out><![CDATA[not found
+]]></system-out>
+  <system-err><![CDATA[Dec 05, 2023 1:27:59 AM com.sun.javafx.application.PlatformImpl startup
+WARNING: Unsupported JavaFX configuration: classes were loaded from 'unnamed module @5b38c1ec'
+Dec 05, 2023 1:28:04 AM com.sun.glass.ui.mac.MacApplication lambda$waitForReactivation$6
+WARNING: Timeout while waiting for app reactivation
+Dec 05, 2023 1:28:04 AM com.mongodb.internal.diagnostics.logging.Loggers shouldUseSLF4J
+WARNING: SLF4J not found on the classpath.  Logging is disabled for the 'org.mongodb.driver' component
+]]></system-err>
+</testsuite>
