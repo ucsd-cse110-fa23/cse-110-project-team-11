@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import java.io.FileWriter;   // Import the FileWriter class
 import java.io.IOException;  // Import the IOException class to handle errors
+import java.net.URISyntaxException;
 
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -26,6 +27,8 @@ import pantryPal.client.View.ReturnHeader;
 import pantryPal.client.View.UI;
 import pantryPal.server.MockServer;
 import pantryPal.client.Backend.AccountManager;
+import pantryPal.client.Backend.RecipeParser;
+import pantryPal.client.Controller.Controller;
 
 import org.testfx.api.FxRobot;
 import org.testfx.api.FxToolkit;
@@ -115,33 +118,33 @@ public class IntegrationTest extends FxRobot {
         InputAppFrame iaf = (InputAppFrame) MockApp.getUI().getRoot().getCenter();
         assertNotNull(iaf.getStartButton(), "Should not be null");
 
-        // Start Record -> input: Dinner -> created recipe page 
+        // // Start Record -> input: Dinner -> created recipe page 
         clickOn((Button) iaf.getStartButton());
         //assertEquals()
         clickOn((Button) iaf.getStopButton());
         clickOn((Button) iaf.getStartButton());
         clickOn((Button) iaf.getStopButton());
 
-//     // expected: Regenerate -> Homepage 
-//     RecipeDisplayAppFrame rdaf = (RecipeDisplayAppFrame) MockApp.getUI().getRoot().getCenter();
-//     assertTrue(rdaf instanceof RecipeDisplayAppFrame);
-//     assertNotNull(rdaf.getRecipe().getDeleteButton(),"Should not be null");
-//     assertNotNull(rdaf.getRecipe().getSaveButton(),"Should not be null");
-//     assertNotNull(rdaf.getRecipe().getEditButton(),"Should not be null");
-//     assertNotNull(rdaf.getRecipe().getShareButton(),"Should not be null");
-//     assertNotNull(rdaf.getRecipe().getRegenerateButton(),"Should not be null");
-//     assertNotNull(rdaf.getImage(), "Should not be null"); // checks that image is generated/image url shouldn't be null?
-//     clickOn((Button) rdaf.getRecipe().getRegenerateButton());
-//     RecipeDisplayAppFrame rdaf2 = (RecipeDisplayAppFrame) MockApp.getUI().getRoot().getCenter();
-    
-//     boolean rdEquals = (rdaf.getStringTitle().equals(rdaf2.getStringTitle())) 
-//                             && (rdaf.getStringSteps().equals(rdaf2.getStringSteps())) 
-//                             && (rdaf.getStringIngredients().equals(rdaf2.getStringIngredients()));
-//     assertFalse(rdEquals); 
+        // // expected: Regenerate -> Homepage 
+        // RecipeDisplayAppFrame rdaf = (RecipeDisplayAppFrame) MockApp.getUI().getRoot().getCenter();
+        // assertTrue(rdaf instanceof RecipeDisplayAppFrame);
+        // assertNotNull(rdaf.getRecipe().getDeleteButton(),"Should not be null");
+        // assertNotNull(rdaf.getRecipe().getSaveButton(),"Should not be null");
+        // assertNotNull(rdaf.getRecipe().getEditButton(),"Should not be null");
+        // assertNotNull(rdaf.getRecipe().getShareButton(),"Should not be null");
+        // assertNotNull(rdaf.getRecipe().getRegenerateButton(),"Should not be null");
+        // assertNotNull(rdaf.getImage(), "Should not be null"); // checks that image is generated/image url shouldn't be null?
+        // clickOn((Button) rdaf.getRecipe().getRegenerateButton());
+        // RecipeDisplayAppFrame rdaf2 = (RecipeDisplayAppFrame) MockApp.getUI().getRoot().getCenter();
+        
+        // boolean rdEquals = (rdaf.getStringTitle().equals(rdaf2.getStringTitle())) 
+        //                         && (rdaf.getStringSteps().equals(rdaf2.getStringSteps())) 
+        //                         && (rdaf.getStringIngredients().equals(rdaf2.getStringIngredients()));
+        // assertFalse(rdEquals); 
 
-//     ReturnHeader rdh = rdaf2.getRecipeDisplayHeader();
-//     assertNotNull(rdh.getBackButton());
-//     clickOn((Button) rdaf2.getRecipe().getSaveButton());
+        // ReturnHeader rdh = rdaf2.getRecipeDisplayHeader();
+        // assertNotNull(rdh.getBackButton());
+        // clickOn((Button) rdaf2.getRecipe().getSaveButton());
 
 //    // return to home page
 //     //clickOn((Button) rdh.getBackButton());

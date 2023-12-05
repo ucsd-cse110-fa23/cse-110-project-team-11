@@ -80,4 +80,7 @@ public class App extends Application {
     public static void setTest(boolean b) {
         test = b;
     }
+    public static boolean getTest() {
+        return test;
+    }
 }

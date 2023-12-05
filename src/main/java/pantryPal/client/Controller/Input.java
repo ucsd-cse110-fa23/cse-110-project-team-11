@@ -4,7 +4,7 @@ import java.io.*;
 
 import javax.sound.sampled.*;
 
-public class Input {
+public class Input implements IInput {
     private  AudioFormat format = new AudioFormat(8000.0F,
                                 16,
                                 1,

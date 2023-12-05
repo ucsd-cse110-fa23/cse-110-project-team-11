@@ -24,6 +24,9 @@ import pantryPal.client.Backend.RecipeParser;
 import pantryPal.client.Backend.SortAlphabetically;
 import pantryPal.client.Backend.SortReverseAlphabetically;
 import pantryPal.client.Model.IModel;
+import pantryPal.client.Model.MockModel;
+import pantryPal.client.Model.Model;
+import pantryPal.client.App;
 import pantryPal.client.Backend.AccountManager;
 // import pantryPal.client.UserAccount.User;
 import pantryPal.client.View.HomePageAppFrame;
@@ -42,8 +45,8 @@ import java.io.*;
 import java.net.*;
 
 public class Controller {
+    private IInput input = new Input();
 
-    private Input input = new Input();
     // private RecipeCreator rc = new RecipeCreator();
     private InputAppFrame inputFrame;
     private RecipeParser rp = new RecipeParser();
@@ -55,7 +58,6 @@ public class Controller {
     private IModel model;
     private static String filterState = "All Recipes";
     private static String sortState = "Default";
-
     private String name = "";
 
     public static String getFilterState() {
@@ -75,6 +77,9 @@ public class Controller {
     }
 
     public Controller(String name, UI ui, IModel model) {
+        if (App.getTest() == true) {
+            input = new MockInput();
+        }
         this.name = name;
         this.model = model;
         this.ui = ui;
@@ -193,6 +198,7 @@ public class Controller {
     }
 
     public void handleStartButton(ActionEvent event) throws URISyntaxException {
+    
         try {
             RecButtons rb = inputFrame.getRecButtons();
             rb.setRecipeText("Recording");
@@ -204,6 +210,7 @@ public class Controller {
             Alert a = new Alert(AlertType.ERROR, "Server is Offline", ButtonType.OK);
             a.showAndWait();
         }
+        
     }
 
     public void handleStopButton(ActionEvent event) throws InterruptedException, IOException, URISyntaxException {
@@ -437,8 +444,6 @@ public class Controller {
     }
 
     private void handleRegenerateButton(ActionEvent event) throws IOException, InterruptedException, URISyntaxException { 
-
-        // input.setPromptType("MealType");
         RecipeDisplay rec = new RecipeDisplay();
         String prompt = generateRecipe();
         model.performRequest(prompt, "ChatGPT");
@@ -770,4 +775,6 @@ public class Controller {
             FXCollections.reverse(hp.getRecipeList().getChildren());
         }
     }
+
+    
 }
