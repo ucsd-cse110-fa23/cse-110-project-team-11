@@ -53,37 +53,43 @@ public class IntegrationTest extends FxRobot {
 
     @BeforeEach
     void setup() throws Exception {
-        AccountManager.deleteAccount("test1","test1");
+       AccountManager.deleteAccount("test1","test1");
 
-    //    MockServer.turnOn();
-    //    try (MongoClient mongoClient = MongoClients.create(URI)) {
-    //         MongoDatabase recipeDB = mongoClient.getDatabase("recipes_db");
-    //         recipeDB.createCollection("test1");
-    //         MongoCollection<Document> coll = recipeDB.getCollection("test1");
-    //         Document doc1 = new Document("title", "A")
-    //                         .append("ingredients", "")
-    //                         .append("steps", "")
-    //                         .append("imageURL","https://demo.sirv.com/looks.jpg?h=150&w=150")
-    //                         .append("mealType", "Dinner");
-    //         coll.insertOne(doc1);
-    //         Document doc2 = new Document("title", "B")
-    //                         .append("ingredients", "")
-    //                         .append("steps", "")
-    //                         .append("imageURL","https://demo.sirv.com/looks.jpg?h=150&w=150")
-    //                         .append("mealType", "Breakfast");
-    //         coll.insertOne(doc2);
-    //    }
-       // MockServer.turnOn();
+       MockServer.turnOn();
+       try (MongoClient mongoClient = MongoClients.create(URI)) {
+            MongoDatabase recipeDB = mongoClient.getDatabase("recipes_db");
+            recipeDB.createCollection("test1");
+            MongoCollection<Document> coll = recipeDB.getCollection("test1");
+            Document doc1 = new Document("title", "A")
+                            .append("ingredients", "")
+                            .append("steps", "")
+                            .append("imageURL","https://demo.sirv.com/looks.jpg?h=150&w=150")
+                            .append("mealType", "Dinner");
+            coll.insertOne(doc1);
+            Document doc2 = new Document("title", "B")
+                            .append("ingredients", "")
+                            .append("steps", "")
+                            .append("imageURL","https://demo.sirv.com/looks.jpg?h=150&w=150")
+                            .append("mealType", "Breakfast");
+            coll.insertOne(doc2);
+       }
+       MockServer.turnOn();
         AccountManager.insertAccount("test1","test1");
         ApplicationTest.launch(MockApp.class);
     }
 
     @AfterEach
     void cleanup() throws Exception {
-        AccountManager.deleteAccount("test1","test1");
-        FxToolkit.cleanupStages();
+        // AccountManager.deleteAccount("test1","test1");
+        // FxToolkit.cleanupStages();
+        System.out.println("FUCK MIRANDA");
     }
    
+
+    // @Test
+    // public void aTest() {
+    //     assertTrue(false);
+    // }
     @Test
     public void integrationTest1() {
     // app launch check "Loging button and Create button"
@@ -177,7 +183,6 @@ public class IntegrationTest extends FxRobot {
     assertTrue(text.contains("lol"));
     AccountManager.deleteAccount("test1","test1");
     }
-
 }
 
    
