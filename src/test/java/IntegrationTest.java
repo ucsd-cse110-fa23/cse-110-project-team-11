@@ -79,6 +79,16 @@ public class IntegrationTest extends FxRobot {
         MockServer.turnOn();
         AccountManager.insertAccount("test1","test1");
         ApplicationTest.launch(MockApp.class);
+        LoginPageAppFrame loginPage = MockApp.getUI().getLoginPage();
+        // assertNotNull(loginPage.getLoginButton(), "Should not be null");
+        // assertNotNull(loginPage.getCreateButton(), "Should not be null");
+        // assertNotNull(loginPage.getAuto(), "Should not be null");
+
+        loginPage.getAuto().setSelected(false);
+    
+        // check if account is created and enter homepage after pw and id created
+        loginPage.setUsername("test1");
+        loginPage.setPassword("test1");
     }
 
     @AfterEach
@@ -88,14 +98,10 @@ public class IntegrationTest extends FxRobot {
         AccountManager.deleteAccount("test1","test1");
         //FxToolkit.cleanupStages();
     }
-   
 
-    // @Test
-    // public void aTest() {
-    //     assertTrue(false);
-    // }
     @Test
     public void integrationTest1() {
+        
         // app launch check "Logging button and Create button"
         MockServer.turnOn();
         LoginPageAppFrame loginPage = MockApp.getUI().getLoginPage();
@@ -103,11 +109,11 @@ public class IntegrationTest extends FxRobot {
         assertNotNull(loginPage.getCreateButton(), "Should not be null");
         assertNotNull(loginPage.getAuto(), "Should not be null");
 
-        loginPage.getAuto().setSelected(false);
+        // loginPage.getAuto().setSelected(false);
     
-        // check if account is created and enter homepage after pw and id created
-        loginPage.setUsername("test1");
-        loginPage.setPassword("test1");
+        // // check if account is created and enter homepage after pw and id created
+        // loginPage.setUsername("test1");
+        // loginPage.setPassword("test1");
         clickOn((Button) loginPage.getLoginButton());
         // Homepage -> Create Button
         HomePageAppFrame hpaf =  (HomePageAppFrame) MockApp.getUI().getRoot().getCenter();
@@ -130,7 +136,7 @@ public class IntegrationTest extends FxRobot {
         // TODO: fix casting error
         // expected: Regenerate -> Homepage         
         System.out.println("CLASSNAME: " + MockApp.getUI().getRoot().getCenter().getClass().getSimpleName());
-        MockApp.getUI().getRoot().setCenter(new RecipeDisplayAppFrame(new RecipeDisplay()));
+        //MockApp.getUI().getRoot().setCenter(new RecipeDisplayAppFrame(new RecipeDisplay()));
         RecipeDisplayAppFrame rdaf =  (RecipeDisplayAppFrame) MockApp.getUI().getRoot().getCenter();
         assertTrue(rdaf instanceof RecipeDisplayAppFrame);
         assertNotNull(rdaf.getRecipe().getDeleteButton(),"Should not be null");
