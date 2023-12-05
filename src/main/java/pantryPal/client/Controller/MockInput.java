@@ -2,9 +2,8 @@ package pantryPal.client.Controller;
 
 public class MockInput implements IInput {
     String s;
-    public void captureAudio(){
+    public void captureAudio(){}
 
-    }
     public boolean stopCapture(){
         return true;
     }
@@ -15,8 +14,17 @@ public class MockInput implements IInput {
         return true;
     }
     public String getPromptType(){
-        return "MealType";
+        return s;
     }
+    // private String responses[] = {"Dinner", "valid"};
+    // private int index = 0;
+    // public String callAPI(String prompt) {
+
+    //     if (prompt.equals("stop")) {
+    //         return responses[(index++)%2];
+    //     }
+    //     return null;
+    // }
     public String getMealType(){
         return "Dinner";
     }
