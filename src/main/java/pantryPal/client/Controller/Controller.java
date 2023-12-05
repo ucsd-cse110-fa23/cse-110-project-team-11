@@ -300,6 +300,14 @@ public class Controller {
     }
 
     public void handleSaveButton(ActionEvent event) {
+        this.rd.getRecipe().getSaveButton().setStyle("-fx-background-color: #5DBB63; -fx-border-width: 0;");
+        PauseTransition pause = new PauseTransition(
+            Duration.seconds(1)
+        );
+        pause.setOnFinished(e2 -> {
+            this.rd.getRecipe().getSaveButton().setStyle("-fx-background-color: #DAE5EA; -fx-border-width: 0;");
+        });
+        pause.play();
         try {
             rd.getIngredients().setEditable(false);
             rd.getSteps();
@@ -328,14 +336,8 @@ public class Controller {
             else {
                 model.performRequest("PUT", rd.getMealType(), rd.getID(), rd.getTitle().getText(), rd.getIngredients().getText(), rd.getSteps().getText(), rd.getRecipe().getImage(), this.name);                
             }
-            this.rd.getRecipe().getSaveButton().setStyle("-fx-background-color: #5DBB63; -fx-border-width: 0;");
-            PauseTransition pause = new PauseTransition(
-                Duration.seconds(1)
-            );
-            pause.setOnFinished(e2 -> {
-                this.rd.getRecipe().getSaveButton().setStyle("-fx-background-color: #DAE5EA; -fx-border-width: 0;");
-            });
-            pause.play();
+            
+            ui.returnHomePage();
         }
         catch (URISyntaxException | ConnectException err) {
             Alert a = new Alert(AlertType.ERROR, "Server is Offline", ButtonType.OK);
