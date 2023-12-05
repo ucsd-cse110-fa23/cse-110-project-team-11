@@ -53,10 +53,26 @@ public class Controller {
     private RecipeDisplayAppFrame rd;
     private RecipeTitle rt = new RecipeTitle("", "");
     private IModel model;
-    private String filterState = "All Recipes";
-    private String sortState = "Default";
+    private static String filterState = "All Recipes";
+    private static String sortState = "Default";
 
     private String name = "";
+
+    public static String getFilterState() {
+        return filterState;
+    }
+
+    public static void setFilterState(String s) {
+        filterState = s;
+    }
+
+    public static String getSortState() {
+        return sortState;
+    }
+
+    public static void setSortState(String s) {
+        sortState = s;
+    }
 
     public Controller(String name, UI ui, IModel model) {
         this.name = name;
@@ -343,21 +359,44 @@ public class Controller {
                 model.performRequest("PUT", mealType, stringID, title, ingredients, steps, imgURL, this.name);
                 RecipeDisplay recipeDisplay = new RecipeDisplay(stringID, title, ingredients, steps, imgURL, mealType);
                 RecipeDisplayAppFrame rec = new RecipeDisplayAppFrame(recipeDisplay);
-                RecipeTitle recipeDis = new RecipeTitle(stringID, title, rec, mealType);
+                RecipeTitle recipeTitle = new RecipeTitle(stringID, title, rec, mealType);
                 // rd.setID(RecipeManager.getStringID()); // TODO CHANGE?? 
 
-                recipeDis.setViewButtonAction(this::handleViewButton);
-                recipeDis.getRecipeDetail().setBackButtonAction2(event1 -> {
-                    try {
-                        handleBackButton2(event1);
-                    } catch (URISyntaxException e) {
-                        e.printStackTrace();
-                    }
+                        recipeTitle.getViewButton().setOnAction(e1->{
+                        ui.getRoot().setCenter(recipeTitle.getRecipeDetail()); 
+                        ui.getRoot().setTop(recipeTitle.getRecipeDetail().getRecipeDisplayHeader());
+                        ui.getRoot().setBottom(null);
+
+                        this.rd = rec;
+
+                        rec.setEditButtonAction(this::handleEditButton);
+                        rec.setSaveButtonAction(this::handleSaveButton);
+                        rec.setDeleteButtonAction(event1 -> {
+                            try {
+                                handleDeleteButton(event);
+                            } catch (URISyntaxException e) {
+                                e.printStackTrace();
+                            }
+                        });
+                        rec.setShareButtonAction(event1 -> {
+                            try {
+                                handleShareButton(event);
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        });
+                        rec.setBackButtonAction2(this::handleBackButton);
+                        rec.setLogoutButtonAction(this::handleLogoutButton);
+                        // }
+                    // catch (ConnectException err){
+                    //     Alert a = new Alert(AlertType.ERROR, "Server is Offline", ButtonType.OK);
+                    //     a.showAndWait();
+                    // }
                 });
-                recipeDis.getRecipeDetail().setLogoutButtonAction(this::handleLogoutButton);
-                this.rt = recipeDis;
-                hp.getRecipeList().getChildren().add(recipeDis);
-                // reload();
+                this.rt = recipeTitle;
+                hp.getRecipeList().getChildren().add(0, recipeTitle);
+                ui.returnHomePage();
+                 // reload();
             }
             else {
                 model.performRequest("PUT", rd.getMealType(), rd.getID(), rd.getTitle().getText(), rd.getIngredients().getText(), rd.getSteps().getText(), rd.getRecipe().getImage(), this.name);                

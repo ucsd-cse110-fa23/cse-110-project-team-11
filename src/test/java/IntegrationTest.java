@@ -47,6 +47,7 @@ public class IntegrationTest extends FxRobot {
     @BeforeEach
     void setup() throws Exception {
        // MockServer.turnOn();
+        AccountManager.deleteAccount("test","test");
         ApplicationTest.launch(MockApp.class);
     }
 
@@ -56,9 +57,6 @@ public class IntegrationTest extends FxRobot {
         FxToolkit.cleanupStages();
     }
    
-    /*
-    US: 10,11,12,15,16 
-    */
     @Test
     public void integrationTest1() {
     // app launch check "Loging button and Create button"
@@ -68,7 +66,7 @@ public class IntegrationTest extends FxRobot {
     assertNotNull(loginPage.getCreateButton(), "Should not be null");
     assertNotNull(loginPage.getAuto(), "Should not be null");
 
-    // loginPage.getAuto().setSelected(true);
+    //loginPage.getAuto().setSelected(false);
     
     // check if account is created and enter homepage after pw and id created
     loginPage.setUsername("test");
@@ -114,7 +112,7 @@ public class IntegrationTest extends FxRobot {
     clickOn((Button) rdaf2.getRecipe().getSaveButton());
 
    // return to home page
-    clickOn((Button) rdh.getBackButton());
+    //clickOn((Button) rdh.getBackButton());
     hpaf =  (HomePageAppFrame) MockApp.getUI().getRoot().getCenter();
     hph = (HomePageHeader) MockApp.getUI().getRoot().getTop();
     HomePageFooter hpf = (HomePageFooter) MockApp.getUI().getRoot().getBottom();
@@ -128,15 +126,28 @@ public class IntegrationTest extends FxRobot {
     RecipeList rl = hpaf.getRecipeList();
     assertEquals(((RecipeTitle) rl.getChildren().get(0)).getTitle().getText(), rdaf2.getStringTitle()); // need to add set getter also
 
-    // check alphabetical sort
-    // check filter
-    // clickOn(“Breakfast”); //idk about this part
-    // RecipeList newRL =  (HomePageAppFrame) App.getUI().getRoot().getCenter();
-
-
-
-   
+    // check if we can view newly inserted recipe
+    RecipeTitle rt = (RecipeTitle)rl.getChildren().get(0);
+    clickOn(rt.getViewButton());
+    assertEquals(MockApp.getUI().getRoot().getCenter(),rt.getRecipeDetail());
     
+    RecipeDisplayAppFrame rd = ((RecipeDisplayAppFrame) MockApp.getUI().getRoot().getCenter());
+    clickOn(rt.getRecipeDetail().getEditButton());
+    assertTrue(rd.getEditable());
+    clickOn(rd.getStepsArea());
+    push(javafx.scene.input.KeyCode.L);
+    push(javafx.scene.input.KeyCode.O);
+    push(javafx.scene.input.KeyCode.L);
+    clickOn(rd.getEditButton());
+    clickOn(rd.getSaveButton());
+    assertFalse(rd.getEditable());
+
+    clickOn(rd.getRecipeDisplayHeader().getBackButton());
+
+    hpaf =  (HomePageAppFrame) MockApp.getUI().getRoot().getCenter();
+    clickOn(rt.getViewButton());
+    String text = rd.getSteps().getText();
+    assertTrue(text.contains("lol"));
     }
 
 }

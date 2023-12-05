@@ -7,6 +7,7 @@ import java.net.URISyntaxException;
 import pantryPal.client.API.APIFactory;
 import pantryPal.client.API.IAPI;
 import pantryPal.client.API.MockWhisper;
+import pantryPal.client.Controller.Input;
 
 public class InputTest extends APIFactory {
     /**
@@ -19,5 +20,16 @@ public class InputTest extends APIFactory {
     public void FakeResponse() throws IOException, InterruptedException, URISyntaxException {        
         IAPI output = APIFactory.createAPI("MockWhisper");
         assertEquals("Dinner", output.callAPI("stop"), "The transcribe method should return 'Dinner'");
+    }
+
+    @Test
+    public void testTypeParser() {
+        Input in = new Input();
+        assertEquals(in.typeParser("breakfast"),"Breakfast");
+        assertEquals(in.typeParser("Breakfast"),"Breakfast");
+        assertEquals(in.typeParser("dinner breakfast"),"Invalid");
+        assertEquals(in.typeParser("dinner dinner"),"Dinner");
+        assertEquals(in.typeParser("asdfjasoidfasdf dinner asdfioas"),"Dinner");
+        assertEquals(in.typeParser("asdfjasoidfasdf asdfioas"),"Invalid");
     }
 }

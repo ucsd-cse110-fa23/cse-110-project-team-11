@@ -86,8 +86,9 @@ public class MockModel implements IModel{
                 String encodedMealType = Base64.getEncoder().encodeToString(mealType.getBytes());
                 String encodedUrl = Base64.getEncoder().encodeToString(imgURL.getBytes());
                 String encodedName = Base64.getEncoder().encodeToString(username.getBytes());
+                String encodedID = Base64.getEncoder().encodeToString(id.getBytes());
                 info = encodedRequest+";" + encodedMealType + ";" + encodedTitle + ";" + encodedIngredients + ";" 
-                    + encodedSteps + ";" + encodedUrl + ";" + encodedName;
+                    + encodedSteps + ";" + encodedUrl + ";" + encodedName + ";" + encodedID;
                 httpExchange.setInfo(info);
                 response = h.handlePut(httpExchange);
             }

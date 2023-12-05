@@ -128,4 +128,12 @@ public class RecipeDisplayAppFrame extends BorderPane {
     public void setShareButtonAction(EventHandler<ActionEvent> eventHandler) {
         shareButton.setOnAction(eventHandler);
     }
+
+    public TextArea getStepsArea() {
+        return this.steps;
+    }
+
+    public Button getSaveButton() {
+        return this.saveButton;
+    }
 }
