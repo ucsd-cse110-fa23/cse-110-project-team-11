@@ -127,11 +127,11 @@ public class IntegrationTest extends FxRobot {
         assertNotNull(iaf.getStartButton(), "Should not be null");
 
         // // Start Record -> input: Dinner -> created recipe page 
-        clickOn((Button) iaf.getStartButton());
+        clickOn(((InputAppFrame)MockApp.getUI().getRoot().getCenter()).getStartButton());
         //assertEquals()
-        clickOn((Button) iaf.getStopButton());
-        clickOn((Button) iaf.getStartButton());
-        clickOn((Button) iaf.getStopButton());
+        clickOn(((InputAppFrame)MockApp.getUI().getRoot().getCenter()).getStopButton());
+        clickOn(((InputAppFrame)MockApp.getUI().getRoot().getCenter()).getStartButton());
+        clickOn(((InputAppFrame)MockApp.getUI().getRoot().getCenter()).getStopButton());
 
         // TODO: fix casting error
         // expected: Regenerate -> Homepage         
