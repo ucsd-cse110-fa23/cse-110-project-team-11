@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="InputTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2023-11-26T05:47:51" hostname="DESKTOP-7QFM5N9" time="0.022">
+<testsuite name="InputTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2023-12-05T08:41:36" hostname="Heesoons-MacBook-Pro.local" time="0.008">
   <properties/>
-  <testcase name="FakeResponse()" classname="InputTest" time="0.022"/>
+  <testcase name="FakeResponse()" classname="InputTest" time="0.007"/>
+  <testcase name="testTypeParser()" classname="InputTest" time="0.001"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>
