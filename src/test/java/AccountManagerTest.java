@@ -12,19 +12,6 @@ import pantryPal.client.Backend.AccountManager;
 
 
 public class AccountManagerTest {
-    @BeforeAll
-    public static void setUpClass() throws InterruptedException {
-
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                    Application.launch(App.class,new String[0]); 
-                }
-            });
-            thread.setDaemon(true);
-            thread.start();// Initialize the thread
-    }
-
     @Test
     public void testInsertAccount() {
         AccountManager.insertAccount("testing","testing");

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="MockRecipeCreatorTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2023-12-05T08:42:10" hostname="Heesoons-MacBook-Pro.local" time="0.015">
+<testsuite name="MockRecipeCreatorTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2023-12-05T09:55:32" hostname="Stanleys-MacBook-Air.local" time="0.02">
   <properties/>
-  <testcase name="testFormatPrompt()" classname="MockRecipeCreatorTest" time="0.01"/>
-  <testcase name="testReadFile()" classname="MockRecipeCreatorTest" time="0.001"/>
-  <testcase name="testGenerateRecipe()" classname="MockRecipeCreatorTest" time="0.003"/>
+  <testcase name="testFormatPrompt()" classname="MockRecipeCreatorTest" time="0.013"/>
+  <testcase name="testReadFile()" classname="MockRecipeCreatorTest" time="0.002"/>
+  <testcase name="testGenerateRecipe()" classname="MockRecipeCreatorTest" time="0.004"/>
   <system-out><![CDATA[Title: chicken and carrots dish
 
 Ingredients: chicken, balut, carrots

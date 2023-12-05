@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="AppTest" tests="9" skipped="0" failures="0" errors="0" timestamp="2023-12-05T08:41:30" hostname="Heesoons-MacBook-Pro.local" time="5.552">
+<testsuite name="AppTest" tests="9" skipped="0" failures="0" errors="0" timestamp="2023-12-05T09:54:19" hostname="Stanleys-MacBook-Air.local" time="5.511">
   <properties/>
-  <testcase name="testDeleteButton()" classname="AppTest" time="5.186"/>
-  <testcase name="testSaveButton()" classname="AppTest" time="0.069"/>
-  <testcase name="testEditButton()" classname="AppTest" time="0.077"/>
-  <testcase name="testBackButton()" classname="AppTest" time="0.0"/>
-  <testcase name="testViewButton()" classname="AppTest" time="0.216"/>
+  <testcase name="testDeleteButton()" classname="AppTest" time="5.137"/>
+  <testcase name="testSaveButton()" classname="AppTest" time="0.049"/>
+  <testcase name="testEditButton()" classname="AppTest" time="0.15"/>
+  <testcase name="testBackButton()" classname="AppTest" time="0.001"/>
+  <testcase name="testViewButton()" classname="AppTest" time="0.167"/>
   <testcase name="testStartButton()" classname="AppTest" time="0.001"/>
-  <testcase name="testHeader()" classname="AppTest" time="0.001"/>
-  <testcase name="testStopButton()" classname="AppTest" time="0.0"/>
+  <testcase name="testHeader()" classname="AppTest" time="0.0"/>
+  <testcase name="testStopButton()" classname="AppTest" time="0.001"/>
   <testcase name="testCreateButton()" classname="AppTest" time="0.0"/>
   <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[Dec 05, 2023 12:41:29 AM com.sun.javafx.application.PlatformImpl startup
-WARNING: Unsupported JavaFX configuration: classes were loaded from 'unnamed module @6b09fb41'
-Dec 05, 2023 12:41:35 AM com.sun.glass.ui.mac.MacApplication lambda$waitForReactivation$6
+  <system-err><![CDATA[Dec 05, 2023 1:54:18 AM com.sun.javafx.application.PlatformImpl startup
+WARNING: Unsupported JavaFX configuration: classes were loaded from 'unnamed module @4c402120'
+Dec 05, 2023 1:54:23 AM com.sun.glass.ui.mac.MacApplication lambda$waitForReactivation$6
 WARNING: Timeout while waiting for app reactivation
 ]]></system-err>
 </testsuite>

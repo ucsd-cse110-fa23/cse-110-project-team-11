@@ -1,20 +1,18 @@
 
 
-Title: Kevin's Breakfast 
-Ingredients:
-- 2 slices of bread
-- 2 eggs
-- 1 tablespoon of butter
-- Salt
-- Pepper
-- Milk
+Title: Pancakes 
+Ingredients: 
+- Flour 
+- Milk 
+- Eggs 
+- Baking powder 
+- Salt 
+- Butter 
+- Maple syrup
 
-#1 Preheat a skillet over medium heat.
-#2 Spread butter evenly over both slices of bread.
-#3 Crack the eggs into a bowl and beat them together with a fork.
-#4 Add a splash of milk to the eggs and mix together.
-#5 Pour the egg mixture into the skillet and cook until the eggs are set.
-#6 Place the slices of bread in the toaster and toast to desired darkness.
-#7 Place the eggs on top of one of the slices of bread.
-#8 Sprinkle with salt and pepper to taste.
-#9 Place the other slice of bread on top and enjoy!.......................
+#1 In a medium bowl, whisk together 1 cup of flour, 1 cup of milk, 2 eggs, 1 teaspoon of baking powder, and a pinch of salt. 
+#2 Melt 2 tablespoons of butter in a skillet over medium heat. 
+#3 Pour the batter into the skillet and cook until bubbles form on the top. 
+#4 Flip the pancake and cook until golden brown. 
+#5 Repeat steps 2-4 for the remaining batter. 
+#6 Serve the pancakes with butter and maple syrup.....

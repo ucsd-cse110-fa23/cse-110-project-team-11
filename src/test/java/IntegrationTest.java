@@ -47,13 +47,13 @@ public class IntegrationTest extends FxRobot {
     @BeforeEach
     void setup() throws Exception {
        // MockServer.turnOn();
-        AccountManager.deleteAccount("test","test");
+        AccountManager.deleteAccount("test1","test1");
         ApplicationTest.launch(MockApp.class);
     }
 
     @AfterEach
     void cleanup() throws Exception {
-        AccountManager.deleteAccount("test","test");
+        AccountManager.deleteAccount("test1","test1");
         FxToolkit.cleanupStages();
     }
    
@@ -69,8 +69,8 @@ public class IntegrationTest extends FxRobot {
     //loginPage.getAuto().setSelected(false);
     
     // check if account is created and enter homepage after pw and id created
-    loginPage.setUsername("test");
-    loginPage.setPassword("test");
+    loginPage.setUsername("test1");
+    loginPage.setPassword("test1");
     clickOn((Button) loginPage.getCreateButton());
         // Homepage -> Create Button
     HomePageAppFrame hpaf =  (HomePageAppFrame) MockApp.getUI().getRoot().getCenter();
@@ -148,6 +148,7 @@ public class IntegrationTest extends FxRobot {
     clickOn(rt.getViewButton());
     String text = rd.getSteps().getText();
     assertTrue(text.contains("lol"));
+    AccountManager.deleteAccount("test1","test1");
     }
 
 }
