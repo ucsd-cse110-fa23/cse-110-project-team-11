@@ -9,6 +9,7 @@ import org.bson.Document;
 
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import pantryPal.client.App;
 import pantryPal.client.MockApp;
 import pantryPal.client.API.MockChatGPT;
@@ -22,6 +23,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class LoginTest {
+    MockApp mock = new MockApp();
     @BeforeEach
     void setup() throws Exception {
         ApplicationTest.launch(MockApp.class);
@@ -29,7 +31,10 @@ public class LoginTest {
 
     @AfterEach
     void cleanup() throws Exception {
-        FxToolkit.cleanupStages();
+        //FxToolkit.cleanupApplication(mock);
+        //FxToolkit.cleanupStages();
+        Platform.setImplicitExit(false);
+
     }
     @Test
     public void testLoginButton() {

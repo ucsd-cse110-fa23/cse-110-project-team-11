@@ -83,8 +83,10 @@ public class IntegrationTest extends FxRobot {
 
     @AfterEach
     void cleanup() throws Exception {
+        Platform.setImplicitExit(false);
+
         AccountManager.deleteAccount("test1","test1");
-        FxToolkit.cleanupStages();
+        //FxToolkit.cleanupStages();
     }
    
 

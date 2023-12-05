@@ -30,7 +30,8 @@ class ShareTest {
 
     @AfterEach
     void cleanup() throws Exception {
-        FxToolkit.cleanupStages();
+        //FxToolkit.cleanupStages();
+        Platform.setImplicitExit(false);
     }
 
     /*

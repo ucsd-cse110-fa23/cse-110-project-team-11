@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 
 class MockImageGeneratorTest {
     MockImageGenerator mockImage = new MockImageGenerator();
@@ -27,7 +28,9 @@ class MockImageGeneratorTest {
 
     @AfterEach
     void cleanup() throws Exception {
-        FxToolkit.cleanupStages();
+        //FxToolkit.cleanupStages();
+        Platform.setImplicitExit(false);
+
     }
 
     @Test 

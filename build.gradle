@@ -80,11 +80,11 @@ private static String getJavaFXPlatform() {
 
 
 test {
-    forkEvery = 1
-    maxParallelForks = 1
     useJUnitPlatform()
     testLogging {
     // set options for log level LIFECYCLE
     events "passed","failed","skipped"
+    forkEvery = 1
+    maxParallelForks = 1
   }
 }
