@@ -69,7 +69,7 @@ public class AccountManager {
                 user.append("username", username)
                     .append("password", password);
                 userCollections.deleteOne(user);
-                recipeDB.getCollection("test").drop();
+                recipeDB.getCollection(username).drop();
                 System.out.println("Deleted user account from MongoDB");
                 mongoClient.close();
                 return 1;

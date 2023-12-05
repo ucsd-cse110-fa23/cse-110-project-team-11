@@ -56,7 +56,7 @@ public class IntegrationTest extends FxRobot {
 
     @BeforeEach
     void setup() throws Exception {
-        // AccountManager.deleteAccount("test1","test1");
+        AccountManager.deleteAccount("test1","test1");
 
         MockServer.turnOn();
         try (MongoClient mongoClient = MongoClients.create(URI)) {
