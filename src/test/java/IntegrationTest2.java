@@ -105,7 +105,107 @@ public class IntegrationTest2 extends FxRobot {
     //     MockServer.turnOff();
     // }
 
+
     @Test
+    public void integrationTest1() {
+        
+        // app launch check "Logging button and Create button"
+        MockServer.turnOn();
+        LoginPageAppFrame loginPage = MockApp.getUI().getLoginPage();
+        assertNotNull(loginPage.getLoginButton(), "Should not be null");
+        assertNotNull(loginPage.getCreateButton(), "Should not be null");
+        assertNotNull(loginPage.getAuto(), "Should not be null");
+
+        // loginPage.getAuto().setSelected(false);
+    
+        // // check if account is created and enter homepage after pw and id created
+        // loginPage.setUsername("test1");
+        // loginPage.setPassword("test1");
+        clickOn((Button) loginPage.getLoginButton());
+        // Homepage -> Create Button
+        HomePageAppFrame hpaf =  (HomePageAppFrame) MockApp.getUI().getRoot().getCenter();
+        HomePageHeader hph = (HomePageHeader) MockApp.getUI().getRoot().getTop();
+        assertTrue(hpaf instanceof HomePageAppFrame);
+        assertTrue(hph instanceof HomePageHeader);
+        assertNotNull(hph.getCreateButton(), "Should not be null");
+
+        clickOn((Button) hph.getCreateButton());
+        InputAppFrame iaf = (InputAppFrame) MockApp.getUI().getRoot().getCenter();
+        assertNotNull(iaf.getStartButton(), "Should not be null");
+
+        // // Start Record -> input: Dinner -> created recipe page 
+        clickOn((Button) iaf.getStartButton());
+        //assertEquals()
+        clickOn((Button) iaf.getStopButton());
+        clickOn((Button) iaf.getStartButton());
+        clickOn((Button) iaf.getStopButton());
+
+        // TODO: fix casting error
+        // expected: Regenerate -> Homepage         
+        System.out.println("CLASSNAME: " + MockApp.getUI().getRoot().getCenter().getClass().getSimpleName());
+        //MockApp.getUI().getRoot().setCenter(new RecipeDisplayAppFrame(new RecipeDisplay()));
+        RecipeDisplayAppFrame rdaf =  (RecipeDisplayAppFrame) MockApp.getUI().getRoot().getCenter();
+        assertTrue(rdaf instanceof RecipeDisplayAppFrame);
+        assertNotNull(rdaf.getRecipe().getDeleteButton(),"Should not be null");
+        assertNotNull(rdaf.getRecipe().getSaveButton(),"Should not be null");
+        assertNotNull(rdaf.getRecipe().getEditButton(),"Should not be null");
+        assertNotNull(rdaf.getRecipe().getShareButton(),"Should not be null");
+        assertNotNull(rdaf.getRecipe().getRegenerateButton(),"Should not be null");
+        assertNotNull(rdaf.getImage(), "Should not be null"); // checks that image is generated/image url shouldn't be null?
+
+
+        clickOn((Button) rdaf.getRecipe().getRegenerateButton());
+        RecipeDisplayAppFrame rdaf2 = (RecipeDisplayAppFrame) MockApp.getUI().getRoot().getCenter();
+        boolean rdEquals = (rdaf.getStringTitle().equals(rdaf2.getStringTitle())) 
+                                && (rdaf.getStringSteps().equals(rdaf2.getStringSteps())) 
+                                && (rdaf.getStringIngredients().equals(rdaf2.getStringIngredients()));
+        assertFalse(rdEquals); 
+
+        ReturnHeader rdh = rdaf2.getRecipeDisplayHeader();
+        assertNotNull(rdh.getBackButton());
+        clickOn((Button) rdaf2.getRecipe().getSaveButton());
+
+        // return to home page
+        //clickOn((Button) rdh.getBackButton());
+        hpaf =  (HomePageAppFrame) MockApp.getUI().getRoot().getCenter();
+        hph = (HomePageHeader) MockApp.getUI().getRoot().getTop();
+        HomePageFooter hpf = (HomePageFooter) MockApp.getUI().getRoot().getBottom();
+        assertTrue(hpaf instanceof HomePageAppFrame);
+        assertTrue(hph instanceof HomePageHeader);
+        assertTrue(hpf instanceof HomePageFooter);
+        assertNotNull(hpf.getFilterButton());
+        assertNotNull(hpf.getSortButton());
+
+        // check save
+        RecipeList rl = hpaf.getRecipeList();
+        assertEquals(((RecipeTitle) rl.getChildren().get(0)).getTitle().getText(), rdaf2.getStringTitle()); // need to add set getter also
+
+        // check if we can view newly inserted recipe
+        RecipeTitle rt = (RecipeTitle)rl.getChildren().get(0);
+        clickOn(rt.getViewButton());
+        assertEquals(MockApp.getUI().getRoot().getCenter(),rt.getRecipeDetail());
+        
+        RecipeDisplayAppFrame rd = ((RecipeDisplayAppFrame) MockApp.getUI().getRoot().getCenter());
+        clickOn(rt.getRecipeDetail().getEditButton());
+        assertTrue(rd.getEditable());
+        clickOn(rd.getStepsArea());
+        push(javafx.scene.input.KeyCode.L);
+        push(javafx.scene.input.KeyCode.O);
+        push(javafx.scene.input.KeyCode.L);
+        clickOn(rd.getEditButton());
+        clickOn(rd.getSaveButton());
+        assertFalse(rd.getEditable());
+
+        clickOn(rd.getRecipeDisplayHeader().getBackButton());
+
+        hpaf =  (HomePageAppFrame) MockApp.getUI().getRoot().getCenter();
+        clickOn(rt.getViewButton());
+        String text = rd.getSteps().getText();
+        assertTrue(text.contains("lol"));
+        AccountManager.deleteAccount("test1","test1");
+    }
+
+    //@Test
     public void integrationTest2() {
         // // test alert page
         // verifyThat("OK", NodeMatchers.isVisible());
