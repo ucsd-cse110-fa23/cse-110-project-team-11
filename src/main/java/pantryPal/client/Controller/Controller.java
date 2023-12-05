@@ -53,10 +53,26 @@ public class Controller {
     private RecipeDisplayAppFrame rd;
     private RecipeTitle rt = new RecipeTitle("", "");
     private IModel model;
-    private String filterState = "All Recipes";
-    private String sortState = "Default";
+    private static String filterState = "All Recipes";
+    private static String sortState = "Default";
 
     private String name = "";
+
+    public static String getFilterState() {
+        return filterState;
+    }
+
+    public static void setFilterState(String s) {
+        filterState = s;
+    }
+
+    public static String getSortState() {
+        return sortState;
+    }
+
+    public static void setSortState(String s) {
+        sortState = s;
+    }
 
     public Controller(String name, UI ui, IModel model) {
         this.name = name;
