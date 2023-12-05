@@ -543,7 +543,6 @@ public class Controller {
                     new File("src/main/resources/autologin.txt").delete();
                 }
                 loadRecipes();
-                
                 ui.returnHomePage(); 
             }
 
