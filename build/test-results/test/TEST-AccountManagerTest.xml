@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="AccountManagerTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2023-12-05T09:54:11" hostname="Stanleys-MacBook-Air.local" time="6.482">
+<testsuite name="AccountManagerTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2023-12-05T21:07:59" hostname="MacBook-Pro-12.local" time="4.927">
   <properties/>
-  <testcase name="testInsertAccount()" classname="AccountManagerTest" time="3.104"/>
-  <testcase name="testSearchAccount()" classname="AccountManagerTest" time="3.378"/>
+  <testcase name="testInsertAccount()" classname="AccountManagerTest" time="2.499"/>
+  <testcase name="testSearchAccount()" classname="AccountManagerTest" time="2.428"/>
   <system-out><![CDATA[not found
 Inserted user account into MongoDB
 found
@@ -13,7 +13,7 @@ found
 found
 Deleted user account from MongoDB
 ]]></system-out>
-  <system-err><![CDATA[Dec 05, 2023 1:54:11 AM com.mongodb.internal.diagnostics.logging.Loggers shouldUseSLF4J
+  <system-err><![CDATA[Dec 05, 2023 1:07:59 PM com.mongodb.internal.diagnostics.logging.Loggers shouldUseSLF4J
 WARNING: SLF4J not found on the classpath.  Logging is disabled for the 'org.mongodb.driver' component
 ]]></system-err>
 </testsuite>

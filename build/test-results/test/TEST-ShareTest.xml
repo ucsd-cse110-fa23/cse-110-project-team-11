@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="ShareTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2023-12-05T09:55:34" hostname="Stanleys-MacBook-Air.local" time="5.07">
+<testsuite name="ShareTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2023-12-05T21:09:07" hostname="MacBook-Pro-12.local" time="5.3">
   <properties/>
-  <testcase name="testShare()" classname="ShareTest" time="5.07"/>
+  <testcase name="testShare()" classname="ShareTest" time="5.3"/>
   <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[Dec 05, 2023 1:55:34 AM com.sun.javafx.application.PlatformImpl startup
-WARNING: Unsupported JavaFX configuration: classes were loaded from 'unnamed module @78691363'
-Dec 05, 2023 1:55:39 AM com.sun.glass.ui.mac.MacApplication lambda$waitForReactivation$6
+  <system-err><![CDATA[Dec 05, 2023 1:09:06 PM com.sun.javafx.application.PlatformImpl startup
+WARNING: Unsupported JavaFX configuration: classes were loaded from 'unnamed module @5fe94a96'
+Dec 05, 2023 1:09:11 PM com.sun.glass.ui.mac.MacApplication lambda$waitForReactivation$6
 WARNING: Timeout while waiting for app reactivation
 ]]></system-err>
 </testsuite>

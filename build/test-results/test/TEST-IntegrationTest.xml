@@ -1,41 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="IntegrationTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2023-12-05T09:54:25" hostname="Stanleys-MacBook-Air.local" time="29.284">
+<testsuite name="IntegrationTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2023-12-05T21:08:12" hostname="MacBook-Pro-12.local" time="15.816">
   <properties/>
-  <testcase name="integrationTest1()" classname="IntegrationTest" time="29.284"/>
+  <testcase name="integrationTest1()" classname="IntegrationTest" time="15.816"/>
   <system-out><![CDATA[not found
 Account not found
 not found
-not found
 Inserted user account into MongoDB
+found
+test1
 loading
 loading
-loading
-loading
-loading
-loading
-loading
-loading
-Dinner
 Title: Give and quantities. dish
 
 Ingredients: Give, me, a, step-by-step, recipe, for, Dinner,using, '#', to, label, each, step,, using, the, following, ingredients,, with, a, newline, between, step., Dinner, Before, printing, the, recipe,, generate, a, title, for, the, recipe.Format, the, title, as, 'Title:, (name, of, dish)',, and, put, a, dash, and, a, space, in, front, of, every, ingredient., Before, printing, steps,, print, a, list, of, all, ingredients, used,, including, those, that, are, not, in, the, original, ingredient, list,, without, specifying, quantities.
 
 Steps: [steps]
 Parsing recipe...
-Title: Give and quantities. dish
-
-Ingredients: Give, me, a, step-by-step, recipe, for, Dinner,using, '#', to, label, each, step,, using, the, following, ingredients,, with, a, newline, between, step., Dinner, Before, printing, the, recipe,, generate, a, title, for, the, recipe.Format, the, title, as, 'Title:, (name, of, dish)',, and, put, a, dash, and, a, space, in, front, of, every, ingredient., Before, printing, steps,, print, a, list, of, all, ingredients, used,, including, those, that, are, not, in, the, original, ingredient, list,, without, specifying, quantities.
-
-Steps: [steps]
-Parsing recipe...
-not found
-Account not found
+found
+Deleted user account from MongoDB
 ]]></system-out>
-  <system-err><![CDATA[Dec 05, 2023 1:54:25 AM com.mongodb.internal.diagnostics.logging.Loggers shouldUseSLF4J
+  <system-err><![CDATA[Dec 05, 2023 1:08:12 PM com.mongodb.internal.diagnostics.logging.Loggers shouldUseSLF4J
 WARNING: SLF4J not found on the classpath.  Logging is disabled for the 'org.mongodb.driver' component
-Dec 05, 2023 1:54:27 AM com.sun.javafx.application.PlatformImpl startup
-WARNING: Unsupported JavaFX configuration: classes were loaded from 'unnamed module @7817fd62'
-Dec 05, 2023 1:54:32 AM com.sun.glass.ui.mac.MacApplication lambda$waitForReactivation$6
+Dec 05, 2023 1:08:15 PM com.sun.javafx.application.PlatformImpl startup
+WARNING: Unsupported JavaFX configuration: classes were loaded from 'unnamed module @b2c9a9c'
+Dec 05, 2023 1:08:20 PM com.sun.glass.ui.mac.MacApplication lambda$waitForReactivation$6
 WARNING: Timeout while waiting for app reactivation
 ]]></system-err>
 </testsuite>

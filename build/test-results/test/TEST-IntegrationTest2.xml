@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="IntegrationTest2" tests="1" skipped="0" failures="0" errors="0" timestamp="2023-12-05T09:54:56" hostname="Stanleys-MacBook-Air.local" time="20.644">
+<testsuite name="IntegrationTest2" tests="1" skipped="0" failures="0" errors="0" timestamp="2023-12-05T21:08:29" hostname="MacBook-Pro-12.local" time="18.753">
   <properties/>
-  <testcase name="integrationTest2()" classname="IntegrationTest2" time="20.644"/>
+  <testcase name="integrationTest2()" classname="IntegrationTest2" time="18.753"/>
   <system-out><![CDATA[not found
 Account not found
 not found
@@ -14,19 +14,21 @@ found
 test
 loading
 loading
-found: {"_id": {"$oid": "656ef3728ac9e4766ce74f26"}, "title": "B", "ingredients": "", "steps": "", "imageURL": "https://demo.sirv.com/looks.jpg?h=150&w=150", "mealType": "Breakfast"}
-found: {"_id": {"$oid": "656ef3728ac9e4766ce74f25"}, "title": "A", "ingredients": "", "steps": "", "imageURL": "https://demo.sirv.com/looks.jpg?h=150&w=150", "mealType": "Dinner"}
+found: {"_id": {"$oid": "656f914fdda2e43be4de759a"}, "title": "B", "ingredients": "", "steps": "", "imageURL": "https://demo.sirv.com/looks.jpg?h=150&w=150", "mealType": "Breakfast"}
+found: {"_id": {"$oid": "656f914fdda2e43be4de7599"}, "title": "A", "ingredients": "", "steps": "", "imageURL": "https://demo.sirv.com/looks.jpg?h=150&w=150", "mealType": "Dinner"}
 B, A is 1
 A, B is -1
 Null title found
 found
 Deleted user account from MongoDB
+not found
+Account not found
 ]]></system-out>
-  <system-err><![CDATA[Dec 05, 2023 1:54:56 AM com.mongodb.internal.diagnostics.logging.Loggers shouldUseSLF4J
+  <system-err><![CDATA[Dec 05, 2023 1:08:29 PM com.mongodb.internal.diagnostics.logging.Loggers shouldUseSLF4J
 WARNING: SLF4J not found on the classpath.  Logging is disabled for the 'org.mongodb.driver' component
-Dec 05, 2023 1:54:59 AM com.sun.javafx.application.PlatformImpl startup
-WARNING: Unsupported JavaFX configuration: classes were loaded from 'unnamed module @7817fd62'
-Dec 05, 2023 1:55:05 AM com.sun.glass.ui.mac.MacApplication lambda$waitForReactivation$6
+Dec 05, 2023 1:08:32 PM com.sun.javafx.application.PlatformImpl startup
+WARNING: Unsupported JavaFX configuration: classes were loaded from 'unnamed module @544fa968'
+Dec 05, 2023 1:08:37 PM com.sun.glass.ui.mac.MacApplication lambda$waitForReactivation$6
 WARNING: Timeout while waiting for app reactivation
 ]]></system-err>
 </testsuite>

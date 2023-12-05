@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="MockImageGeneratorTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2023-12-05T09:55:25" hostname="Stanleys-MacBook-Air.local" time="6.156">
+<testsuite name="MockImageGeneratorTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2023-12-05T21:08:56" hostname="MacBook-Pro-12.local" time="6.247">
   <properties/>
-  <testcase name="testImageGenerationWhileCreating()" classname="MockImageGeneratorTest" time="6.156"/>
+  <testcase name="testImageGenerationWhileCreating()" classname="MockImageGeneratorTest" time="6.247"/>
   <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[Dec 05, 2023 1:55:24 AM com.sun.javafx.application.PlatformImpl startup
-WARNING: Unsupported JavaFX configuration: classes were loaded from 'unnamed module @78691363'
-Dec 05, 2023 1:55:29 AM com.sun.glass.ui.mac.MacApplication lambda$waitForReactivation$6
+  <system-err><![CDATA[Dec 05, 2023 1:08:56 PM com.sun.javafx.application.PlatformImpl startup
+WARNING: Unsupported JavaFX configuration: classes were loaded from 'unnamed module @5fe94a96'
+Dec 05, 2023 1:09:01 PM com.sun.glass.ui.mac.MacApplication lambda$waitForReactivation$6
 WARNING: Timeout while waiting for app reactivation
 ]]></system-err>
 </testsuite>
