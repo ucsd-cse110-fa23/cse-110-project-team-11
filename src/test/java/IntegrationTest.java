@@ -129,6 +129,9 @@ public class IntegrationTest extends FxRobot {
 
         // TODO: fix casting error
         // expected: Regenerate -> Homepage 
+        sleep(10000);
+        
+        System.out.println("CLASSNAME: " + MockApp.getUI().getRoot().getCenter().getClass().getSimpleName());
         RecipeDisplayAppFrame rdaf =  (RecipeDisplayAppFrame) MockApp.getUI().getRoot().getCenter();
         assertTrue(rdaf instanceof RecipeDisplayAppFrame);
         assertNotNull(rdaf.getRecipe().getDeleteButton(),"Should not be null");
