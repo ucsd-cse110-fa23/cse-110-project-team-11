@@ -7,6 +7,9 @@ import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.geometry.Insets;
+import java.util.Base64;
+import java.io.ByteArrayInputStream;
+
 
 /** RecipeDisplay: window that shows the detailed recipe. 
  * SHOULD get the information from MongoDB
@@ -16,7 +19,7 @@ public class RecipeDisplay extends BorderPane {
     private TextArea title, ingredients, steps;
     private Button editButton, saveButton, deleteButton, regenerateButton, 
     shareButton;
-    private String imgURL = "https://hips.hearstapps.com/hmg-prod/images/dog-puppy-on-garden-royalty-free-image-1586966191.jpg?crop=0.752xw:1.00xh;0.175xw,0&resize=1200:*";
+    private String imgURL = "https://i.pinimg.com/originals/c7/e1/b7/c7e1b7b5753737039e1bdbda578132b8.gif";
     private ImageView mealImage;
     private String mealType;
     
@@ -40,6 +43,7 @@ public class RecipeDisplay extends BorderPane {
         steps.setEditable(false);
         steps.setStyle("-fx-background-color: #008080; -fx-border-width: 0;"); // set background color of textfield, yellow
 
+        
         mealImage = new ImageView(new Image(imgURL));
         mealImage.setPreserveRatio(true);
         
@@ -162,7 +166,8 @@ public class RecipeDisplay extends BorderPane {
         steps.setStyle("-fx-background-color: #008080; -fx-border-width: 0;"); // set background color of textfield, yellow
 
         imgURL = imageURL;
-        mealImage = new ImageView(new Image(imgURL));
+        byte[] imageBytes = Base64.getDecoder().decode(imgURL);
+        mealImage = new ImageView(new Image(new ByteArrayInputStream(imageBytes)));
         mealImage.setPreserveRatio(true);
 
         editButton = new Button();
@@ -320,7 +325,9 @@ public class RecipeDisplay extends BorderPane {
     } 
 
     public void setImage(String imgURL){
-        this.imgURL = imgURL;
-        this.mealImage.setImage(new Image(imgURL));
+        
+        byte[] imageBytes = Base64.getDecoder().decode(imgURL);
+        this.imgURL = imgURL;   
+        this.mealImage.setImage(new Image(new ByteArrayInputStream(imageBytes)));
     }
 }

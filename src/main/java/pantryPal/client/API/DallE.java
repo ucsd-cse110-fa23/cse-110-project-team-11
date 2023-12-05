@@ -8,6 +8,7 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -32,6 +33,7 @@ public class DallE implements IAPI {
             requestBody.put("prompt", prompt);
             requestBody.put("n", n);
             requestBody.put("size", "256x256");
+            requestBody.put("response_format", "b64_json");
 
 
             // Create the HTTP client
@@ -57,21 +59,24 @@ public class DallE implements IAPI {
 
             // Process the response
             String responseBody = response.body();
+            System.out.println(responseBody);
             JSONObject responseJson = new JSONObject(responseBody);
             
             JSONArray data = responseJson.getJSONArray("data");
-            String generatedImageURL = data.getJSONObject(0).getString("url");
+            String generatedImageURL = data.getJSONObject(0).getString("b64_json");
             
-            System.out.println("DALL-E Response:" + generatedImageURL);
+            // System.out.println("DALL-E Response:" + generatedImageURL);
 
-            // Download the Generated Image to Current Directory
-            try(
-                InputStream in = new URI(generatedImageURL).toURL().openStream()
-            )
-            {
-              return generatedImageURL;
-            }
+            // try(
+            //     InputStream in = new URI(generatedImageURL).toURL().openStream()
+            // )
+            // {
+            //   return generatedImageURL;
+            // }
+
+            return generatedImageURL;
           }
+
   
 
 

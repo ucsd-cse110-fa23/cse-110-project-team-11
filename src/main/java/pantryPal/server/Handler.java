@@ -79,7 +79,7 @@ public class Handler implements HttpHandler {
                 String temp = query.substring(query.indexOf("&")+1);
                 String encodedInput = temp.substring(temp.indexOf("=")+1);
                 String decodedInput = new String(Base64.getDecoder().decode(encodedInput));
-
+                System.out.println("testers");
                 IAPI api = APIFactory.createAPI(apiCall);
 
                 if (api !=null) {
@@ -88,6 +88,7 @@ public class Handler implements HttpHandler {
                 else {
                     response = "Invalid API";
                 }
+                System.out.println("response" + response);
                 return response;
             }
                 
@@ -111,7 +112,7 @@ public class Handler implements HttpHandler {
                     .append("<h1>")
                     .append(recipe.get("title"))
                     .append("</h1>")
-                    .append("<img src=" + recipe.get("imageURL") + ">")
+                    .append("<img src=data:img/png;base64," + recipe.get("imageURL") + ">")
                     .append("<h3>Ingredients</h3>")
                     .append(recipe.get("ingredients"))
                     .append("<h3>Steps</h3>")
