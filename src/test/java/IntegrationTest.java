@@ -85,12 +85,13 @@ public class IntegrationTest extends FxRobot {
     }
    
 
+    // @Test
+    // public void aTest() {
+    //     assertTrue(false);
+    // }
     @Test
-    public void aTest() {
+    public void integrationTest1() {
         assertTrue(false);
-    }
-//     @Test
-//     public void integrationTest1() {
 //     // app launch check "Loging button and Create button"
 //     MockServer.turnOn();
 //     LoginPageAppFrame loginPage = MockApp.getUI().getLoginPage();
@@ -181,7 +182,7 @@ public class IntegrationTest extends FxRobot {
 //     String text = rd.getSteps().getText();
 //     assertTrue(text.contains("lol"));
 //     AccountManager.deleteAccount("test1","test1");
-//     }
+    }
 }
 
    
