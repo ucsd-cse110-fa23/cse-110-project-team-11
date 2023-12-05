@@ -53,7 +53,7 @@ public class IntegrationTest extends FxRobot {
 
     @BeforeEach
     void setup() throws Exception {
-        AccountManager.deleteAccount("test1","test1");
+        // AccountManager.deleteAccount("test1","test1");
 
         MockServer.turnOn();
         try (MongoClient mongoClient = MongoClients.create(URI)) {
@@ -80,8 +80,8 @@ public class IntegrationTest extends FxRobot {
 
     @AfterEach
     void cleanup() throws Exception {
-        // AccountManager.deleteAccount("test1","test1");
-        // FxToolkit.cleanupStages();
+        AccountManager.deleteAccount("test1","test1");
+        FxToolkit.cleanupStages();
     }
    
 
@@ -100,20 +100,20 @@ public class IntegrationTest extends FxRobot {
 
         loginPage.getAuto().setSelected(false);
     
-//     // check if account is created and enter homepage after pw and id created
-//     loginPage.setUsername("test1");
-//     loginPage.setPassword("test1");
-//     clickOn((Button) loginPage.getLoginButton());
-//         // Homepage -> Create Button
-//     HomePageAppFrame hpaf =  (HomePageAppFrame) MockApp.getUI().getRoot().getCenter();
-//     HomePageHeader hph = (HomePageHeader) MockApp.getUI().getRoot().getTop();
-//     assertTrue(hpaf instanceof HomePageAppFrame);
-//     assertTrue(hph instanceof HomePageHeader);
-//     assertNotNull(hph.getCreateButton(), "Should not be null");
+        // check if account is created and enter homepage after pw and id created
+        loginPage.setUsername("test1");
+        loginPage.setPassword("test1");
+        clickOn((Button) loginPage.getLoginButton());
+        // Homepage -> Create Button
+        HomePageAppFrame hpaf =  (HomePageAppFrame) MockApp.getUI().getRoot().getCenter();
+        HomePageHeader hph = (HomePageHeader) MockApp.getUI().getRoot().getTop();
+        assertTrue(hpaf instanceof HomePageAppFrame);
+        assertTrue(hph instanceof HomePageHeader);
+        assertNotNull(hph.getCreateButton(), "Should not be null");
 
-//     clickOn((Button) hph.getCreateButton());
-//     InputAppFrame iaf = (InputAppFrame) MockApp.getUI().getRoot().getCenter();
-//     assertNotNull(iaf.getStartButton(), "Should not be null");
+        clickOn((Button) hph.getCreateButton());
+        InputAppFrame iaf = (InputAppFrame) MockApp.getUI().getRoot().getCenter();
+        assertNotNull(iaf.getStartButton(), "Should not be null");
 
 //     // Start Record -> input: Dinner -> created recipe page 
 //     clickOn((Button) iaf.getStartButton());
