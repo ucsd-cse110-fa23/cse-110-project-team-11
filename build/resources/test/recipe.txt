@@ -1,18 +1,26 @@
 
 
-Title: Sushi Breakfast 
-Ingredients: 
-- Sushi Rice 
-- Nori
-- Sushi Vinegar
-- Sushi Fillings (such as salmon, tuna, avocado, cucumber, etc.)
+Title: Kevin's Chicken and Rice
 
-#1 Cook the sushi rice according to package instructions.
-#2 Mix the sushi vinegar with the cooked sushi rice.
-#3 Cut the nori into small pieces.
-#4 Place a sheet of nori on a sushi mat.
-#5 Spread the sushi rice over the nori.
-#6 Place the sushi fillings over the sushi rice.
-#7 Roll the sushi mat up, pressing firmly to form a log shape.
-#8 Cut the log into individual pieces.
-#9 Serve and enjoy!.......
+Ingredients:
+- 2 chicken breasts
+- 1 cup of white rice
+- 1 onion
+- 2 cloves of garlic
+- 1 tablespoon of olive oil
+- 1 teaspoon of paprika
+- 1 teaspoon of oregano
+- Salt and pepper to taste
+
+#1 Preheat oven to 375F.
+#2 Heat olive oil in a large skillet over medium heat.
+#3 Add the onion and garlic and cook until softened (about 5 minutes).
+#4 Add the chicken to the skillet and season with paprika, oregano, salt and pepper.
+#5 Cook the chicken for about 8 minutes, flipping once halfway through.
+#6 Remove the chicken from the skillet and set aside.
+#7 Add the rice to the skillet and stir to combine.
+#8 Add 1 cup of water and bring to a boil.
+#9 Reduce heat to low, cover, and cook for 15 minutes.
+#10 Place the chicken on top of the cooked rice and transfer the skillet to the preheated oven.
+#11 Bake for 15 minutes, or until the chicken is cooked through.
+#12 Serve and enjoy!.........................................

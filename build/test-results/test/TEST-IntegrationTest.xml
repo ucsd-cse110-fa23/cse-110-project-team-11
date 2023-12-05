@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="IntegrationTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2023-12-05T21:08:12" hostname="MacBook-Pro-12.local" time="15.816">
+<testsuite name="IntegrationTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2023-12-05T21:43:07" hostname="Ragalinas-MacBook-Pro.local" time="20.569">
   <properties/>
-  <testcase name="integrationTest1()" classname="IntegrationTest" time="15.816"/>
+  <testcase name="integrationTest1()" classname="IntegrationTest" time="20.569"/>
   <system-out><![CDATA[not found
 Account not found
 not found
@@ -16,14 +16,20 @@ Ingredients: Give, me, a, step-by-step, recipe, for, Dinner,using, '#', to, labe
 
 Steps: [steps]
 Parsing recipe...
+Title: Give and quantities. dish
+
+Ingredients: Give, me, a, step-by-step, recipe, for, Dinner,using, '#', to, label, each, step,, using, the, following, ingredients,, with, a, newline, between, step., Dinner, Before, printing, the, recipe,, generate, a, title, for, the, recipe.Format, the, title, as, 'Title:, (name, of, dish)',, and, put, a, dash, and, a, space, in, front, of, every, ingredient., Before, printing, steps,, print, a, list, of, all, ingredients, used,, including, those, that, are, not, in, the, original, ingredient, list,, without, specifying, quantities.
+
+Steps: [steps]
+Parsing recipe...
 found
 Deleted user account from MongoDB
+not found
+Account not found
 ]]></system-out>
-  <system-err><![CDATA[Dec 05, 2023 1:08:12 PM com.mongodb.internal.diagnostics.logging.Loggers shouldUseSLF4J
+  <system-err><![CDATA[Dec 05, 2023 1:43:07 PM com.mongodb.internal.diagnostics.logging.Loggers shouldUseSLF4J
 WARNING: SLF4J not found on the classpath.  Logging is disabled for the 'org.mongodb.driver' component
-Dec 05, 2023 1:08:15 PM com.sun.javafx.application.PlatformImpl startup
-WARNING: Unsupported JavaFX configuration: classes were loaded from 'unnamed module @b2c9a9c'
-Dec 05, 2023 1:08:20 PM com.sun.glass.ui.mac.MacApplication lambda$waitForReactivation$6
-WARNING: Timeout while waiting for app reactivation
+Dec 05, 2023 1:43:10 PM com.sun.javafx.application.PlatformImpl startup
+WARNING: Unsupported JavaFX configuration: classes were loaded from 'unnamed module @544fa968'
 ]]></system-err>
 </testsuite>

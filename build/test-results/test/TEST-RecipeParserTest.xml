@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="RecipeParserTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2023-12-05T21:09:04" hostname="MacBook-Pro-12.local" time="0.015">
+<testsuite name="RecipeParserTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2023-12-05T21:43:53" hostname="Ragalinas-MacBook-Pro.local" time="0.011">
   <properties/>
-  <testcase name="testParseSpecificInputWithDashSpace()" classname="RecipeParserTest" time="0.013"/>
+  <testcase name="testParseSpecificInputWithDashSpace()" classname="RecipeParserTest" time="0.009"/>
   <testcase name="testParseSpecificInputWithoutDashSpace()" classname="RecipeParserTest" time="0.001"/>
   <system-out><![CDATA[file not found :/
 file not found :/

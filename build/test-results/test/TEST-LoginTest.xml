@@ -1,16 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="LoginTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2023-12-05T21:08:49" hostname="MacBook-Pro-12.local" time="5.732">
+<testsuite name="LoginTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2023-12-05T21:43:45" hostname="Ragalinas-MacBook-Pro.local" time="2.863">
   <properties/>
-  <testcase name="testCreateUnusedUsername()" classname="LoginTest" time="5.728"/>
-  <testcase name="testLoginButton()" classname="LoginTest" time="0.002"/>
-  <testcase name="testCreateButton()" classname="LoginTest" time="0.001"/>
+  <testcase name="testCreateUnusedUsername()" classname="LoginTest" time="2.299"/>
+  <testcase name="testLoginButton()" classname="LoginTest" time="0.314"/>
+  <testcase name="testCreateButton()" classname="LoginTest" time="0.25"/>
   <system-out><![CDATA[not found
 ]]></system-out>
-  <system-err><![CDATA[Dec 05, 2023 1:08:49 PM com.sun.javafx.application.PlatformImpl startup
-WARNING: Unsupported JavaFX configuration: classes were loaded from 'unnamed module @74235045'
-Dec 05, 2023 1:08:54 PM com.sun.glass.ui.mac.MacApplication lambda$waitForReactivation$6
-WARNING: Timeout while waiting for app reactivation
-Dec 05, 2023 1:08:54 PM com.mongodb.internal.diagnostics.logging.Loggers shouldUseSLF4J
+  <system-err><![CDATA[Dec 05, 2023 1:43:45 PM com.sun.javafx.application.PlatformImpl startup
+WARNING: Unsupported JavaFX configuration: classes were loaded from 'unnamed module @765d7657'
+Dec 05, 2023 1:43:47 PM com.mongodb.internal.diagnostics.logging.Loggers shouldUseSLF4J
 WARNING: SLF4J not found on the classpath.  Logging is disabled for the 'org.mongodb.driver' component
 ]]></system-err>
 </testsuite>
