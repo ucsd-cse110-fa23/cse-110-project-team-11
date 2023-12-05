@@ -115,12 +115,12 @@ public class IntegrationTest extends FxRobot {
         InputAppFrame iaf = (InputAppFrame) MockApp.getUI().getRoot().getCenter();
         assertNotNull(iaf.getStartButton(), "Should not be null");
 
-//     // Start Record -> input: Dinner -> created recipe page 
-//     clickOn((Button) iaf.getStartButton());
-//     //assertEquals()
-//     clickOn((Button) iaf.getStopButton());
-//     clickOn((Button) iaf.getStartButton());
-//     clickOn((Button) iaf.getStopButton());
+        // Start Record -> input: Dinner -> created recipe page 
+        clickOn((Button) iaf.getStartButton());
+        //assertEquals()
+        clickOn((Button) iaf.getStopButton());
+        clickOn((Button) iaf.getStartButton());
+        clickOn((Button) iaf.getStopButton());
 
 //     // expected: Regenerate -> Homepage 
 //     RecipeDisplayAppFrame rdaf = (RecipeDisplayAppFrame) MockApp.getUI().getRoot().getCenter();
