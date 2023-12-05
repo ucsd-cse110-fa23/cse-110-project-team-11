@@ -506,7 +506,7 @@ public class Controller {
             this.rd = displayRec;
                         
             ui.setDisplayPage(displayRec);
-            ui.getRoot().setCenter(displayRec);
+            ui.getRoot().setCenter(ui.getDisplayPage());
             ui.getRoot().setTop(displayRec.getRecipeDisplayHeader());
             ui.getRoot().setBottom(null);
 
