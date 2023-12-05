@@ -285,7 +285,7 @@ public class Controller {
                     }
                 });
                 this.rd = displayRec;
-                            
+
                 ui.setDisplayPage(displayRec);
                 ui.getRoot().setCenter(displayRec);
                 ui.getRoot().setTop(displayRec.getRecipeDisplayHeader());
