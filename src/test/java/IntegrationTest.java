@@ -1,3 +1,4 @@
+import org.bson.Document;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -30,6 +31,11 @@ import org.testfx.api.FxRobot;
 import org.testfx.api.FxToolkit;
 import org.testfx.framework.junit5.ApplicationTest;
 
+import com.mongodb.client.MongoClient;
+import com.mongodb.client.MongoClients;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
+
 import static org.testfx.api.FxAssert.verifyThat;
 import static org.testfx.assertions.api.Assertions.assertThat;
 import static org.testfx.matcher.control.LabeledMatchers.hasText;
@@ -43,11 +49,32 @@ import javafx.stage.Stage;
 
 public class IntegrationTest extends FxRobot {
 
-   
+    public static final String URI = "mongodb+srv://hek007:7GVnvvaUfbPZsgnq@recipemanager.ksn9u3g.mongodb.net/?retryWrites=true&w=majority";
+
     @BeforeEach
     void setup() throws Exception {
-       // MockServer.turnOn();
         AccountManager.deleteAccount("test1","test1");
+
+    //    MockServer.turnOn();
+    //    try (MongoClient mongoClient = MongoClients.create(URI)) {
+    //         MongoDatabase recipeDB = mongoClient.getDatabase("recipes_db");
+    //         recipeDB.createCollection("test1");
+    //         MongoCollection<Document> coll = recipeDB.getCollection("test1");
+    //         Document doc1 = new Document("title", "A")
+    //                         .append("ingredients", "")
+    //                         .append("steps", "")
+    //                         .append("imageURL","https://demo.sirv.com/looks.jpg?h=150&w=150")
+    //                         .append("mealType", "Dinner");
+    //         coll.insertOne(doc1);
+    //         Document doc2 = new Document("title", "B")
+    //                         .append("ingredients", "")
+    //                         .append("steps", "")
+    //                         .append("imageURL","https://demo.sirv.com/looks.jpg?h=150&w=150")
+    //                         .append("mealType", "Breakfast");
+    //         coll.insertOne(doc2);
+    //    }
+       // MockServer.turnOn();
+        AccountManager.insertAccount("test1","test1");
         ApplicationTest.launch(MockApp.class);
     }
 
@@ -71,7 +98,7 @@ public class IntegrationTest extends FxRobot {
     // check if account is created and enter homepage after pw and id created
     loginPage.setUsername("test1");
     loginPage.setPassword("test1");
-    clickOn((Button) loginPage.getCreateButton());
+    clickOn((Button) loginPage.getLoginButton());
         // Homepage -> Create Button
     HomePageAppFrame hpaf =  (HomePageAppFrame) MockApp.getUI().getRoot().getCenter();
     HomePageHeader hph = (HomePageHeader) MockApp.getUI().getRoot().getTop();
