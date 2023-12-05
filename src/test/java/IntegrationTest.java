@@ -91,15 +91,14 @@ public class IntegrationTest extends FxRobot {
     // }
     @Test
     public void integrationTest1() {
-        assertTrue(false);
-//     // app launch check "Loging button and Create button"
-//     MockServer.turnOn();
-//     LoginPageAppFrame loginPage = MockApp.getUI().getLoginPage();
-//     assertNotNull(loginPage.getLoginButton(), "Should not be null");
-//     assertNotNull(loginPage.getCreateButton(), "Should not be null");
-//     assertNotNull(loginPage.getAuto(), "Should not be null");
+        // app launch check "Logging button and Create button"
+        MockServer.turnOn();
+        LoginPageAppFrame loginPage = MockApp.getUI().getLoginPage();
+        assertNotNull(loginPage.getLoginButton(), "Should not be null");
+        assertNotNull(loginPage.getCreateButton(), "Should not be null");
+        assertNotNull(loginPage.getAuto(), "Should not be null");
 
-//     //loginPage.getAuto().setSelected(false);
+        loginPage.getAuto().setSelected(false);
     
 //     // check if account is created and enter homepage after pw and id created
 //     loginPage.setUsername("test1");
