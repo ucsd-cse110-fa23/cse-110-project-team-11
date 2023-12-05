@@ -1,13 +1,20 @@
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.testfx.api.FxToolkit;
+import org.testfx.framework.junit5.ApplicationTest;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.scene.Node;
 import javafx.scene.layout.Pane;
 import pantryPal.client.App;
+import pantryPal.client.MockApp;
+import pantryPal.client.Backend.AccountManager;
 import pantryPal.client.Backend.SortAlphabetically;
 import pantryPal.client.Backend.SortReverseAlphabetically;
 import pantryPal.client.View.HomePageFooter;
@@ -16,19 +23,15 @@ import pantryPal.client.View.RecipeTitle;
 
 public class SortFilterTest {
 
-    @BeforeAll
-    public static void setUpClass() throws InterruptedException {
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                    Application.launch(App.class,new String[0]); 
-                }
-            });
-            thread.setDaemon(true);
-            thread.start();// Initialize the thread
-            Thread.sleep(500);
+    @BeforeEach
+    void setup() throws Exception {
+        ApplicationTest.launch(MockApp.class);
     }
 
+    @AfterEach
+    void cleanup() throws Exception {
+        FxToolkit.cleanupStages();
+    }
 
     @Test
     public void testSortButton() throws InterruptedException {

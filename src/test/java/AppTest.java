@@ -2,8 +2,13 @@
  *  Methods/Unit Tests to test:
  * 
  */
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.testfx.api.FxToolkit;
+import org.testfx.framework.junit5.ApplicationTest;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
@@ -13,6 +18,7 @@ import javafx.application.Platform;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import pantryPal.client.App;
+import pantryPal.client.MockApp;
 import pantryPal.client.Backend.RecipeManager;
 import pantryPal.client.View.HomePageAppFrame;
 import pantryPal.client.View.HomePageHeader;
@@ -28,17 +34,14 @@ import pantryPal.client.View.ReturnHeader;
 
 public class AppTest extends App {
    
-    @BeforeAll
-    public static void setUpClass() throws InterruptedException {
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                    Application.launch(App.class,new String[0]); 
-                }
-            });
-            thread.setDaemon(true);
-            thread.start();// Initialize the thread
-            Thread.sleep(500);
+    @BeforeEach
+    void setup() throws Exception {
+        ApplicationTest.launch(MockApp.class);
+    }
+
+    @AfterEach
+    void cleanup() throws Exception {
+        FxToolkit.cleanupStages();
     }
 
     @Test

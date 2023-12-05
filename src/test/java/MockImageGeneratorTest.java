@@ -1,7 +1,12 @@
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.testfx.api.FxToolkit;
+import org.testfx.framework.junit5.ApplicationTest;
 
 import pantryPal.client.App;
+import pantryPal.client.MockApp;
 import pantryPal.client.API.MockImageGenerator;
 import pantryPal.client.View.RecipeDisplay;
 import static org.junit.jupiter.api.Assertions.*;
@@ -15,17 +20,14 @@ import javafx.application.Application;
 class MockImageGeneratorTest {
     MockImageGenerator mockImage = new MockImageGenerator();
 
-@BeforeAll
-    public static void setUpClass() throws InterruptedException {
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                    Application.launch(App.class,new String[0]); 
-                }
-            });
-            thread.setDaemon(true);
-            thread.start();// Initialize the thread
-            Thread.sleep(500);
+    @BeforeEach
+    void setup() throws Exception {
+        ApplicationTest.launch(MockApp.class);
+    }
+
+    @AfterEach
+    void cleanup() throws Exception {
+        FxToolkit.cleanupStages();
     }
 
     @Test 
