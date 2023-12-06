@@ -115,18 +115,18 @@ public class IntegrationTest extends FxRobot {
         assertNotNull(iaf.getStartButton(), "Should not be null");
 
         // // Start Record -> input: Dinner -> created recipe page 
-        clickOn(((InputAppFrame)App.getUI().getRoot().getCenter()).getStartButton());
+        clickOn(((InputAppFrame)MockApp.getUI().getRoot().getCenter()).getStartButton());
         //assertEquals()
-        clickOn(((InputAppFrame)App.getUI().getRoot().getCenter()).getStopButton());
-        clickOn(((InputAppFrame)App.getUI().getRoot().getCenter()).getStartButton());
-        clickOn(((InputAppFrame)App.getUI().getRoot().getCenter()).getStopButton());
+        clickOn(((InputAppFrame)MockApp.getUI().getRoot().getCenter()).getStopButton());
+        clickOn(((InputAppFrame)MockApp.getUI().getRoot().getCenter()).getStartButton());
+        clickOn(((InputAppFrame)MockApp.getUI().getRoot().getCenter()).getStopButton());
 
         // TODO: fix casting error
         // expected: Regenerate -> Homepage         
-        System.out.println("CLASSNAME: " + MockApp.getUI().getRoot().getCenter().getClass().getSimpleName());
+        // System.out.println("CLASSNAME: " + MockApp.getUI().getRoot().getCenter().getClass().getSimpleName());
         //MockApp.getUI().getRoot().setCenter(new RecipeDisplayAppFrame(new RecipeDisplay()));
         //RecipeDisplayAppFrame rdaf =  (RecipeDisplayAppFrame) MockApp.getUI().getRoot().getCenter();
-        RecipeDisplayAppFrame rdaf =  (RecipeDisplayAppFrame) App.getUI().getRoot().getCenter();
+        RecipeDisplayAppFrame rdaf =  (RecipeDisplayAppFrame) MockApp.getUI().getRoot().getCenter();
         assertTrue(rdaf instanceof RecipeDisplayAppFrame);
         assertNotNull(rdaf.getRecipe().getDeleteButton(),"Should not be null");
         assertNotNull(rdaf.getRecipe().getSaveButton(),"Should not be null");
