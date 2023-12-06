@@ -120,6 +120,7 @@ public class IntegrationTest2 extends FxRobot {
         File f = new File(filePath);
         assertFalse(f.getAbsoluteFile().exists());
         
+        int two = 2;
 
         loginPage = MockApp.getUI().getLoginPage();
         // loginPage.getAuto().setSelected(false);
