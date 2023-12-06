@@ -4,7 +4,7 @@
 
 ## Link our project's Github repo 
 
-**Our project's Github repo [here]((https://github.com/ucsd-cse110-fa23/cse-110-project-team-11/tree/MS2-Demo)).**
+**Our project's Github repo [here]([https://github.com/ucsd-cse110-fa23/cse-110-project-team-11/tree/MS2-Demo](https://github.com/ucsd-cse110-fa23/cse-110-project-team-11/tree/MS2-Demo)).**
 
 ## Setup Instructions
 To get started with the project, follow these steps:
