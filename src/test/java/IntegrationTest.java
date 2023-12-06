@@ -158,9 +158,8 @@ public class IntegrationTest extends FxRobot {
         RecipeService recipeService = new RecipeService();
         String savedRecipe = recipeService.saveRecipeDisplay(recipe2);
         assertEquals(recipe2, savedRecipe);
-        
         assertNotNull(rh.getBackButton()); // check if back button exists
-
+        
         // clickOn((Button) (MockApp.getUI().getRoot().getCenter().getRecipe().getRegenerateButton());
         // RecipeDisplayAppFrame rdaf2 = (RecipeDisplayAppFrame) MockApp.getUI().getRoot().getCenter();
         // boolean rdEquals = (rdaf.getStringTitle().equals(rdaf2.getStringTitle())) 
