@@ -286,9 +286,9 @@ public class Controller {
                 });
                 this.rd = displayRec;
 
-                ui.setDisplayPage(displayRec);
-                ui.getRoot().setCenter(displayRec);
-                ui.getRoot().setTop(displayRec.getRecipeDisplayHeader());
+                ui.setDisplayPage(rd);
+                ui.getRoot().setCenter(rd);
+                ui.getRoot().setTop(rd.getRecipeDisplayHeader());
                 // recipeText.setText(text);
                 // br.close();
             } catch(Exception err){
