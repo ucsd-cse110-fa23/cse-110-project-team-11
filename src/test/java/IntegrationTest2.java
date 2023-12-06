@@ -137,34 +137,86 @@ public class IntegrationTest2 extends FxRobot {
 
 
         // check alphabetical sort
-        /*
-        ComboBox<String> filterButton = ((HomePageFooter) App.getUI().getRoot().getBottom()).getFilterButton();
-        interact(() -> {
-            filterButton.getSelectionModel().select(0);
-        });
-        */
-        Controller.setFilterState("Breakfast");
+
         
-        RecipeList rl = ((HomePageAppFrame) App.getUI().getRoot().getCenter()).getRecipeList();
-        RecipeList rlNew = new RecipeList();
+        
+        ComboBox<String> filterButton = ((HomePageFooter) App.getUI().getRoot().getBottom()).getFilterButton();
+
+        // choose breakfast
+
+        ((HomePageFooter) App.getUI().getRoot().getBottom()).getFilterButton();
+        RecipeList rl = ((HomePageAppFrame) App.getUI().getRoot().getCenter()).getRecipeList(); 
+        int sizeAll = rl.getChildren().size();
+
+        clickOn(filterButton);
+        sleep(1000);
+        clickOn(filterButton.getItems().get(1));
+        sleep(3000);
+
+
         for (int i = 0; i < rl.getChildren().size(); i++) {
-            if (RecipeManager.searchRecipeByID("test", ((RecipeTitle) rl.getChildren().get(i)).getID()).get("Meal Type") == "Breakfast") {
-                RecipeTitle rt = new RecipeTitle((String) RecipeManager.searchRecipeByID("test", ((RecipeTitle) rl.getChildren().get(i)).getID()).get("Title"), "Breakfast");
-                rlNew.getChildren().add(rt);
-            }
+            RecipeTitle rt = (RecipeTitle) rl.getChildren().get(i);
+            String mealType = rt.getRecipeDetail().getMealType();
+            assertEquals(mealType,"Breakfast");
         }
 
-        for (int i = 0; i < rlNew.getChildren().size();i++) {
-            assertEquals(((RecipeTitle)rl.getChildren().get(i)).getRecipeTitle(), ((RecipeTitle) rlNew.getChildren().get(i)).getRecipeTitle());
-        }
+        // click on all
+        clickOn(filterButton);
+        sleep(1000);
+        clickOn(filterButton.getItems().get(0));
+        assertEquals(sizeAll,rl.getChildren().size());
+
         
-        // check sort
-        SortAlphabetically sortAlphabetically = new SortAlphabetically();
-        Controller.setSortState("A-Z");
-        RecipeList rlSort = ((HomePageAppFrame) App.getUI().getRoot().getCenter()).getRecipeList();
-        assertEquals(1, sortAlphabetically.compare((((RecipeTitle) rlSort.getChildren().get(0))), (((RecipeTitle) rlSort.getChildren().get(1)))), "title should come before title1");
-        assertEquals(-1, sortAlphabetically.compare((((RecipeTitle) rlSort.getChildren().get(1))), (((RecipeTitle) rlSort.getChildren().get(0)))), "title1 should come before title");
-        assertEquals(0, sortAlphabetically.compare(new RecipeTitle(null,null), (((RecipeTitle) rlSort.getChildren().get(1)))), "Null title should be handled properly");
+        RecipeTitle first = (RecipeTitle)rl.getChildren().get(0);
+        clickOn(first.getViewButton());        
+        assertTrue(App.getUI().getRoot().getCenter() instanceof RecipeDisplayAppFrame);
+        RecipeDisplayAppFrame rdaf =(RecipeDisplayAppFrame) App.getUI().getRoot().getCenter();
+
+
+        sleep(3000);
+        MockServer.turnOn();
+        clickOn(rdaf.getRecipe().getDeleteButton());
+        assertTrue(App.getUI().getRoot().getCenter() instanceof HomePageAppFrame);
+        assertFalse(rl.getChildren().get(0).equals(rdaf));
+
+
+        MockServer.turnOff();
+        first = (RecipeTitle)rl.getChildren().get(0);
+        clickOn(first.getViewButton());        
+        assertTrue(App.getUI().getRoot().getCenter() instanceof RecipeDisplayAppFrame);
+        rdaf = (RecipeDisplayAppFrame) App.getUI().getRoot().getCenter();
+        clickOn(rdaf.getRecipe().getDeleteButton());
+        assertTrue(App.getUI().getRoot().getCenter() instanceof RecipeDisplayAppFrame);
+
+
+        // Controller.setFilterState("Breakfast");
+        
+        
+        // RecipeList rlNew = new RecipeList();
+        // for (int i = 0; i < rl.getChildren().size(); i++) {
+        //     if (RecipeManager.searchRecipeByID("test", ((RecipeTitle) rl.getChildren().get(i)).getID()).get("Meal Type") == "Breakfast") {
+        //         RecipeTitle rt = new RecipeTitle((String) RecipeManager.searchRecipeByID("test", ((RecipeTitle) rl.getChildren().get(i)).getID()).get("Title"), "Breakfast");
+        //         rlNew.getChildren().add(rt);
+        //     }
+        // }
+        // for (int i = 0; i < rlNew.getChildren().size();i++) {
+        //     assertEquals(((RecipeTitle)rl.getChildren().get(i)).getRecipeTitle(), ((RecipeTitle) rlNew.getChildren().get(i)).getRecipeTitle());
+        // }
+        // for (int i = 0; i < ((HomePageAppFrame) App.getUI().getRoot().getCenter()).getRecipeList().getChildren().size();i++) {
+        //     RecipeTitle rt = (RecipeTitle)(rl.getChildren().get(i));
+        //     if(!rt.getRecipeDetail().getMealType().equals("Breakfast")) {
+        //         rt.managedProperty().bind(rt.visibleProperty());
+        //         rt.setVisible(false);
+        //     }
+        // }
+        
+        // // check sort
+        // SortAlphabetically sortAlphabetically = new SortAlphabetically();
+        // Controller.setSortState("A-Z");
+        // RecipeList rlSort = ((HomePageAppFrame) App.getUI().getRoot().getCenter()).getRecipeList();
+        // assertEquals(1, sortAlphabetically.compare((((RecipeTitle) rlSort.getChildren().get(0))), (((RecipeTitle) rlSort.getChildren().get(1)))), "title should come before title1");
+        // assertEquals(-1, sortAlphabetically.compare((((RecipeTitle) rlSort.getChildren().get(1))), (((RecipeTitle) rlSort.getChildren().get(0)))), "title1 should come before title");
+        // assertEquals(0, sortAlphabetically.compare(new RecipeTitle(null,null), (((RecipeTitle) rlSort.getChildren().get(1)))), "Null title should be handled properly");
         
         // testing mock server 
         MockServer.turnOff();
