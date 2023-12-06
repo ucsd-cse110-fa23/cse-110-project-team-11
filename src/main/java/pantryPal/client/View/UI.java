@@ -51,7 +51,7 @@ public class UI  {
     public void setLoginPage(){
 
         root.setTop(this.loginPage.getTitleBox());
-        root.setCenter(this.loginPage.getLogin());
+        root.setCenter(this.loginPage);
         root.setBottom(null);
     }
 }

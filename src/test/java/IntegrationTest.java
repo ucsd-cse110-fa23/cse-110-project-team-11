@@ -79,16 +79,6 @@ public class IntegrationTest extends FxRobot {
         MockServer.turnOn();
         AccountManager.insertAccount("test1","test1");
         ApplicationTest.launch(MockApp.class);
-        LoginPageAppFrame loginPage = MockApp.getUI().getLoginPage();
-        // assertNotNull(loginPage.getLoginButton(), "Should not be null");
-        // assertNotNull(loginPage.getCreateButton(), "Should not be null");
-        // assertNotNull(loginPage.getAuto(), "Should not be null");
-
-        loginPage.getAuto().setSelected(false);
-    
-        // check if account is created and enter homepage after pw and id created
-        loginPage.setUsername("test1");
-        loginPage.setPassword("test1");
     }
 
     @AfterEach
@@ -104,7 +94,14 @@ public class IntegrationTest extends FxRobot {
         
         // app launch check "Logging button and Create button"
         MockServer.turnOn();
-        LoginPageAppFrame loginPage = MockApp.getUI().getLoginPage();
+        //LoginPageAppFrame loginPage = MockApp.getUI().getLoginPage();
+        System.out.println("CLASSNAME: " + MockApp.getUI().getRoot().getCenter().getClass().getSimpleName());
+        assertTrue(MockApp.getUI().getRoot().getCenter() instanceof LoginPageAppFrame);
+
+        LoginPageAppFrame loginPage = (LoginPageAppFrame)MockApp.getUI().getRoot().getCenter();
+        loginPage.setUsername("test1");
+        loginPage.setPassword("test1");
+
         assertNotNull(loginPage.getLoginButton(), "Should not be null");
         assertNotNull(loginPage.getCreateButton(), "Should not be null");
         assertNotNull(loginPage.getAuto(), "Should not be null");
