@@ -136,7 +136,7 @@ public class IntegrationTest extends FxRobot {
         assertNotNull(rdaf.getImage(), "Should not be null"); // checks that image is generated/image url shouldn't be null?
 
 
-        // clickOn((Button) rdaf.getRecipe().getRegenerateButton());
+        clickOn((Button) ((RecipeDisplayAppFrame) MockApp.getUI().getRoot().getCenter()).getRecipe().getRegenerateButton());
         // RecipeDisplayAppFrame rdaf2 = (RecipeDisplayAppFrame) MockApp.getUI().getRoot().getCenter();
         // boolean rdEquals = (rdaf.getStringTitle().equals(rdaf2.getStringTitle())) 
         //                         && (rdaf.getStringSteps().equals(rdaf2.getStringSteps())) 
