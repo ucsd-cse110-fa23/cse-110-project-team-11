@@ -112,7 +112,7 @@ public class IntegrationTest extends FxRobot {
         ((LoginPageAppFrame)App.getUI().getRoot().getCenter()).setUsername("test1");
         ((LoginPageAppFrame)App.getUI().getRoot().getCenter()).setPassword("test1");
 
-        clickOn((Button) loginPage.getLoginButton());
+        clickOn(((LoginPageAppFrame)App.getUI().getRoot().getCenter()).getLoginButton());
         
 
         // Homepage -> Create Button
