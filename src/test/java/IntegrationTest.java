@@ -99,8 +99,6 @@ public class IntegrationTest extends FxRobot {
         assertTrue(App.getUI().getRoot().getCenter() instanceof LoginPageAppFrame);
 
         LoginPageAppFrame loginPage = (LoginPageAppFrame)App.getUI().getRoot().getCenter();
-        loginPage.setUsername("test1");
-        loginPage.setPassword("test1");
 
         assertNotNull(loginPage.getLoginButton(), "Should not be null");
         assertNotNull(loginPage.getCreateButton(), "Should not be null");
@@ -111,6 +109,9 @@ public class IntegrationTest extends FxRobot {
         // // check if account is created and enter homepage after pw and id created
         // loginPage.setUsername("test1");
         // loginPage.setPassword("test1");
+        ((LoginPageAppFrame)App.getUI().getRoot().getCenter()).setUsername("test1");
+        ((LoginPageAppFrame)App.getUI().getRoot().getCenter()).setPassword("test1");
+
         clickOn((Button) loginPage.getLoginButton());
         
 
