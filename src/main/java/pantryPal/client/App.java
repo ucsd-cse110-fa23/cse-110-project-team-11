@@ -30,6 +30,7 @@ import java.io.FileReader;
 public class App extends Application {
     private static boolean test = false;
     private static UI ui;
+    private static Stage stage;
     public static void main(String[] args) {        
         launch(args);
     }
@@ -82,5 +83,8 @@ public class App extends Application {
     }
     public static boolean getTest() {
         return test;
+    }
+    public static Stage getStage() {
+        return stage;
     }
 }

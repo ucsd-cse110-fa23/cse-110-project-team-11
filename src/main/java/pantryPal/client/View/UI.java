@@ -1,5 +1,6 @@
 package pantryPal.client.View;
 import javafx.scene.layout.*;
+import pantryPal.client.App;
 
 public class UI  {
 
@@ -55,5 +56,6 @@ public class UI  {
         root.setTop(this.loginPage.getTitleBox());
         root.setCenter(this.loginPage);
         root.setBottom(null);
+        
     }
 }

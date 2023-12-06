@@ -157,6 +157,7 @@ public class IntegrationTest extends FxRobot {
         clickOn(iaf.getStopButton());
 
 
+        App.getStage().show();
         assertTrue(root.getCenter() instanceof RecipeDisplayAppFrame);
         
         // // expected: Regenerate -> Homepage         

@@ -244,6 +244,7 @@ public class Controller {
             try {
                 RecipeDisplayAppFrame displayRec = new RecipeDisplayAppFrame(rec);
                 ui.setDisplayPage(displayRec);
+                System.out.println("SUCK MY BALLS");
                 rp.parse(); 
                 rec.setID(rp.getID());
                 rec.setTitle(rp.getTitle());
