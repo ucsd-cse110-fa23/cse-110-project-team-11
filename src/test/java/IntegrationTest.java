@@ -156,21 +156,19 @@ public class IntegrationTest extends FxRobot {
         clickOn(iaf.getStartButton());
         clickOn(iaf.getStopButton());
 
-        WaitForAsyncUtils.waitForFxEvents();
+
         assertTrue(root.getCenter() instanceof RecipeDisplayAppFrame);
         
         // // expected: Regenerate -> Homepage         
         // System.out.println("CLASSNAME: " + MockApp.getUI().getRoot().getCenter().getClass().getSimpleName());
-        // //MockApp.getUI().getRoot().setCenter(new RecipeDisplayAppFrame(new RecipeDisplay()));
         // //RecipeDisplayAppFrame rdaf =  (RecipeDisplayAppFrame) MockApp.getUI().getRoot().getCenter();
-        // RecipeDisplayAppFrame rdaf =  (RecipeDisplayAppFrame) App.getUI().getRoot().getCenter();
-        // assertTrue(rdaf instanceof RecipeDisplayAppFrame);
-        // assertNotNull(rdaf.getRecipe().getDeleteButton(),"Should not be null");
-        // assertNotNull(rdaf.getRecipe().getSaveButton(),"Should not be null");
-        // assertNotNull(rdaf.getRecipe().getEditButton(),"Should not be null");
-        // assertNotNull(rdaf.getRecipe().getShareButton(),"Should not be null");
-        // assertNotNull(rdaf.getRecipe().getRegenerateButton(),"Should not be null");
-        // assertNotNull(rdaf.getImage(), "Should not be null"); // checks that image is generated/image url shouldn't be null?
+        RecipeDisplayAppFrame rdaf =  (RecipeDisplayAppFrame) root.getCenter();
+        assertNotNull(rdaf.getRecipe().getDeleteButton(),"Should not be null");
+        assertNotNull(rdaf.getRecipe().getSaveButton(),"Should not be null");
+        assertNotNull(rdaf.getRecipe().getEditButton(),"Should not be null");
+        assertNotNull(rdaf.getRecipe().getShareButton(),"Should not be null");
+        assertNotNull(rdaf.getRecipe().getRegenerateButton(),"Should not be null");
+        assertNotNull(rdaf.getImage(), "Should not be null"); 
 
 
         // clickOn((Button) rdaf.getRecipe().getRegenerateButton());

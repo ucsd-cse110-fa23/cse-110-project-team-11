@@ -242,6 +242,8 @@ public class Controller {
             RecipeDisplay rec = new RecipeDisplay();
 
             try {
+                RecipeDisplayAppFrame displayRec = new RecipeDisplayAppFrame(rec);
+                ui.setDisplayPage(displayRec);
                 rp.parse(); 
                 rec.setID(rp.getID());
                 rec.setTitle(rp.getTitle());
