@@ -40,6 +40,7 @@ public class App extends Application {
     }
 
     public void start(Stage stage) throws Exception {
+        App.stage = stage;
         BorderPane root = new BorderPane();
         InputAppFrame ip = new InputAppFrame();
         HomePageAppFrame hp = new HomePageAppFrame(ip);
