@@ -144,6 +144,7 @@ public class IntegrationTest extends FxRobot {
         assertNotNull(rdaf.getRecipe().getRegenerateButton(),"Should not be null");
         assertNotNull(rdaf.getImage(), "Should not be null"); // checks that image is generated/image url shouldn't be null?
 
+        rdaf.setEditable(true);
         // check if regenerate works
         String input = "chicken banana carrots";
         List<String> ingredients = Arrays.asList(input.split(" "));
@@ -153,13 +154,19 @@ public class IntegrationTest extends FxRobot {
 
         assertNotEquals(recipe1, recipe2, "Generated recipes should be different.");
 
+        assertTrue(rdaf.getEditable()); // check if edit works
+
         //check if save works
         assertNotNull(rdaf.getRecipe().getSaveButton(),"Should not be null");
         RecipeService recipeService = new RecipeService();
         String savedRecipe = recipeService.saveRecipeDisplay(recipe2);
         assertEquals(recipe2, savedRecipe);
         assertNotNull(rh.getBackButton()); // check if back button exists
+
+        //Test if we returned to hompage.
         
+        assertTrue(hpaf instanceof HomePageAppFrame);
+
         // clickOn((Button) (MockApp.getUI().getRoot().getCenter().getRecipe().getRegenerateButton());
         // RecipeDisplayAppFrame rdaf2 = (RecipeDisplayAppFrame) MockApp.getUI().getRoot().getCenter();
         // boolean rdEquals = (rdaf.getStringTitle().equals(rdaf2.getStringTitle())) 
