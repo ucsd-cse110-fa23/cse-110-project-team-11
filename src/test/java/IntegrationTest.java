@@ -33,6 +33,7 @@ import pantryPal.client.Controller.Controller;
 import org.testfx.api.FxRobot;
 import org.testfx.api.FxToolkit;
 import org.testfx.framework.junit5.ApplicationTest;
+import org.testfx.util.WaitForAsyncUtils;
 
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
@@ -139,6 +140,7 @@ public class IntegrationTest extends FxRobot {
         clickOn(iaf.getStartButton());
         clickOn(iaf.getStopButton());
 
+        WaitForAsyncUtils.waitForFxEvents();
         assertTrue(root.getCenter() instanceof RecipeDisplayAppFrame);
         
         
