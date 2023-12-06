@@ -43,6 +43,8 @@ public class UI  {
 
     public void setDisplayPage(RecipeDisplayAppFrame dp) {
         this.displayPage = dp;
+        root.setTop(dp.getRecipeDisplayHeader());
+        root.setCenter(dp);
     }
     public LoginPageAppFrame getLoginPage(){
         return loginPage;

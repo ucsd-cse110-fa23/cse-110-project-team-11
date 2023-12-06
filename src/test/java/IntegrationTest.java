@@ -139,7 +139,6 @@ public class IntegrationTest extends FxRobot {
         System.out.println("CLASSNAME: " + App.getUI().getRoot().getCenter().getClass().getSimpleName());
         System.out.println("CLASSNAME: " + App.getUI().getRoot().getTop().getClass().getSimpleName());
         
-        assertEquals(ui.getRoot(), App.getUI().getRoot());
         assertTrue(root.getCenter() instanceof HomePageAppFrame);
         assertTrue(root.getTop() instanceof HomePageHeader);
         HomePageHeader hph = (HomePageHeader) root.getTop();

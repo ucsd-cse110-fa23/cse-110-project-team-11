@@ -287,8 +287,8 @@ public class Controller {
                 this.rd = displayRec;
 
                 ui.setDisplayPage(rd);
-                ui.getRoot().setCenter(rd);
-                ui.getRoot().setTop(rd.getRecipeDisplayHeader());
+                // ui.getRoot().setCenter(rd);
+                // ui.getRoot().setTop(rd.getRecipeDisplayHeader());
                 // recipeText.setText(text);
                 // br.close();
             } catch(Exception err){
