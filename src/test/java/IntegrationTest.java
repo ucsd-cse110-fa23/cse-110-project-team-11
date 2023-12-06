@@ -113,8 +113,24 @@ public class IntegrationTest extends FxRobot {
         // // check if account is created and enter homepage after pw and id created
         // loginPage.setUsername("test1");
         // loginPage.setPassword("test1");
-        ((LoginPageAppFrame)root.getCenter()).setUsername("test1");
-        ((LoginPageAppFrame)root.getCenter()).setPassword("test1");
+        // ((LoginPageAppFrame)root.getCenter()).setUsername("test1");
+        // ((LoginPageAppFrame)root.getCenter()).setPassword("test1");
+        HBox userBox = (HBox) ((LoginPageAppFrame)root.getCenter()).getLogin().getChildren().get(0);
+        clickOn(userBox);
+        push(javafx.scene.input.KeyCode.T);
+        push(javafx.scene.input.KeyCode.E);
+        push(javafx.scene.input.KeyCode.S);
+        push(javafx.scene.input.KeyCode.T);
+        push(javafx.scene.input.KeyCode.DIGIT1);
+
+        HBox pwBox = (HBox) ((LoginPageAppFrame)root.getCenter()).getLogin().getChildren().get(1);
+        clickOn(pwBox);
+
+        push(javafx.scene.input.KeyCode.T);
+        push(javafx.scene.input.KeyCode.E);
+        push(javafx.scene.input.KeyCode.S);
+        push(javafx.scene.input.KeyCode.T);
+        push(javafx.scene.input.KeyCode.DIGIT1);
 
         clickOn(((LoginPageAppFrame)(root.getCenter())).getLoginButton());
         
@@ -142,7 +158,6 @@ public class IntegrationTest extends FxRobot {
 
         WaitForAsyncUtils.waitForFxEvents();
         assertTrue(root.getCenter() instanceof RecipeDisplayAppFrame);
-        
         
         // assertNotNull(iaf.getStartButton(), "Should not be null");
 
