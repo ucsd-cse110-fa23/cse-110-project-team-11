@@ -15,13 +15,15 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
+import pantryPal.server.Server;
 
 public class Model implements IModel {
     public String performRequest(String method,String username, String password) throws ConnectException {
         try {
-            String urlString = "http://localhost:8100/";
+            String urlString = Server.getDomain();
             if (username != null) {
                 urlString += "?user=" + username;
+                System.out.println("url: " + urlString);
             }
             URL url = new URI(urlString).toURL();
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -47,9 +49,14 @@ public class Model implements IModel {
             
             // Sending request to the server
             try (BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()))) {
-                String response = in.readLine(); // reading response from the server
-                System.out.println("RESPONSE: " + response);
-                return response;
+                //String response = in.readLine(); // reading response from the server
+                String line;
+                StringBuilder response = new StringBuilder();
+                while ((line = in.readLine()) != null) {
+                    response.append(line);
+                }
+                System.out.println("USER ACCOUNT RESPONSE: " + response);
+                return response.toString();
             }
             
 
@@ -65,7 +72,7 @@ public class Model implements IModel {
     }
     public String performRequest (String method, String mealType, String id, String title, String ingredients, String steps, String imgURL, String username) throws ConnectException{
         try {
-            String urlString = "http://localhost:8100/";
+            String urlString = Server.getDomain();
             if (id != null && method.equals("GET")) {
                 urlString += "?share=" + username + "&id=" + id;
                 Clipboard clipboard = Clipboard.getSystemClipboard();
@@ -126,8 +133,7 @@ public class Model implements IModel {
     // GET for API
     public String performRequest(String input, String API) throws ConnectException {
         try {
-            
-            String urlString = "http://localhost:8100/";
+            String urlString = Server.getDomain();
             String encodedInput = Base64.getEncoder().encodeToString(input.getBytes());
             if (API != null) {
                 urlString += "?api=" + API + "&input=" + encodedInput;
@@ -156,8 +162,7 @@ public class Model implements IModel {
     // load recipes
     public String performRequest(String username) throws ConnectException{
         try {
-            
-            String urlString = "http://localhost:8100/";
+            String urlString = Server.getDomain();
             
             if (username != null) {
                 urlString += "?load=" + username;

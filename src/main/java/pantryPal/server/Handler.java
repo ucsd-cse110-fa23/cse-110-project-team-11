@@ -11,6 +11,7 @@ import pantryPal.client.RecipeManager;
 import pantryPal.client.UserAccount.AccountManager;
 import pantryPal.client.Input;
 import pantryPal.client.MockWhisper;
+import java.util.zip.GZIPOutputStream;
 
 import java.io.*;
 import java.net.*;
@@ -38,6 +39,7 @@ public class Handler implements HttpHandler {
         try {
             if (method.equals("GET")) {
                 response = handleGet(httpExchange);
+                System.out.println("handle response: " + response);
             }
             else if (method.equals("PUT")) {
                 response = handlePut(httpExchange);
