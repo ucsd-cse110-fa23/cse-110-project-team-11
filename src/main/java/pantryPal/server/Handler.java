@@ -39,7 +39,6 @@ public class Handler implements HttpHandler {
         try {
             if (method.equals("GET")) {
                 response = handleGet(httpExchange);
-                System.out.println("handle response: " + response);
             }
             else if (method.equals("PUT")) {
                 response = handlePut(httpExchange);
