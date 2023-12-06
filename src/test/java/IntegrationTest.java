@@ -118,7 +118,6 @@ public class IntegrationTest extends FxRobot {
 
         clickOn(((HomePageHeader) App.getUI().getRoot().getTop()).getCreateButton());
 
-
         assertTrue(App.getUI().getRoot().getCenter() instanceof InputAppFrame);
         InputAppFrame iaf = (InputAppFrame) App.getUI().getRoot().getCenter();
         assertNotNull(iaf.getStartButton(), "Should not be null");
