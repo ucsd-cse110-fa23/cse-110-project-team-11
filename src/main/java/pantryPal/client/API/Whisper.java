@@ -5,10 +5,6 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Base64;
 
-import javax.sound.sampled.AudioFileFormat;
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.UnsupportedAudioFileException;
 
 import org.json.*;
 
@@ -27,18 +23,9 @@ public class Whisper implements IAPI{
         System.out.println("TES" + decoded);
         Files.write(Paths.get("Input.wav"), decoded);
         File file = new File("Input.wav");
-                String generatedText = "";
+        String generatedText = "";
 
-        // byte[] decodedBytes = Base64.getDecoder().decode(prompt);
-
-       // Create an AudioInputStream from the decoded bytes
-        // AudioInputStream audioInputStream;
-        try {
-            // audioInputStream = AudioSystem.getAudioInputStream(new ByteArrayInputStream(decodedBytes));
-            // File file = new File("input.wav");
-            // // Write the audio data to a new WAV file
-            // AudioSystem.write(audioInputStream, AudioFileFormat.Type.WAVE, file);
-            
+    
         // Set up HTTP connection
         URL url = new URI(API_ENDPOINT).toURL();
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -87,11 +74,7 @@ public class Whisper implements IAPI{
         connection.disconnect();
          
 
-        } catch (UnsupportedAudioFileException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-                return generatedText;
+        return generatedText;
 
     }
 

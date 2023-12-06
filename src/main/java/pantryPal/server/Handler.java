@@ -27,7 +27,7 @@ public class Handler implements HttpHandler {
         System.out.println(response);
         try {
             if (method.equals("GET")) {
-                System.out.println("GET REQUEST");
+                System.out.println("GET REQUESTER");
                 response = handleGet(httpExchange);
             }
             else if (method.equals("PUT")) {
@@ -76,7 +76,7 @@ public class Handler implements HttpHandler {
                 else
                     response = "Account not found";
             }
-            else if (tag.equals("api")) {                
+            else if (tag.equals("api")) {
                 String apiCall = query.substring(query.indexOf("=")+1, query.indexOf("&"));
                 System.out.println("API" + apiCall);
                 String temp = query.substring(query.indexOf("&")+1);
@@ -91,12 +91,16 @@ public class Handler implements HttpHandler {
                 // }
 
                 if (api != null) {
-                    System.out.println("STNAELYYYYYYYYYYY");
+                    
                     response = api.callAPI(decodedInput);
                 }
                 else {
                     
                     response = "Invalid API";
+                }
+                
+                if(apiCall.equals("ChatGPT")){
+                    response = Base64.getEncoder().encodeToString(response.getBytes());
                 }
                 return response;
             }
@@ -112,7 +116,8 @@ public class Handler implements HttpHandler {
                 String username = query.substring(query.indexOf("=") + 1, query.indexOf("&"));
                 String id = query.substring(query.indexOf("&") + 4);
                 Document recipe = RecipeManager.searchRecipeByID(username, id);
-
+                System.out.println("user" + recipe);
+                
                 // get info from document
                 StringBuilder htmlBuilder = new StringBuilder();
                 htmlBuilder
