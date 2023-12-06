@@ -11,7 +11,7 @@ public class Server {
     // private static final String SERVER_HOSTNAME = "localhost";
     // ./ngrok http 8100  --authtoken 2Z9QcTokIzfLVfmOLrOz5fMiSgo_4wK6J7Yqhxbzz8BcmnrQt
 
-    private static final String NGROK_SUBDOMAIN = "https://554b-128-54-10-106.ngrok-free.app/";
+    private static final String NGROK_SUBDOMAIN = "https://09c6-128-54-10-106.ngrok-free.app";
     private static final int NGROK_PORT = 8100;
 
     public static String getDomain() {

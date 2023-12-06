@@ -1,6 +1,10 @@
 package pantryPal.client;
 import java.io.*;
 import java.net.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.Base64;
+
 import org.json.*;
 import javax.sound.sampled.*;
 
@@ -14,7 +18,12 @@ public class Whisper implements IAPI{
 
     public String callAPI(String prompt) throws IOException, InterruptedException, URISyntaxException {
         // Create file object from file path
-        File file = new File("input.wav");
+        System.out.println("TESTINGINGIONGSJDFKSHDKJFS");
+        byte[] decoded = Base64.getDecoder().decode(prompt);
+        System.out.println("TES" + decoded);
+        Files.write(Paths.get("Input.wav"), decoded);
+        File file = new File("Input.wav");
+        String generatedText = "";
 
 
         // Set up HTTP connection
@@ -57,7 +66,6 @@ public class Whisper implements IAPI{
         // Get response code
         int responseCode = connection.getResponseCode();
 
-        String generatedText = "";
 
         // Check response code and handle response accordingly
         if (responseCode == HttpURLConnection.HTTP_OK) {
