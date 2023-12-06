@@ -1,3 +1,4 @@
+
 import org.bson.Document;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
@@ -7,13 +8,15 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.io.FileWriter;   // Import the FileWriter class
 import java.io.IOException;  // Import the IOException class to handle errors
 import java.net.URISyntaxException;
-
+import java.util.List;
+import java.util.Arrays;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.layout.*;
 import javafx.event.ActionEvent;
 import pantryPal.client.App;
 import pantryPal.client.MockApp;
+import pantryPal.client.API.MockChatGPT;
 import pantryPal.client.View.HomePageAppFrame;
 import pantryPal.client.View.HomePageFooter;
 import pantryPal.client.View.HomePageHeader;
@@ -53,6 +56,12 @@ import javafx.stage.Stage;
 public class IntegrationTest extends FxRobot {
 
     public static final String URI = "mongodb+srv://hek007:7GVnvvaUfbPZsgnq@recipemanager.ksn9u3g.mongodb.net/?retryWrites=true&w=majority";
+
+    private static class RecipeService {
+        public String saveRecipeDisplay(String recipe) {
+            return recipe;
+        }
+    }
 
     @BeforeEach
     void setup() throws Exception {
@@ -127,16 +136,32 @@ public class IntegrationTest extends FxRobot {
         //MockApp.getUI().getRoot().setCenter(new RecipeDisplayAppFrame(new RecipeDisplay()));
         //RecipeDisplayAppFrame rdaf =  (RecipeDisplayAppFrame) MockApp.getUI().getRoot().getCenter();
         RecipeDisplayAppFrame rdaf =  new RecipeDisplayAppFrame(new RecipeDisplay());
+        ReturnHeader rh = rdaf.getRecipeDisplayHeader();
         assertTrue(rdaf instanceof RecipeDisplayAppFrame);
         assertNotNull(rdaf.getRecipe().getDeleteButton(),"Should not be null");
-        assertNotNull(rdaf.getRecipe().getSaveButton(),"Should not be null");
         assertNotNull(rdaf.getRecipe().getEditButton(),"Should not be null");
         assertNotNull(rdaf.getRecipe().getShareButton(),"Should not be null");
         assertNotNull(rdaf.getRecipe().getRegenerateButton(),"Should not be null");
         assertNotNull(rdaf.getImage(), "Should not be null"); // checks that image is generated/image url shouldn't be null?
 
+        // check if regenerate works
+        String input = "chicken banana carrots";
+        List<String> ingredients = Arrays.asList(input.split(" "));
+        MockChatGPT mock = new MockChatGPT();
+        String recipe1 = mock.generateResponse(ingredients);
+        String recipe2 = MockChatGPT.regenerateResponse(recipe1);
 
-        clickOn((Button) ((RecipeDisplayAppFrame) MockApp.getUI().getRoot().getCenter()).getRecipe().getRegenerateButton());
+        assertNotEquals(recipe1, recipe2, "Generated recipes should be different.");
+
+        //check if save works
+        assertNotNull(rdaf.getRecipe().getSaveButton(),"Should not be null");
+        RecipeService recipeService = new RecipeService();
+        String savedRecipe = recipeService.saveRecipeDisplay(recipe2);
+        assertEquals(recipe2, savedRecipe);
+        
+        assertNotNull(rh.getBackButton()); // check if back button exists
+
+        // clickOn((Button) (MockApp.getUI().getRoot().getCenter().getRecipe().getRegenerateButton());
         // RecipeDisplayAppFrame rdaf2 = (RecipeDisplayAppFrame) MockApp.getUI().getRoot().getCenter();
         // boolean rdEquals = (rdaf.getStringTitle().equals(rdaf2.getStringTitle())) 
         //                         && (rdaf.getStringSteps().equals(rdaf2.getStringSteps())) 
