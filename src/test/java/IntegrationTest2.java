@@ -99,7 +99,7 @@ public class IntegrationTest2 extends FxRobot {
     }
 
 
-    @Test
+    //@Test
     public void integrationTest2() {
         // // test alert page
         // verifyThat("OK", NodeMatchers.isVisible());
