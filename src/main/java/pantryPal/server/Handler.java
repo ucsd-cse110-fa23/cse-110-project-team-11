@@ -24,8 +24,10 @@ public class Handler implements HttpHandler {
     public void handle(HttpExchange httpExchange) throws IOException {
         String method = httpExchange.getRequestMethod(); // gets method from Model.java
         String response = "Request Received";
+        System.out.println(response);
         try {
             if (method.equals("GET")) {
+                System.out.println("GET REQUEST");
                 response = handleGet(httpExchange);
             }
             else if (method.equals("PUT")) {
@@ -76,16 +78,24 @@ public class Handler implements HttpHandler {
             }
             else if (tag.equals("api")) {                
                 String apiCall = query.substring(query.indexOf("=")+1, query.indexOf("&"));
+                System.out.println("API" + apiCall);
                 String temp = query.substring(query.indexOf("&")+1);
                 String encodedInput = temp.substring(temp.indexOf("=")+1);
-                String decodedInput = new String(Base64.getDecoder().decode(encodedInput));
-
+                String decodedInput= new String(Base64.getDecoder().decode(encodedInput));
                 IAPI api = APIFactory.createAPI(apiCall);
+                if(apiCall.equals("Whisper")) {
+                    decodedInput = encodedInput;
+                }
+                // else {
+                //     decodedInput = new String(Base64.getDecoder().decode(encodedInput));
+                // }
 
-                if (api !=null) {
+                if (api != null) {
+                    System.out.println("STNAELYYYYYYYYYYY");
                     response = api.callAPI(decodedInput);
                 }
                 else {
+                    
                     response = "Invalid API";
                 }
                 return response;

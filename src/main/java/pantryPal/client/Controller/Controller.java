@@ -219,7 +219,12 @@ public class Controller {
         inputFrame.getRecButtons().getButtonBox().getChildren().add(inputFrame.getRecButtons().getStartButton());
 
         input.stopCapture();
-        String response = model.performRequest("stop", "Whisper");
+
+        // File file = new File("Input.wav");
+        // byte[] bytes = new byte[(int) file.length()];
+        // byte[] encodedBytes = Base64.getEncoder().encode(bytes);
+
+        String response = model.performRequest("whisper", "Whisper");
         input.parseInput(response);
         if(input.getPromptType().equals("MealType")) {
             response = input.getMealType();
@@ -238,7 +243,18 @@ public class Controller {
             inputFrame.getRecButtons().setRecipeText("Recipe Displayed");
             // input.setPromptType("MealType");
             String prompt = generateRecipe();
-            model.performRequest(prompt, "ChatGPT");
+            String r = model.performRequest(prompt, "ChatGPT");
+            String dr = new String(Base64.getDecoder().decode(r));
+            System.out.println(prompt);
+            System.out.println("dr" + dr);
+            try (FileWriter writer = new FileWriter("src/main/resources/recipe.txt");
+                   BufferedWriter bw = new BufferedWriter(writer)) {
+
+                  bw.write(dr);
+
+              } catch (IOException e) {
+                  System.err.format("IOException: %s%n", e);
+              }
             RecipeDisplay rec = new RecipeDisplay();
 
             try {

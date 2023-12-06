@@ -13,7 +13,7 @@ import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
 import pantryPal.server.Handler;
 import pantryPal.server.MockServer;
-
+import pantryPal.server.Server;
 import pantryPal.server.MockHttpExchange;
 
 public class MockModel implements IModel{
@@ -74,7 +74,7 @@ public class MockModel implements IModel{
                 response = h.handleGet(httpExchange);
                 Clipboard clipboard = Clipboard.getSystemClipboard();
                 ClipboardContent content = new ClipboardContent();
-                content.putString("http://localhost:8100/" + urlString);
+                content.putString(Server.getDomain() + urlString);
                 clipboard.setContent(content);
 
             }

@@ -1,6 +1,15 @@
 package pantryPal.client.API;
 import java.io.*;
 import java.net.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.Base64;
+
+import javax.sound.sampled.AudioFileFormat;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.UnsupportedAudioFileException;
+
 import org.json.*;
 
 /**
@@ -13,8 +22,23 @@ public class Whisper implements IAPI{
 
     public String callAPI(String prompt) throws IOException, InterruptedException, URISyntaxException {
         // Create file object from file path
-        File file = new File("input.wav");
+        System.out.println("TESTINGINGIONGSJDFKSHDKJFS");
+        byte[] decoded = Base64.getDecoder().decode(prompt);
+        System.out.println("TES" + decoded);
+        Files.write(Paths.get("Input.wav"), decoded);
+        File file = new File("Input.wav");
+                String generatedText = "";
 
+        // byte[] decodedBytes = Base64.getDecoder().decode(prompt);
+
+       // Create an AudioInputStream from the decoded bytes
+        // AudioInputStream audioInputStream;
+        try {
+            // audioInputStream = AudioSystem.getAudioInputStream(new ByteArrayInputStream(decodedBytes));
+            // File file = new File("input.wav");
+            // // Write the audio data to a new WAV file
+            // AudioSystem.write(audioInputStream, AudioFileFormat.Type.WAVE, file);
+            
         // Set up HTTP connection
         URL url = new URI(API_ENDPOINT).toURL();
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -51,7 +75,6 @@ public class Whisper implements IAPI{
         // Get response code
         int responseCode = connection.getResponseCode();
 
-        String generatedText = "";
 
         // Check response code and handle response accordingly
         if (responseCode == HttpURLConnection.HTTP_OK) {
@@ -62,7 +85,14 @@ public class Whisper implements IAPI{
 
         // Disconnect connection
         connection.disconnect();
-        return generatedText;
+         
+
+        } catch (UnsupportedAudioFileException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+                return generatedText;
+
     }
 
     // Helper method to write a parameter to the output stream in multipart form data format
