@@ -95,10 +95,10 @@ public class IntegrationTest extends FxRobot {
         // app launch check "Logging button and Create button"
         MockServer.turnOn();
         //LoginPageAppFrame loginPage = MockApp.getUI().getLoginPage();
-        System.out.println("CLASSNAME: " + MockApp.getUI().getRoot().getCenter().getClass().getSimpleName());
-        assertTrue(MockApp.getUI().getRoot().getCenter() instanceof LoginPageAppFrame);
+        System.out.println("CLASSNAME: " + App.getUI().getRoot().getCenter().getClass().getSimpleName());
+        assertTrue(App.getUI().getRoot().getCenter() instanceof LoginPageAppFrame);
 
-        LoginPageAppFrame loginPage = (LoginPageAppFrame)MockApp.getUI().getRoot().getCenter();
+        LoginPageAppFrame loginPage = (LoginPageAppFrame)App.getUI().getRoot().getCenter();
         loginPage.setUsername("test1");
         loginPage.setPassword("test1");
 
@@ -112,30 +112,38 @@ public class IntegrationTest extends FxRobot {
         // loginPage.setUsername("test1");
         // loginPage.setPassword("test1");
         clickOn((Button) loginPage.getLoginButton());
+        
+
         // Homepage -> Create Button
-        HomePageAppFrame hpaf =  (HomePageAppFrame) MockApp.getUI().getRoot().getCenter();
-        HomePageHeader hph = (HomePageHeader) MockApp.getUI().getRoot().getTop();
-        assertTrue(hpaf instanceof HomePageAppFrame);
-        assertTrue(hph instanceof HomePageHeader);
+        System.out.println("CLASSNAME: " + App.getUI().getRoot().getCenter().getClass().getSimpleName());
+        System.out.println("CLASSNAME: " + App.getUI().getRoot().getTop().getClass().getSimpleName());
+        assertTrue(App.getUI().getRoot().getCenter() instanceof HomePageAppFrame);
+        assertTrue(App.getUI().getRoot().getTop() instanceof HomePageHeader);
+        HomePageAppFrame hpaf =  (HomePageAppFrame) App.getUI().getRoot().getCenter();
+        HomePageHeader hph = (HomePageHeader) App.getUI().getRoot().getTop();
+
         assertNotNull(hph.getCreateButton(), "Should not be null");
 
-        clickOn((Button) hph.getCreateButton());
-        InputAppFrame iaf = (InputAppFrame) MockApp.getUI().getRoot().getCenter();
+        clickOn(((HomePageHeader) App.getUI().getRoot().getTop()).getCreateButton());
+
+
+        assertTrue(App.getUI().getRoot().getCenter() instanceof InputAppFrame);
+        InputAppFrame iaf = (InputAppFrame) App.getUI().getRoot().getCenter();
         assertNotNull(iaf.getStartButton(), "Should not be null");
 
         // // Start Record -> input: Dinner -> created recipe page 
-        clickOn(((InputAppFrame)MockApp.getUI().getRoot().getCenter()).getStartButton());
+        clickOn(((InputAppFrame)App.getUI().getRoot().getCenter()).getStartButton());
         //assertEquals()
-        clickOn(((InputAppFrame)MockApp.getUI().getRoot().getCenter()).getStopButton());
-        clickOn(((InputAppFrame)MockApp.getUI().getRoot().getCenter()).getStartButton());
-        clickOn(((InputAppFrame)MockApp.getUI().getRoot().getCenter()).getStopButton());
+        clickOn(((InputAppFrame)App.getUI().getRoot().getCenter()).getStopButton());
+        clickOn(((InputAppFrame)App.getUI().getRoot().getCenter()).getStartButton());
+        clickOn(((InputAppFrame)App.getUI().getRoot().getCenter()).getStopButton());
 
         // TODO: fix casting error
         // expected: Regenerate -> Homepage         
         System.out.println("CLASSNAME: " + MockApp.getUI().getRoot().getCenter().getClass().getSimpleName());
         //MockApp.getUI().getRoot().setCenter(new RecipeDisplayAppFrame(new RecipeDisplay()));
         //RecipeDisplayAppFrame rdaf =  (RecipeDisplayAppFrame) MockApp.getUI().getRoot().getCenter();
-        RecipeDisplayAppFrame rdaf =  (RecipeDisplayAppFrame) MockApp.getUI().getRoot().getCenter();
+        RecipeDisplayAppFrame rdaf =  (RecipeDisplayAppFrame) App.getUI().getRoot().getCenter();
         assertTrue(rdaf instanceof RecipeDisplayAppFrame);
         assertNotNull(rdaf.getRecipe().getDeleteButton(),"Should not be null");
         assertNotNull(rdaf.getRecipe().getSaveButton(),"Should not be null");
