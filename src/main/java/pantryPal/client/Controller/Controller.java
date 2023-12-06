@@ -257,6 +257,7 @@ public class Controller {
 
                 rec.setImage(imgURL);
                 RecipeDisplayAppFrame displayRec = new RecipeDisplayAppFrame(rec);
+                ui.setDisplayPage(displayRec);
                 displayRec.setBackButtonAction2(event1 -> {
                     try {
                         handleBackButton2(event1);

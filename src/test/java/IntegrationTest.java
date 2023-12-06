@@ -150,6 +150,7 @@ public class IntegrationTest extends FxRobot {
 
         assertTrue(root.getCenter() instanceof InputAppFrame);
         InputAppFrame iaf = (InputAppFrame) App.getUI().getRoot().getCenter();
+        assertNotNull(iaf.getStartButton(), "Should not be null");
         clickOn(((InputAppFrame)root.getCenter()).getStartButton());
         clickOn(iaf.getStopButton());
         clickOn(iaf.getStartButton());
@@ -158,16 +159,6 @@ public class IntegrationTest extends FxRobot {
         WaitForAsyncUtils.waitForFxEvents();
         assertTrue(root.getCenter() instanceof RecipeDisplayAppFrame);
         
-        // assertNotNull(iaf.getStartButton(), "Should not be null");
-
-        // // // Start Record -> input: Dinner -> created recipe page 
-        // clickOn(((InputAppFrame)App.getUI().getRoot().getCenter()).getStartButton());
-        // //assertEquals()
-        // clickOn(((InputAppFrame)App.getUI().getRoot().getCenter()).getStopButton());
-        // clickOn(((InputAppFrame)App.getUI().getRoot().getCenter()).getStartButton());
-        // clickOn(((InputAppFrame)App.getUI().getRoot().getCenter()).getStopButton());
-
-        // // TODO: fix casting error
         // // expected: Regenerate -> Homepage         
         // System.out.println("CLASSNAME: " + MockApp.getUI().getRoot().getCenter().getClass().getSimpleName());
         // //MockApp.getUI().getRoot().setCenter(new RecipeDisplayAppFrame(new RecipeDisplay()));
