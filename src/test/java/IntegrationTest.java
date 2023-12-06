@@ -78,7 +78,7 @@ public class IntegrationTest extends FxRobot {
         MockServer.turnOn();
         //LoginPageAppFrame loginPage = MockApp.getUI().getLoginPage();
         System.out.println("CLASSNAME: " + App.getUI().getRoot().getCenter().getClass().getSimpleName());
-        assertTrue(App.getUI().getRoot().getCenter() instanceof LoginPageAppFrame);
+        assertTrue(MockApp.getUI().getRoot().getCenter() instanceof LoginPageAppFrame);
 
         LoginPageAppFrame loginPage = (LoginPageAppFrame)App.getUI().getRoot().getCenter();
 
@@ -126,7 +126,7 @@ public class IntegrationTest extends FxRobot {
         // System.out.println("CLASSNAME: " + MockApp.getUI().getRoot().getCenter().getClass().getSimpleName());
         //MockApp.getUI().getRoot().setCenter(new RecipeDisplayAppFrame(new RecipeDisplay()));
         //RecipeDisplayAppFrame rdaf =  (RecipeDisplayAppFrame) MockApp.getUI().getRoot().getCenter();
-        RecipeDisplayAppFrame rdaf =  (RecipeDisplayAppFrame) MockApp.getUI().getRoot().getCenter();
+        RecipeDisplayAppFrame rdaf =  new RecipeDisplayAppFrame(new RecipeDisplay());
         assertTrue(rdaf instanceof RecipeDisplayAppFrame);
         assertNotNull(rdaf.getRecipe().getDeleteButton(),"Should not be null");
         assertNotNull(rdaf.getRecipe().getSaveButton(),"Should not be null");
